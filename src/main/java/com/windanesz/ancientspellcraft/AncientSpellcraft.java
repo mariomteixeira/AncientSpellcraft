@@ -43,5 +43,7 @@ public class AncientSpellcraft {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class, ASPotionEvents::onSpellCastPre);
+        WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class,
+                com.windanesz.ancientspellcraft.handler.ASSpellEvents::onClassSpellCastPre);
     }
 }

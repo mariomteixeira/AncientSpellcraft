@@ -2,6 +2,7 @@ package com.windanesz.ancientspellcraft.registry;
 
 import com.koomplo.wizardry.api.content.spell.Spell;
 import com.koomplo.wizardry.core.registry.EBRegistries;
+import com.windanesz.ancientspellcraft.registry.ASEntities;
 import com.windanesz.ancientspellcraft.AncientSpellcraft;
 import com.windanesz.ancientspellcraft.spell.ASBuffSpell;
 import com.windanesz.ancientspellcraft.spell.AreaBuffSpell;
@@ -78,7 +79,7 @@ public final class ASSpells {
         SPELLS.register("soul_scorch", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, true,
                 java.util.List.of(() -> ASEffects.SOUL_SCORCH),
                 java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0xe35f00, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x6e2f01, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0xcf1100, 12, 8))));
-        SPELLS.register("vanish", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, false,
+        SPELLS.register("vanish", () -> new com.windanesz.ancientspellcraft.spell.SageEffectRaySpell(false, false,
                 java.util.List.of(() -> net.minecraft.core.Holder.direct(MobEffects.INVISIBILITY.value())),
                 java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x571e65, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x251609, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x0b4b40, 12, 8))));
         SPELLS.register("permashrink", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
@@ -153,6 +154,13 @@ public final class ASSpells {
         SPELLS.register("sporelings_aid", com.windanesz.ancientspellcraft.spell.SporelingsAid::new);
         SPELLS.register("fairy_ring", com.windanesz.ancientspellcraft.spell.FairyRing::new);
         SPELLS.register("ice_workbench", com.windanesz.ancientspellcraft.spell.IceWorkbench::new);
+        SPELLS.register("conjure_creeper", () -> new com.windanesz.ancientspellcraft.spell.SageMinionSpell<>(
+                level -> new com.windanesz.ancientspellcraft.entity.living.CreeperMinion(ASEntities.CREEPER_MINION.get(), level)));
+        SPELLS.register("nether_guard", () -> new com.windanesz.ancientspellcraft.spell.SageMinionSpell<>(
+                level -> new com.windanesz.ancientspellcraft.entity.living.PigZombieMinion(ASEntities.PIG_ZOMBIE_MINION.get(), level)));
+        SPELLS.register("summon_zombie_pigman", () -> new com.windanesz.ancientspellcraft.spell.SageMinionSpell<>(
+                level -> new com.windanesz.ancientspellcraft.entity.living.PigZombieMinion(ASEntities.PIG_ZOMBIE_MINION.get(), level)));
+        SPELLS.register("magic_sparks", com.windanesz.ancientspellcraft.spell.MagicSparks::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

@@ -18,7 +18,18 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 /** Conjura um bolo (1.12.2 ConjureCake). */
-public class ConjureCake extends ASRaySpell {
+public class ConjureCake extends ASRaySpell implements ClassSpell {
+
+    @Override
+    public com.koomplo.wizardry.content.item.armor.WizardArmorType armourClass() {
+        return com.koomplo.wizardry.content.item.armor.WizardArmorType.SAGE;
+    }
+
+    @Override
+    public boolean applicableForItem(net.minecraft.world.item.Item item) {
+        return item == com.windanesz.ancientspellcraft.registry.ASItems.MYSTIC_SPELL_BOOK.get();
+    }
+
 
     @Override
     protected boolean onEntityHit(CastContext ctx, EntityHitResult entityHit, Vec3 origin) {

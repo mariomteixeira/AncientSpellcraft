@@ -1,0 +1,21 @@
+{
+  "base_properties": {},
+  "chargeup": 35,
+  "cooldown": 50,
+  "cost": 15,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:novice",
+  "type": "alteration"
+}

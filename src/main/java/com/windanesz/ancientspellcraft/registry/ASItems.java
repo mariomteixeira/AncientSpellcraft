@@ -31,6 +31,9 @@ public final class ASItems {
     public static final Supplier<Item> DEVORITIUM_NUGGET = ITEMS.register("devoritium_nugget",
             () -> new Item(new Item.Properties()));
 
+    public static final Supplier<Item> MYSTIC_SPELL_BOOK = ITEMS.register("mystic_spell_book",
+            com.windanesz.ancientspellcraft.item.MysticSpellBookItem::new);
+
     public static final Supplier<Item> SHADOW_BLADE = ITEMS.register("shadow_blade",
             com.windanesz.ancientspellcraft.item.ShadowBladeItem::new);
     public static final Supplier<Item> SPECTRAL_FISHING_ROD = ITEMS.register("spectral_fishing_rod",
@@ -67,8 +70,10 @@ public final class ASItems {
                                 .sorted(Comparator.comparingInt(s -> s.getTier().getLevel()))
                                 .toList();
                         for (var spell : spells) {
+                            Item book = spell.applicableForItem(MYSTIC_SPELL_BOOK.get())
+                                    ? MYSTIC_SPELL_BOOK.get() : ANCIENT_SPELLCRAFT_SPELL_BOOK.get();
                             output.accept(com.koomplo.wizardry.api.content.util.RegistryUtils.setSpell(
-                                    new ItemStack(ANCIENT_SPELLCRAFT_SPELL_BOOK.get()), spell));
+                                    new ItemStack(book), spell));
                         }
                         for (var spell : spells) {
                             output.accept(com.koomplo.wizardry.api.content.util.RegistryUtils.setSpell(

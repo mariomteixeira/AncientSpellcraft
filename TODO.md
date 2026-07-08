@@ -18,7 +18,9 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   armaduras de classe, mystic spell book, NPCs class wizards. Inclui: conjure_creeper, nether_guard,
   summon_zombie_pigman, chaos orb/blast/field/vortex, absorb_*, runeword, counterspell, ternary_storm,
   scrying_orb, spectral_wall/floor, phase_jump, teleport_object, thoughtsteal, obliteration etc.
-  *conjure_cake, torchlight e vanish (já portadas) serão re-vinculadas ao mystic book neste lote.*
+  ✓ AS-7b: base do sistema pronta (ClassSpell + gate de set completo via SpellCastEvent.Pre + mystic
+  spell book) e primeiras 7 SAGE: conjure_creeper, nether_guard, summon_zombie_pigman, magic_sparks
+  + conjure_cake/torchlight/vanish re-vinculadas. TODO warlock attunement no gate.
 - **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
 - **Metamagic**: efeitos registrados (spell_range/blast/duration/cooldown/siphon, arcane_augmentation,
   intensifying_focus, continuity_charm) mas sem os read-hooks nos modifiers de cast;
