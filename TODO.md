@@ -87,6 +87,18 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   mushroom_mind em players e amulet_anchoring do mushroom_force ficam TODO; empowering sorteia
   entre mana_regeneration/spell_siphon/spell_cooldown - os 2 ultimos ainda sao shells de metamagic).
 
+## AS-7l — Scribing Desk (feito) e pendências das estações
+
+✓ AS-7l: SCRIBING DESK completo (bloco Blockbench original + GUI): relíquia (stone tablet
+small/normal/large/grand por tier, spell aleatória da SpellComponentList atribuída ao carregar)
++ componentes de pesquisa (52 entradas parseadas do 1.12.2, resolução em runtime ignora
+spells/itens ausentes) + cristais (1, master 2) + tinta (ink sac) + livro -> spell book do AS +
+discoverSpell. TODO: ancient_mana_flask como relíquia, loot tables das relíquias (worldgen/AS-8),
+transcribing tome, ItemRelic completo (identificação por uso, 835 linhas).
+PENDENTE: Arcane Anvil (estação do BATTLEMAGE) — precisa da linha de espadas battlemage
+(hilt/blade/espadas por tier/crystal_silver_ingot + WizardClassWeaponHelper), fica com o lote da
+classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).
+
 ## Overrides descartados (não voltam)
 
 - **conjure_pickaxe** e **plague_of_darkness_as**: eram overrides config-gated de spells do próprio

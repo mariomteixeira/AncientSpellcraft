@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ancientspellcraft:block/scribing_desk"
+    },
+    "facing=south": {
+      "model": "ancientspellcraft:block/scribing_desk",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ancientspellcraft:block/scribing_desk",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "ancientspellcraft:block/scribing_desk",
+      "y": 90
+    }
+  }
+}

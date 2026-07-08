@@ -16,6 +16,9 @@ public final class ASMenus {
     public static final Supplier<MenuType<SphereCognizanceMenu>> SPHERE_COGNIZANCE = MENUS.register("sphere_cognizance",
             () -> IMenuTypeExtension.create((id, inv, buf) -> new SphereCognizanceMenu(id, inv)));
 
+    public static final Supplier<MenuType<com.windanesz.ancientspellcraft.client.ScribingDeskMenu>> SCRIBING_DESK = MENUS.register("scribing_desk",
+            () -> IMenuTypeExtension.create((id, inv, buf) -> new com.windanesz.ancientspellcraft.client.ScribingDeskMenu(id, inv)));
+
     private ASMenus() {
     }
 }

@@ -109,6 +109,14 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> SCRIBING_DESK = BLOCKS.register("scribing_desk",
+            com.windanesz.ancientspellcraft.block.ScribingDeskBlock::new);
+
+    public static final Supplier<net.minecraft.world.level.block.entity.BlockEntityType<com.windanesz.ancientspellcraft.block.ScribingDeskBlockEntity>> SCRIBING_DESK_BE =
+            BLOCK_ENTITIES.register("scribing_desk",
+                    () -> net.minecraft.world.level.block.entity.BlockEntityType.Builder.of(
+                            com.windanesz.ancientspellcraft.block.ScribingDeskBlockEntity::new, SCRIBING_DESK.get()).build(null));
+
     public static final Supplier<Block> SPHERE_COGNIZANCE = BLOCKS.register("sphere_cognizance",
             () -> new com.windanesz.ancientspellcraft.block.SphereCognizanceBlock(BlockBehaviour.Properties.of()
                     .strength(0.5F).lightLevel(state -> 15).noOcclusion()

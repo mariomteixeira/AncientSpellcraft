@@ -52,6 +52,15 @@ public final class ASItems {
         }
     }
 
+    public static final Supplier<Item> STONE_TABLET_SMALL = ITEMS.register("stone_tablet_small",
+            () -> new com.windanesz.ancientspellcraft.item.RelicItem(com.koomplo.wizardry.setup.registries.SpellTiers.NOVICE, net.minecraft.world.item.Rarity.COMMON));
+    public static final Supplier<Item> STONE_TABLET = ITEMS.register("stone_tablet",
+            () -> new com.windanesz.ancientspellcraft.item.RelicItem(com.koomplo.wizardry.setup.registries.SpellTiers.APPRENTICE, net.minecraft.world.item.Rarity.UNCOMMON));
+    public static final Supplier<Item> STONE_TABLET_LARGE = ITEMS.register("stone_tablet_large",
+            () -> new com.windanesz.ancientspellcraft.item.RelicItem(com.koomplo.wizardry.setup.registries.SpellTiers.ADVANCED, net.minecraft.world.item.Rarity.RARE));
+    public static final Supplier<Item> STONE_TABLET_GRAND = ITEMS.register("stone_tablet_grand",
+            () -> new com.windanesz.ancientspellcraft.item.RelicItem(com.koomplo.wizardry.setup.registries.SpellTiers.MASTER, net.minecraft.world.item.Rarity.EPIC));
+
     public static final Supplier<Item> MYSTIC_SPELL_BOOK = ITEMS.register("mystic_spell_book",
             com.windanesz.ancientspellcraft.item.MysticSpellBookItem::new);
 
@@ -114,6 +123,10 @@ public final class ASItems {
                     .title(Component.translatable("itemGroup.ancientspellcraftgear"))
                     .displayItems((parameters, output) -> {
                         output.accept(DEVORITIUM_INGOT.get());
+                        output.accept(STONE_TABLET_SMALL.get());
+                        output.accept(STONE_TABLET.get());
+                        output.accept(STONE_TABLET_LARGE.get());
+                        output.accept(STONE_TABLET_GRAND.get());
                         for (String t : new String[]{"novice", "apprentice", "advanced", "master"}) {
                             for (String e : new String[]{"magic", "fire", "ice", "lightning", "necromancy", "earth", "sorcery", "healing"}) {
                                 output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
