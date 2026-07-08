@@ -17,8 +17,8 @@ import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Obliteracao (1.12.2 Obliteration): carrega charging_time e libera uma onda elemental devastadora.
- * TODO EntityLevitatingBlock (blocos arremessados do original, codigo upstream incompleto).
+ * Obliteracao (1.12.2 Obliteration): carrega charging_time e libera uma onda elemental devastadora
+ * que ARRANCA os blocos do chao (LevitatingBlockEntity).
  */
 public class Obliteration extends Spell implements ClassSpell {
 
@@ -55,6 +55,23 @@ public class Obliteration extends Spell implements ClassSpell {
             ParticleBuilder.create(EBParticles.SPHERE).time(20).pos(origin.add(0, 0.1, 0)).scale(radius * 0.8f).color(colours[0]).spawn(ctx.world());
             ParticleBuilder.create(EBParticles.FLASH).pos(origin.add(0, 0.1, 0)).scale(radius * 0.8f).color(colours[0]).time(60).spawn(ctx.world());
         } else {
+            if (EntityUtil.canDamageBlocks(ctx.caster(), ctx.world())) {
+                for (var pos : com.koomplo.wizardry.api.content.util.BlockUtil.getBlockSphere(
+                        ctx.caster().blockPosition(), Math.min(radius, 5))) {
+                    if (ctx.world().isEmptyBlock(pos) || ctx.world().getBlockState(pos).getDestroySpeed(ctx.world(), pos) < 0
+                            || ctx.world().random.nextInt(3) != 0) continue;
+                    var state = ctx.world().getBlockState(pos);
+                    var block = new com.windanesz.ancientspellcraft.entity.LevitatingBlockEntity(
+                            ctx.world(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, state);
+                    block.setCaster(ctx.caster());
+                    block.damageMultiplier = ctx.modifiers().get(SpellModifiers.POTENCY);
+                    var away = new net.minecraft.world.phys.Vec3(pos.getX() + 0.5 - ctx.caster().getX(), 0.6,
+                            pos.getZ() + 0.5 - ctx.caster().getZ()).normalize().scale(0.6);
+                    block.setDeltaMovement(away.x, 0.5 + ctx.world().random.nextDouble() * 0.3, away.z);
+                    ctx.world().removeBlock(pos, false);
+                    ctx.world().addFreshEntity(block);
+                }
+            }
             for (var target : EntityUtil.getLivingWithinRadius(radius,
                     ctx.caster().getX(), ctx.caster().getY(), ctx.caster().getZ(), ctx.world())) {
                 if (target == ctx.caster() || !AllyDesignation.isValidTarget(ctx.caster(), target)) continue;

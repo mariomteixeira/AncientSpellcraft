@@ -78,6 +78,21 @@ public final class ASEntities {
             () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.PigZombieMinion::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F).fireImmune().build(AncientSpellcraft.MODID + ":pig_zombie_minion"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.LevitatingBlockEntity>> LEVITATING_BLOCK = ENTITIES.register("levitating_block",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.LevitatingBlockEntity>of(
+                    com.windanesz.ancientspellcraft.entity.LevitatingBlockEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(20).build(AncientSpellcraft.MODID + ":levitating_block"));
+
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.ChaosOrbEntity>> CHAOS_ORB = ENTITIES.register("chaos_orb",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.ChaosOrbEntity>of(
+                    com.windanesz.ancientspellcraft.entity.ChaosOrbEntity::new, MobCategory.MISC)
+                    .sized(0.4F, 0.4F).clientTrackingRange(8).updateInterval(10).build(AncientSpellcraft.MODID + ":chaos_orb"));
+
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.construct.ChaosFieldConstruct>> CHAOS_FIELD = ENTITIES.register("chaos_field",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.construct.ChaosFieldConstruct>of(
+                    com.windanesz.ancientspellcraft.entity.construct.ChaosFieldConstruct::new, MobCategory.MISC)
+                    .sized(0.1F, 0.1F).clientTrackingRange(10).build(AncientSpellcraft.MODID + ":chaos_field"));
+
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ORDINARY_SPIDER_MINION.get(), Spider.createAttributes().build());
         event.put(SKELETON_HORSE_MINION.get(), AbstractHorse.createBaseHorseAttributes().build());

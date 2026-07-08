@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "duration": 600,
+    "effect_radius": 25,
+    "range": 10
+  },
+  "chargeup": 40,
+  "cooldown": 160,
+  "cost": 80,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "tier": "ebwizardry:advanced",
+  "type": "construct"
+}

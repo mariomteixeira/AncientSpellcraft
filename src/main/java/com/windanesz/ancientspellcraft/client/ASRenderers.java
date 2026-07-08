@@ -46,6 +46,9 @@ public final class ASRenderers {
         event.registerEntityRenderer(ASEntities.WOLF_MINION.get(), net.minecraft.client.renderer.entity.WolfRenderer::new);
         event.registerEntityRenderer(ASEntities.SPIRIT_BEAR.get(), net.minecraft.client.renderer.entity.PolarBearRenderer::new);
         event.registerEntityRenderer(ASEntities.CREEPER_MINION.get(), net.minecraft.client.renderer.entity.CreeperRenderer::new);
+        event.registerEntityRenderer(ASEntities.LEVITATING_BLOCK.get(), net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+        event.registerEntityRenderer(ASEntities.CHAOS_ORB.get(), net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
+        event.registerEntityRenderer(ASEntities.CHAOS_FIELD.get(), com.koomplo.wizardry.client.renderer.entity.BlankRenderer::new);
         event.registerEntityRenderer(ASEntities.PIG_ZOMBIE_MINION.get(), context ->
                 new net.minecraft.client.renderer.entity.PiglinRenderer(context,
                         net.minecraft.client.model.geom.ModelLayers.ZOMBIFIED_PIGLIN,

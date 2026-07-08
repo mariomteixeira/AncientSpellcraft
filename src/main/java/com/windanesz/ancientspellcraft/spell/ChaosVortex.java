@@ -15,7 +15,10 @@ import com.windanesz.ancientspellcraft.registry.ASItems;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
-/** Vortice do caos (1.12.2 ChaosVortex): canaliza um vortice elemental que fere tudo no raio a cada 10t. */
+/**
+ * Vortice do caos (1.12.2 ChaosVortex): canaliza um vortice elemental que fere tudo no raio a cada 10t.
+ * Blocos levitantes sugados pelo vortice adicionados a pedido (nao existiam no 1.12.2).
+ */
 public class ChaosVortex extends Spell implements ClassSpell {
 
     @Override
@@ -40,6 +43,23 @@ public class ChaosVortex extends Spell implements ClassSpell {
                         .scale(ctx.world().random.nextFloat() * 2)
                         .color(colours[element.getName().equals("lightning") ? 3 : ctx.world().random.nextInt(2)])
                         .pos(0, ctx.world().random.nextInt(10) + 0.5, 0).time(40).spawn(ctx.world());
+            }
+        }
+        if (!ctx.world().isClientSide && ctx.castingTicks() > 10 && ctx.castingTicks() % 15 == 0
+                && EntityUtil.canDamageBlocks(ctx.caster(), ctx.world())) {
+            var base = ctx.caster().blockPosition();
+            int r = (int) Math.max(2, radius / 2);
+            var pos = base.offset(ctx.world().random.nextInt(r * 2 + 1) - r, -1, ctx.world().random.nextInt(r * 2 + 1) - r);
+            var state = ctx.world().getBlockState(pos);
+            if (!ctx.world().isEmptyBlock(pos) && state.getDestroySpeed(ctx.world(), pos) >= 0) {
+                var block = new com.windanesz.ancientspellcraft.entity.LevitatingBlockEntity(
+                        ctx.world(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, state);
+                block.setCaster(ctx.caster());
+                block.damageMultiplier = ctx.modifiers().get(SpellModifiers.POTENCY);
+                block.setDeltaMovement((ctx.world().random.nextDouble() - 0.5) * 0.4, 0.4 + ctx.world().random.nextDouble() * 0.4,
+                        (ctx.world().random.nextDouble() - 0.5) * 0.4);
+                ctx.world().removeBlock(pos, false);
+                ctx.world().addFreshEntity(block);
             }
         }
         if (ctx.caster().tickCount % 10 == 0) {

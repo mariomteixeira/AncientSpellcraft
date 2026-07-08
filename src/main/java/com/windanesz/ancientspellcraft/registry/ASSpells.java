@@ -180,6 +180,8 @@ public final class ASSpells {
         SPELLS.register("chaotic_rebinding", com.windanesz.ancientspellcraft.spell.ChaoticRebinding::new);
         SPELLS.register("chaos_vortex", com.windanesz.ancientspellcraft.spell.ChaosVortex::new);
         SPELLS.register("obliteration", com.windanesz.ancientspellcraft.spell.Obliteration::new);
+        SPELLS.register("chaos_orb", com.windanesz.ancientspellcraft.spell.ChaosOrbSpell::new);
+        SPELLS.register("chaos_field", com.windanesz.ancientspellcraft.spell.ChaosFieldSpell::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
