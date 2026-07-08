@@ -1,0 +1,26 @@
+{
+  "base_properties": {
+    "damage": 1.5,
+    "effect_duration": 200,
+    "effect_radius": 3,
+    "range": 7
+  },
+  "chargeup": 20,
+  "cooldown": 100,
+  "cost": 40,
+  "element": "ebwizardry:lightning",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point_down",
+  "tier": "ebwizardry:apprentice",
+  "type": "attack"
+}

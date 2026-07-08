@@ -104,10 +104,15 @@ public final class ASBlocks {
             () -> new com.windanesz.ancientspellcraft.block.QuicksandBlock(BlockBehaviour.Properties.of()
                     .strength(0.5F).noLootTable().sound(net.minecraft.world.level.block.SoundType.SAND)));
 
+    public static final Supplier<Block> LIGHTNING_BLOCK = BLOCKS.register("lightning_block",
+            () -> new com.windanesz.ancientspellcraft.block.LightningBlock(BlockBehaviour.Properties.of()
+                    .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
+                    .pushReaction(PushReaction.DESTROY)));
+
     public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.TemporaryBlockEntity>> TEMPORARY_BE =
             BLOCK_ENTITIES.register("temporary_block", () -> BlockEntityType.Builder.of(
                     com.windanesz.ancientspellcraft.block.TemporaryBlockEntity::new,
-                    ARCANE_FLAME.get(), CONJURED_MAGMA.get(), CONJURED_DIRT.get(), CONJURED_SNOW.get(), QUICKSAND.get()).build(null));
+                    ARCANE_FLAME.get(), CONJURED_MAGMA.get(), CONJURED_DIRT.get(), CONJURED_SNOW.get(), QUICKSAND.get(), LIGHTNING_BLOCK.get()).build(null));
 
     public static final Supplier<BlockEntityType<MageLightBlockEntity>> MAGE_LIGHT_BE = BLOCK_ENTITIES.register("mage_light",
             () -> BlockEntityType.Builder.of(MageLightBlockEntity::new, MAGELIGHT.get(), CANDLELIGHT.get()).build(null));

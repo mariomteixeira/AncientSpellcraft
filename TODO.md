@@ -33,11 +33,13 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
 - **living_comet, conduit, prismatic_spray, grapple, contingency, clairvoyance_as, charge_as,
   attire_alteration, master_bolt**: sistemas próprios grandes (um por vez em lotes futuros).
 - **chaos_touch**: espera a lógica do efeito CHAOS (handler).
-- **Rays com dep de bloco (AS-3d, destravando com o AS-6)**: electrify e shock_zone (bloco de
-  raio), fire_wall/wildfire_flame/arcane_flame-ray (chamas especiais), molten_earth (conjured
-  magma ✓ pronto), summon_quicksand (quicksand ✓ pronto), beanstalk, ice_workbench (mesa de gelo),
-  heat_furnace, create_igloo, ice_tower, frost_nova, magma_shell, static_dome, fairy_ring,
-  quicksand_ring, wild_sporeling, sporelings_aid, runeword_sealbreaker, conceal_object, moonlight.
+- **Rays com dep de bloco (AS-3d)**: ✓ portados no AS-6c: electrify, shock_zone, firewall,
+  molten_earth, summon_quicksand. Restantes: wildfire_flame/arcane_flame-ray/teleportation_flame
+  (chamas com mecanica propria), beanstalk, ice_workbench (mesa de gelo), heat_furnace,
+  create_igloo, ice_tower, frost_nova, magma_shell, static_dome, fairy_ring, quicksand_ring,
+  wild_sporeling, sporelings_aid, runeword_sealbreaker (class), conceal_object (class), moonlight.
+  Desvio documentado: shock_zone coloca o disco de uma vez (o 1.12.2 construia gradualmente via
+  EntityBuilder).
 
 ## Overrides descartados (não voltam)
 

@@ -139,6 +139,11 @@ public final class ASSpells {
         BURROW = SPELLS.register("burrow", com.windanesz.ancientspellcraft.spell.Burrow::new);
         SPELLS.register("call_of_the_pack", com.windanesz.ancientspellcraft.spell.CallOfThePack::new);
         SPELLS.register("summon_spirit_bear", com.windanesz.ancientspellcraft.spell.SummonSpiritBear::new);
+        SPELLS.register("molten_earth", com.windanesz.ancientspellcraft.spell.MoltenEarth::new);
+        SPELLS.register("summon_quicksand", com.windanesz.ancientspellcraft.spell.SummonQuicksand::new);
+        SPELLS.register("firewall", com.windanesz.ancientspellcraft.spell.FireWall::new);
+        SPELLS.register("electrify", com.windanesz.ancientspellcraft.spell.Electrify::new);
+        SPELLS.register("shock_zone", com.windanesz.ancientspellcraft.spell.ShockZone::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

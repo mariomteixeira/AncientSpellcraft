@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "block_lifetime": 900,
+    "effect_radius": 3,
+    "range": 10
+  },
+  "chargeup": 40,
+  "cooldown": 100,
+  "cost": 40,
+  "element": "ebwizardry:fire",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:apprentice",
+  "type": "attack"
+}

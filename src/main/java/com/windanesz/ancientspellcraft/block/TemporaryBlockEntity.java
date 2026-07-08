@@ -18,6 +18,7 @@ public class TemporaryBlockEntity extends BlockEntity {
 
     private int lifetime = -1;
     private UUID casterUUID;
+    private float damage;
 
     public TemporaryBlockEntity(BlockPos pos, BlockState state) {
         super(ASBlocks.TEMPORARY_BE.get(), pos, state);
@@ -35,6 +36,25 @@ public class TemporaryBlockEntity extends BlockEntity {
         return casterUUID == null || level == null ? null : level.getPlayerByUUID(casterUUID);
     }
 
+    public void setDamage(float damage) {
+        this.damage = damage;
+    }
+
+    public float getDamage() {
+        return damage;
+    }
+
+    /** Coloca um bloco temporario com caster e lifetime (ITemporaryBlock.placeTemporaryBlock do 1.12.2). */
+    public static boolean place(LivingEntity caster, Level level, net.minecraft.world.level.block.Block block, BlockPos pos, int lifetime) {
+        if (!level.getBlockState(pos).canBeReplaced()) return false;
+        level.setBlockAndUpdate(pos, block.defaultBlockState());
+        if (level.getBlockEntity(pos) instanceof TemporaryBlockEntity be) {
+            be.setCaster(caster);
+            be.setLifetime(lifetime);
+        }
+        return true;
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, TemporaryBlockEntity be) {
         if (be.lifetime > 0 && --be.lifetime == 0) {
             level.removeBlock(pos, false);
@@ -45,6 +65,7 @@ public class TemporaryBlockEntity extends BlockEntity {
     protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putInt("Lifetime", lifetime);
+        tag.putFloat("Damage", damage);
         if (casterUUID != null) tag.putUUID("Caster", casterUUID);
     }
 
@@ -52,6 +73,7 @@ public class TemporaryBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.loadAdditional(tag, registries);
         lifetime = tag.getInt("Lifetime");
+        damage = tag.getFloat("Damage");
         if (tag.hasUUID("Caster")) casterUUID = tag.getUUID("Caster");
     }
 }
