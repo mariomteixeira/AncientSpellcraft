@@ -31,6 +31,13 @@ public final class ASItems {
     public static final Supplier<Item> DEVORITIUM_NUGGET = ITEMS.register("devoritium_nugget",
             () -> new Item(new Item.Properties()));
 
+    public static final Supplier<Item> SHADOW_BLADE = ITEMS.register("shadow_blade",
+            com.windanesz.ancientspellcraft.item.ShadowBladeItem::new);
+    public static final Supplier<Item> SPECTRAL_FISHING_ROD = ITEMS.register("spectral_fishing_rod",
+            com.windanesz.ancientspellcraft.item.SpectralFishingRodItem::new);
+    public static final Supplier<Item> ICE_CREAM = ITEMS.register("ice_cream",
+            com.windanesz.ancientspellcraft.item.IceCreamItem::new);
+
     /** Livros e scrolls de todas as spells do AS (preenche conforme os lotes de spells chegam). */
     public static final Supplier<CreativeModeTab> AS_TAB = CREATIVE_TABS.register("ancientspellcraft",
             () -> CreativeModeTab.builder()

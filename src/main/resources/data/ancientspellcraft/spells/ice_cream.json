@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "healing_amount": 2.0,
+    "hunger_restore_amount": 2.0,
+    "item_lifetime": 300,
+    "saturation_amount": 0.8
+  },
+  "chargeup": 0,
+  "cooldown": 120,
+  "cost": 20,
+  "element": "ebwizardry:ice",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:novice",
+  "type": "utility"
+}

@@ -113,6 +113,9 @@ public final class ASSpells {
         SPELLS.register("unholy_alliance", com.windanesz.ancientspellcraft.spell.UnholyAlliance::new);
         SPELLS.register("animate_weapon", () -> new com.windanesz.ancientspellcraft.spell.AnimateSpell("animate_weapon", true));
         SPELLS.register("animate_item", () -> new com.windanesz.ancientspellcraft.spell.AnimateSpell("animate_item", false));
+        SPELLS.register("conjure_shadow_blade", () -> new com.windanesz.ancientspellcraft.spell.ASConjureItemSpell(ASItems.SHADOW_BLADE.get()));
+        SPELLS.register("conjure_fishing_rod", () -> new com.windanesz.ancientspellcraft.spell.ASConjureItemSpell(ASItems.SPECTRAL_FISHING_ROD.get()));
+        SPELLS.register("ice_cream", () -> new com.windanesz.ancientspellcraft.spell.ASConjureItemSpell(ASItems.ICE_CREAM.get()));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
