@@ -185,6 +185,10 @@ public final class ASSpells {
         SPELLS.register("absorb_crystal", com.windanesz.ancientspellcraft.spell.AbsorbCrystal::new);
         SPELLS.register("absorb_spell", com.windanesz.ancientspellcraft.spell.AbsorbSpell::new);
         SPELLS.register("absorb_potion", com.windanesz.ancientspellcraft.spell.AbsorbPotion::new);
+        SPELLS.register("chaos_blast", com.windanesz.ancientspellcraft.spell.ChaosBlast::new);
+        SPELLS.register("absorb_object", com.windanesz.ancientspellcraft.spell.AbsorbObject::new);
+        SPELLS.register("absorb_projectile", com.windanesz.ancientspellcraft.spell.AbsorbProjectile::new);
+        SPELLS.register("alter_potion", com.windanesz.ancientspellcraft.spell.AlterPotion::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

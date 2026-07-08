@@ -39,8 +39,13 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   absorb_crystal/spell/potion (canal de 60t, armazenam no attachment WARLOCK_DATA). TODO: consumo
   do conteudo absorvido pelo orb (spell absorvida castavel, pocao aplicavel, elemento p/ upgrade),
   restricao de uso do orb a warlocks, ring_absorb_crystal.
-  Restantes WARLOCK: chaos_blast (302 linhas), scrying_orb, absorb_object/projectile/artefact,
-  alter_potion, orb_space (pocket dimension, AS-8).
+  ✓ AS-7j: chaos_blast (carrega e dispara raio elemental unico; TODO ring multitarget),
+  absorb_object (bloco de bolso no attachment; agachado solta no ponto mirado; recusa block
+  entities/inquebraveis), absorb_projectile (canaliza absorvendo ate 10 projeteis por TIPO -
+  desvio: o original guardava o NBT completo; agachado re-dispara), alter_potion (garrafa no
+  offhand + 1o efeito ativo -> splash 50% / lingering 10% agachado; ramo charm_potion_kit TODO).
+  Restantes WARLOCK: scrying_orb (grupo da camera client com farsight/astral_projection),
+  absorb_artefact (espera os 211 artefatos), orb_space (pocket dimension, AS-8).
   BATTLEMAGE: runeword (sistema de runewords).
   Restantes SAGE com sistema proprio: forced_channel/thoughtsteal (escrevem no sage tome via
   WandHelper), tome_warp/awaken_tome (lecterns), phase_jump/spring_charge (charge-release),
