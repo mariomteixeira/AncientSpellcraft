@@ -12,5 +12,8 @@ public class AncientSpellcraft {
     public AncientSpellcraft(IEventBus modBus, ModContainer container) {
         com.windanesz.ancientspellcraft.registry.ASItems.ITEMS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASItems.CREATIVE_TABS.register(modBus);
+        com.windanesz.ancientspellcraft.registry.ASEffects.EFFECTS.register(modBus);
+        com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCKS.register(modBus);
+        com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCK_ENTITIES.register(modBus);
     }
 }
