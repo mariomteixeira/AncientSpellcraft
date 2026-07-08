@@ -48,6 +48,10 @@ public final class ASEntities {
             () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.SkeletonMageMinion::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F).eyeHeight(1.74F).build(AncientSpellcraft.MODID + ":skeleton_mage_minion"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.living.AnimatedItemEntity>> ANIMATED_ITEM = ENTITIES.register("animated_item",
+            () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.AnimatedItemEntity::new, MobCategory.MISC)
+                    .sized(0.6F, 1.2F).build(AncientSpellcraft.MODID + ":animated_item"));
+
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ORDINARY_SPIDER_MINION.get(), Spider.createAttributes().build());
         event.put(SKELETON_HORSE_MINION.get(), AbstractHorse.createBaseHorseAttributes().build());
@@ -56,6 +60,7 @@ public final class ASEntities {
         event.put(REMNANT_MINION.get(), com.koomplo.wizardry.content.entity.living.Remnant.createAttributes().build());
         event.put(SKELETON_MAGE.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().build());
         event.put(SKELETON_MAGE_MINION.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().build());
+        event.put(ANIMATED_ITEM.get(), com.windanesz.ancientspellcraft.entity.living.AnimatedItemEntity.createAnimatedItemAttributes().build());
     }
 
     private ASEntities() {

@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "minion_count": 1,
+    "minion_lifetime": 600,
+    "summon_radius": 2
+  },
+  "chargeup": 0,
+  "cooldown": 80,
+  "cost": 30,
+  "element": "ebwizardry:sorcery",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:novice",
+  "type": "alteration"
+}

@@ -111,6 +111,8 @@ public final class ASSpells {
         SPELLS.register("summon_remnant", com.windanesz.ancientspellcraft.spell.SummonRemnant::new);
         SPELLS.register("raise_skeleton_mage", com.windanesz.ancientspellcraft.spell.RaiseSkeletonMage::new);
         SPELLS.register("unholy_alliance", com.windanesz.ancientspellcraft.spell.UnholyAlliance::new);
+        SPELLS.register("animate_weapon", () -> new com.windanesz.ancientspellcraft.spell.AnimateSpell("animate_weapon", true));
+        SPELLS.register("animate_item", () -> new com.windanesz.ancientspellcraft.spell.AnimateSpell("animate_item", false));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

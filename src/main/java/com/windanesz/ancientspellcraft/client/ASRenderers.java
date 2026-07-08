@@ -40,6 +40,7 @@ public final class ASRenderers {
         event.registerEntityRenderer(ASEntities.REMNANT_MINION.get(), com.koomplo.wizardry.client.renderer.entity.RemnantRenderer::new);
         event.registerEntityRenderer(ASEntities.SKELETON_MAGE.get(), com.windanesz.ancientspellcraft.client.SkeletonMageRenderer::new);
         event.registerEntityRenderer(ASEntities.SKELETON_MAGE_MINION.get(), com.windanesz.ancientspellcraft.client.SkeletonMageRenderer::new);
+        event.registerEntityRenderer(ASEntities.ANIMATED_ITEM.get(), com.windanesz.ancientspellcraft.client.AnimatedItemRenderer::new);
     }
 
     public static final ModelLayerLocation ANT_LAYER = new ModelLayerLocation(
