@@ -1,0 +1,22 @@
+{
+  "base_properties": {
+    "effect_radius": 8
+  },
+  "chargeup": 0,
+  "cooldown": 0,
+  "cost": 8,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "tier": "ebwizardry:advanced",
+  "type": "utility"
+}

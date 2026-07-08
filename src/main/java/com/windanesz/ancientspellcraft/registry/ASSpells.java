@@ -13,6 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class ASSpells {
 
     public static net.neoforged.neoforge.registries.DeferredHolder<Spell, Spell> FLINT_SHARD;
+    public static net.neoforged.neoforge.registries.DeferredHolder<Spell, Spell> BURROW;
 
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(EBRegistries.SPELL, AncientSpellcraft.MODID);
 
@@ -129,6 +130,13 @@ public final class ASSpells {
         SPELLS.register("wizard_shield", com.windanesz.ancientspellcraft.spell.WizardShieldSpell::new);
         SPELLS.register("withdraw_life", com.windanesz.ancientspellcraft.spell.WithdrawLife::new);
         SPELLS.register("cauterize", com.windanesz.ancientspellcraft.spell.Cauterize::new);
+        SPELLS.register("eye_of_the_storm", com.windanesz.ancientspellcraft.spell.EyeOfTheStorm::new);
+        SPELLS.register("harvest", com.windanesz.ancientspellcraft.spell.Harvest::new);
+        SPELLS.register("mass_pyrokinesis", com.windanesz.ancientspellcraft.spell.MassPyrokinesis::new);
+        SPELLS.register("summon_anchor", com.windanesz.ancientspellcraft.spell.SummonAnchor::new);
+        SPELLS.register("forcefend", com.windanesz.ancientspellcraft.spell.Forcefend::new);
+        SPELLS.register("arcane_magnetism", com.windanesz.ancientspellcraft.spell.ArcaneMagnetism::new);
+        BURROW = SPELLS.register("burrow", com.windanesz.ancientspellcraft.spell.Burrow::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

@@ -36,6 +36,7 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onLivingHeal);
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onLivingDamage);
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onEffectApplicable);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASSpellEvents::onPlayerTick);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
