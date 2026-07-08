@@ -21,6 +21,14 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   ✓ AS-7b: base do sistema pronta (ClassSpell + gate de set completo via SpellCastEvent.Pre + mystic
   spell book) e primeiras 7 SAGE: conjure_creeper, nether_guard, summon_zombie_pigman, magic_sparks
   + conjure_cake/torchlight/vanish re-vinculadas. TODO warlock attunement no gate.
+  ✓ AS-7c (SAGE): conjure_ink, unveil, poison_spray, transplace, extension (bug do 1.12.2 corrigido),
+  counterspell (TODO cooldown na wand), ray_of_enfeeblement.
+  ✓ AS-7d (WARLOCK): efeito CHAOS completo (17 variantes) + chaos_touch + confusion.
+  Restantes SAGE: tome_warp/awaken_tome (lecterns), phase_jump (charge-release), spectral_wall/floor,
+  forced_channel, thoughtsteal, ternary_storm, teleport_object, conceal_object, molten_boulder,
+  arcane_wall, perfect_theory, experiment (594), pocket_library (822).
+  Restantes WARLOCK: absorb_* (sistema de absorcao), chaos_blast/field/vortex/orb, alter_potion,
+  obliteration, scrying_orb, orb_space, chaotic_empowerment/rebinding. BATTLEMAGE: runeword.
 - **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
 - **Metamagic**: efeitos registrados (spell_range/blast/duration/cooldown/siphon, arcane_augmentation,
   intensifying_focus, continuity_charm) mas sem os read-hooks nos modifiers de cast;
@@ -43,7 +51,6 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
 - **spring_charge**: mecânica de carga/soltura de cast.
 - **living_comet, conduit, prismatic_spray, grapple, contingency, clairvoyance_as, charge_as,
   attire_alteration, master_bolt**: sistemas próprios grandes (um por vez em lotes futuros).
-- **chaos_touch**: espera a lógica do efeito CHAOS (handler).
 - **Rays com dep de bloco (AS-3d)**: ✓ portados no AS-6c: electrify, shock_zone, firewall,
   molten_earth, summon_quicksand. Restantes: wildfire_flame/arcane_flame-ray/teleportation_flame
   (chamas com mecanica propria), beanstalk, ice_workbench (mesa de gelo), heat_furnace,

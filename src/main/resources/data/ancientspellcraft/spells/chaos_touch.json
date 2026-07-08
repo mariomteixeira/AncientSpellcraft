@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "effect_duration": 250,
+    "range": 7
+  },
+  "chargeup": 20,
+  "cooldown": 180,
+  "cost": 70,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:novice",
+  "type": "alteration"
+}

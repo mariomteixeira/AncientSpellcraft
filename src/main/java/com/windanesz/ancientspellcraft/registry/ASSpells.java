@@ -174,6 +174,8 @@ public final class ASSpells {
                         () -> net.minecraft.core.Holder.direct(MobEffects.HUNGER.value())),
                 java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(
                         com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x3d2f4f, 0, 0))));
+        SPELLS.register("chaos_touch", com.windanesz.ancientspellcraft.spell.ChaosTouch::new);
+        SPELLS.register("confusion", com.windanesz.ancientspellcraft.spell.Confusion::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
