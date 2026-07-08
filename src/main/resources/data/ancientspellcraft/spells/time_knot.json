@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "time_knot_duration": 200,
+    "time_knot_strength": 0
+  },
+  "chargeup": 0,
+  "cooldown": 250,
+  "cost": 100,
+  "element": "ebwizardry:sorcery",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:master",
+  "type": "buff"
+}

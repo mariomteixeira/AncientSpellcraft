@@ -26,6 +26,23 @@ public final class ASPotionEvents {
         }
     }
 
+    /** time_knot: no expiry, volta o caster para a posicao/vida do cast (1.12.2 TimeKnot). */
+    public static void onTimeKnotExpired(MobEffectEvent.Expired event) {
+        MobEffectInstance instance = event.getEffectInstance();
+        if (instance == null || instance.getEffect().value() != com.windanesz.ancientspellcraft.registry.ASEffects.TIME_KNOT.get()) return;
+        if (!(event.getEntity() instanceof net.minecraft.server.level.ServerPlayer player)) return;
+
+        net.minecraft.nbt.CompoundTag tag = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.TIME_KNOT);
+        if (tag.isEmpty()) return;
+        net.minecraft.resources.ResourceLocation dim = net.minecraft.resources.ResourceLocation.tryParse(tag.getString("Dim"));
+        net.minecraft.server.level.ServerLevel level = dim == null ? player.serverLevel()
+                : player.getServer().getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION, dim));
+        if (level == null) level = player.serverLevel();
+        player.teleportTo(level, tag.getDouble("X"), tag.getDouble("Y"), tag.getDouble("Z"), player.getYRot(), player.getXRot());
+        player.setHealth(tag.getFloat("Health"));
+        player.setData(com.windanesz.ancientspellcraft.registry.ASAttachments.TIME_KNOT, new net.minecraft.nbt.CompoundTag());
+    }
+
     /** soul_scorch reduz toda cura a 40% (1.12.2 PotionSoulScorch). */
     public static void onLivingHeal(LivingHealEvent event) {
         if (event.getEntity().hasEffect(ASEffects.SOUL_SCORCH)) {

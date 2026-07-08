@@ -30,6 +30,15 @@ public final class ASSpells {
                 () -> ASEffects.MAGELIGHT, () -> ASBlocks.CANDLELIGHT.get(), () -> ASEffects.CANDLELIGHT));
         SPELLS.register("celerity", () -> new AreaBuffSpell(157 / 255f, 168 / 255f, 249 / 255f, true, holder(MobEffects.MOVEMENT_SPEED)));
         SPELLS.register("water_walking", () -> new AreaBuffSpell(58 / 255f, 147 / 255f, 254 / 255f, false, () -> ASEffects.WATER_WALKING));
+        SPELLS.register("cryostasis", com.windanesz.ancientspellcraft.spell.Cryostasis::new);
+        SPELLS.register("time_knot", com.windanesz.ancientspellcraft.spell.TimeKnot::new);
+        SPELLS.register("projectile_ward", () -> new com.windanesz.ancientspellcraft.spell.WardBuffSpell(() -> ASEffects.PROJECTILE_WARD));
+        SPELLS.register("bulwark", () -> new com.windanesz.ancientspellcraft.spell.WardBuffSpell(() -> ASEffects.BULWARK));
+        SPELLS.register("arcane_aegis", () -> new com.windanesz.ancientspellcraft.spell.WardBuffSpell(() -> ASEffects.ARCANE_AEGIS));
+        SPELLS.register("dispel_item_curse", com.windanesz.ancientspellcraft.spell.DispelItemCurse::new);
+        SPELLS.register("regrowth", com.windanesz.ancientspellcraft.spell.Regrowth::new);
+        SPELLS.register("shrink_self", () -> new com.windanesz.ancientspellcraft.spell.ResizeSelfSpell(147 / 255f, 112 / 255f, 219 / 255f, () -> ASEffects.SHRINKAGE));
+        SPELLS.register("grow_self", () -> new com.windanesz.ancientspellcraft.spell.ResizeSelfSpell(139 / 255f, 69 / 255f, 19 / 255f, () -> ASEffects.GROWTH));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

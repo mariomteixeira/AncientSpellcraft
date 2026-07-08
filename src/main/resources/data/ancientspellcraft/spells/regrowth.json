@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "range": 10,
+    "regeneration_duration": 200,
+    "regeneration_strength": 0
+  },
+  "chargeup": 50,
+  "cooldown": 250,
+  "cost": 35,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:apprentice",
+  "type": "buff"
+}

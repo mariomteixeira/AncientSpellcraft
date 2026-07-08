@@ -29,6 +29,10 @@ public final class ASBlocks {
     public static final Supplier<Block> CANDLELIGHT = BLOCKS.register("candlelight",
             () -> new MageLightBlock(lightProps(), () -> ASEffects.CANDLELIGHT));
 
+    public static final Supplier<Block> HARD_FROSTED_ICE = BLOCKS.register("hard_frosted_ice",
+            () -> new com.windanesz.ancientspellcraft.block.HardFrostedIceBlock(BlockBehaviour.Properties.of()
+                    .strength(2.0F).friction(0.98F).sound(net.minecraft.world.level.block.SoundType.GLASS).noLootTable()));
+
     public static final Supplier<BlockEntityType<MageLightBlockEntity>> MAGE_LIGHT_BE = BLOCK_ENTITIES.register("mage_light",
             () -> BlockEntityType.Builder.of(MageLightBlockEntity::new, MAGELIGHT.get(), CANDLELIGHT.get()).build(null));
 
