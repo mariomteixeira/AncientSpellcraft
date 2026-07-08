@@ -10,5 +10,7 @@ public class AncientSpellcraft {
     public static final String MODID = "ancientspellcraft";
 
     public AncientSpellcraft(IEventBus modBus, ModContainer container) {
+        com.windanesz.ancientspellcraft.registry.ASItems.ITEMS.register(modBus);
+        com.windanesz.ancientspellcraft.registry.ASItems.CREATIVE_TABS.register(modBus);
     }
 }
