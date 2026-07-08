@@ -27,8 +27,15 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   Restantes SAGE: tome_warp/awaken_tome (lecterns), phase_jump (charge-release), spectral_wall/floor,
   forced_channel, thoughtsteal, ternary_storm, teleport_object, conceal_object, molten_boulder,
   arcane_wall, perfect_theory, experiment (594), pocket_library (822).
-  Restantes WARLOCK: absorb_* (sistema de absorcao), chaos_blast/field/vortex/orb, alter_potion,
-  obliteration, scrying_orb, orb_space, chaotic_empowerment/rebinding. BATTLEMAGE: runeword.
+  ✓ AS-7e (WARLOCK): chaotic_empowerment (minions explodem/buffam) e chaotic_rebinding (bomba de
+  livro dropado -> ruined_spell_book).
+  Restantes WARLOCK: absorb_* (sistema de absorcao com orb space), chaos_blast/field/vortex/orb e
+  obliteration/scrying_orb (dependem do WARLOCK ATTUNEMENT: elemento da armadura + tabela
+  WarlockElementalSpellEffects), alter_potion. BATTLEMAGE: runeword (sistema de runewords).
+  Restantes SAGE com sistema proprio: forced_channel/thoughtsteal (escrevem no sage tome via
+  WandHelper), tome_warp/awaken_tome (lecterns), phase_jump/spring_charge (charge-release),
+  spectral_wall/floor, molten_boulder (entity), arcane_wall, conceal_object, perfect_theory,
+  ternary_storm, teleport_object, experiment, pocket_library.
 - **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
 - **Metamagic**: efeitos registrados (spell_range/blast/duration/cooldown/siphon, arcane_augmentation,
   intensifying_focus, continuity_charm) mas sem os read-hooks nos modifiers de cast;

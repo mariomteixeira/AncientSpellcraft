@@ -176,6 +176,8 @@ public final class ASSpells {
                         com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x3d2f4f, 0, 0))));
         SPELLS.register("chaos_touch", com.windanesz.ancientspellcraft.spell.ChaosTouch::new);
         SPELLS.register("confusion", com.windanesz.ancientspellcraft.spell.Confusion::new);
+        SPELLS.register("chaotic_empowerment", com.windanesz.ancientspellcraft.spell.ChaoticEmpowerment::new);
+        SPELLS.register("chaotic_rebinding", com.windanesz.ancientspellcraft.spell.ChaoticRebinding::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

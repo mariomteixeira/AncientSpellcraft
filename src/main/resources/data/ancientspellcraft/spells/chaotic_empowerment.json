@@ -1,0 +1,27 @@
+{
+  "base_properties": {
+    "break_blocks": 0,
+    "effect_duration": 200,
+    "effect_radius": 15,
+    "explosion_chance": 0.5,
+    "explosion_strength": 2.5
+  },
+  "chargeup": 35,
+  "cooldown": 150,
+  "cost": 70,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point_up",
+  "tier": "ebwizardry:apprentice",
+  "type": "alteration"
+}
