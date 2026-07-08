@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "effect_radius": 5,
+    "speed_duration": 900,
+    "speed_strength": 0
+  },
+  "chargeup": 0,
+  "cooldown": 60,
+  "cost": 35,
+  "element": "ebwizardry:healing",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:apprentice",
+  "type": "buff"
+}

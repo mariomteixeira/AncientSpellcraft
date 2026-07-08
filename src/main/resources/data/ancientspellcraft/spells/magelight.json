@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "magelight_duration": 1800,
+    "magelight_strength": 0
+  },
+  "chargeup": 40,
+  "cooldown": 120,
+  "cost": 30,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "tier": "ebwizardry:advanced",
+  "type": "buff"
+}

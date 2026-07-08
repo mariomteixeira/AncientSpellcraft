@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "candlelight_duration": 1000,
+    "candlelight_strength": 0
+  },
+  "chargeup": 0,
+  "cooldown": 80,
+  "cost": 15,
+  "element": "ebwizardry:fire",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:novice",
+  "type": "buff"
+}
