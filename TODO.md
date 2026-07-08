@@ -36,10 +36,12 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
 - **Rays com dep de bloco (AS-3d)**: ✓ portados no AS-6c: electrify, shock_zone, firewall,
   molten_earth, summon_quicksand. Restantes: wildfire_flame/arcane_flame-ray/teleportation_flame
   (chamas com mecanica propria), beanstalk, ice_workbench (mesa de gelo), heat_furnace,
-  create_igloo, ice_tower, frost_nova, magma_shell, static_dome, fairy_ring, quicksand_ring,
-  wild_sporeling, sporelings_aid, runeword_sealbreaker (class), conceal_object (class), moonlight.
-  Desvio documentado: shock_zone coloca o disco de uma vez (o 1.12.2 construia gradualmente via
-  EntityBuilder).
+  ice_tower (precisa ice_door/snow_slab), fairy_ring (cogumelos magicos),
+  wild_sporeling, sporelings_aid (cogumelos), runeword_sealbreaker (class), conceal_object (class), moonlight.
+  Desvios documentados: shock_zone/magma_shell/static_dome colocam os blocos de uma vez (o 1.12.2
+  construia gradualmente via EntityBuilder); create_igloo usa hemisferio oco aproximado (a lista
+  manual de posicoes do original nao foi replicada 1:1).
+  ✓ portados no AS-6d: magma_shell, static_dome, quicksand_ring, create_igloo, frost_nova.
 
 ## Overrides descartados (não voltam)
 

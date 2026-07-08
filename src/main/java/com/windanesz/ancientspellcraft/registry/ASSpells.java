@@ -144,6 +144,11 @@ public final class ASSpells {
         SPELLS.register("firewall", com.windanesz.ancientspellcraft.spell.FireWall::new);
         SPELLS.register("electrify", com.windanesz.ancientspellcraft.spell.Electrify::new);
         SPELLS.register("shock_zone", com.windanesz.ancientspellcraft.spell.ShockZone::new);
+        SPELLS.register("magma_shell", com.windanesz.ancientspellcraft.spell.MagmaShell::new);
+        SPELLS.register("static_dome", com.windanesz.ancientspellcraft.spell.StaticDome::new);
+        SPELLS.register("quicksand_ring", com.windanesz.ancientspellcraft.spell.QuicksandRing::new);
+        SPELLS.register("create_igloo", com.windanesz.ancientspellcraft.spell.CreateIgloo::new);
+        SPELLS.register("frost_nova", com.windanesz.ancientspellcraft.spell.FrostNova::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

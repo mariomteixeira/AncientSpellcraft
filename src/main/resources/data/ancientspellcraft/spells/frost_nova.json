@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "freeze_radius": 4,
+    "shard_count": 30
+  },
+  "chargeup": 0,
+  "cooldown": 0,
+  "cost": 20,
+  "element": "ebwizardry:ice",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:advanced",
+  "type": "attack"
+}

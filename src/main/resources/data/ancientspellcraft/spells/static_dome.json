@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "blast_radius": 3,
+    "damage": 4,
+    "effect_duration": 400
+  },
+  "chargeup": 10,
+  "cooldown": 500,
+  "cost": 50,
+  "element": "ebwizardry:lightning",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:advanced",
+  "type": "construct"
+}
