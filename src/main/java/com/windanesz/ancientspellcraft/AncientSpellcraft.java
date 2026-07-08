@@ -20,6 +20,11 @@ public class AncientSpellcraft {
         com.windanesz.ancientspellcraft.registry.ASEffects.EFFECTS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASSpells.SPELLS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASAttachments.ATTACHMENTS.register(modBus);
+        com.windanesz.ancientspellcraft.registry.ASEntities.ENTITIES.register(modBus);
+        modBus.addListener(com.windanesz.ancientspellcraft.registry.ASEntities::onAttributeCreation);
+        if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()) {
+            modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterRenderers);
+        }
         com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCKS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCK_ENTITIES.register(modBus);
 

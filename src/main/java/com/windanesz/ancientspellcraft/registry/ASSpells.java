@@ -104,6 +104,8 @@ public final class ASSpells {
                 java.util.List.of(() -> ASEffects.MAGICAL_EXHAUSTION),
                 java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x635a63, 0, 0),
                         new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x9a8fa3, 12, 8))));
+        SPELLS.register("summon_spider", com.windanesz.ancientspellcraft.spell.SummonSpider::new);
+        SPELLS.register("summon_skeleton_horse", com.windanesz.ancientspellcraft.spell.SummonSkeletonHorse::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
