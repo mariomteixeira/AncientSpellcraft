@@ -29,9 +29,13 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   arcane_wall, perfect_theory, experiment (594), pocket_library (822).
   ✓ AS-7e (WARLOCK): chaotic_empowerment (minions explodem/buffam) e chaotic_rebinding (bomba de
   livro dropado -> ruined_spell_book).
-  Restantes WARLOCK: absorb_* (sistema de absorcao com orb space), chaos_blast/field/vortex/orb e
-  obliteration/scrying_orb (dependem do WARLOCK ATTUNEMENT: elemento da armadura + tabela
-  WarlockElementalSpellEffects), alter_potion. BATTLEMAGE: runeword (sistema de runewords).
+  ✓ AS-7f: WARLOCK ATTUNEMENT pronto (elementOrMagic pela armadura + tabela elemental
+  WarlockSpellEffects 1:1; sorcery aproxima force_shove com FORCE+empurrao) + forbidden_tome (livro
+  dos warlocks, TODO textura por tier) + chaos_vortex e obliteration (TODO EntityLevitatingBlock;
+  sem icone upstream). Warlock spells re-vinculadas ao forbidden_tome.
+  Restantes WARLOCK: chaos_orb/chaos_field (entities proprias), chaos_blast (302 linhas),
+  scrying_orb, absorb_* (sistema de absorcao com orb space), alter_potion.
+  BATTLEMAGE: runeword (sistema de runewords).
   Restantes SAGE com sistema proprio: forced_channel/thoughtsteal (escrevem no sage tome via
   WandHelper), tome_warp/awaken_tome (lecterns), phase_jump/spring_charge (charge-release),
   spectral_wall/floor, molten_boulder (entity), arcane_wall, conceal_object, perfect_theory,

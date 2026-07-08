@@ -14,6 +14,6 @@ public abstract class WarlockRaySpell extends ASRaySpell implements ClassSpell {
 
     @Override
     public boolean applicableForItem(Item item) {
-        return item == ASItems.MYSTIC_SPELL_BOOK.get();
+        return item == ASItems.FORBIDDEN_TOME.get();
     }
 }

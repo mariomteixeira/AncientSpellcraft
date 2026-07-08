@@ -34,6 +34,9 @@ public final class ASItems {
     public static final Supplier<Item> MYSTIC_SPELL_BOOK = ITEMS.register("mystic_spell_book",
             com.windanesz.ancientspellcraft.item.MysticSpellBookItem::new);
 
+    public static final Supplier<Item> FORBIDDEN_TOME = ITEMS.register("forbidden_tome",
+            com.windanesz.ancientspellcraft.item.ForbiddenTomeItem::new);
+
     public static final Supplier<Item> SHADOW_BLADE = ITEMS.register("shadow_blade",
             com.windanesz.ancientspellcraft.item.ShadowBladeItem::new);
     public static final Supplier<Item> SPECTRAL_FISHING_ROD = ITEMS.register("spectral_fishing_rod",
@@ -70,7 +73,8 @@ public final class ASItems {
                                 .sorted(Comparator.comparingInt(s -> s.getTier().getLevel()))
                                 .toList();
                         for (var spell : spells) {
-                            Item book = spell.applicableForItem(MYSTIC_SPELL_BOOK.get())
+                            Item book = spell.applicableForItem(FORBIDDEN_TOME.get()) ? FORBIDDEN_TOME.get()
+                                    : spell.applicableForItem(MYSTIC_SPELL_BOOK.get())
                                     ? MYSTIC_SPELL_BOOK.get() : ANCIENT_SPELLCRAFT_SPELL_BOOK.get();
                             output.accept(com.koomplo.wizardry.api.content.util.RegistryUtils.setSpell(
                                     new ItemStack(book), spell));

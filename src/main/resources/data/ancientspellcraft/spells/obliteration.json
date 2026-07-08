@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "charging_time": 50,
+    "damage": 5,
+    "effect_radius": 12
+  },
+  "chargeup": 20,
+  "cooldown": 100,
+  "cost": 30,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:advanced",
+  "type": "attack"
+}
