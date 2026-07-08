@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "block_lifetime": 900,
+    "effect_radius": 3
+  },
+  "chargeup": 0,
+  "cooldown": 20,
+  "cost": 60,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:advanced",
+  "type": "utility"
+}

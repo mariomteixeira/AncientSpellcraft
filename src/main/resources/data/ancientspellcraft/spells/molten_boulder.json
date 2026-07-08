@@ -1,0 +1,26 @@
+{
+  "base_properties": {
+    "damage": 10,
+    "duration": 100,
+    "knockback_strength": 1,
+    "speed": 0.33
+  },
+  "chargeup": 0,
+  "cooldown": 200,
+  "cost": 180,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": false,
+    "npcs": true,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:master",
+  "type": "attack"
+}

@@ -189,6 +189,10 @@ public final class ASSpells {
         SPELLS.register("absorb_object", com.windanesz.ancientspellcraft.spell.AbsorbObject::new);
         SPELLS.register("absorb_projectile", com.windanesz.ancientspellcraft.spell.AbsorbProjectile::new);
         SPELLS.register("alter_potion", com.windanesz.ancientspellcraft.spell.AlterPotion::new);
+        SPELLS.register("spectral_wall", com.windanesz.ancientspellcraft.spell.SpectralWall::new);
+        SPELLS.register("spectral_floor", com.windanesz.ancientspellcraft.spell.SpectralFloor::new);
+        SPELLS.register("teleport_object", com.windanesz.ancientspellcraft.spell.TeleportObject::new);
+        SPELLS.register("molten_boulder", com.windanesz.ancientspellcraft.spell.MoltenBoulderSpell::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

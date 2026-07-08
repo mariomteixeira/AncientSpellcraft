@@ -47,10 +47,12 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   Restantes WARLOCK: scrying_orb (grupo da camera client com farsight/astral_projection),
   absorb_artefact (espera os 211 artefatos), orb_space (pocket dimension, AS-8).
   BATTLEMAGE: runeword (sistema de runewords).
-  Restantes SAGE com sistema proprio: forced_channel/thoughtsteal (escrevem no sage tome via
-  WandHelper), tome_warp/awaken_tome (lecterns), phase_jump/spring_charge (charge-release),
-  spectral_wall/floor, molten_boulder (entity), arcane_wall, conceal_object, perfect_theory,
-  ternary_storm, teleport_object, experiment, pocket_library.
+  ✓ AS-7k (SAGE): spectral_wall (desvio: colocacao instantanea vs EntityBuilder gradual),
+  spectral_floor, teleport_object (usa o circulo de transporte do Redux; TODO charm_hoarders_orb),
+  molten_boulder (construct que rola deixando magma conjurado + fogo, render = bloco de magma girando).
+  Restantes SAGE com sistema proprio: forced_channel/thoughtsteal (sage tome/WandHelper),
+  tome_warp/awaken_tome/perfect_theory (lecterns), phase_jump/spring_charge (charge-release),
+  arcane_wall, conceal_object, ternary_storm, experiment (594), pocket_library (822).
 - **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
 - **Metamagic**: efeitos registrados (spell_range/blast/duration/cooldown/siphon, arcane_augmentation,
   intensifying_focus, continuity_charm) mas sem os read-hooks nos modifiers de cast;

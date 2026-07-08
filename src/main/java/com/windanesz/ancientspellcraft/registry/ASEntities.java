@@ -93,6 +93,11 @@ public final class ASEntities {
                     com.windanesz.ancientspellcraft.entity.construct.ChaosFieldConstruct::new, MobCategory.MISC)
                     .sized(0.1F, 0.1F).clientTrackingRange(10).build(AncientSpellcraft.MODID + ":chaos_field"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.construct.MoltenBoulderConstruct>> MOLTEN_BOULDER = ENTITIES.register("molten_boulder",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.construct.MoltenBoulderConstruct>of(
+                    com.windanesz.ancientspellcraft.entity.construct.MoltenBoulderConstruct::new, MobCategory.MISC)
+                    .sized(1.2F, 1.2F).clientTrackingRange(10).build(AncientSpellcraft.MODID + ":molten_boulder"));
+
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ORDINARY_SPIDER_MINION.get(), Spider.createAttributes().build());
         event.put(SKELETON_HORSE_MINION.get(), AbstractHorse.createBaseHorseAttributes().build());
