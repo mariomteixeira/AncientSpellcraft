@@ -152,6 +152,7 @@ public final class ASSpells {
         SPELLS.register("wild_sporeling", com.windanesz.ancientspellcraft.spell.WildSporeling::new);
         SPELLS.register("sporelings_aid", com.windanesz.ancientspellcraft.spell.SporelingsAid::new);
         SPELLS.register("fairy_ring", com.windanesz.ancientspellcraft.spell.FairyRing::new);
+        SPELLS.register("ice_workbench", com.windanesz.ancientspellcraft.spell.IceWorkbench::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

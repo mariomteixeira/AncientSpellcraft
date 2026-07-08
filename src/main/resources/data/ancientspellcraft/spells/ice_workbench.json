@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "range": 4
+  },
+  "chargeup": 0,
+  "cooldown": 100,
+  "cost": 50,
+  "element": "ebwizardry:ice",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:apprentice",
+  "type": "utility"
+}

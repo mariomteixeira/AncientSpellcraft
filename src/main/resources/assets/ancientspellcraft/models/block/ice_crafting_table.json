@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/packed_ice",
+    "up": "ancientspellcraft:block/ice_crafting_table_top",
+    "north": "ancientspellcraft:block/ice_crafting_table_front",
+    "south": "ancientspellcraft:block/ice_crafting_table_side",
+    "east": "ancientspellcraft:block/ice_crafting_table_side",
+    "west": "ancientspellcraft:block/ice_crafting_table_front",
+    "particle": "ancientspellcraft:block/ice_crafting_table_front"
+  }
+}

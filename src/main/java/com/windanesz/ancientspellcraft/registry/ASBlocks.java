@@ -109,6 +109,14 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> ICE_CRAFTING_TABLE = BLOCKS.register("ice_crafting_table",
+            () -> new com.windanesz.ancientspellcraft.block.IceCraftingTableBlock(BlockBehaviour.Properties.of()
+                    .strength(1.0F).friction(0.98F).sound(net.minecraft.world.level.block.SoundType.GLASS)));
+
+    public static final Supplier<Block> IMBUEMENT_ALTAR_RUINED = BLOCKS.register("imbuement_altar_ruined",
+            () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F)
+                    .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.STONE)));
+
     /** Cogumelos magicos (1.12.2 mushroom_<tipo>); sem block item, so via spells. */
     public static final java.util.Map<String, Supplier<Block>> MUSHROOMS = new java.util.LinkedHashMap<>();
 
