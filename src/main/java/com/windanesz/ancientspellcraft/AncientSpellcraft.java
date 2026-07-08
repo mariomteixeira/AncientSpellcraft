@@ -39,11 +39,14 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onLivingDamage);
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onEffectApplicable);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASSpellEvents::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASWarlockEvents::onPlayerTick);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
         WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class, ASPotionEvents::onSpellCastPre);
         WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class,
                 com.windanesz.ancientspellcraft.handler.ASSpellEvents::onClassSpellCastPre);
+        WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class,
+                com.windanesz.ancientspellcraft.handler.ASWarlockEvents::onSpellCastPre);
     }
 }
