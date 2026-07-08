@@ -161,6 +161,19 @@ public final class ASSpells {
         SPELLS.register("summon_zombie_pigman", () -> new com.windanesz.ancientspellcraft.spell.SageMinionSpell<>(
                 level -> new com.windanesz.ancientspellcraft.entity.living.PigZombieMinion(ASEntities.PIG_ZOMBIE_MINION.get(), level)));
         SPELLS.register("magic_sparks", com.windanesz.ancientspellcraft.spell.MagicSparks::new);
+        SPELLS.register("conjure_ink", com.windanesz.ancientspellcraft.spell.ConjureInk::new);
+        SPELLS.register("unveil", com.windanesz.ancientspellcraft.spell.Unveil::new);
+        SPELLS.register("poison_spray", com.windanesz.ancientspellcraft.spell.PoisonSpray::new);
+        SPELLS.register("transplace", com.windanesz.ancientspellcraft.spell.Transplace::new);
+        SPELLS.register("extension", com.windanesz.ancientspellcraft.spell.Extension::new);
+        SPELLS.register("counterspell", com.windanesz.ancientspellcraft.spell.Counterspell::new);
+        SPELLS.register("ray_of_enfeeblement", () -> new com.windanesz.ancientspellcraft.spell.SageEffectRaySpell(false, true,
+                java.util.List.of(() -> net.minecraft.core.Holder.direct(MobEffects.WEAKNESS.value()),
+                        () -> net.minecraft.core.Holder.direct(MobEffects.MOVEMENT_SLOWDOWN.value()),
+                        () -> net.minecraft.core.Holder.direct(MobEffects.DIG_SLOWDOWN.value()),
+                        () -> net.minecraft.core.Holder.direct(MobEffects.HUNGER.value())),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(
+                        com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x3d2f4f, 0, 0))));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

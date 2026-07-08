@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "effect_radius": 25
+  },
+  "chargeup": 40,
+  "cooldown": 100,
+  "cost": 100,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point_up",
+  "tier": "ebwizardry:advanced",
+  "type": "alteration"
+}

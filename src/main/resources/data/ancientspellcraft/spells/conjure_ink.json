@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "item_count": 1
+  },
+  "chargeup": 60,
+  "cooldown": 20,
+  "cost": 35,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:imbue",
+  "tier": "ebwizardry:novice",
+  "type": "utility"
+}

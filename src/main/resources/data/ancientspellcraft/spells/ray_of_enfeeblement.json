@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "effect_duration": 40,
+    "effect_strength": 0,
+    "range": 8
+  },
+  "chargeup": 0,
+  "cooldown": 20,
+  "cost": 40,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:apprentice",
+  "type": "attack"
+}
