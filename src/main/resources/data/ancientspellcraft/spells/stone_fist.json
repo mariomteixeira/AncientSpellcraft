@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "damage": 14,
+    "item_lifetime": 30
+  },
+  "chargeup": 20,
+  "cooldown": 50,
+  "cost": 50,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:advanced",
+  "type": "utility"
+}

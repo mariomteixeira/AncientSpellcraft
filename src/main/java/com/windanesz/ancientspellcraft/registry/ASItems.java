@@ -38,6 +38,11 @@ public final class ASItems {
     public static final Supplier<Item> ICE_CREAM = ITEMS.register("ice_cream",
             com.windanesz.ancientspellcraft.item.IceCreamItem::new);
 
+    public static final Supplier<Item> STONE_FIST = ITEMS.register("stone_fist",
+            () -> new com.windanesz.ancientspellcraft.item.StoneFistItem(net.minecraft.world.item.Tiers.STONE, 0));
+    public static final Supplier<Item> ADVANCED_STONE_FIST = ITEMS.register("advanced_stone_fist",
+            () -> new com.windanesz.ancientspellcraft.item.StoneFistItem(net.minecraft.world.item.Tiers.STONE, 3));
+
     /** Livros e scrolls de todas as spells do AS (preenche conforme os lotes de spells chegam). */
     public static final Supplier<CreativeModeTab> AS_TAB = CREATIVE_TABS.register("ancientspellcraft",
             () -> CreativeModeTab.builder()

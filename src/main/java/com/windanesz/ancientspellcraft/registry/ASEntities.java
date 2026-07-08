@@ -52,6 +52,16 @@ public final class ASEntities {
             () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.AnimatedItemEntity::new, MobCategory.MISC)
                     .sized(0.6F, 1.2F).build(AncientSpellcraft.MODID + ":animated_item"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.projectile.FlintEntity>> FLINT_SHARD = ENTITIES.register("flint_shard",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.projectile.FlintEntity>of(
+                    com.windanesz.ancientspellcraft.entity.projectile.FlintEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build(AncientSpellcraft.MODID + ":flint_shard"));
+
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.projectile.SafeIceShardEntity>> SAFE_ICE_SHARD = ENTITIES.register("safe_ice_shard",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.projectile.SafeIceShardEntity>of(
+                    com.windanesz.ancientspellcraft.entity.projectile.SafeIceShardEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build(AncientSpellcraft.MODID + ":safe_ice_shard"));
+
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ORDINARY_SPIDER_MINION.get(), Spider.createAttributes().build());
         event.put(SKELETON_HORSE_MINION.get(), AbstractHorse.createBaseHorseAttributes().build());

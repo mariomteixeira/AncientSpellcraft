@@ -12,6 +12,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ASSpells {
 
+    public static net.neoforged.neoforge.registries.DeferredHolder<Spell, Spell> FLINT_SHARD;
+
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(EBRegistries.SPELL, AncientSpellcraft.MODID);
 
     static {
@@ -116,6 +118,12 @@ public final class ASSpells {
         SPELLS.register("conjure_shadow_blade", () -> new com.windanesz.ancientspellcraft.spell.ASConjureItemSpell(ASItems.SHADOW_BLADE.get()));
         SPELLS.register("conjure_fishing_rod", () -> new com.windanesz.ancientspellcraft.spell.ASConjureItemSpell(ASItems.SPECTRAL_FISHING_ROD.get()));
         SPELLS.register("ice_cream", () -> new com.windanesz.ancientspellcraft.spell.ASConjureItemSpell(ASItems.ICE_CREAM.get()));
+        FLINT_SHARD = SPELLS.register("flint_shard", com.windanesz.ancientspellcraft.spell.FlintShard::new);
+        SPELLS.register("armageddon", com.windanesz.ancientspellcraft.spell.Armageddon::new);
+        SPELLS.register("conflagration", com.windanesz.ancientspellcraft.spell.Conflagration::new);
+        SPELLS.register("fimbulwinter", com.windanesz.ancientspellcraft.spell.Fimbulwinter::new);
+        SPELLS.register("stone_punch", () -> new com.windanesz.ancientspellcraft.spell.StoneFistSpell("stone_punch", ASItems.STONE_FIST.get()));
+        SPELLS.register("stone_fist", () -> new com.windanesz.ancientspellcraft.spell.StoneFistSpell("stone_fist", ASItems.ADVANCED_STONE_FIST.get()));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

@@ -41,6 +41,8 @@ public final class ASRenderers {
         event.registerEntityRenderer(ASEntities.SKELETON_MAGE.get(), com.windanesz.ancientspellcraft.client.SkeletonMageRenderer::new);
         event.registerEntityRenderer(ASEntities.SKELETON_MAGE_MINION.get(), com.windanesz.ancientspellcraft.client.SkeletonMageRenderer::new);
         event.registerEntityRenderer(ASEntities.ANIMATED_ITEM.get(), com.windanesz.ancientspellcraft.client.AnimatedItemRenderer::new);
+        event.registerEntityRenderer(ASEntities.FLINT_SHARD.get(), com.koomplo.wizardry.client.renderer.entity.MagicArrowRenderer::new);
+        event.registerEntityRenderer(ASEntities.SAFE_ICE_SHARD.get(), com.koomplo.wizardry.client.renderer.entity.MagicArrowRenderer::new);
     }
 
     public static final ModelLayerLocation ANT_LAYER = new ModelLayerLocation(

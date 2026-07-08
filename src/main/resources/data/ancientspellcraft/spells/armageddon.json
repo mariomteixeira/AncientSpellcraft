@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "burn_duration": 6,
+    "effect_radius": 16,
+    "max_damage": 12
+  },
+  "chargeup": 60,
+  "cooldown": 40,
+  "cost": 70,
+  "element": "ebwizardry:fire",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:master",
+  "type": "attack"
+}
