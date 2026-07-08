@@ -48,7 +48,7 @@ public final class ASItems {
             ITEMS.register("crystal_ore_" + entry.getKey(),
                     () -> new net.minecraft.world.item.BlockItem(entry.getValue().get(), new Item.Properties()));
         }
-        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door", "ice_crafting_table", "imbuement_altar_ruined"}) {
+        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance"}) {
             ITEMS.register(name, () -> new net.minecraft.world.item.BlockItem(
                     net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
                             net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, name)),
@@ -88,7 +88,7 @@ public final class ASItems {
                         for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone",
                                 "devoritium_bars", "devoritium_door", "crystal_ore_fire", "crystal_ore_earth",
                                 "crystal_ore_healing", "crystal_ore_ice", "crystal_ore_lightning",
-                                "crystal_ore_necromancy", "crystal_ore_sorcery", "ice_crafting_table", "imbuement_altar_ruined"}) {
+                                "crystal_ore_necromancy", "crystal_ore_sorcery", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance"}) {
                             output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
                                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.windanesz.ancientspellcraft.AncientSpellcraft.MODID, name)));
                         }

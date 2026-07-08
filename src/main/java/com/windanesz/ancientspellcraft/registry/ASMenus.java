@@ -1,0 +1,21 @@
+package com.windanesz.ancientspellcraft.registry;
+
+import com.windanesz.ancientspellcraft.AncientSpellcraft;
+import com.windanesz.ancientspellcraft.client.SphereCognizanceMenu;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.inventory.MenuType;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
+
+public final class ASMenus {
+
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, AncientSpellcraft.MODID);
+
+    public static final Supplier<MenuType<SphereCognizanceMenu>> SPHERE_COGNIZANCE = MENUS.register("sphere_cognizance",
+            () -> IMenuTypeExtension.create((id, inv, buf) -> new SphereCognizanceMenu(id, inv)));
+
+    private ASMenus() {
+    }
+}

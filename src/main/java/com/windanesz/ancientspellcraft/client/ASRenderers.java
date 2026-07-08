@@ -47,6 +47,11 @@ public final class ASRenderers {
         event.registerEntityRenderer(ASEntities.SPIRIT_BEAR.get(), net.minecraft.client.renderer.entity.PolarBearRenderer::new);
     }
 
+    public static void onRegisterScreens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
+        event.register(com.windanesz.ancientspellcraft.registry.ASMenus.SPHERE_COGNIZANCE.get(),
+                com.windanesz.ancientspellcraft.client.SphereCognizanceScreen::new);
+    }
+
     public static final ModelLayerLocation ANT_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "ant"), "main");
     public static final ModelLayerLocation VOLCANO_LAYER = new ModelLayerLocation(

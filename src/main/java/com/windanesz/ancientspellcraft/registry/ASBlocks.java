@@ -109,6 +109,15 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> SPHERE_COGNIZANCE = BLOCKS.register("sphere_cognizance",
+            () -> new com.windanesz.ancientspellcraft.block.SphereCognizanceBlock(BlockBehaviour.Properties.of()
+                    .strength(0.5F).lightLevel(state -> 15).noOcclusion()
+                    .sound(net.minecraft.world.level.block.SoundType.GLASS)));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.SphereCognizanceBlockEntity>> SPHERE_COGNIZANCE_BE =
+            BLOCK_ENTITIES.register("sphere_cognizance", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.SphereCognizanceBlockEntity::new, SPHERE_COGNIZANCE.get()).build(null));
+
     public static final Supplier<Block> ICE_CRAFTING_TABLE = BLOCKS.register("ice_crafting_table",
             () -> new com.windanesz.ancientspellcraft.block.IceCraftingTableBlock(BlockBehaviour.Properties.of()
                     .strength(1.0F).friction(0.98F).sound(net.minecraft.world.level.block.SoundType.GLASS)));
