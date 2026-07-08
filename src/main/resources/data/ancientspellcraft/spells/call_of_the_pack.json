@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "minion_count": 6,
+    "minion_lifetime": 800,
+    "summon_radius": 3
+  },
+  "chargeup": 0,
+  "cooldown": 400,
+  "cost": 100,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:master",
+  "type": "minion"
+}

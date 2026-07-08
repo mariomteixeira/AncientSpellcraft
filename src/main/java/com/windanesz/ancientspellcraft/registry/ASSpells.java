@@ -137,6 +137,8 @@ public final class ASSpells {
         SPELLS.register("forcefend", com.windanesz.ancientspellcraft.spell.Forcefend::new);
         SPELLS.register("arcane_magnetism", com.windanesz.ancientspellcraft.spell.ArcaneMagnetism::new);
         BURROW = SPELLS.register("burrow", com.windanesz.ancientspellcraft.spell.Burrow::new);
+        SPELLS.register("call_of_the_pack", com.windanesz.ancientspellcraft.spell.CallOfThePack::new);
+        SPELLS.register("summon_spirit_bear", com.windanesz.ancientspellcraft.spell.SummonSpiritBear::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

@@ -62,6 +62,14 @@ public final class ASEntities {
                     com.windanesz.ancientspellcraft.entity.projectile.SafeIceShardEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build(AncientSpellcraft.MODID + ":safe_ice_shard"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.living.WolfMinion>> WOLF_MINION = ENTITIES.register("wolf_minion",
+            () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.WolfMinion::new, MobCategory.CREATURE)
+                    .sized(0.6F, 0.85F).build(AncientSpellcraft.MODID + ":wolf_minion"));
+
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.living.SpiritBearEntity>> SPIRIT_BEAR = ENTITIES.register("spirit_bear",
+            () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.SpiritBearEntity::new, MobCategory.CREATURE)
+                    .sized(1.4F, 1.4F).build(AncientSpellcraft.MODID + ":spirit_bear"));
+
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(ORDINARY_SPIDER_MINION.get(), Spider.createAttributes().build());
         event.put(SKELETON_HORSE_MINION.get(), AbstractHorse.createBaseHorseAttributes().build());
@@ -71,6 +79,8 @@ public final class ASEntities {
         event.put(SKELETON_MAGE.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().build());
         event.put(SKELETON_MAGE_MINION.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().build());
         event.put(ANIMATED_ITEM.get(), com.windanesz.ancientspellcraft.entity.living.AnimatedItemEntity.createAnimatedItemAttributes().build());
+        event.put(WOLF_MINION.get(), net.minecraft.world.entity.animal.Wolf.createAttributes().build());
+        event.put(SPIRIT_BEAR.get(), net.minecraft.world.entity.animal.PolarBear.createAttributes().build());
     }
 
     private ASEntities() {
