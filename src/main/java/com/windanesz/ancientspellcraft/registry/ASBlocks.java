@@ -67,6 +67,48 @@ public final class ASBlocks {
         }
     }
 
+    public static final Supplier<Block> ARCANE_FLAME = BLOCKS.register("arcane_flame",
+            () -> new com.windanesz.ancientspellcraft.block.ArcaneFlameBlock(BlockBehaviour.Properties.of()
+                    .noCollission().instabreak().lightLevel(state -> 15).noLootTable()
+                    .sound(net.minecraft.world.level.block.SoundType.WOOL).pushReaction(PushReaction.DESTROY)));
+
+    public static final Supplier<Block> NETHER_FIRE = BLOCKS.register("nether_fire",
+            () -> new com.windanesz.ancientspellcraft.block.NetherFireBlock(BlockBehaviour.Properties.of()
+                    .noCollission().instabreak().lightLevel(state -> 15).noLootTable()
+                    .sound(net.minecraft.world.level.block.SoundType.WOOL).pushReaction(PushReaction.DESTROY)));
+
+    public static final Supplier<Block> CONJURED_MAGMA = BLOCKS.register("conjured_magma",
+            () -> new com.windanesz.ancientspellcraft.block.TemporaryBlock(BlockBehaviour.Properties.of()
+                    .strength(0.5F).lightLevel(state -> 3).noLootTable()
+                    .sound(net.minecraft.world.level.block.SoundType.NETHERRACK)) {
+                @Override
+                public void stepOn(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos,
+                                   net.minecraft.world.level.block.state.BlockState state, net.minecraft.world.entity.Entity entity) {
+                    if (!entity.isSteppingCarefully() && entity instanceof net.minecraft.world.entity.LivingEntity living
+                            && !living.fireImmune()) {
+                        entity.hurt(level.damageSources().hotFloor(), 1.0F);
+                    }
+                    super.stepOn(level, pos, state, entity);
+                }
+            });
+
+    public static final Supplier<Block> CONJURED_DIRT = BLOCKS.register("conjured_dirt",
+            () -> new com.windanesz.ancientspellcraft.block.TemporaryBlock(BlockBehaviour.Properties.of()
+                    .strength(0.5F).noLootTable().sound(net.minecraft.world.level.block.SoundType.GRAVEL)));
+
+    public static final Supplier<Block> CONJURED_SNOW = BLOCKS.register("conjured_snow",
+            () -> new com.windanesz.ancientspellcraft.block.TemporaryBlock(BlockBehaviour.Properties.of()
+                    .strength(0.2F).noLootTable().sound(net.minecraft.world.level.block.SoundType.SNOW)));
+
+    public static final Supplier<Block> QUICKSAND = BLOCKS.register("quicksand",
+            () -> new com.windanesz.ancientspellcraft.block.QuicksandBlock(BlockBehaviour.Properties.of()
+                    .strength(0.5F).noLootTable().sound(net.minecraft.world.level.block.SoundType.SAND)));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.TemporaryBlockEntity>> TEMPORARY_BE =
+            BLOCK_ENTITIES.register("temporary_block", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.TemporaryBlockEntity::new,
+                    ARCANE_FLAME.get(), CONJURED_MAGMA.get(), CONJURED_DIRT.get(), CONJURED_SNOW.get(), QUICKSAND.get()).build(null));
+
     public static final Supplier<BlockEntityType<MageLightBlockEntity>> MAGE_LIGHT_BE = BLOCK_ENTITIES.register("mage_light",
             () -> BlockEntityType.Builder.of(MageLightBlockEntity::new, MAGELIGHT.get(), CANDLELIGHT.get()).build(null));
 

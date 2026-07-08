@@ -1,0 +1,57 @@
+# Pendências do port (NeoForge 1.21.1)
+
+O que ainda não foi portado do 1.12.2 e por quê. Cada item volta quando o sistema do qual depende
+for portado. Nada aqui entra "pela metade" — spell só é registrada quando funciona inteira.
+
+## Sistemas grandes (lotes próprios futuros)
+
+- **Sistema de classes de wizard** (Sage/Battlemage/Warlock): ~50 class spells (`IClassSpell`),
+  armaduras de classe, mystic spell book, NPCs class wizards. Inclui: conjure_creeper, nether_guard,
+  summon_zombie_pigman, chaos orb/blast/field/vortex, absorb_*, runeword, counterspell, ternary_storm,
+  scrying_orb, spectral_wall/floor, phase_jump, teleport_object, thoughtsteal, obliteration etc.
+  *conjure_cake, torchlight e vanish (já portadas) serão re-vinculadas ao mystic book neste lote.*
+- **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
+- **Metamagic**: efeitos registrados (spell_range/blast/duration/cooldown/siphon, arcane_augmentation,
+  intensifying_focus, continuity_charm) mas sem os read-hooks nos modifiers de cast;
+  metamagic_projectile e MetaSpellBuff esperam isso.
+- **Pocket dimension** (AS-8): pocket_dimension e o sistema de dimensão.
+- **Estruturas/worldgen/biomes** (AS-8): 22 estruturas .nbt, spawns do skeleton mage selvagem
+  (elemento por bioma), 2 biomes.
+- **Artefatos** (211): entram por lote junto dos efeitos. Vários TODO já anotados no código:
+  charm_seed_bag (harvest replanta), ring_lily_flower (fileira de lírios), rings de permanência
+  (shrink/growth), amulet_elemental_offense + cristal no offhand (raise_skeleton_mage),
+  head_fortune (conjure_pickaxe do wizardry), vessel_of_the_withered_oath (plague_of_darkness),
+  belt_horse (horse_whistle), ring_disenchanter (words_of_unbinding), head_shield (wizard_shield).
+
+## Spells individuais adiadas
+
+- **farsight, astral_projection, eagle_eye**: sistema de câmera livre client-side (astral travel).
+- **static_charge**: sistema de imbuement de enchant em arma (ASEnchantments + duração).
+- **words_of_unbinding**: API de remoção de upgrades de wand no Redux.
+- **horse_whistle**: rastreio do último cavalo montado (attachment + evento).
+- **spring_charge**: mecânica de carga/soltura de cast.
+- **living_comet, conduit, prismatic_spray, grapple, contingency, clairvoyance_as, charge_as,
+  attire_alteration, master_bolt**: sistemas próprios grandes (um por vez em lotes futuros).
+- **chaos_touch**: espera a lógica do efeito CHAOS (handler).
+- **Rays com dep de bloco (AS-3d, destravando com o AS-6)**: electrify e shock_zone (bloco de
+  raio), fire_wall/wildfire_flame/arcane_flame-ray (chamas especiais), molten_earth (conjured
+  magma ✓ pronto), summon_quicksand (quicksand ✓ pronto), beanstalk, ice_workbench (mesa de gelo),
+  heat_furnace, create_igloo, ice_tower, frost_nova, magma_shell, static_dome, fairy_ring,
+  quicksand_ring, wild_sporeling, sporelings_aid, runeword_sealbreaker, conceal_object, moonlight.
+
+## Overrides descartados (não voltam)
+
+- **conjure_pickaxe** e **plague_of_darkness_as**: eram overrides config-gated de spells do próprio
+  wizardry para integrar artefatos — a integração virá pelos artefatos, sem override.
+- **drain_vitality, hand_of_gaia, SpellProjectileAOEPotion**: classes mortas no 1.12.2
+  (nunca registradas, sem JSON).
+
+## Detalhes menores (TODO no código)
+
+- Partículas custom do 1.12.2 (DARK_MIST, RAINDROP, TIME_KNOT...) aproximadas com as do Redux.
+- Sons próprios do pack (sounds.json) não portados; usando sons vanilla/Redux próximos.
+- Tinte por elemento na robe do skeleton mage; modelo próprio do druid (usa evil wizard).
+- cure_zombie converte na hora (startConverting é privado no 1.21; sem delay/reputação).
+- Shaders (assets/shaders) — mesmo caso dos shaders do Redux.
+- Mecânicas anti-magia do devoritium (handlers) — blocos/itens já existem.
+- teleportation_flame e wildfire_flame (chamas com mecânica própria de teleporte/espalhamento).
