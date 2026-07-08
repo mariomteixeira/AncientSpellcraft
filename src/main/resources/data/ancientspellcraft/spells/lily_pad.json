@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "range": 6
+  },
+  "chargeup": 10,
+  "cooldown": 40,
+  "cost": 20,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:apprentice",
+  "type": "utility"
+}

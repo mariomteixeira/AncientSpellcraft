@@ -97,6 +97,13 @@ public final class ASSpells {
         SPELLS.register("conjure_lava", com.windanesz.ancientspellcraft.spell.ConjureLava::new);
         SPELLS.register("conjure_cake", com.windanesz.ancientspellcraft.spell.ConjureCake::new);
         SPELLS.register("torchlight", com.windanesz.ancientspellcraft.spell.Torchlight::new);
+        SPELLS.register("singe", com.windanesz.ancientspellcraft.spell.Singe::new);
+        SPELLS.register("summon_boat", com.windanesz.ancientspellcraft.spell.SummonBoat::new);
+        SPELLS.register("lily_pad", com.windanesz.ancientspellcraft.spell.LilyPad::new);
+        SPELLS.register("suppression", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, true,
+                java.util.List.of(() -> ASEffects.MAGICAL_EXHAUSTION),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x635a63, 0, 0),
+                        new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x9a8fa3, 12, 8))));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
