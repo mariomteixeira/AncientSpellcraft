@@ -149,6 +149,9 @@ public final class ASSpells {
         SPELLS.register("quicksand_ring", com.windanesz.ancientspellcraft.spell.QuicksandRing::new);
         SPELLS.register("create_igloo", com.windanesz.ancientspellcraft.spell.CreateIgloo::new);
         SPELLS.register("frost_nova", com.windanesz.ancientspellcraft.spell.FrostNova::new);
+        SPELLS.register("wild_sporeling", com.windanesz.ancientspellcraft.spell.WildSporeling::new);
+        SPELLS.register("sporelings_aid", com.windanesz.ancientspellcraft.spell.SporelingsAid::new);
+        SPELLS.register("fairy_ring", com.windanesz.ancientspellcraft.spell.FairyRing::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

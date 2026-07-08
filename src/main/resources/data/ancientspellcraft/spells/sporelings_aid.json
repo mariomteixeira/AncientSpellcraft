@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "block_lifetime": 2400,
+    "range": 5
+  },
+  "chargeup": 30,
+  "cooldown": 100,
+  "cost": 20,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:apprentice",
+  "type": "utility"
+}

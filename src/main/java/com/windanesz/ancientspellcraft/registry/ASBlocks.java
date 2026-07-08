@@ -109,10 +109,38 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
+    /** Cogumelos magicos (1.12.2 mushroom_<tipo>); sem block item, so via spells. */
+    public static final java.util.Map<String, Supplier<Block>> MUSHROOMS = new java.util.LinkedHashMap<>();
+
+    static {
+        record M(String name, com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type type) {}
+        for (var m : new M[]{
+                new M("mushroom_poison", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.POISON),
+                new M("mushroom_ice", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.ICE),
+                new M("mushroom_fire", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.FIRE),
+                new M("mushroom_wither", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.WITHER),
+                new M("mushroom_force", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.FORCE),
+                new M("mushroom_healing", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.HEALING),
+                new M("mushroom_shocking", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.SHOCKING),
+                new M("mushroom_mind", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.MIND),
+                new M("mushroom_cleansing", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.CLEANSING),
+                new M("mushroom_explosive", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.EXPLOSIVE),
+                new M("mushroom_empowering", com.windanesz.ancientspellcraft.block.MagicMushroomBlock.Type.EMPOWERING)}) {
+            MUSHROOMS.put(m.name(), BLOCKS.register(m.name(),
+                    () -> new com.windanesz.ancientspellcraft.block.MagicMushroomBlock(BlockBehaviour.Properties.of()
+                            .strength(0.2F).noCollission().randomTicks().noLootTable()
+                            .sound(net.minecraft.world.level.block.SoundType.GRASS)
+                            .pushReaction(PushReaction.DESTROY), m.type())));
+        }
+    }
+
     public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.TemporaryBlockEntity>> TEMPORARY_BE =
             BLOCK_ENTITIES.register("temporary_block", () -> BlockEntityType.Builder.of(
                     com.windanesz.ancientspellcraft.block.TemporaryBlockEntity::new,
-                    ARCANE_FLAME.get(), CONJURED_MAGMA.get(), CONJURED_DIRT.get(), CONJURED_SNOW.get(), QUICKSAND.get(), LIGHTNING_BLOCK.get()).build(null));
+                    java.util.stream.Stream.concat(
+                            java.util.stream.Stream.of(ARCANE_FLAME.get(), CONJURED_MAGMA.get(), CONJURED_DIRT.get(),
+                                    CONJURED_SNOW.get(), QUICKSAND.get(), LIGHTNING_BLOCK.get()),
+                            MUSHROOMS.values().stream().map(Supplier::get)).toArray(Block[]::new)).build(null));
 
     public static final Supplier<BlockEntityType<MageLightBlockEntity>> MAGE_LIGHT_BE = BLOCK_ENTITIES.register("mage_light",
             () -> BlockEntityType.Builder.of(MageLightBlockEntity::new, MAGELIGHT.get(), CANDLELIGHT.get()).build(null));

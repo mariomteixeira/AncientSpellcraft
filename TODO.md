@@ -36,12 +36,14 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
 - **Rays com dep de bloco (AS-3d)**: ✓ portados no AS-6c: electrify, shock_zone, firewall,
   molten_earth, summon_quicksand. Restantes: wildfire_flame/arcane_flame-ray/teleportation_flame
   (chamas com mecanica propria), beanstalk, ice_workbench (mesa de gelo), heat_furnace,
-  ice_tower (precisa ice_door/snow_slab), fairy_ring (cogumelos magicos),
-  wild_sporeling, sporelings_aid (cogumelos), runeword_sealbreaker (class), conceal_object (class), moonlight.
+  ice_tower (precisa ice_door/snow_slab), runeword_sealbreaker (class), conceal_object (class), moonlight.
   Desvios documentados: shock_zone/magma_shell/static_dome colocam os blocos de uma vez (o 1.12.2
   construia gradualmente via EntityBuilder); create_igloo usa hemisferio oco aproximado (a lista
   manual de posicoes do original nao foi replicada 1:1).
   ✓ portados no AS-6d: magma_shell, static_dome, quicksand_ring, create_igloo, frost_nova.
+  ✓ portados no AS-6e: fairy_ring, wild_sporeling, sporelings_aid (cogumelos: fear/mind_trick do
+  mushroom_mind em players e amulet_anchoring do mushroom_force ficam TODO; empowering sorteia
+  entre mana_regeneration/spell_siphon/spell_cooldown - os 2 ultimos ainda sao shells de metamagic).
 
 ## Overrides descartados (não voltam)
 

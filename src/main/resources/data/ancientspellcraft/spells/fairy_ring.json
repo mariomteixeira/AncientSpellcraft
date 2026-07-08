@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "damage": 1,
+    "duration": 300,
+    "effect_radius": 3
+  },
+  "chargeup": 20,
+  "cooldown": 40,
+  "cost": 20,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:advanced",
+  "type": "construct"
+}
