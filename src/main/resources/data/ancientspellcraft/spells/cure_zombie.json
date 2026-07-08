@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "range": 5
+  },
+  "chargeup": 0,
+  "cooldown": 6000,
+  "cost": 200,
+  "element": "ebwizardry:healing",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point_up",
+  "tier": "ebwizardry:advanced",
+  "type": "alteration"
+}

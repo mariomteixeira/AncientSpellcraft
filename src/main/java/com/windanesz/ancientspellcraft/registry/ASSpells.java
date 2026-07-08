@@ -84,6 +84,19 @@ public final class ASSpells {
         SPELLS.register("permagrowth", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
                 java.util.List.of(() -> ASEffects.GROWTH),
                 java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, -1, 12, 8))));
+        SPELLS.register("fluorescence", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, false,
+                java.util.List.of(() -> net.minecraft.core.Holder.direct(MobEffects.GLOWING.value())),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0xccffcc, 12, 8))));
+        SPELLS.register("starve", com.windanesz.ancientspellcraft.spell.Starve::new);
+        SPELLS.register("sufferance", com.windanesz.ancientspellcraft.spell.Sufferance::new);
+        SPELLS.register("cursed_touch", com.windanesz.ancientspellcraft.spell.CursedTouch::new);
+        SPELLS.register("power_siphon", com.windanesz.ancientspellcraft.spell.PowerSiphon::new);
+        SPELLS.register("zombification", com.windanesz.ancientspellcraft.spell.Zombification::new);
+        SPELLS.register("cure_zombie", com.windanesz.ancientspellcraft.spell.CureZombie::new);
+        SPELLS.register("snow_block", com.windanesz.ancientspellcraft.spell.SnowBlock::new);
+        SPELLS.register("conjure_lava", com.windanesz.ancientspellcraft.spell.ConjureLava::new);
+        SPELLS.register("conjure_cake", com.windanesz.ancientspellcraft.spell.ConjureCake::new);
+        SPELLS.register("torchlight", com.windanesz.ancientspellcraft.spell.Torchlight::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
