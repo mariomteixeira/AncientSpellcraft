@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "effect_duration": 80,
+    "effect_radius": 32
+  },
+  "chargeup": 30,
+  "cooldown": 100,
+  "cost": 20,
+  "element": "ebwizardry:healing",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point_up",
+  "tier": "ebwizardry:apprentice",
+  "type": "alteration"
+}

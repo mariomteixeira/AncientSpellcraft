@@ -124,6 +124,11 @@ public final class ASSpells {
         SPELLS.register("fimbulwinter", com.windanesz.ancientspellcraft.spell.Fimbulwinter::new);
         SPELLS.register("stone_punch", () -> new com.windanesz.ancientspellcraft.spell.StoneFistSpell("stone_punch", ASItems.STONE_FIST.get()));
         SPELLS.register("stone_fist", () -> new com.windanesz.ancientspellcraft.spell.StoneFistSpell("stone_fist", ASItems.ADVANCED_STONE_FIST.get()));
+        SPELLS.register("reveal_undead", com.windanesz.ancientspellcraft.spell.RevealUndead::new);
+        SPELLS.register("metabolism_overdrive", com.windanesz.ancientspellcraft.spell.MetabolismOverdrive::new);
+        SPELLS.register("wizard_shield", com.windanesz.ancientspellcraft.spell.WizardShieldSpell::new);
+        SPELLS.register("withdraw_life", com.windanesz.ancientspellcraft.spell.WithdrawLife::new);
+        SPELLS.register("cauterize", com.windanesz.ancientspellcraft.spell.Cauterize::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
