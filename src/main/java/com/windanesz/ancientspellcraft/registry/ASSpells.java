@@ -39,6 +39,51 @@ public final class ASSpells {
         SPELLS.register("regrowth", com.windanesz.ancientspellcraft.spell.Regrowth::new);
         SPELLS.register("shrink_self", () -> new com.windanesz.ancientspellcraft.spell.ResizeSelfSpell(147 / 255f, 112 / 255f, 219 / 255f, () -> ASEffects.SHRINKAGE));
         SPELLS.register("grow_self", () -> new com.windanesz.ancientspellcraft.spell.ResizeSelfSpell(139 / 255f, 69 / 255f, 19 / 255f, () -> ASEffects.GROWTH));
+
+        SPELLS.register("curse_of_ender", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
+                java.util.List.of(() -> ASEffects.CURSE_OF_ENDER),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x571e65, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x251609, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x0b4b40, 12, 8))));
+        SPELLS.register("curse_of_gills", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
+                java.util.List.of(() -> ASEffects.CURSE_OF_GILLS),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x4287f5, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x0748b0, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x01183d, 12, 8))));
+        SPELLS.register("curse_of_umbra", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
+                java.util.List.of(() -> ASEffects.CURSE_OF_UMBRA),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x000000, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x000000, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x000000, 12, 8))));
+        SPELLS.register("curse_of_insomnia", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, false,
+                java.util.List.of(() -> ASEffects.CURSE_OF_INSOMNIA),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DUST, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, -1, 0, 0))));
+        SPELLS.register("curse_of_eternal_combustion", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
+                java.util.List.of(() -> ASEffects.CURSE_OF_ETERNAL_COMBUSTION),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.MAGIC_FIRE, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DUST, -1, 0, 0))));
+        SPELLS.register("curse_of_eternal_frost", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
+                java.util.List.of(() -> ASEffects.CURSE_OF_ETERNAL_FROST),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, -1, 12, 8), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SNOW, -1, 0, 0))));
+        SPELLS.register("curse_of_eternal_tempest", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, false,
+                java.util.List.of(() -> ASEffects.CURSE_OF_ETERNAL_TEMPEST),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.CLOUD, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.LIGHTNING, -1, 0, 0))));
+        SPELLS.register("weakness", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, true,
+                java.util.List.of(() -> net.minecraft.core.Holder.direct(MobEffects.WEAKNESS.value())),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x571e65, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x251609, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x0b4b40, 12, 8))));
+        SPELLS.register("hunger", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, true,
+                java.util.List.of(() -> net.minecraft.core.Holder.direct(MobEffects.HUNGER.value()), () -> net.minecraft.core.Holder.direct(MobEffects.WEAKNESS.value())),
+                java.util.List.of()) {
+            @Override
+            protected void spawnParticle(com.koomplo.wizardry.api.content.spell.internal.CastContext ctx, double x, double y, double z, double vx, double vy, double vz) {
+                ctx.world().addParticle(net.minecraft.core.particles.ParticleTypes.WITCH, x, y, z, 0, 0, 0);
+            }
+        });
+        SPELLS.register("soul_scorch", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, true,
+                java.util.List.of(() -> ASEffects.SOUL_SCORCH),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0xe35f00, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x6e2f01, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0xcf1100, 12, 8))));
+        SPELLS.register("vanish", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(false, false,
+                java.util.List.of(() -> net.minecraft.core.Holder.direct(MobEffects.INVISIBILITY.value())),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x571e65, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, 0x251609, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x0b4b40, 12, 8))));
+        SPELLS.register("permashrink", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
+                java.util.List.of(() -> ASEffects.SHRINKAGE),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, -1, 12, 8))));
+        SPELLS.register("permagrowth", () -> new com.windanesz.ancientspellcraft.spell.EffectRaySpell(true, true,
+                java.util.List.of(() -> ASEffects.GROWTH),
+                java.util.List.of(new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.DARK_MAGIC, -1, 0, 0), new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, -1, 12, 8))));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
