@@ -1,0 +1,38 @@
+package com.windanesz.ancientspellcraft.spell;
+
+import com.koomplo.wizardry.api.content.spell.Spell;
+import com.koomplo.wizardry.api.content.spell.internal.PlayerCastContext;
+import com.koomplo.wizardry.api.content.util.RegistryUtils;
+import com.koomplo.wizardry.content.item.SpellBookItem;
+import com.koomplo.wizardry.setup.registries.Spells;
+import com.windanesz.ancientspellcraft.registry.ASAttachments;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+
+/** Absorve a spell de um livro comum do offhand (consome o livro) (1.12.2 AbsorbSpell). */
+public class AbsorbSpell extends WarlockChannelSpell {
+
+    @Override
+    protected boolean isValidOffhand(ItemStack stack) {
+        if (!(stack.getItem() instanceof SpellBookItem)) return false;
+        Spell spell = RegistryUtils.getSpell(stack);
+        return spell != Spells.NONE && !(spell instanceof ClassSpell);
+    }
+
+    @Override
+    protected String invalidMessage() {
+        return "spell.ancientspellcraft.absorb_spell.no_book";
+    }
+
+    @Override
+    protected boolean absorb(PlayerCastContext ctx, ItemStack offhand) {
+        Spell spell = RegistryUtils.getSpell(offhand);
+        var tag = ctx.caster().getData(ASAttachments.WARLOCK_DATA);
+        tag.putString("Spell", spell.getLocation().toString());
+        ctx.caster().setData(ASAttachments.WARLOCK_DATA, tag);
+        ctx.caster().displayClientMessage(Component.translatable("spell.ancientspellcraft.absorb_spell.absorbed",
+                offhand.getHoverName()), true);
+        offhand.shrink(1);
+        return true;
+    }
+}

@@ -182,6 +182,9 @@ public final class ASSpells {
         SPELLS.register("obliteration", com.windanesz.ancientspellcraft.spell.Obliteration::new);
         SPELLS.register("chaos_orb", com.windanesz.ancientspellcraft.spell.ChaosOrbSpell::new);
         SPELLS.register("chaos_field", com.windanesz.ancientspellcraft.spell.ChaosFieldSpell::new);
+        SPELLS.register("absorb_crystal", com.windanesz.ancientspellcraft.spell.AbsorbCrystal::new);
+        SPELLS.register("absorb_spell", com.windanesz.ancientspellcraft.spell.AbsorbSpell::new);
+        SPELLS.register("absorb_potion", com.windanesz.ancientspellcraft.spell.AbsorbPotion::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

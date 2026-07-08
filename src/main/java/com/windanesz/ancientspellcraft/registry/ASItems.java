@@ -31,6 +31,27 @@ public final class ASItems {
     public static final Supplier<Item> DEVORITIUM_NUGGET = ITEMS.register("devoritium_nugget",
             () -> new Item(new Item.Properties()));
 
+    /** Orbes do warlock: 4 tiers x 8 elementos (1.12.2 ItemWarlockOrb), wands completas da classe. */
+    static {
+        String[] tiers = {"novice", "apprentice", "advanced", "master"};
+        for (int t = 0; t < tiers.length; t++) {
+            final int tierIndex = t;
+            for (String element : new String[]{"magic", "fire", "ice", "lightning", "necromancy", "earth", "sorcery", "healing"}) {
+                ITEMS.register("warlock_orb_" + tiers[t] + "_" + element,
+                        () -> new com.windanesz.ancientspellcraft.item.WarlockOrbItem(
+                                switch (tierIndex) {
+                                    case 1 -> com.koomplo.wizardry.setup.registries.SpellTiers.APPRENTICE;
+                                    case 2 -> com.koomplo.wizardry.setup.registries.SpellTiers.ADVANCED;
+                                    case 3 -> com.koomplo.wizardry.setup.registries.SpellTiers.MASTER;
+                                    default -> com.koomplo.wizardry.setup.registries.SpellTiers.NOVICE;
+                                },
+                                element.equals("magic") ? com.koomplo.wizardry.setup.registries.Elements.MAGIC
+                                        : com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getElement(
+                                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ebwizardry", element))));
+            }
+        }
+    }
+
     public static final Supplier<Item> MYSTIC_SPELL_BOOK = ITEMS.register("mystic_spell_book",
             com.windanesz.ancientspellcraft.item.MysticSpellBookItem::new);
 
@@ -93,6 +114,13 @@ public final class ASItems {
                     .title(Component.translatable("itemGroup.ancientspellcraftgear"))
                     .displayItems((parameters, output) -> {
                         output.accept(DEVORITIUM_INGOT.get());
+                        for (String t : new String[]{"novice", "apprentice", "advanced", "master"}) {
+                            for (String e : new String[]{"magic", "fire", "ice", "lightning", "necromancy", "earth", "sorcery", "healing"}) {
+                                output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
+                                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(
+                                                com.windanesz.ancientspellcraft.AncientSpellcraft.MODID, "warlock_orb_" + t + "_" + e)));
+                            }
+                        }
                         output.accept(DEVORITIUM_NUGGET.get());
                         for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone",
                                 "devoritium_bars", "devoritium_door", "crystal_ore_fire", "crystal_ore_earth",

@@ -33,8 +33,14 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   WarlockSpellEffects 1:1; sorcery aproxima force_shove com FORCE+empurrao) + forbidden_tome (livro
   dos warlocks, TODO textura por tier) + chaos_vortex e obliteration (TODO EntityLevitatingBlock;
   sem icone upstream). Warlock spells re-vinculadas ao forbidden_tome.
-  Restantes WARLOCK: chaos_orb/chaos_field (entities proprias), chaos_blast (302 linhas),
-  scrying_orb, absorb_* (sistema de absorcao com orb space), alter_potion.
+  ✓ AS-7g: LevitatingBlockEntity + chaos_orb (projetil que se divide) + chaos_field; obliteration
+  arranca blocos; chaos_vortex suga blocos (adicao a pedido, nao existia no 1.12.2).
+  ✓ AS-7h: 32 warlock orbs (4 tiers x 8 elementos, wands completas via WandItem do Redux) +
+  absorb_crystal/spell/potion (canal de 60t, armazenam no attachment WARLOCK_DATA). TODO: consumo
+  do conteudo absorvido pelo orb (spell absorvida castavel, pocao aplicavel, elemento p/ upgrade),
+  restricao de uso do orb a warlocks, ring_absorb_crystal.
+  Restantes WARLOCK: chaos_blast (302 linhas), scrying_orb, absorb_object/projectile/artefact,
+  alter_potion, orb_space (pocket dimension, AS-8).
   BATTLEMAGE: runeword (sistema de runewords).
   Restantes SAGE com sistema proprio: forced_channel/thoughtsteal (escrevem no sage tome via
   WandHelper), tome_warp/awaken_tome (lecterns), phase_jump/spring_charge (charge-release),

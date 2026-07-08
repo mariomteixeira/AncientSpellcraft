@@ -17,6 +17,10 @@ public final class ASAttachments {
     public static final Supplier<AttachmentType<CompoundTag>> TIME_KNOT = ATTACHMENTS.register("time_knot",
             () -> AttachmentType.builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).build());
 
+    /** Absorcoes do warlock: Element (string), Spell (RL), Effect (RL) + EffectDuration. */
+    public static final Supplier<AttachmentType<CompoundTag>> WARLOCK_DATA = ATTACHMENTS.register("warlock_data",
+            () -> AttachmentType.builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).build());
+
     private ASAttachments() {
     }
 }
