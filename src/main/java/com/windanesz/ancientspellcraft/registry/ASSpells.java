@@ -108,6 +108,9 @@ public final class ASSpells {
         SPELLS.register("summon_skeleton_horse", com.windanesz.ancientspellcraft.spell.SummonSkeletonHorse::new);
         SPELLS.register("summon_fire_ant", com.windanesz.ancientspellcraft.spell.SummonFireAnt::new);
         SPELLS.register("fire_ant_swarm", com.windanesz.ancientspellcraft.spell.SummonVolcano::new);
+        SPELLS.register("summon_remnant", com.windanesz.ancientspellcraft.spell.SummonRemnant::new);
+        SPELLS.register("raise_skeleton_mage", com.windanesz.ancientspellcraft.spell.RaiseSkeletonMage::new);
+        SPELLS.register("unholy_alliance", com.windanesz.ancientspellcraft.spell.UnholyAlliance::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

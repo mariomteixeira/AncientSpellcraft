@@ -36,6 +36,12 @@ public final class ASRenderers {
         });
     }
 
+    public static void registerMageRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ASEntities.REMNANT_MINION.get(), com.koomplo.wizardry.client.renderer.entity.RemnantRenderer::new);
+        event.registerEntityRenderer(ASEntities.SKELETON_MAGE.get(), com.windanesz.ancientspellcraft.client.SkeletonMageRenderer::new);
+        event.registerEntityRenderer(ASEntities.SKELETON_MAGE_MINION.get(), com.windanesz.ancientspellcraft.client.SkeletonMageRenderer::new);
+    }
+
     public static final ModelLayerLocation ANT_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "ant"), "main");
     public static final ModelLayerLocation VOLCANO_LAYER = new ModelLayerLocation(
