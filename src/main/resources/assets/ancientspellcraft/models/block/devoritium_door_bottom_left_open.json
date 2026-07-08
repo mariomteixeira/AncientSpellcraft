@@ -1,0 +1,7 @@
+{
+  "parent": "ancientspellcraft:block/devoritium_door_lower_left_open",
+  "textures": {
+    "bottom": "ancientspellcraft:block/devoritium_door_lower",
+    "top": "ancientspellcraft:block/devoritium_door_upper"
+  }
+}

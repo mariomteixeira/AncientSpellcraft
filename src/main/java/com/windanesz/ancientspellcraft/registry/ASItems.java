@@ -43,6 +43,19 @@ public final class ASItems {
     public static final Supplier<Item> ADVANCED_STONE_FIST = ITEMS.register("advanced_stone_fist",
             () -> new com.windanesz.ancientspellcraft.item.StoneFistItem(net.minecraft.world.item.Tiers.STONE, 3));
 
+    static {
+        for (var entry : ASBlocks.CRYSTAL_ORES.entrySet()) {
+            ITEMS.register("crystal_ore_" + entry.getKey(),
+                    () -> new net.minecraft.world.item.BlockItem(entry.getValue().get(), new Item.Properties()));
+        }
+        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door"}) {
+            ITEMS.register(name, () -> new net.minecraft.world.item.BlockItem(
+                    net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
+                            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, name)),
+                    new Item.Properties()));
+        }
+    }
+
     /** Livros e scrolls de todas as spells do AS (preenche conforme os lotes de spells chegam). */
     public static final Supplier<CreativeModeTab> AS_TAB = CREATIVE_TABS.register("ancientspellcraft",
             () -> CreativeModeTab.builder()
@@ -72,6 +85,13 @@ public final class ASItems {
                     .displayItems((parameters, output) -> {
                         output.accept(DEVORITIUM_INGOT.get());
                         output.accept(DEVORITIUM_NUGGET.get());
+                        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone",
+                                "devoritium_bars", "devoritium_door", "crystal_ore_fire", "crystal_ore_earth",
+                                "crystal_ore_healing", "crystal_ore_ice", "crystal_ore_lightning",
+                                "crystal_ore_necromancy", "crystal_ore_sorcery"}) {
+                            output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
+                                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.windanesz.ancientspellcraft.AncientSpellcraft.MODID, name)));
+                        }
                     })
                     .build());
 
