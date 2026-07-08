@@ -1,6 +1,0 @@
-{
-    "parent": "block/cross",
-    "textures": {
-        "cross": "ancientspellcraft:blocks/magic_mushroom_7"
-    }
-}

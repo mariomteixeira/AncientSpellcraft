@@ -1,11 +1,25 @@
+# Ancient Spellcraft — NeoForge 1.21.1 (unofficial port)
 
-# Ancient Spellcraft &nbsp;<br> [![Mod Build](https://github.com/WinDanesz/AncientSpellcraft/workflows/Mod%20Build/badge.svg)](https://github.com/WinDanesz/AncientSpellcraft/actions/workflows/gradle.yml) [![Curseforge](http://cf.way2muchnoise.eu/full_358124_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/ancient-spellcraft) [![Curseforge](http://cf.way2muchnoise.eu/versions/358124.svg)](https://www.curseforge.com/minecraft/mc-mods/ancient-spellcraft/files) [![Discord](https://img.shields.io/discord/544897694448091146?color=7289DA&label=Discord)](https://discord.gg/wuSsgKwAKv)
-An extension mod for Electroblob's Wizardry
+Unofficial NeoForge 1.21.1 port of [Ancient Spellcraft](https://github.com/WinDanesz/AncientSpellcraft)
+(originally for Minecraft 1.12.2), an addon for Electroblob's Wizardry.
 
-Ancient Spellcraft is a Minecraft modification which adds magical content to your game.
+Ported and published **with permission from WinDanesz** (Discord, 2026-07-04).
 
-**This mod requires the [Electroblob's Wizardry mod](https://www.curseforge.com/minecraft/mc-mods/electroblobs-wizardry) .**
+## Requirements
 
-Content added by this mod includes new entities, [spells](https://github.com/Electroblob77/Wizardry/wiki/Spell-Book), a new [element](https://github.com/Electroblob77/Wizardry/wiki/Elements), rituals, a radial spell casting GUI and many other features.
+- NeoForge 21.1.x (Minecraft 1.21.1)
+- [Wizardry Neoforged](https://github.com/mariomteixeira/Wizardry-Neoforged) 0.1.21+
+- WizardryUtils 2.0.0+
+- Curios (for artefacts)
 
+## Credits
 
+- **Electroblob** — Electroblob's Wizardry
+- **WinDanesz (Dan)** — Ancient Spellcraft, and the whole 1.12.2 wizardry addon family
+- **Binaris** — Electroblob's Wizardry Redux (1.20.1 multiloader), base of the NeoForge port
+
+## Notes
+
+The original 1.12.2 sources live on the `1.12.2` branch. This branch (`neoforge/1.21.1`) is a
+from-scratch rewrite against the Redux NeoForge API. Antique Atlas integration was dropped;
+Baubles was replaced by Curios; ArtemisLib was replaced by the vanilla scale attribute.

@@ -1,7 +1,0 @@
-{
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "ancientspellcraft:blocks/log_crystal_tree_top",
-        "side": "ancientspellcraft:blocks/log_crystal_tree"
-    }
-}

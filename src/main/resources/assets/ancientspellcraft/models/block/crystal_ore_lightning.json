@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "ancientspellcraft:blocks/crystal_ore_lightning"
-    }
-}

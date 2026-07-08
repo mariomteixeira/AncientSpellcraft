@@ -1,9 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "ancientspellcraft:items/forbidden_tome_apprentice"
-    }
-}
-
-
-

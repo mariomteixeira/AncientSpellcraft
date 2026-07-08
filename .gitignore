@@ -1,29 +1,12 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
-
-# idea
-out
-*.ipr
-*.iws
+build/
+bin/
+run/
+.gradle/
+.idea/
 *.iml
-.idea
-
-# gradle
-build
-.gradle
-
-# sources
-libraries
-
-# other
-eclipse
-run
-/mcmodsrepo/
-/classes/
-/libs/
-**/*.psd
+.claude/
+.superpowers/
+/docs/
+/src_1122/
+/UNUSED/
+GEMINI.md

@@ -1,6 +1,0 @@
-{
-    "parent": "ancientspellcraft:item/sage_tome_handheld",
-    "textures": {
-        "layer0": "ancientspellcraft:items/sage_tome_earth"
-    }
-}
