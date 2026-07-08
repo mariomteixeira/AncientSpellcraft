@@ -5,6 +5,15 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
 
 ## Sistemas grandes (lotes próprios futuros)
 
+- **Estações GUI (abertura do AS-7)**: Sphere of Cognizance (pesquisa de spells com hints e fuel de
+  cristal + renderer próprio), Scribing Desk (criação de scrolls, sistema de blank/mystic scrolls),
+  Arcane Anvil (melhoria de artefatos), Artefact Pensive, Skull Watch. Ficaram fora do AS-6 porque
+  dependem dos sistemas de conhecimento/scroll/artefato — entram juntos.
+- **Blocos restantes do AS-6**: snow_slab/ice_door/ice_bed (+ ice_tower spell), sentinel blocks
+  (sistema de sentinelas), dimension boundary/focus (pocket dimension, AS-8), crystal tree
+  (worldgen AS-8), placed_rune (sistema de runas), arcane_anvil, skull_watch, artefact_pensive,
+  sphere_cognizance, scribing_desk.
+
 - **Sistema de classes de wizard** (Sage/Battlemage/Warlock): ~50 class spells (`IClassSpell`),
   armaduras de classe, mystic spell book, NPCs class wizards. Inclui: conjure_creeper, nether_guard,
   summon_zombie_pigman, chaos orb/blast/field/vortex, absorb_*, runeword, counterspell, ternary_storm,
