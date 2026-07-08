@@ -24,6 +24,7 @@ public class AncientSpellcraft {
         modBus.addListener(com.windanesz.ancientspellcraft.registry.ASEntities::onAttributeCreation);
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()) {
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterRenderers);
+            modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterLayers);
         }
         com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCKS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCK_ENTITIES.register(modBus);

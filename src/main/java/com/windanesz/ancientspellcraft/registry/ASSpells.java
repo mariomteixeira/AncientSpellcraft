@@ -106,6 +106,8 @@ public final class ASSpells {
                         new com.windanesz.ancientspellcraft.spell.EffectRaySpell.ParticleSpec(com.koomplo.wizardry.setup.registries.client.EBParticles.SPARKLE, 0x9a8fa3, 12, 8))));
         SPELLS.register("summon_spider", com.windanesz.ancientspellcraft.spell.SummonSpider::new);
         SPELLS.register("summon_skeleton_horse", com.windanesz.ancientspellcraft.spell.SummonSkeletonHorse::new);
+        SPELLS.register("summon_fire_ant", com.windanesz.ancientspellcraft.spell.SummonFireAnt::new);
+        SPELLS.register("fire_ant_swarm", com.windanesz.ancientspellcraft.spell.SummonVolcano::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {
