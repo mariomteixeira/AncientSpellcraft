@@ -14,6 +14,16 @@ public final class ASRenderers {
 
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ASEntities.ORDINARY_SPIDER_MINION.get(), SpiderRenderer::new);
+        event.registerEntityRenderer(ASEntities.VOID_CREEPER.get(), context ->
+                new net.minecraft.client.renderer.entity.CreeperRenderer(context) {
+                    private static final ResourceLocation TEXTURE =
+                            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "textures/entity/void_creeper.png");
+
+                    @Override
+                    public ResourceLocation getTextureLocation(net.minecraft.world.entity.monster.Creeper entity) {
+                        return TEXTURE;
+                    }
+                });
         event.registerEntityRenderer(ASEntities.SKELETON_HORSE_MINION.get(), context -> new UndeadHorseRenderer(context, net.minecraft.client.model.geom.ModelLayers.SKELETON_HORSE) {
             // Renderer vanilla resolve textura por Map keyed em EntityType vanilla; tipo custom -> null -> NPE no render
             @Override

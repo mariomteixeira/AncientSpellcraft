@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ebwizardry:magic_crystal",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 3
+              }
+            },
+            {
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:astral_diamond_shard",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ebwizardry:magic_crystal_grand",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "random_sequence": "ancientspellcraft:entities/void_creeper"
+}

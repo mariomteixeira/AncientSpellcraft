@@ -50,7 +50,10 @@ public class OrbSpace extends Spell implements ClassSpell {
         if (inside) {
             PocketDimension.teleportBack(player);
         } else {
-            PocketDimension.teleportIn(player);
+            com.koomplo.wizardry.api.content.spell.Element element = null;
+            if (ctx.caster().getMainHandItem().getItem() instanceof WarlockOrbItem orb) element = orb.getElement();
+            else if (ctx.caster().getOffhandItem().getItem() instanceof WarlockOrbItem orb) element = orb.getElement();
+            PocketDimension.teleportIn(player, element);
         }
         this.playSound(ctx.world(), ctx.caster(), ctx.castingTicks(), -1);
         return true;

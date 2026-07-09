@@ -40,6 +40,10 @@ public final class ASEntities {
             () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.RemnantMinion::new, MobCategory.MONSTER)
                     .sized(0.8F, 0.8F).build(AncientSpellcraft.MODID + ":remnant_minion"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.living.VoidCreeperEntity>> VOID_CREEPER = ENTITIES.register("void_creeper",
+            () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.VoidCreeperEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.7F).build(AncientSpellcraft.MODID + ":void_creeper"));
+
     public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.living.SkeletonMageEntity>> SKELETON_MAGE = ENTITIES.register("skeleton_mage",
             () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.SkeletonMageEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F).eyeHeight(1.74F).build(AncientSpellcraft.MODID + ":skeleton_mage"));
@@ -116,6 +120,7 @@ public final class ASEntities {
         event.put(FIRE_ANT_MINION.get(), com.windanesz.ancientspellcraft.entity.living.FireAntMinion.createFireAntAttributes().build());
         event.put(VOLCANO.get(), com.windanesz.ancientspellcraft.entity.living.VolcanoEntity.createVolcanoAttributes().build());
         event.put(REMNANT_MINION.get(), com.koomplo.wizardry.content.entity.living.Remnant.createAttributes().build());
+        event.put(VOID_CREEPER.get(), net.minecraft.world.entity.monster.Creeper.createAttributes().build());
         event.put(SKELETON_MAGE.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().build());
         event.put(SKELETON_MAGE_MINION.get(), net.minecraft.world.entity.monster.AbstractSkeleton.createAttributes().build());
         event.put(ANIMATED_ITEM.get(), com.windanesz.ancientspellcraft.entity.living.AnimatedItemEntity.createAnimatedItemAttributes().build());

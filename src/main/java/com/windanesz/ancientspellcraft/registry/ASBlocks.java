@@ -87,6 +87,31 @@ public final class ASBlocks {
                     BlockBehaviour.Properties.of().strength(3.0F, 5.0F)
                             .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.STONE)));
 
+    // AS-8f: paredes/saída do espaço de bolso (1.12.2: inquebráveis estilo bedrock; luz 12 base, 6 elementais)
+    private static BlockBehaviour.Properties boundaryProps(int light) {
+        return BlockBehaviour.Properties.of().strength(-1.0F, 3600000.0F).noLootTable()
+                .lightLevel(state -> light).sound(net.minecraft.world.level.block.SoundType.STONE);
+    }
+
+    public static final Supplier<Block> DIMENSION_BOUNDARY = BLOCKS.register("dimension_boundary",
+            () -> new Block(boundaryProps(12)));
+
+    /** Variantes elementais (textura = crystal_block do Redux), chave = nome do elemento. */
+    public static final java.util.Map<String, Supplier<Block>> DIMENSION_BOUNDARIES = new java.util.LinkedHashMap<>();
+
+    static {
+        for (String element : new String[]{"magic", "fire", "ice", "lightning", "necromancy", "earth", "sorcery", "healing"}) {
+            DIMENSION_BOUNDARIES.put(element, BLOCKS.register("dimension_boundary_" + element,
+                    () -> new Block(boundaryProps(6))));
+        }
+    }
+
+    public static final Supplier<Block> DIMENSION_FOCUS = BLOCKS.register("dimension_focus",
+            () -> new com.windanesz.ancientspellcraft.block.DimensionFocusBlock(boundaryProps(12)));
+
+    public static final Supplier<Block> DIMENSION_FOCUS_GOLD = BLOCKS.register("dimension_focus_gold",
+            () -> new com.windanesz.ancientspellcraft.block.DimensionFocusBlock(boundaryProps(6)));
+
     // Minerios de cristal elemental (dureza 3/resistencia 5; dropam 1-5 cristais do Redux)
     public static final java.util.Map<String, Supplier<Block>> CRYSTAL_ORES = new java.util.LinkedHashMap<>();
 

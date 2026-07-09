@@ -33,6 +33,10 @@ public final class PocketDimension {
     }
 
     public static void teleportIn(ServerPlayer player) {
+        teleportIn(player, null);
+    }
+
+    public static void teleportIn(ServerPlayer player, @org.jetbrains.annotations.Nullable com.koomplo.wizardry.api.content.spell.Element element) {
         ServerLevel pocket = player.server.getLevel(POCKET);
         if (pocket == null) return;
 
@@ -42,15 +46,41 @@ public final class PocketDimension {
         player.setData(ASAttachments.WARLOCK_DATA, tag);
 
         BlockPos origin = plotOrigin(player);
+        var size = pocket.getStructureManager().get(LIBRARY).map(t -> t.getSize()).orElse(new net.minecraft.core.Vec3i(9, 9, 9));
         if (pocket.getBlockState(origin.offset(2, 0, 2)).isAir()) {
             var template = pocket.getStructureManager().get(LIBRARY).orElse(null);
             if (template != null) {
                 template.placeInWorld(pocket, origin, origin, new StructurePlaceSettings(), pocket.random, 2);
             }
+            buildShell(pocket, origin, size, element);
         }
-        var size = pocket.getStructureManager().get(LIBRARY).map(t -> t.getSize()).orElse(new net.minecraft.core.Vec3i(9, 9, 9));
         player.teleportTo(pocket, origin.getX() + size.getX() / 2.0 + 0.5, origin.getY() + 1.5,
                 origin.getZ() + size.getZ() / 2.0 + 0.5, player.getYRot(), player.getXRot());
+    }
+
+    /**
+     * Casca de dimension_boundary do elemento do orb em volta do plot + focus_gold como saída
+     * física (1.12.2 OrbSpace.createPocket: paredes elementais e focus no pocket).
+     */
+    private static void buildShell(ServerLevel pocket, BlockPos origin, net.minecraft.core.Vec3i size,
+                                   @org.jetbrains.annotations.Nullable com.koomplo.wizardry.api.content.spell.Element element) {
+        var boundarySupplier = element == null ? com.windanesz.ancientspellcraft.registry.ASBlocks.DIMENSION_BOUNDARY
+                : com.windanesz.ancientspellcraft.registry.ASBlocks.DIMENSION_BOUNDARIES
+                        .getOrDefault(element.getName(), com.windanesz.ancientspellcraft.registry.ASBlocks.DIMENSION_BOUNDARY);
+        var boundary = boundarySupplier.get().defaultBlockState();
+        int margin = 4;
+        BlockPos min = origin.offset(-margin, -1, -margin);
+        BlockPos max = origin.offset(size.getX() + margin, size.getY() + margin, size.getZ() + margin);
+        for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
+            boolean shell = pos.getX() == min.getX() || pos.getX() == max.getX()
+                    || pos.getY() == min.getY() || pos.getY() == max.getY()
+                    || pos.getZ() == min.getZ() || pos.getZ() == max.getZ();
+            if (shell && pocket.getBlockState(pos).isAir()) {
+                pocket.setBlock(pos.immutable(), boundary, 2);
+            }
+        }
+        pocket.setBlock(origin.offset(size.getX() / 2, 0, -2),
+                com.windanesz.ancientspellcraft.registry.ASBlocks.DIMENSION_FOCUS_GOLD.get().defaultBlockState(), 2);
     }
 
     public static void teleportBack(ServerPlayer player) {

@@ -13,6 +13,12 @@
       "weight": 2,
       "minCount": 1,
       "maxCount": 1
+    },
+    {
+      "type": "ancientspellcraft:void_creeper",
+      "weight": 2,
+      "minCount": 1,
+      "maxCount": 1
     }
   ]
 }
