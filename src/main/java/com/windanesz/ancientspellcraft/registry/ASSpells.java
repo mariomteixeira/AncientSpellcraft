@@ -19,6 +19,11 @@ public final class ASSpells {
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(EBRegistries.SPELL, AncientSpellcraft.MODID);
 
     static {
+        // Metamagic (AS-9a): buffs que alteram os modifiers do próximo cast (read-hooks em ASMetamagicEvents)
+        SPELLS.register("arcane_augmentation", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.ARCANE_AUGMENTATION));
+        SPELLS.register("intensifying_focus", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.INTENSIFYING_FOCUS));
+        SPELLS.register("continuity_charm", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.CONTINUITY_CHARM));
+
         // Cores 1.12.2 (r,g,b) normalizadas /255 onde eram int
         SPELLS.register("aquatic_agility", () -> new ASBuffSpell(0f, 0.4f, 0.8f, () -> ASEffects.AQUATIC_AGILITY));
         SPELLS.register("aspect_hunter", () -> new ASBuffSpell(22 / 255f, 102 / 255f, 48 / 255f, () -> ASEffects.FORTIFIED_ARCHERY));

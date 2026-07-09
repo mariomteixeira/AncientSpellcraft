@@ -54,9 +54,17 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   tome_warp/awaken_tome/perfect_theory (lecterns), phase_jump/spring_charge (charge-release),
   arcane_wall, conceal_object, ternary_storm, experiment (594), pocket_library (822).
 - **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
-- **Metamagic**: efeitos registrados (spell_range/blast/duration/cooldown/siphon, arcane_augmentation,
-  intensifying_focus, continuity_charm) mas sem os read-hooks nos modifiers de cast;
-  metamagic_projectile e MetaSpellBuff esperam isso.
+- **Metamagic**: ✓ AS-9a (3.41.0): READ-HOOKS prontos (ASMetamagicEvents no SpellCastEvent.Pre —
+  spell_blast/range/cooldown/duration por nível enquanto o buff dura; arcane_augmentation
+  (range+blast), intensifying_focus (potency) e continuity_charm (duration + custo) one-shot,
+  consumidos no cast; spell_siphon recarrega 5*nível de mana por kill no primeiro item com mana)
+  + 3 SPELLS novas via MetamagicBuffSpell (um metamagic por vez, re-cast amplifica até nível III,
+  nível III re-cast = 90% desconto no cooldown; advanced/sorcery — element consistente com a
+  reclassificação de extension; type METAMAGIC novo no Redux 0.1.26). Os shells do fairy_ring
+  (spell_siphon/spell_cooldown do empowering) agora funcionam. Restante: metamagic_projectile
+  (AS-9b: interceptor de próximo cast + EntityMetamagicProjectile + render), ring_metamagic_preserve
+  e charm_metamagic_amplifier (lote de artefatos), cooldown de item no consumo (desvio: só o
+  cooldown JSON da spell).
 - **Pocket dimension** (AS-8): pocket_dimension e o sistema de dimensão.
 - **Estruturas/worldgen/biomes** (AS-8): 22 estruturas .nbt, spawns do skeleton mage selvagem
   (elemento por bioma), 2 biomes.
