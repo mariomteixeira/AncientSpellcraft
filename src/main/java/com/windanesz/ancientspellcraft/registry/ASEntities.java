@@ -98,7 +98,19 @@ public final class ASEntities {
                     com.windanesz.ancientspellcraft.entity.construct.MoltenBoulderConstruct::new, MobCategory.MISC)
                     .sized(1.2F, 1.2F).clientTrackingRange(10).build(AncientSpellcraft.MODID + ":molten_boulder"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.living.ClassWizard>> CLASS_WIZARD = ENTITIES.register("class_wizard",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.living.ClassWizard>of(
+                    com.windanesz.ancientspellcraft.entity.living.ClassWizard::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.8F).clientTrackingRange(10).build(AncientSpellcraft.MODID + ":class_wizard"));
+
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.living.EvilClassWizard>> EVIL_CLASS_WIZARD = ENTITIES.register("evil_class_wizard",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.living.EvilClassWizard>of(
+                    com.windanesz.ancientspellcraft.entity.living.EvilClassWizard::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.8F).clientTrackingRange(10).build(AncientSpellcraft.MODID + ":evil_class_wizard"));
+
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
+        event.put(CLASS_WIZARD.get(), com.koomplo.wizardry.content.entity.living.AbstractWizard.createAttributes().build());
+        event.put(EVIL_CLASS_WIZARD.get(), com.koomplo.wizardry.content.entity.living.AbstractWizard.createAttributes().build());
         event.put(ORDINARY_SPIDER_MINION.get(), Spider.createAttributes().build());
         event.put(SKELETON_HORSE_MINION.get(), AbstractHorse.createBaseHorseAttributes().build());
         event.put(FIRE_ANT_MINION.get(), com.windanesz.ancientspellcraft.entity.living.FireAntMinion.createFireAntAttributes().build());

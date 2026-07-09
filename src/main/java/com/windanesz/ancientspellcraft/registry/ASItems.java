@@ -61,6 +61,34 @@ public final class ASItems {
     public static final Supplier<Item> STONE_TABLET_GRAND = ITEMS.register("stone_tablet_grand",
             () -> new com.windanesz.ancientspellcraft.item.RelicItem(com.koomplo.wizardry.setup.registries.SpellTiers.MASTER, net.minecraft.world.item.Rarity.EPIC));
 
+    public static final Supplier<Item> RUNE_ALGIZ = ITEMS.register("rune_algiz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_ANSUZ = ITEMS.register("rune_ansuz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_BERKANAN = ITEMS.register("rune_berkanan", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_DAGAZ = ITEMS.register("rune_dagaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_EHWAZ = ITEMS.register("rune_ehwaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_FEOH = ITEMS.register("rune_feoh", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_GYFU = ITEMS.register("rune_gyfu", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_HAGLAZ = ITEMS.register("rune_haglaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_IHWAZ = ITEMS.register("rune_ihwaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_ISAZ = ITEMS.register("rune_isaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_JERA = ITEMS.register("rune_jera", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_KAUNAN = ITEMS.register("rune_kaunan", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_LAGUZ = ITEMS.register("rune_laguz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_MANNAZ = ITEMS.register("rune_mannaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_NAUDIZ = ITEMS.register("rune_naudiz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_ODAL = ITEMS.register("rune_odal", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_PEORTH = ITEMS.register("rune_peorth", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_RAIDO = ITEMS.register("rune_raido", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_SOWILO = ITEMS.register("rune_sowilo", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_THURISAZ = ITEMS.register("rune_thurisaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_TIWAZ = ITEMS.register("rune_tiwaz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_URUZ = ITEMS.register("rune_uruz", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_WYNN = ITEMS.register("rune_wynn", com.windanesz.ancientspellcraft.item.RuneItem::new);
+    public static final Supplier<Item> RUNE_YNGVI = ITEMS.register("rune_yngvi", com.windanesz.ancientspellcraft.item.RuneItem::new);
+
+    public static final Supplier<Item> RITUAL_BOOK = ITEMS.register("ritual_book",
+            com.windanesz.ancientspellcraft.item.RitualBookItem::new);
+
     public static final Supplier<Item> MYSTIC_SPELL_BOOK = ITEMS.register("mystic_spell_book",
             com.windanesz.ancientspellcraft.item.MysticSpellBookItem::new);
 
@@ -123,6 +151,14 @@ public final class ASItems {
                     .title(Component.translatable("itemGroup.ancientspellcraftgear"))
                     .displayItems((parameters, output) -> {
                         output.accept(DEVORITIUM_INGOT.get());
+                        for (String rune : new String[]{"algiz", "ansuz", "berkanan", "dagaz", "ehwaz", "feoh", "gyfu", "haglaz", "ihwaz", "isaz", "jera", "kaunan", "laguz", "mannaz", "naudiz", "odal", "peorth", "raido", "sowilo", "thurisaz", "tiwaz", "uruz", "wynn", "yngvi"}) {
+                            output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
+                                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(
+                                            com.windanesz.ancientspellcraft.AncientSpellcraft.MODID, "rune_" + rune)));
+                        }
+                        for (String ritual : com.windanesz.ancientspellcraft.ritual.ASRituals.RITUALS) {
+                            output.accept(com.windanesz.ancientspellcraft.item.RitualBookItem.withRitual(ritual));
+                        }
                         output.accept(STONE_TABLET_SMALL.get());
                         output.accept(STONE_TABLET.get());
                         output.accept(STONE_TABLET_LARGE.get());

@@ -15,15 +15,24 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 /** Consumo das absorcoes do warlock (1.12.2 ASEventHandler + AbsorbPotion.update). */
 public final class ASWarlockEvents {
 
-    /** Cristal absorvido: +5% potency em spells do mesmo elemento (0.10 com bloco - TODO ring). */
+    /** Cristal absorvido (+5% potency no elemento casado) + elemental attunement (+/-25% blast/range). */
     public static void onSpellCastPre(SpellCastEvent.Pre event) {
         if (!(event.getCaster() instanceof Player player)) return;
         var tag = player.getData(ASAttachments.WARLOCK_DATA);
-        if (!tag.contains("Element")) return;
-        if (event.getSpell().getElement().getName().equals(tag.getString("Element"))) {
-            SpellModifiers modifiers = event.getModifiers();
+        SpellModifiers modifiers = event.getModifiers();
+        if (tag.contains("Element")
+                && event.getSpell().getElement().getName().equals(tag.getString("Element"))) {
             modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) + 0.05f);
         }
+        if (tag.contains("ElementalAttunement")) {
+            float mod = event.getSpell().getElement().getName().equals(tag.getString("ElementalAttunement")) ? 0.25f : -0.25f;
+            modifiers.set(SpellModifiers.BLAST, modifiers.get(SpellModifiers.BLAST) + mod);
+            modifiers.set(SpellModifiers.RANGE, modifiers.get(SpellModifiers.RANGE) + mod);
+        }
+    }
+
+    public static boolean isWarlockAttuned(Player player) {
+        return player.getData(ASAttachments.WARLOCK_DATA).getBoolean("WarlockAttuned");
     }
 
     /** Pocao absorvida vira AURA: benefica para aliados (e o proprio), ruim para inimigos; expira. */

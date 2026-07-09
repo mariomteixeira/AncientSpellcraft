@@ -20,6 +20,13 @@ public final class ASSpellEvents {
     public static void onClassSpellCastPre(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
         if (!(event.getSpell() instanceof com.windanesz.ancientspellcraft.spell.ClassSpell classSpell)) return;
         if (!(event.getCaster() instanceof Player player)) return;
+        if (classSpell.armourClass() == com.koomplo.wizardry.content.item.armor.WizardArmorType.WARLOCK
+                && !ASWarlockEvents.isWarlockAttuned(player)) {
+            player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                    "message.ancientspellcraft.not_warlock_attuned"), true);
+            event.setCanceled(true);
+            return;
+        }
         if (!isWearingFullSet(player, classSpell.armourClass())) {
             player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
                     "message.ancientspellcraft.must_have_full_matching_set",
