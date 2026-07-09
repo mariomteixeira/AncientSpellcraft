@@ -3,7 +3,7 @@
   "chargeup": 0,
   "cooldown": 60,
   "cost": 100,
-  "element": "ebwizardry:magic",
+  "element": "ancientspellcraft:chaos",
   "enabled": {
     "book": true,
     "commands": true,

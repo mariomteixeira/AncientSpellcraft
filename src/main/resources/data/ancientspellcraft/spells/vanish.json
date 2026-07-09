@@ -6,7 +6,7 @@
   "chargeup": 40,
   "cooldown": 80,
   "cost": 60,
-  "element": "ebwizardry:magic",
+  "element": "ebwizardry:healing",
   "enabled": {
     "book": true,
     "commands": true,

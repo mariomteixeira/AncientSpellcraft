@@ -5,7 +5,7 @@
   "chargeup": 60,
   "cooldown": 20,
   "cost": 35,
-  "element": "ebwizardry:magic",
+  "element": "ebwizardry:sorcery",
   "enabled": {
     "book": true,
     "commands": true,

@@ -7,7 +7,7 @@
   "chargeup": 0,
   "cooldown": 250,
   "cost": 30,
-  "element": "ebwizardry:magic",
+  "element": "ebwizardry:ice",
   "enabled": {
     "book": true,
     "commands": true,

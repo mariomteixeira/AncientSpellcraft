@@ -6,7 +6,7 @@
   "chargeup": 0,
   "cooldown": 80,
   "cost": 15,
-  "element": "ebwizardry:magic",
+  "element": "ebwizardry:earth",
   "enabled": {
     "book": true,
     "commands": true,

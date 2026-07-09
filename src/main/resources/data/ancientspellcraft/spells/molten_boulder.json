@@ -8,7 +8,7 @@
   "chargeup": 0,
   "cooldown": 200,
   "cost": 180,
-  "element": "ebwizardry:magic",
+  "element": "ebwizardry:fire",
   "enabled": {
     "book": true,
     "commands": false,

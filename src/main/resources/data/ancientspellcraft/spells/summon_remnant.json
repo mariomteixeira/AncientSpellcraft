@@ -7,7 +7,7 @@
   "chargeup": 20,
   "cooldown": 100,
   "cost": 50,
-  "element": "ebwizardry:magic",
+  "element": "ebwizardry:necromancy",
   "enabled": {
     "book": true,
     "commands": true,
