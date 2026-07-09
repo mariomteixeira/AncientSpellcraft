@@ -1,16 +1,6 @@
 {
   "replace": false,
   "values": [
-    "ancientspellcraft:astral_diamond_ore",
-    "ancientspellcraft:crystal_silver_ore",
-    "ancientspellcraft:sentinel_block",
-    "ancientspellcraft:sentinel_block_diamond",
-    "ancientspellcraft:unsealed_stone",
-    "ancientspellcraft:hard_frosted_ice",
-    "ancientspellcraft:ice_crafting_table",
-    "ancientspellcraft:imbuement_altar_ruined",
-    "ancientspellcraft:sphere_cognizance",
-    "ancientspellcraft:arcane_anvil",
     "ancientspellcraft:crystal_ore_fire",
     "ancientspellcraft:crystal_ore_earth",
     "ancientspellcraft:crystal_ore_healing",

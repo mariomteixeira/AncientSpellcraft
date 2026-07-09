@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/button",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "texture": "ancientspellcraft:block/unseal_button"
+    "all": "ancientspellcraft:block/unseal_button"
   }
 }

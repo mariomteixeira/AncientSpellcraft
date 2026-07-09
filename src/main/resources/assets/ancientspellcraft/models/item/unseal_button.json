@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/button_inventory",
-  "textures": {
-    "texture": "ancientspellcraft:block/unseal_button"
-  }
+  "parent": "ancientspellcraft:block/unseal_button"
 }

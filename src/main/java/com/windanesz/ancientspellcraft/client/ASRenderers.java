@@ -14,6 +14,9 @@ public final class ASRenderers {
 
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ASEntities.ORDINARY_SPIDER_MINION.get(), SpiderRenderer::new);
+        event.registerEntityRenderer(ASEntities.SPELL_CASTER.get(), net.minecraft.client.renderer.entity.NoopRenderer::new);
+        event.registerBlockEntityRenderer(com.windanesz.ancientspellcraft.registry.ASBlocks.SENTINEL_BLOCK_ENTITY.get(),
+                SentinelRenderer::new);
         event.registerEntityRenderer(ASEntities.VOID_CREEPER.get(), context ->
                 new net.minecraft.client.renderer.entity.CreeperRenderer(context) {
                     private static final ResourceLocation TEXTURE =

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "ancientspellcraft:log_crystal_tree"
+    "ancientspellcraft:log_crystal_tree",
+    "ancientspellcraft:sage_flax",
+    "ancientspellcraft:scribing_desk",
+    "ancientspellcraft:sage_lectern"
   ]
 }

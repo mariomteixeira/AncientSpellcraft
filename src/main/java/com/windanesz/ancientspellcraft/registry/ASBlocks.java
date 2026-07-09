@@ -165,25 +165,39 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
-    /** Blocos estruturais dos templates 1.12.2 (AS-8c). */
+    /** Blocos estruturais dos templates 1.12.2 (AS-8c; lógica no AS-8g). */
     public static final Supplier<Block> SEALED_STONE = BLOCKS.register("sealed_stone",
-            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
-                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(-1.0F, 3600000.0F)));
+            () -> new com.windanesz.ancientspellcraft.block.SealedStoneBlock(
+                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(-1.0F, 3600000.0F)
+                    .randomTicks().noLootTable().sound(net.minecraft.world.level.block.SoundType.STONE)));
     public static final Supplier<Block> UNSEALED_STONE = BLOCKS.register("unsealed_stone",
             () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
                     .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(3.0F)));
+    // 1.12.2: sentinel_block_iron (5 de vida) e _diamond (20); hardness 10.5, sem harvest level
     public static final Supplier<Block> SENTINEL_BLOCK = BLOCKS.register("sentinel_block",
-            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
-                    .mapColor(net.minecraft.world.level.material.MapColor.METAL).strength(5.0F).requiresCorrectToolForDrops()));
+            () -> new com.windanesz.ancientspellcraft.block.SentinelBlock(
+                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.METAL).strength(10.5F, 10.5F)
+                    .noOcclusion().lightLevel(state -> 9)));
     public static final Supplier<Block> SENTINEL_BLOCK_DIAMOND = BLOCKS.register("sentinel_block_diamond",
-            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
-                    .mapColor(net.minecraft.world.level.material.MapColor.DIAMOND).strength(5.0F).requiresCorrectToolForDrops()));
+            () -> new com.windanesz.ancientspellcraft.block.SentinelBlock(
+                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.DIAMOND).strength(10.5F, 10.5F)
+                    .noOcclusion().lightLevel(state -> 9)));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.SentinelBlockEntity>> SENTINEL_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("sentinel", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.SentinelBlockEntity::new,
+                    SENTINEL_BLOCK.get(), SENTINEL_BLOCK_DIAMOND.get()).build(null));
     public static final Supplier<Block> SAGE_LECTERN = BLOCKS.register("sage_lectern",
             () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
                     .mapColor(net.minecraft.world.level.material.MapColor.WOOD).strength(2.0F).noOcclusion())); // TODO estacao de lectern
     public static final Supplier<Block> UNSEAL_BUTTON = BLOCKS.register("unseal_button",
-            () -> new net.minecraft.world.level.block.ButtonBlock(net.minecraft.world.level.block.state.properties.BlockSetType.STONE, 20,
-                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().noCollission().strength(0.5F))); // TODO logica de unseal
+            () -> new com.windanesz.ancientspellcraft.block.UnsealButtonBlock(
+                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(-1.0F, 3600000.0F)
+                    .noLootTable().sound(net.minecraft.world.level.block.SoundType.STONE)));
     public static final Supplier<Block> PLACED_RUNE = BLOCKS.register("placed_rune",
             () -> new com.windanesz.ancientspellcraft.block.PlacedRuneBlock());
     public static final java.util.Map<String, Supplier<Block>> RUNE_BLOCKS = new java.util.LinkedHashMap<>();

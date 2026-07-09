@@ -153,8 +153,20 @@ p/ decay das folhas — efeito colateral: smelta charcoal), astral_diamond_ore (
 dropa shard) + crystal_silver_ore (y5-20, veio 3, 4x/chunk, dropa nugget) + item astral_diamond_shard
 + recipes 9 shards <-> ebwizardry:astral_diamond; tags mineable/needs_diamond_tool criadas em
 data/minecraft (blocos antigos ainda sem tags de ferramenta — TODO à parte).
-PENDENTE AS-8 (residual): dimension boundary/focus blocks, void creeper na pocket dim,
-sentinel/unseal logic (AS-8f/8g).
+✓ AS-8f (3.40.0): dimension_boundary + 8 variantes elementais (inquebráveis, textura crystal_block
+do Redux) + dimension_focus/_gold (clicar dentro da pocket dim volta ao ponto de partida — desvio:
+não devolve orb, port não tem orbe físico 1:1); plot do orb_space ganha casca de boundary do
+elemento do orb + focus_gold de saída; VOID CREEPER (clone do creeper, spawn overworld w2 1-1,
+loot magic_crystal/shard/grand — desvios: sem blacklist de mushroom biome, sem spawn egg).
+✓ AS-8g (3.40.0): SEALED STONE com property unsealing 0-3 (contagia vizinhos, random tick progride,
+vira unsealed_stone), UNSEAL BUTTON bloco cheio inquebrável (clique inicia o desselamento),
+SENTINELS funcionais (BlockEntity casta magic_missile em players ≤5 blocos a cada 60t; vida num
+proxy invisível atacável SpellCasterEntity — iron 5, diamond 20; morto → bloco some; render =
+magic_crystal do Redux girando — desvios: sem variantes gold/large_iron do 1.12.2 (templates não
+usam), som ambiente beacon vanilla, sem ModelSentinel próprio). TAGS de ferramenta aplicadas
+(novos + antigos): pickaxe p/ ores/devoritium/sentinels/estações de pedra (crystal ores e
+devoritium = needs_iron_tool, nível 2 do 1.12.2), axe p/ crystal tree/scribing desk/sage lectern.
+TODO: unsealing scroll (depende do isGenerated do arcane_wall), ModelSentinel/LargeSentinel 1:1.
 
 ## Overrides descartados (não voltam)
 
