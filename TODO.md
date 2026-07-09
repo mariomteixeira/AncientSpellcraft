@@ -99,6 +99,21 @@ PENDENTE: Arcane Anvil (estação do BATTLEMAGE) — precisa da linha de espadas
 (hilt/blade/espadas por tier/crystal_silver_ingot + WizardClassWeaponHelper), fica com o lote da
 classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).
 
+## AS-7m/7n/7o — NPCs, rituais e BATTLEMAGE (feitos) + pendências
+
+✓ AS-7m: ClassWizard/EvilClassWizard (set completo da classe + class spells + livro na mão; desvio:
+modelo humanoide do Redux, sem ModelClassWizard; trades herdadas do wizard — TODO trades de class
+books; TODO battlemage nos spawns quando a melee AI existir).
+✓ AS-7n: rituais funcionais — 24 runas + ritual book; runas jogadas no chão (contagem do pattern) +
+canalização 3s. Feitos: bonfire, rejuvenation, warlock_attunement (CLASS SPELLS DE WARLOCK AGORA
+EXIGEM O RITUAL), elemental_attunement (+/-25% blast/range). TODO: BlockPlacedRune/TileRune (padrão
+desenhado), arcane_barrier/condensing/forest, GUI do ritual book, RitualDiscoveryData, loot de runas.
+✓ AS-7o: BATTLEMAGE — 4 espadas (WandItem com dano melee 3/5/7/9 + efeito elemental do set no hit),
+hilt/blade/crystal_silver ingot+nugget, battlemage_shield (item; TODO bloqueio de spells 433 linhas),
+ARCANE ANVIL (estação 4: hilt+blade->novice, ingot->plating do Redux, espada+ingot->tier seguinte —
+TODO exigir progression). TODO: runeword (sistema), battlemage_contract (companion), texturas de
+espada por elemento, EnumElementalSwordEffect 1:1, EntityAIBattlemageMelee para NPCs.
+
 ## Overrides descartados (não voltam)
 
 - **conjure_pickaxe** e **plague_of_darkness_as**: eram overrides config-gated de spells do próprio

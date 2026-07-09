@@ -109,6 +109,14 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> ARCANE_ANVIL = BLOCKS.register("arcane_anvil",
+            com.windanesz.ancientspellcraft.block.ArcaneAnvilBlock::new);
+
+    public static final Supplier<net.minecraft.world.level.block.entity.BlockEntityType<com.windanesz.ancientspellcraft.block.ArcaneAnvilBlockEntity>> ARCANE_ANVIL_BE =
+            BLOCK_ENTITIES.register("arcane_anvil",
+                    () -> net.minecraft.world.level.block.entity.BlockEntityType.Builder.of(
+                            com.windanesz.ancientspellcraft.block.ArcaneAnvilBlockEntity::new, ARCANE_ANVIL.get()).build(null));
+
     public static final Supplier<Block> SCRIBING_DESK = BLOCKS.register("scribing_desk",
             com.windanesz.ancientspellcraft.block.ScribingDeskBlock::new);
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "ancientspellcraft:item/battlemage_sword_master"
+  }
+}

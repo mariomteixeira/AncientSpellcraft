@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "ancientspellcraft:block/arcane_anvil"
+    },
+    "facing=west": {
+      "model": "ancientspellcraft:block/arcane_anvil",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "ancientspellcraft:block/arcane_anvil",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "ancientspellcraft:block/arcane_anvil",
+      "y": 270
+    }
+  }
+}

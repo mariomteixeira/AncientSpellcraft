@@ -19,6 +19,9 @@ public final class ASMenus {
     public static final Supplier<MenuType<com.windanesz.ancientspellcraft.client.ScribingDeskMenu>> SCRIBING_DESK = MENUS.register("scribing_desk",
             () -> IMenuTypeExtension.create((id, inv, buf) -> new com.windanesz.ancientspellcraft.client.ScribingDeskMenu(id, inv)));
 
+    public static final Supplier<MenuType<com.windanesz.ancientspellcraft.client.ArcaneAnvilMenu>> ARCANE_ANVIL = MENUS.register("arcane_anvil",
+            () -> IMenuTypeExtension.create((id, inv, buf) -> new com.windanesz.ancientspellcraft.client.ArcaneAnvilMenu(id, inv)));
+
     private ASMenus() {
     }
 }

@@ -60,6 +60,8 @@ public final class ASRenderers {
     }
 
     public static void onRegisterScreens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
+        event.register(com.windanesz.ancientspellcraft.registry.ASMenus.ARCANE_ANVIL.get(),
+                com.windanesz.ancientspellcraft.client.ArcaneAnvilScreen::new);
         event.register(com.windanesz.ancientspellcraft.registry.ASMenus.SCRIBING_DESK.get(),
                 com.windanesz.ancientspellcraft.client.ScribingDeskScreen::new);
         event.register(com.windanesz.ancientspellcraft.registry.ASMenus.SPHERE_COGNIZANCE.get(),

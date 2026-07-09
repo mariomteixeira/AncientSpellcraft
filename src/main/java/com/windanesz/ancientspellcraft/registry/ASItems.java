@@ -86,6 +86,25 @@ public final class ASItems {
     public static final Supplier<Item> RUNE_WYNN = ITEMS.register("rune_wynn", com.windanesz.ancientspellcraft.item.RuneItem::new);
     public static final Supplier<Item> RUNE_YNGVI = ITEMS.register("rune_yngvi", com.windanesz.ancientspellcraft.item.RuneItem::new);
 
+    public static final Supplier<Item> BATTLEMAGE_SWORD_NOVICE = ITEMS.register("battlemage_sword_novice",
+            () -> new com.windanesz.ancientspellcraft.item.BattlemageSwordItem(com.koomplo.wizardry.setup.registries.SpellTiers.NOVICE, 3));
+    public static final Supplier<Item> BATTLEMAGE_SWORD_APPRENTICE = ITEMS.register("battlemage_sword_apprentice",
+            () -> new com.windanesz.ancientspellcraft.item.BattlemageSwordItem(com.koomplo.wizardry.setup.registries.SpellTiers.APPRENTICE, 5));
+    public static final Supplier<Item> BATTLEMAGE_SWORD_ADVANCED = ITEMS.register("battlemage_sword_advanced",
+            () -> new com.windanesz.ancientspellcraft.item.BattlemageSwordItem(com.koomplo.wizardry.setup.registries.SpellTiers.ADVANCED, 7));
+    public static final Supplier<Item> BATTLEMAGE_SWORD_MASTER = ITEMS.register("battlemage_sword_master",
+            () -> new com.windanesz.ancientspellcraft.item.BattlemageSwordItem(com.koomplo.wizardry.setup.registries.SpellTiers.MASTER, 9));
+    public static final Supplier<Item> BATTLEMAGE_SWORD_HILT = ITEMS.register("battlemage_sword_hilt",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final Supplier<Item> BATTLEMAGE_SWORD_BLADE = ITEMS.register("battlemage_sword_blade",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final Supplier<Item> BATTLEMAGE_SHIELD = ITEMS.register("battlemage_shield",
+            com.windanesz.ancientspellcraft.item.BattlemageShieldItem::new);
+    public static final Supplier<Item> CRYSTAL_SILVER_INGOT = ITEMS.register("crystal_silver_ingot",
+            () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> CRYSTAL_SILVER_NUGGET = ITEMS.register("crystal_silver_nugget",
+            () -> new Item(new Item.Properties()));
+
     public static final Supplier<Item> RITUAL_BOOK = ITEMS.register("ritual_book",
             com.windanesz.ancientspellcraft.item.RitualBookItem::new);
 
@@ -151,6 +170,15 @@ public final class ASItems {
                     .title(Component.translatable("itemGroup.ancientspellcraftgear"))
                     .displayItems((parameters, output) -> {
                         output.accept(DEVORITIUM_INGOT.get());
+                        output.accept(BATTLEMAGE_SWORD_NOVICE.get());
+                        output.accept(BATTLEMAGE_SWORD_APPRENTICE.get());
+                        output.accept(BATTLEMAGE_SWORD_ADVANCED.get());
+                        output.accept(BATTLEMAGE_SWORD_MASTER.get());
+                        output.accept(BATTLEMAGE_SWORD_HILT.get());
+                        output.accept(BATTLEMAGE_SWORD_BLADE.get());
+                        output.accept(BATTLEMAGE_SHIELD.get());
+                        output.accept(CRYSTAL_SILVER_INGOT.get());
+                        output.accept(CRYSTAL_SILVER_NUGGET.get());
                         for (String rune : new String[]{"algiz", "ansuz", "berkanan", "dagaz", "ehwaz", "feoh", "gyfu", "haglaz", "ihwaz", "isaz", "jera", "kaunan", "laguz", "mannaz", "naudiz", "odal", "peorth", "raido", "sowilo", "thurisaz", "tiwaz", "uruz", "wynn", "yngvi"}) {
                             output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
                                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(
