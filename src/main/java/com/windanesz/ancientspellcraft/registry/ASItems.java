@@ -131,7 +131,8 @@ public final class ASItems {
             ITEMS.register("crystal_ore_" + entry.getKey(),
                     () -> new net.minecraft.world.item.BlockItem(entry.getValue().get(), new Item.Properties()));
         }
-        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance"}) {
+        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance",
+                "scribing_desk", "arcane_anvil", "sealed_stone", "unsealed_stone", "sentinel_block", "sentinel_block_diamond", "sage_lectern", "unseal_button"}) {
             ITEMS.register(name, () -> new net.minecraft.world.item.BlockItem(
                     net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
                             net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, name)),
@@ -186,6 +187,12 @@ public final class ASItems {
                         }
                         for (String ritual : com.windanesz.ancientspellcraft.ritual.ASRituals.RITUALS) {
                             output.accept(com.windanesz.ancientspellcraft.item.RitualBookItem.withRitual(ritual));
+                        }
+                        for (String name : new String[]{"scribing_desk", "arcane_anvil", "sealed_stone", "unsealed_stone",
+                                "sentinel_block", "sentinel_block_diamond", "sage_lectern", "unseal_button"}) {
+                            output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
+                                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(
+                                            com.windanesz.ancientspellcraft.AncientSpellcraft.MODID, name)));
                         }
                         output.accept(STONE_TABLET_SMALL.get());
                         output.accept(STONE_TABLET.get());

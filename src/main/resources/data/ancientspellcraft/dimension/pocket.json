@@ -1,0 +1,13 @@
+{
+  "type": "ancientspellcraft:pocket",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "ancientspellcraft:pocket",
+      "lakes": false,
+      "features": false,
+      "layers": [],
+      "structure_overrides": []
+    }
+  }
+}

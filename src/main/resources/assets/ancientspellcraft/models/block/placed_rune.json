@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "ancientspellcraft:block/rune_used"
+  }
+}

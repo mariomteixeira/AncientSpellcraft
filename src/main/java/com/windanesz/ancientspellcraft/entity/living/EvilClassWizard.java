@@ -66,8 +66,20 @@ public class EvilClassWizard extends EvilWizard {
         return result;
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level().isClientSide && spells.isEmpty()) {
+            applyClass();
+        }
+    }
+
     /** Re-equipa com a armadura da classe e troca a lista de spells pelas class spells. */
     public void applyClass() {
+        if (getElement() == null) {
+            var elements = new java.util.ArrayList<>(com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getElements());
+            setElement(elements.get(random.nextInt(elements.size())));
+        }
         WizardArmorType type = getArmourClass();
         for (EquipmentSlot slot : InventoryUtil.ARMOR_SLOTS) {
             Item armor = RegistryUtils.getArmor(type, getElement(), slot);

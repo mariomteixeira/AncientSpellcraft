@@ -88,6 +88,14 @@ public class SkeletonMageEntity extends AbstractSkeleton implements ISpellCaster
         return MAGE_ELEMENTS[entityData.get(ELEMENT)];
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level().isClientSide && spells.isEmpty()) {
+            populateSpellList(getMageElement());
+        }
+    }
+
     public void populateSpellList(Element element) {
         spells = new ArrayList<>(1);
         boolean rare = isRare();

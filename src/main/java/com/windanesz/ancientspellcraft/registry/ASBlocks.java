@@ -109,6 +109,36 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
+    /** Blocos estruturais dos templates 1.12.2 (AS-8c). */
+    public static final Supplier<Block> SEALED_STONE = BLOCKS.register("sealed_stone",
+            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(-1.0F, 3600000.0F)));
+    public static final Supplier<Block> UNSEALED_STONE = BLOCKS.register("unsealed_stone",
+            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(3.0F)));
+    public static final Supplier<Block> SENTINEL_BLOCK = BLOCKS.register("sentinel_block",
+            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.METAL).strength(5.0F).requiresCorrectToolForDrops()));
+    public static final Supplier<Block> SENTINEL_BLOCK_DIAMOND = BLOCKS.register("sentinel_block_diamond",
+            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.DIAMOND).strength(5.0F).requiresCorrectToolForDrops()));
+    public static final Supplier<Block> SAGE_LECTERN = BLOCKS.register("sage_lectern",
+            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.WOOD).strength(2.0F).noOcclusion())); // TODO estacao de lectern
+    public static final Supplier<Block> UNSEAL_BUTTON = BLOCKS.register("unseal_button",
+            () -> new net.minecraft.world.level.block.ButtonBlock(net.minecraft.world.level.block.state.properties.BlockSetType.STONE, 20,
+                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of().noCollission().strength(0.5F))); // TODO logica de unseal
+    public static final Supplier<Block> PLACED_RUNE = BLOCKS.register("placed_rune",
+            () -> new com.windanesz.ancientspellcraft.block.PlacedRuneBlock());
+    public static final java.util.Map<String, Supplier<Block>> RUNE_BLOCKS = new java.util.LinkedHashMap<>();
+
+    static {
+        for (String rune : new String[]{"ansuz", "kaunan", "laguz", "mannaz", "naudiz", "odal", "raido"}) {
+            RUNE_BLOCKS.put(rune, BLOCKS.register("rune_" + rune,
+                    com.windanesz.ancientspellcraft.block.PlacedRuneBlock::new));
+        }
+    }
+
     public static final Supplier<Block> ARCANE_WALL = BLOCKS.register("arcane_wall",
             () -> new com.windanesz.ancientspellcraft.block.TemporaryBlock(
                     net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()

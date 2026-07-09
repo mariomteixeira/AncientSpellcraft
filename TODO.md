@@ -133,9 +133,20 @@ NOTA: gerar mundo NOVO para testar; /locate structure ancientspellcraft:fallen_t
 ✓ AS-8b: +5 estruturas (ancient_temple, ancient_vault x2 variantes enterradas, battlemage_keep x2,
 bookvault enterrada, sage_hill) + loot tables ancient_vault/sage_camp/treasure_chest/foodstuff
 (NBTs referenciam baús do ebwizardry: shrine/library_ruins_bookshelf — resolvem pelo Redux).
-PENDENTE AS-8: variantes _chest_ das estruturas (sage_hill_chest_0..7, battlemage_camp/keep_chest —
-o 1.12.2 sorteava sub-templates de baú; hoje só a variante base gera), POCKET DIMENSION + orb_space
-+ pocket_library, 2 biomas, crystal tree, sage flax (planta), astral diamond/crystal silver ore.
+✓ AS-8c: variantes _chest_ nos pools (sage_hill 8+base w8, camp 1+1, keep 4 — eram variantes
+INTEIRAS da estrutura, não sub-templates); MARKERS dos templates viram ENTIDADES REAIS no NBT
+(33 em 21 templates: wizard/evil_wizard/warlock→class wizards com a classe da estrutura,
+skeleton_mage, horse; stone_guardian e skeleton_mage_ghost→skeleton_mage com TODO); remap de
+blocos antigos (bookshelf/lectern→oak_*, gilded_wood→gilded_oak_wood, runestone→chiseled TODO);
+8 BLOCOS PORTADOS (sealed/unsealed_stone, sentinel_block+diamond, sage_lectern, unseal_button,
+placed_rune + 7 runas colocadas); FIX: scribing_desk e arcane_anvil não tinham BlockItem;
+lazy-init de class wizards/skeleton mages carregados de NBT.
+✓ AS-8d: POCKET DIMENSION (ancientspellcraft:pocket, void flat, céu do End, noite fixa, sem
+spawns) + ORB_SPACE (canaliza 3s com warlock orb → entra; lá dentro → volta ao ponto de partida;
+plot por jogador em grade por UUID com a POCKET_LIBRARY colocada na primeira visita — desvio
+documentado: sem o sistema de orbe físico 1:1).
+PENDENTE AS-8 (residual): crystal tree, sage flax (planta), dimension boundary/focus blocks,
+void creeper na pocket dim, sentinel/unseal logic, astral diamond/crystal silver ore worldgen.
 
 ## Overrides descartados (não voltam)
 

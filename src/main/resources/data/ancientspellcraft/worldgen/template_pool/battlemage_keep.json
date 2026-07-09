@@ -18,6 +18,24 @@
         "processors": "minecraft:empty",
         "projection": "rigid"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "ancientspellcraft:battlemage_keep_chest_0",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "ancientspellcraft:battlemage_keep_chest_1",
+        "processors": "minecraft:empty",
+        "projection": "rigid"
+      }
     }
   ]
 }
