@@ -210,7 +210,7 @@ public final class ASBlocks {
                     com.windanesz.ancientspellcraft.block.TemporaryBlockEntity::new,
                     java.util.stream.Stream.concat(
                             java.util.stream.Stream.of(ARCANE_FLAME.get(), CONJURED_MAGMA.get(), CONJURED_DIRT.get(),
-                                    CONJURED_SNOW.get(), QUICKSAND.get(), LIGHTNING_BLOCK.get()),
+                                    CONJURED_SNOW.get(), QUICKSAND.get(), LIGHTNING_BLOCK.get(), ARCANE_WALL.get()),
                             MUSHROOMS.values().stream().map(Supplier::get)).toArray(Block[]::new)).build(null));
 
     public static final Supplier<BlockEntityType<MageLightBlockEntity>> MAGE_LIGHT_BE = BLOCK_ENTITIES.register("mage_light",
