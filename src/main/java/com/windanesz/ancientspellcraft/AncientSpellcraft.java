@@ -19,6 +19,7 @@ public class AncientSpellcraft {
         com.windanesz.ancientspellcraft.registry.ASItems.CREATIVE_TABS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASEffects.EFFECTS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASSpells.SPELLS.register(modBus);
+        com.windanesz.ancientspellcraft.registry.ASElements.ELEMENTS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASAttachments.ATTACHMENTS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASEntities.ENTITIES.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASMenus.MENUS.register(modBus);

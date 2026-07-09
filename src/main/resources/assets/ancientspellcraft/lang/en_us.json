@@ -160,6 +160,8 @@
   "container.ancientspellcraft.scribing_desk": "Scribing Desk",
   "container.ancientspellcraft.scribing_desk.scribe": "Scribe",
   "element.ancient": "Ancient",
+  "element.ancientspellcraft.chaos": "Chaos",
+  "element.ancientspellcraft.chaos.wizard": "Chaos Wizard",
   "enchantment.ancientspellcraft\\:degrade_bow": "Degraded",
   "enchantment.ancientspellcraft\\:degrade_sword": "Degraded",
   "enchantment.ancientspellcraft\\:static_charge": "Static Charge",
