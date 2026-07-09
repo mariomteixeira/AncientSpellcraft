@@ -23,6 +23,7 @@ public final class ASSpells {
         SPELLS.register("arcane_augmentation", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.ARCANE_AUGMENTATION));
         SPELLS.register("intensifying_focus", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.INTENSIFYING_FOCUS));
         SPELLS.register("continuity_charm", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.CONTINUITY_CHARM));
+        SPELLS.register("metamagic_projectile", com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell::new);
 
         // Cores 1.12.2 (r,g,b) normalizadas /255 onde eram int
         SPELLS.register("aquatic_agility", () -> new ASBuffSpell(0f, 0.4f, 0.8f, () -> ASEffects.AQUATIC_AGILITY));

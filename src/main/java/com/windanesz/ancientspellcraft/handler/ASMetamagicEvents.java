@@ -79,6 +79,34 @@ public final class ASMetamagicEvents {
                     modifiers.get(SpellModifiers.COST) + level * CONTINUITY_COST_PER_LEVEL);
             player.removeEffect(ASEffects.CONTINUITY_CHARM);
         }
+
+        // metamagic_projectile (AS-9b): flag armada -> cancela o cast e dispara o projétil que
+        // carrega a spell. Rays/projéteis/metamagic ficam de fora (1.12.2; sem a blacklist de
+        // config — marco 7).
+        var flags = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA);
+        if (flags.getBoolean(com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell.FLAG)) {
+            var spell = event.getSpell();
+            if (!(spell instanceof com.koomplo.wizardry.content.spell.abstr.RaySpell
+                    || spell instanceof com.koomplo.wizardry.content.spell.abstr.ArrowSpell
+                    || spell instanceof com.koomplo.wizardry.content.spell.abstr.ProjectileSpell
+                    || spell instanceof MetamagicBuffSpell
+                    || spell instanceof com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell)) {
+                var projectile = new com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity(
+                        com.windanesz.ancientspellcraft.registry.ASEntities.METAMAGIC_PROJECTILE.get(), player.level());
+                projectile.setStoredSpell(spell);
+                // 1.12.2 calculateVelocity: range 20*RANGE, g=0.03, projeção horizontal
+                float launchHeight = player.getEyeHeight()
+                        - (float) com.koomplo.wizardry.api.content.entity.projectile.MagicProjectileEntity.LAUNCH_Y_OFFSET;
+                float range = 20 * modifiers.get(SpellModifiers.RANGE);
+                float velocity = range / net.minecraft.util.Mth.sqrt(2 * launchHeight / 0.03f);
+                projectile.aim(player, velocity);
+                projectile.damageMultiplier = modifiers.get(SpellModifiers.POTENCY);
+                player.level().addFreshEntity(projectile);
+                flags.remove(com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell.FLAG);
+                player.setData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA, flags);
+                event.setCanceled(true);
+            }
+        }
     }
 
     /** 1.12.2: prioridade LOWEST — sem siphon se o evento foi cancelado (exploit). */

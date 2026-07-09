@@ -21,6 +21,10 @@ public final class ASAttachments {
     public static final Supplier<AttachmentType<CompoundTag>> WARLOCK_DATA = ATTACHMENTS.register("warlock_data",
             () -> AttachmentType.builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).build());
 
+    /** Flags gerais por jogador (1.12.2 WizardData variables): MetamagicProjectile (boolean). */
+    public static final Supplier<AttachmentType<CompoundTag>> PLAYER_DATA = ATTACHMENTS.register("player_data",
+            () -> AttachmentType.builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).build());
+
     private ASAttachments() {
     }
 }
