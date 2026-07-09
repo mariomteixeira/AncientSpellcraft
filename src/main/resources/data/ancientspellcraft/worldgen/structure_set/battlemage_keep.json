@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "ancientspellcraft:battlemage_keep",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 48,
+    "separation": 20,
+    "salt": 273645821
+  }
+}

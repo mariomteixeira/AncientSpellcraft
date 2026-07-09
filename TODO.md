@@ -130,9 +130,12 @@ vanilla (dungeon/mineshaft/stronghold/pyramid/jungle/mansion: relíquias + runas
 battlemage_camp — datafix automático do template; blocos de mods não portados viram ar) + loot
 tables próprias (battlemage_camp/warlock_rite/fallen_tower).
 NOTA: gerar mundo NOVO para testar; /locate structure ancientspellcraft:fallen_tower.
-PENDENTE AS-8: as outras 19 estruturas (sage_hill multi-chest, ancient_temple/vault, battlemage_keep,
-bookvault, pocket_library), POCKET DIMENSION + orb_space, 2 biomas, crystal tree, sage flax (planta),
-spawn de wizard tower com class wizards, astral diamond/crystal silver ore (decidir fonte).
+✓ AS-8b: +5 estruturas (ancient_temple, ancient_vault x2 variantes enterradas, battlemage_keep x2,
+bookvault enterrada, sage_hill) + loot tables ancient_vault/sage_camp/treasure_chest/foodstuff
+(NBTs referenciam baús do ebwizardry: shrine/library_ruins_bookshelf — resolvem pelo Redux).
+PENDENTE AS-8: variantes _chest_ das estruturas (sage_hill_chest_0..7, battlemage_camp/keep_chest —
+o 1.12.2 sorteava sub-templates de baú; hoje só a variante base gera), POCKET DIMENSION + orb_space
++ pocket_library, 2 biomas, crystal tree, sage flax (planta), astral diamond/crystal silver ore.
 
 ## Overrides descartados (não voltam)
 
