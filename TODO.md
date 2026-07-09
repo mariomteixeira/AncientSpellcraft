@@ -155,6 +155,14 @@ void creeper na pocket dim, sentinel/unseal logic, astral diamond/crystal silver
 - **drain_vitality, hand_of_gaia, SpellProjectileAOEPotion**: classes mortas no 1.12.2
   (nunca registradas, sem JSON).
 
+## Desvios deliberados do 1.12.2
+
+- **Elementos reclassificados (3.36.0)**: as 53 spells que eram `magic` ("None") ganharam elemento
+  temático (13 chaos, 18 sorcery, 8 healing, 7 earth, 4 fire, 1 ice, 2 necromancy — tabela do
+  usuário em ELEMENTOS-NONE-AS.md). Elemento novo `ancientspellcraft:chaos` (LIGHT_PURPLE,
+  npcSelectable=false — só classificação, sem armor/wand/cristal; wizards NPC nunca sorteiam).
+  Requer Redux >= 0.1.23 (flag npcSelectable + ícone por namespace).
+
 ## Detalhes menores (TODO no código)
 
 - Partículas custom do 1.12.2 (DARK_MIST, RAINDROP, TIME_KNOT...) aproximadas com as do Redux.
