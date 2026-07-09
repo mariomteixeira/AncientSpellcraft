@@ -199,4 +199,13 @@ public class MagicMushroomBlock extends BushBlock implements EntityBlock {
         }
         return true;
     }
+
+    @Override
+    public <T extends net.minecraft.world.level.block.entity.BlockEntity> net.minecraft.world.level.block.entity.BlockEntityTicker<T> getTicker(
+            net.minecraft.world.level.Level level, net.minecraft.world.level.block.state.BlockState state,
+            net.minecraft.world.level.block.entity.BlockEntityType<T> type) {
+        return level.isClientSide ? null : (lvl, pos, st, be) -> {
+            if (be instanceof TemporaryBlockEntity temporary) TemporaryBlockEntity.serverTick(lvl, pos, st, temporary);
+        };
+    }
 }

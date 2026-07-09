@@ -1,7 +1,7 @@
 {
   "base_properties": {
-    "shrinkage_duration": 200,
-    "shrinkage_strength": 0
+    "effect.ancientspellcraft.shrinkage_duration": 200,
+    "effect.ancientspellcraft.shrinkage_strength": 0
   },
   "chargeup": 0,
   "cooldown": 80,

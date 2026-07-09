@@ -2,7 +2,7 @@
   "base_properties": {
     "damage": 6,
     "item_lifetime": 1400,
-    "wither_duration": 80
+    "effect.minecraft.wither_duration": 80
   },
   "chargeup": 0,
   "cooldown": 50,

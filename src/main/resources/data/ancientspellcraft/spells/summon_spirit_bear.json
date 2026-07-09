@@ -1,6 +1,7 @@
 {
   "base_properties": {
-    "summon_radius": 2
+    "summon_radius": 2,
+    "minion_count": 1
   },
   "chargeup": 0,
   "cooldown": 1500,

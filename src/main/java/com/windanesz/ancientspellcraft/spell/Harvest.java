@@ -45,8 +45,16 @@ public class Harvest extends Spell {
                     ctx.world().destroyBlock(pos, true, ctx.caster());
                     harvested = true;
                 } else if (state.is(net.minecraft.world.level.block.Blocks.PUMPKIN) || state.is(net.minecraft.world.level.block.Blocks.MELON)
+                        || state.is(net.minecraft.world.level.block.Blocks.SUGAR_CANE) || state.is(net.minecraft.world.level.block.Blocks.CACTUS)
                         || state.getBlock() instanceof net.minecraft.world.level.block.NetherWartBlock
                         && state.getValue(net.minecraft.world.level.block.NetherWartBlock.AGE) >= 3) {
+                    ctx.world().destroyBlock(pos, true, ctx.caster());
+                    harvested = true;
+                } else if (state.getBlock() instanceof net.minecraft.world.level.block.BonemealableBlock growable
+                        && !(state.getBlock() instanceof net.minecraft.world.level.block.GrassBlock)
+                        && !state.is(net.minecraft.tags.BlockTags.SAPLINGS)
+                        && !growable.isValidBonemealTarget(ctx.world(), pos, state)) {
+                    // 1.12.2: IGrowable que nao pode mais crescer = maduro (cacau, sweet berries etc)
                     ctx.world().destroyBlock(pos, true, ctx.caster());
                     harvested = true;
                 }
@@ -54,5 +62,10 @@ public class Harvest extends Spell {
         }
         if (harvested) this.playSound(ctx.world(), ctx.caster(), ctx.castingTicks(), -1);
         return harvested || ctx.world().isClientSide;
+    }
+
+    @Override
+    public boolean requiresPacket() {
+        return false;
     }
 }

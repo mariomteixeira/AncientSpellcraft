@@ -32,4 +32,23 @@ public class StoneFistSpell extends ASConjureItemSpell {
         }
         return super.cast(ctx);
     }
+
+    /** 1.12.2: o punho vai direto para a MAO PRINCIPAL (nao para o inventario). */
+    @Override
+    protected boolean conjureItem(com.koomplo.wizardry.api.content.spell.internal.PlayerCastContext ctx) {
+        if (!ctx.caster().getMainHandItem().isEmpty()
+                && !(ctx.caster().getMainHandItem().getItem() instanceof com.koomplo.wizardry.api.content.item.ICastItem)) {
+            return false;
+        }
+        net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(item);
+        stack = addItemExtras(ctx, stack);
+        var data = com.koomplo.wizardry.core.platform.Services.OBJECT_DATA.getConjureData(stack);
+        int duration = (int) (property(com.koomplo.wizardry.content.spell.DefaultProperties.ITEM_LIFETIME)
+                * ctx.modifiers().get(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.DURATION));
+        data.setExpireTime(ctx.world().getGameTime() + duration);
+        data.setDuration(duration);
+        data.setSummoned(true);
+        ctx.caster().setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, stack);
+        return true;
+    }
 }

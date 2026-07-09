@@ -1,8 +1,8 @@
 {
   "base_properties": {
     "effect_radius": 5,
-    "speed_duration": 900,
-    "speed_strength": 0
+    "effect.minecraft.speed_duration": 900,
+    "effect.minecraft.speed_strength": 0
   },
   "chargeup": 0,
   "cooldown": 60,

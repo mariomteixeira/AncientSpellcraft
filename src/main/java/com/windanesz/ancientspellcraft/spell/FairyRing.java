@@ -27,7 +27,7 @@ public class FairyRing extends Spell {
                     if (dist < 1 || dist > 2) continue;
                     boolean combat = ctx.world().random.nextBoolean();
                     placed |= MagicMushroomBlock.tryPlace(ctx.world(), origin.offset(dx, 0, dz), ctx.caster(),
-                            MagicMushroomBlock.randomMushroom(ctx.world(), combat), property(BLOCK_LIFETIME),
+                            MagicMushroomBlock.randomMushroom(ctx.world(), combat), property(com.koomplo.wizardry.content.spell.DefaultProperties.DURATION),
                             ctx.modifiers().get(SpellModifiers.POTENCY));
                 }
             }

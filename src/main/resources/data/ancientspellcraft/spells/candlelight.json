@@ -1,7 +1,7 @@
 {
   "base_properties": {
-    "candlelight_duration": 1000,
-    "candlelight_strength": 0
+    "effect.ancientspellcraft.candlelight_duration": 1000,
+    "effect.ancientspellcraft.candlelight_strength": 0
   },
   "chargeup": 0,
   "cooldown": 80,

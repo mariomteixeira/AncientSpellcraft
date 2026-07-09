@@ -3,7 +3,7 @@
     "burn_duration": 40,
     "damage": 3,
     "health": 6,
-    "regeneration_duration": 60
+    "effect.minecraft.regeneration_duration": 60
   },
   "chargeup": 20,
   "cooldown": 180,

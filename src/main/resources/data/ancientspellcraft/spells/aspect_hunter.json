@@ -1,7 +1,7 @@
 {
   "base_properties": {
-    "fortified_archery_duration": 600,
-    "fortified_archery_strength": 0
+    "effect.ancientspellcraft.fortified_archery_duration": 600,
+    "effect.ancientspellcraft.fortified_archery_strength": 0
   },
   "chargeup": 0,
   "cooldown": 250,

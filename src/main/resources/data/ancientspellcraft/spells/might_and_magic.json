@@ -1,11 +1,11 @@
 {
   "base_properties": {
-    "health_boost_duration": 900,
-    "health_boost_strength": 1,
-    "magical_exhaustion_duration": 900,
-    "magical_exhaustion_strength": 0,
-    "strength_duration": 900,
-    "strength_strength": 0
+    "effect.minecraft.health_boost_duration": 900,
+    "effect.minecraft.health_boost_strength": 1,
+    "effect.ancientspellcraft.magical_exhaustion_duration": 900,
+    "effect.ancientspellcraft.magical_exhaustion_strength": 0,
+    "effect.minecraft.strength_duration": 900,
+    "effect.minecraft.strength_strength": 0
   },
   "chargeup": 0,
   "cooldown": 250,

@@ -1,8 +1,8 @@
 {
   "base_properties": {
     "range": 10,
-    "regeneration_duration": 200,
-    "regeneration_strength": 0
+    "effect.minecraft.regeneration_duration": 200,
+    "effect.minecraft.regeneration_strength": 0
   },
   "chargeup": 50,
   "cooldown": 250,

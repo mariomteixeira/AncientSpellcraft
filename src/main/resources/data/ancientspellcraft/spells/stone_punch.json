@@ -1,7 +1,7 @@
 {
   "base_properties": {
     "damage": 8,
-    "item_lifetime": 2
+    "item_lifetime": 1200
   },
   "chargeup": 20,
   "cooldown": 50,
