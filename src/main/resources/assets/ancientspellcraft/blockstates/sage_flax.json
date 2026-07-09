@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "day=false": {
+      "model": "ancientspellcraft:block/sage_flax"
+    },
+    "day=true": {
+      "model": "ancientspellcraft:block/sage_flax_day"
+    }
+  }
+}

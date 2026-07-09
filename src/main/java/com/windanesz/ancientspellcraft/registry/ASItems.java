@@ -104,6 +104,8 @@ public final class ASItems {
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> CRYSTAL_SILVER_NUGGET = ITEMS.register("crystal_silver_nugget",
             () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> ASTRAL_DIAMOND_SHARD = ITEMS.register("astral_diamond_shard",
+            () -> new Item(new Item.Properties()));
 
     public static final Supplier<Item> RITUAL_BOOK = ITEMS.register("ritual_book",
             com.windanesz.ancientspellcraft.item.RitualBookItem::new);
@@ -132,7 +134,8 @@ public final class ASItems {
                     () -> new net.minecraft.world.item.BlockItem(entry.getValue().get(), new Item.Properties()));
         }
         for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance",
-                "scribing_desk", "arcane_anvil", "sealed_stone", "unsealed_stone", "sentinel_block", "sentinel_block_diamond", "sage_lectern", "unseal_button"}) {
+                "scribing_desk", "arcane_anvil", "sealed_stone", "unsealed_stone", "sentinel_block", "sentinel_block_diamond", "sage_lectern", "unseal_button",
+                "log_crystal_tree", "leaves_crystal_tree", "astral_diamond_ore", "crystal_silver_ore", "sage_flax"}) {
             ITEMS.register(name, () -> new net.minecraft.world.item.BlockItem(
                     net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
                             net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, name)),
@@ -180,6 +183,7 @@ public final class ASItems {
                         output.accept(BATTLEMAGE_SHIELD.get());
                         output.accept(CRYSTAL_SILVER_INGOT.get());
                         output.accept(CRYSTAL_SILVER_NUGGET.get());
+                        output.accept(ASTRAL_DIAMOND_SHARD.get());
                         for (String rune : new String[]{"algiz", "ansuz", "berkanan", "dagaz", "ehwaz", "feoh", "gyfu", "haglaz", "ihwaz", "isaz", "jera", "kaunan", "laguz", "mannaz", "naudiz", "odal", "peorth", "raido", "sowilo", "thurisaz", "tiwaz", "uruz", "wynn", "yngvi"}) {
                             output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
                                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(
@@ -209,7 +213,8 @@ public final class ASItems {
                         for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone",
                                 "devoritium_bars", "devoritium_door", "crystal_ore_fire", "crystal_ore_earth",
                                 "crystal_ore_healing", "crystal_ore_ice", "crystal_ore_lightning",
-                                "crystal_ore_necromancy", "crystal_ore_sorcery", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance"}) {
+                                "crystal_ore_necromancy", "crystal_ore_sorcery", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance",
+                                "log_crystal_tree", "leaves_crystal_tree", "astral_diamond_ore", "crystal_silver_ore", "sage_flax"}) {
                             output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
                                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.windanesz.ancientspellcraft.AncientSpellcraft.MODID, name)));
                         }

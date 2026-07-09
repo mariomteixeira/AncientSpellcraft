@@ -56,6 +56,37 @@ public final class ASBlocks {
             () -> new net.minecraft.world.level.block.DoorBlock(net.minecraft.world.level.block.state.properties.BlockSetType.IRON,
                     devoritiumProps().noOcclusion()));
 
+    // AS-8e: natureza/minerios (1.12.2: BlockSageFlax, BlockCrystalLog/Leaves, ores dropam shard/nugget + 1-5 xp)
+    public static final Supplier<Block> SAGE_FLAX = BLOCKS.register("sage_flax",
+            () -> new com.windanesz.ancientspellcraft.block.SageFlaxBlock(BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.PLANT).noCollission().instabreak()
+                    .randomTicks().lightLevel(state -> 1).sound(net.minecraft.world.level.block.SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final Supplier<Block> LOG_CRYSTAL_TREE = BLOCKS.register("log_crystal_tree",
+            () -> new net.minecraft.world.level.block.RotatedPillarBlock(BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.WOOD).strength(2.0F)
+                    .sound(net.minecraft.world.level.block.SoundType.WOOD)));
+
+    public static final Supplier<Block> LEAVES_CRYSTAL_TREE = BLOCKS.register("leaves_crystal_tree",
+            () -> new net.minecraft.world.level.block.LeavesBlock(BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.PLANT).strength(0.2F).randomTicks()
+                    .sound(net.minecraft.world.level.block.SoundType.GRASS).noOcclusion()
+                    .isValidSpawn((s, l, p, t) -> false).isSuffocating((s, l, p) -> false)
+                    .isViewBlocking((s, l, p) -> false).pushReaction(PushReaction.DESTROY).ignitedByLava()));
+
+    public static final Supplier<Block> ASTRAL_DIAMOND_ORE = BLOCKS.register("astral_diamond_ore",
+            () -> new net.minecraft.world.level.block.DropExperienceBlock(
+                    net.minecraft.util.valueproviders.UniformInt.of(1, 5),
+                    BlockBehaviour.Properties.of().strength(3.0F, 5.0F)
+                            .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.STONE)));
+
+    public static final Supplier<Block> CRYSTAL_SILVER_ORE = BLOCKS.register("crystal_silver_ore",
+            () -> new net.minecraft.world.level.block.DropExperienceBlock(
+                    net.minecraft.util.valueproviders.UniformInt.of(1, 5),
+                    BlockBehaviour.Properties.of().strength(3.0F, 5.0F)
+                            .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.STONE)));
+
     // Minerios de cristal elemental (dureza 3/resistencia 5; dropam 1-5 cristais do Redux)
     public static final java.util.Map<String, Supplier<Block>> CRYSTAL_ORES = new java.util.LinkedHashMap<>();
 

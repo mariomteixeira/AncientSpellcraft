@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "ancientspellcraft:block/leaves_crystal_tree"
+  }
+}

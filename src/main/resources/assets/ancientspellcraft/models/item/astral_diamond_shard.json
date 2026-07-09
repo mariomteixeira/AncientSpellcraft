@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ancientspellcraft:item/astral_diamond_shard"
+  }
+}

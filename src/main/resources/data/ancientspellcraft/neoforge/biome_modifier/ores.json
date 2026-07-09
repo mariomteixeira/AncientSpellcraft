@@ -9,7 +9,9 @@
     "ancientspellcraft:ore_crystal_necromancy",
     "ancientspellcraft:ore_crystal_earth",
     "ancientspellcraft:ore_crystal_sorcery",
-    "ancientspellcraft:ore_crystal_healing"
+    "ancientspellcraft:ore_crystal_healing",
+    "ancientspellcraft:ore_astral_diamond",
+    "ancientspellcraft:ore_crystal_silver"
   ],
   "step": "underground_ores"
 }

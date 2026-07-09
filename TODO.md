@@ -145,8 +145,16 @@ lazy-init de class wizards/skeleton mages carregados de NBT.
 spawns) + ORB_SPACE (canaliza 3s com warlock orb → entra; lá dentro → volta ao ponto de partida;
 plot por jogador em grade por UUID com a POCKET_LIBRARY colocada na primeira visita — desvio
 documentado: sem o sistema de orbe físico 1:1).
-PENDENTE AS-8 (residual): crystal tree, sage flax (planta), dimension boundary/focus blocks,
-void creeper na pocket dim, sentinel/unseal logic, astral diamond/crystal silver ore worldgen.
+✓ AS-8e (3.39.0): sage_flax/Lunar Flax (1 bloco com propriedade DAY em vez dos 2 blocos do 1.12.2;
+recolhe de dia via randomTick; colheita = tesoura à noite via loot; worldgen rarity 4 + heightmap —
+aproximação do "y aleatório 0-255" do original), log/leaves_crystal_tree (decorativos; SEM worldgen
+— fiel ao 1.12.2, que registrava os blocos mas nunca gerava a árvore; log entra na tag minecraft:logs
+p/ decay das folhas — efeito colateral: smelta charcoal), astral_diamond_ore (y5-15, veio 3, 3x/chunk,
+dropa shard) + crystal_silver_ore (y5-20, veio 3, 4x/chunk, dropa nugget) + item astral_diamond_shard
++ recipes 9 shards <-> ebwizardry:astral_diamond; tags mineable/needs_diamond_tool criadas em
+data/minecraft (blocos antigos ainda sem tags de ferramenta — TODO à parte).
+PENDENTE AS-8 (residual): dimension boundary/focus blocks, void creeper na pocket dim,
+sentinel/unseal logic (AS-8f/8g).
 
 ## Overrides descartados (não voltam)
 

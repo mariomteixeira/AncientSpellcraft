@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "ancientspellcraft:block/log_crystal_tree_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "ancientspellcraft:block/log_crystal_tree"
+    },
+    "axis=z": {
+      "model": "ancientspellcraft:block/log_crystal_tree_horizontal",
+      "x": 90
+    }
+  }
+}
