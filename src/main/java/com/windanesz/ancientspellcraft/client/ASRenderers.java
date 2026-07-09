@@ -14,7 +14,13 @@ public final class ASRenderers {
 
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ASEntities.ORDINARY_SPIDER_MINION.get(), SpiderRenderer::new);
-        event.registerEntityRenderer(ASEntities.SKELETON_HORSE_MINION.get(), context -> new UndeadHorseRenderer(context, net.minecraft.client.model.geom.ModelLayers.SKELETON_HORSE));
+        event.registerEntityRenderer(ASEntities.SKELETON_HORSE_MINION.get(), context -> new UndeadHorseRenderer(context, net.minecraft.client.model.geom.ModelLayers.SKELETON_HORSE) {
+            // Renderer vanilla resolve textura por Map keyed em EntityType vanilla; tipo custom -> null -> NPE no render
+            @Override
+            public ResourceLocation getTextureLocation(net.minecraft.world.entity.animal.horse.AbstractHorse entity) {
+                return ResourceLocation.withDefaultNamespace("textures/entity/horse/horse_skeleton.png");
+            }
+        });
         event.registerEntityRenderer(ASEntities.FIRE_ANT_MINION.get(), context -> new MobRenderer<>(context,
                 new AntModel<>(context.bakeLayer(ANT_LAYER)), 0.35F * 0.5F) {
             @Override
