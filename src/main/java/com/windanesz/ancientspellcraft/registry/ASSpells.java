@@ -193,6 +193,9 @@ public final class ASSpells {
         SPELLS.register("spectral_floor", com.windanesz.ancientspellcraft.spell.SpectralFloor::new);
         SPELLS.register("teleport_object", com.windanesz.ancientspellcraft.spell.TeleportObject::new);
         SPELLS.register("molten_boulder", com.windanesz.ancientspellcraft.spell.MoltenBoulderSpell::new);
+        SPELLS.register("prismatic_spray", com.windanesz.ancientspellcraft.spell.PrismaticSpray::new);
+        SPELLS.register("ternary_storm", com.windanesz.ancientspellcraft.spell.TernaryStorm::new);
+        SPELLS.register("arcane_wall", com.windanesz.ancientspellcraft.spell.ArcaneWall::new);
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

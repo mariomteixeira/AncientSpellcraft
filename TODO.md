@@ -114,6 +114,13 @@ ARCANE ANVIL (estação 4: hilt+blade->novice, ingot->plating do Redux, espada+i
 TODO exigir progression). TODO: runeword (sistema), battlemage_contract (companion), texturas de
 espada por elemento, EnumElementalSwordEffect 1:1, EntityAIBattlemageMelee para NPCs.
 
+✓ AS-7p: prismatic_spray (feixe elemental distinto por inimigo no raio; desvio: tabela
+WarlockSpellEffects em vez do switch 1:1; TODO charm_prismatic_spray), ternary_storm (SAGE master:
+stormcloud + blizzard do Redux + chão de magma/raio temporário), arcane_wall (bloco arcano
+translúcido temporário em muro 3x2; TODO muros de worldgen isGenerated).
+Épicos restantes: experiment (594), pocket_library (822), grapple (428), living_comet, conduit,
+contingency, master_bolt, charge_as, attire_alteration, conceal_object (mimic block), runeword.
+
 ## Overrides descartados (não voltam)
 
 - **conjure_pickaxe** e **plague_of_darkness_as**: eram overrides config-gated de spells do próprio

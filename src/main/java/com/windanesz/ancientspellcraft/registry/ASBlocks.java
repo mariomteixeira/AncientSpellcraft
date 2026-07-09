@@ -109,6 +109,14 @@ public final class ASBlocks {
                     .noCollission().instabreak().lightLevel(state -> 10).noLootTable()
                     .pushReaction(PushReaction.DESTROY)));
 
+    public static final Supplier<Block> ARCANE_WALL = BLOCKS.register("arcane_wall",
+            () -> new com.windanesz.ancientspellcraft.block.TemporaryBlock(
+                    net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                            .mapColor(net.minecraft.world.level.material.MapColor.COLOR_PURPLE)
+                            .sound(net.minecraft.world.level.block.SoundType.GLASS)
+                            .noLootTable().strength(-1.0F, 3600000.0F).noOcclusion()
+                            .lightLevel(state -> 5)));
+
     public static final Supplier<Block> ARCANE_ANVIL = BLOCKS.register("arcane_anvil",
             com.windanesz.ancientspellcraft.block.ArcaneAnvilBlock::new);
 

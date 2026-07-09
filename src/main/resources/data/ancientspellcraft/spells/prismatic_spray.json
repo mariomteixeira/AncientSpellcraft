@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "blast_radius": 7,
+    "direct_damage": 9,
+    "effect_duration": 90
+  },
+  "chargeup": 25,
+  "cooldown": 60,
+  "cost": 35,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:advanced",
+  "type": "attack"
+}

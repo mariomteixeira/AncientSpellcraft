@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ancientspellcraft:block/arcane_wall"
+  },
+  "render_type": "minecraft:translucent"
+}

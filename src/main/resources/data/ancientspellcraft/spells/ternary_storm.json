@@ -1,0 +1,25 @@
+{
+  "base_properties": {
+    "damage": 8,
+    "duration": 600,
+    "effect_radius": 3,
+    "range": 10
+  },
+  "chargeup": 10,
+  "cooldown": 150,
+  "cost": 120,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": false,
+    "npcs": true,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "tier": "ebwizardry:master",
+  "type": "attack"
+}
