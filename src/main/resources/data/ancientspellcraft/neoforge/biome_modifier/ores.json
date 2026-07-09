@@ -1,0 +1,15 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "ancientspellcraft:ore_devoritium",
+    "ancientspellcraft:ore_crystal_fire",
+    "ancientspellcraft:ore_crystal_ice",
+    "ancientspellcraft:ore_crystal_lightning",
+    "ancientspellcraft:ore_crystal_necromancy",
+    "ancientspellcraft:ore_crystal_earth",
+    "ancientspellcraft:ore_crystal_sorcery",
+    "ancientspellcraft:ore_crystal_healing"
+  ],
+  "step": "underground_ores"
+}

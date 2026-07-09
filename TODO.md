@@ -121,6 +121,19 @@ translúcido temporário em muro 3x2; TODO muros de worldgen isGenerated).
 Épicos restantes: experiment (594), pocket_library (822), grapple (428), living_comet, conduit,
 contingency, master_bolt, charge_as, attire_alteration, conceal_object (mimic block), runeword.
 
+## AS-8 — worldgen (em curso)
+
+✓ AS-8a: MINÉRIOS (devoritium y-48..16 + 7 crystal ores elementais y0..64, biome modifier
+overworld); SPAWNS naturais (skeleton_mage w4, evil_class_wizard w2 só no escuro); LOOT em baús
+vanilla (dungeon/mineshaft/stronghold/pyramid/jungle/mansion: relíquias + runas + nuggets, 35%);
+3 ESTRUTURAS jigsaw single-piece com NBT original 1.12.2 (fallen_tower, warlock_rite,
+battlemage_camp — datafix automático do template; blocos de mods não portados viram ar) + loot
+tables próprias (battlemage_camp/warlock_rite/fallen_tower).
+NOTA: gerar mundo NOVO para testar; /locate structure ancientspellcraft:fallen_tower.
+PENDENTE AS-8: as outras 19 estruturas (sage_hill multi-chest, ancient_temple/vault, battlemage_keep,
+bookvault, pocket_library), POCKET DIMENSION + orb_space, 2 biomas, crystal tree, sage flax (planta),
+spawn de wizard tower com class wizards, astral diamond/crystal silver ore (decidir fonte).
+
 ## Overrides descartados (não voltam)
 
 - **conjure_pickaxe** e **plague_of_darkness_as**: eram overrides config-gated de spells do próprio
