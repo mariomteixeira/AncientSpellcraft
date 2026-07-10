@@ -62,13 +62,40 @@ public class ClassWizard extends Wizard {
     }
 
     @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new com.windanesz.ancientspellcraft.entity.ai.BattlemageMeleeGoal(
+                this, this::getArmourClass, this::getElement));
+        this.goalSelector.addGoal(2, new com.windanesz.ancientspellcraft.entity.ai.MercenaryFollowGoal(this));
+    }
+
+    @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty,
                                         @NotNull MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnData) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, mobSpawnType, spawnData);
-        // sem battlemage por enquanto (melee AI propria fica com o lote da classe)
-        setArmourClass(random.nextBoolean() ? WizardArmorType.SAGE : WizardArmorType.WARLOCK);
+        setArmourClass(CLASSES[random.nextInt(CLASSES.length)]);
         applyClass();
         return result;
+    }
+
+    // ===== mercenário do battlemage_contract (1.12.2 Covenant/setBattlemageMercenaryRemainingDuration) =====
+
+    @Nullable
+    private java.util.UUID mercenaryOwner;
+    private int mercenaryTicks;
+
+    public void setMercenary(java.util.UUID owner, int duration) {
+        this.mercenaryOwner = owner;
+        this.mercenaryTicks = duration;
+    }
+
+    public boolean isMercenary() {
+        return mercenaryOwner != null && mercenaryTicks > 0;
+    }
+
+    @Nullable
+    public net.minecraft.world.entity.player.Player getMercenaryOwner() {
+        return isMercenary() ? level().getPlayerByUUID(mercenaryOwner) : null;
     }
 
     @Override
@@ -76,6 +103,22 @@ public class ClassWizard extends Wizard {
         super.tick();
         if (!level().isClientSide && spells.isEmpty()) {
             applyClass();
+        }
+        if (level().isClientSide) return;
+        if (mercenaryTicks > 0 && --mercenaryTicks == 0) {
+            mercenaryOwner = null;
+        }
+        if (isMercenary() && tickCount % 20 == 0) {
+            var owner = getMercenaryOwner();
+            if (owner != null) {
+                if (getTarget() == owner) setTarget(null);
+                if (getTarget() == null || !getTarget().isAlive()) {
+                    var attacker = owner.getLastHurtByMob();
+                    if (attacker != null && attacker.isAlive() && attacker != this && attacker != owner) {
+                        setTarget(attacker);
+                    }
+                }
+            }
         }
     }
 
@@ -97,8 +140,16 @@ public class ClassWizard extends Wizard {
                 spells.add(classSpells.remove(random.nextInt(classSpells.size())));
             }
         }
-        setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(
-                type == WizardArmorType.WARLOCK ? ASItems.FORBIDDEN_TOME.get() : ASItems.MYSTIC_SPELL_BOOK.get()));
+        if (type == WizardArmorType.BATTLEMAGE) {
+            // 1.12.2: espada master na mainhand + escudo na offhand
+            setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(ASItems.BATTLEMAGE_SWORD_MASTER.get()));
+            setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(ASItems.BATTLEMAGE_SHIELD.get()));
+            setDropChance(EquipmentSlot.MAINHAND, 0.0f);
+            setDropChance(EquipmentSlot.OFFHAND, 0.0f);
+        } else {
+            setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(
+                    type == WizardArmorType.WARLOCK ? ASItems.FORBIDDEN_TOME.get() : ASItems.MYSTIC_SPELL_BOOK.get()));
+        }
     }
 
     private boolean classTradesAdded;
@@ -149,6 +200,8 @@ public class ClassWizard extends Wizard {
         super.readAdditionalSaveData(tag);
         entityData.set(ARMOUR_CLASS, tag.getInt("ArmourClass"));
         classTradesAdded = tag.getBoolean("ClassTradesAdded");
+        mercenaryTicks = tag.getInt("MercenaryTicks");
+        if (tag.hasUUID("MercenaryOwner")) mercenaryOwner = tag.getUUID("MercenaryOwner");
     }
 
     @Override
@@ -156,5 +209,7 @@ public class ClassWizard extends Wizard {
         super.addAdditionalSaveData(tag);
         tag.putInt("ArmourClass", entityData.get(ARMOUR_CLASS));
         tag.putBoolean("ClassTradesAdded", classTradesAdded);
+        tag.putInt("MercenaryTicks", mercenaryTicks);
+        if (mercenaryOwner != null) tag.putUUID("MercenaryOwner", mercenaryOwner);
     }
 }

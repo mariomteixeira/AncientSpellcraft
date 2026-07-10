@@ -57,11 +57,17 @@ public class EvilClassWizard extends EvilWizard {
     }
 
     @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new com.windanesz.ancientspellcraft.entity.ai.BattlemageMeleeGoal(
+                this, this::getArmourClass, this::getElement));
+    }
+
+    @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty,
                                         @NotNull MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnData) {
         SpawnGroupData result = super.finalizeSpawn(level, difficulty, mobSpawnType, spawnData);
-        // sem battlemage por enquanto (melee AI propria fica com o lote da classe)
-        setArmourClass(random.nextBoolean() ? WizardArmorType.SAGE : WizardArmorType.WARLOCK);
+        setArmourClass(CLASSES[random.nextInt(CLASSES.length)]);
         applyClass();
         return result;
     }
@@ -92,8 +98,16 @@ public class EvilClassWizard extends EvilWizard {
                 spells.add(classSpells.remove(random.nextInt(classSpells.size())));
             }
         }
-        setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(
-                type == WizardArmorType.WARLOCK ? ASItems.FORBIDDEN_TOME.get() : ASItems.MYSTIC_SPELL_BOOK.get()));
+        if (type == WizardArmorType.BATTLEMAGE) {
+            // 1.12.2: espada master na mainhand + escudo na offhand
+            setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(ASItems.BATTLEMAGE_SWORD_MASTER.get()));
+            setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new ItemStack(ASItems.BATTLEMAGE_SHIELD.get()));
+            setDropChance(EquipmentSlot.MAINHAND, 0.0f);
+            setDropChance(EquipmentSlot.OFFHAND, 0.0f);
+        } else {
+            setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new ItemStack(
+                    type == WizardArmorType.WARLOCK ? ASItems.FORBIDDEN_TOME.get() : ASItems.MYSTIC_SPELL_BOOK.get()));
+        }
     }
 
     @Override

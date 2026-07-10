@@ -148,6 +148,27 @@ livro -> spell book do AS + discoverSpell.
   ElementBlock; cristal comum +5%). Poção absorvida (aura) já estava fiel do AS-7h.
   FORBIDDEN_TOME POR TIER: property "ancientspellcraft:tier" via ItemProperties (selado até
   descobrir a spell; novice/apprentice/advanced/master — texturas 1.12.2, fecha o TODO do AS-7f).
+✓ AS-29/30/31 (3.62-3.64.0): BATTLEMAGE FECHADO (residuais do AS-7o).
+  AS-29 ESCUDO: mana 1000 no lugar de durabilidade (default runic_shield_durability; config marco 7);
+  bloquear consome mana (regra vanilla: dano >= 3 gasta 1+floor) via LivingShieldBlockEvent sem
+  desgastar o item; mana vazia derruba a guarda; +5 armor/+5 toughness offhand; só battlemage de
+  set completo levanta; charm_glyph_shield_disable (RARE) remove o cooldown de quebra de guarda
+  (machado/runeword_shatter derrubam via Player.disableShield — o shatter do AS-15 já era fiel);
+  runeword_meditate agora transfere DO escudo pra lâmina (fecha o desvio do AS-12b). Desvios:
+  recarga por sneak-use com magic_crystal (1.12.2: workbench/condenser/flask; upgrades marco 7),
+  sem os 3 slots de artefato (Curios cobre).
+  AS-30 EFEITOS 1:1: ElementalSwordEffects substitui a aproximação WarlockSpellEffects (tabela
+  lesser/greater completa do EnumElementalSwordEffect — fire/ice/lightning/necromancy/earth/
+  sorcery/healing; lightning inclui a recarga por andar); anvil exige progression do próximo tier
+  no upgrade (excedente preservado); 32 texturas de espada por elemento via property client
+  "ancientspellcraft:element" (elemento do set vestido). Desvios: embers/beam aproximados;
+  lesser do SORCERY (era um evento de left-click à parte no 1.12.2) TODO.
+  AS-31 NPC + CONTRACT: BattlemageMeleeGoal (golpe com efeitos elementais; desvio: ativa com alvo
+  a <=5 blocos — o 1.12.2 usava o cooldown de spell como gatilho) nos class wizards friendly e
+  evil; BATTLEMAGE de volta ao sorteio de spawn das 3 classes (espada master + escudo, drop 0);
+  battlemage_contract (RARE): usado num battlemage friendly contrata mercenário por 7 dias
+  (segue o dono + ataca quem o atacou; desvio: sistema Covenant do 1.12.2 virou vínculo direto
+  no wizard — a spell covenant em si segue não portada).
 PENDENTE: Arcane Anvil (estação do BATTLEMAGE) — precisa da linha de espadas battlemage
 (hilt/blade/espadas por tier/crystal_silver_ingot + WizardClassWeaponHelper), fica com o lote da
 classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).

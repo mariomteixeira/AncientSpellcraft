@@ -100,6 +100,8 @@ public final class ASItems {
             () -> new Item(new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> BATTLEMAGE_SHIELD = ITEMS.register("battlemage_shield",
             com.windanesz.ancientspellcraft.item.BattlemageShieldItem::new);
+    public static final Supplier<Item> BATTLEMAGE_CONTRACT = ITEMS.register("battlemage_contract",
+            com.windanesz.ancientspellcraft.item.BattlemageContractItem::new);
 
     // AS-15: tomos do sage (wand da classe SAGE; progressão via Sage Lectern)
     public static final Supplier<Item> SAGE_TOME_NOVICE = ITEMS.register("sage_tome_novice",
@@ -494,6 +496,7 @@ public final class ASItems {
                         output.accept(BATTLEMAGE_SWORD_HILT.get());
                         output.accept(BATTLEMAGE_SWORD_BLADE.get());
                         output.accept(BATTLEMAGE_SHIELD.get());
+                        output.accept(BATTLEMAGE_CONTRACT.get());
                         output.accept(CRYSTAL_SILVER_INGOT.get());
                         output.accept(CRYSTAL_SILVER_NUGGET.get());
                         output.accept(ASTRAL_DIAMOND_SHARD.get());

@@ -46,8 +46,8 @@ public final class ElementalSwordEffects {
 
     private static final String LAST_POS_TAG = "LastPos";
 
-    /** Golpe da espada (server): aplica lesser sempre e greater quando carregado. */
-    public static void hit(Element element, ItemStack sword, LivingEntity target, Player wielder, boolean charged) {
+    /** Golpe da espada (server): aplica lesser sempre e greater quando carregado. Wielder pode ser NPC. */
+    public static void hit(Element element, ItemStack sword, LivingEntity target, LivingEntity wielder, boolean charged) {
         if (wielder.level().isClientSide) return;
         switch (element.getName()) {
             case "fire" -> {
@@ -129,7 +129,7 @@ public final class ElementalSwordEffects {
                     EntityUtil.attackEntityWithoutKnockback(target,
                             MagicDamageSource.causeDirectMagicDamage(wielder, EBDamageSources.WITHER), 2.5f);
                     wielder.heal(1.5f);
-                    wielder.getFoodData().eat(2, 0.1f);
+                    if (wielder instanceof Player player) player.getFoodData().eat(2, 0.1f);
                 }
             }
             case "earth" -> {
@@ -160,7 +160,8 @@ public final class ElementalSwordEffects {
                         target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
                     }
                     int duration = 100;
-                    if (ArtifactChannel.isEquipped(wielder, EBItems.RING_CONJURER.get())) duration += 60;
+                    if (wielder instanceof Player player
+                            && ArtifactChannel.isEquipped(player, EBItems.RING_CONJURER.get())) duration += 60;
                     ItemStack conjured;
                     if (wielder.getRandom().nextDouble() < 0.8f) {
                         conjured = new ItemStack(EBItems.SPECTRAL_SWORD.get());
@@ -232,18 +233,20 @@ public final class ElementalSwordEffects {
         rechargeSwordOrOffhand(sword, player, 1);
     }
 
-    private static void rechargeSwordOrOffhand(ItemStack sword, Player player, int amount) {
+    private static void rechargeSwordOrOffhand(ItemStack sword, LivingEntity wielder, int amount) {
         if (sword.getItem() instanceof IManaItem swordMana && !swordMana.isManaFull(sword)) {
             swordMana.rechargeMana(sword, amount);
-        } else if (player.getOffhandItem().getItem() instanceof IManaItem offhandMana) {
-            offhandMana.rechargeMana(player.getOffhandItem(), amount);
+        } else if (wielder.getOffhandItem().getItem() instanceof IManaItem offhandMana) {
+            offhandMana.rechargeMana(wielder.getOffhandItem(), amount);
         }
     }
 
-    private static void electrocute(Player wielder, LivingEntity target, float damage) {
+    private static void electrocute(LivingEntity wielder, LivingEntity target, float damage) {
         if (MagicDamageSource.isEntityImmune(EBDamageSources.SHOCK, target)) {
-            wielder.displayClientMessage(Component.translatable("spell.resist",
-                    target.getName(), Component.translatable("element.ebwizardry.lightning")), true);
+            if (wielder instanceof Player player) {
+                player.displayClientMessage(Component.translatable("spell.resist",
+                        target.getName(), Component.translatable("element.ebwizardry.lightning")), true);
+            }
         } else {
             EntityUtil.attackEntityWithoutKnockback(target,
                     MagicDamageSource.causeDirectMagicDamage(wielder, EBDamageSources.SHOCK), damage);
