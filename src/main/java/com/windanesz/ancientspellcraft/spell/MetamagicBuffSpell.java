@@ -28,6 +28,10 @@ public class MetamagicBuffSpell extends BuffSpell {
         this.effectSupplier = effect;
     }
 
+    public Holder<MobEffect> getMetamagicEffect() {
+        return effectSupplier.get();
+    }
+
     @Override
     public boolean applicableForItem(Item item) {
         return item == ASItems.ANCIENT_SPELLCRAFT_SPELL_BOOK.get() || item == ASItems.ANCIENT_SPELLCRAFT_SCROLL.get();

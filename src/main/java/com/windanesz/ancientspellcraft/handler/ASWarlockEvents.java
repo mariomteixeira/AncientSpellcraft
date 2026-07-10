@@ -30,6 +30,11 @@ public final class ASWarlockEvents {
             modifiers.set(SpellModifiers.BLAST, modifiers.get(SpellModifiers.BLAST) + mod);
             modifiers.set(SpellModifiers.RANGE, modifiers.get(SpellModifiers.RANGE) + mod);
         }
+        // absorb_artefact (1.12.2): +1% de potência por power gem absorvida
+        int gems = tag.getInt("PowerGems");
+        if (gems > 0) {
+            modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) + gems * 0.01f);
+        }
     }
 
     public static boolean isWarlockAttuned(Player player) {

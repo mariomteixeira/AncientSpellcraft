@@ -92,8 +92,9 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   attire_alteration, master_bolt**: sistemas próprios grandes (um por vez em lotes futuros).
 - **Rays com dep de bloco (AS-3d)**: ✓ portados no AS-6c: electrify, shock_zone, firewall,
   molten_earth, summon_quicksand. ✓ AS-14: arcane_flame/wildfire_flame/enchant_fireplace.
-  Restantes: beanstalk, ice_workbench (mesa de gelo), heat_furnace,
-  ice_tower (precisa ice_door/snow_slab), runeword_sealbreaker (class), conceal_object (class), moonlight.
+  ✓ AS-32: beanstalk, ice_tower (+snow_slab/ice_door). NOTA: ice_workbench já estava portado;
+  heat_furnace e moonlight NÃO existem/código morto no 1.12.2 (não portam).
+  ✓ runeword_sealbreaker (AS-15), conceal_object (AS-10a).
   Desvios documentados: shock_zone/magma_shell/static_dome colocam os blocos de uma vez (o 1.12.2
   construia gradualmente via EntityBuilder); create_igloo usa hemisferio oco aproximado (a lista
   manual de posicoes do original nao foi replicada 1:1).
@@ -168,7 +169,27 @@ livro -> spell book do AS + discoverSpell.
   evil; BATTLEMAGE de volta ao sorteio de spawn das 3 classes (espada master + escudo, drop 0);
   battlemage_contract (RARE): usado num battlemage friendly contrata mercenário por 7 dias
   (segue o dono + ataca quem o atacou; desvio: sistema Covenant do 1.12.2 virou vínculo direto
-  no wizard — a spell covenant em si segue não portada).
+  no wizard).
+✓ AS-32 (3.65.0): SPELLS RESTANTES —
+  BEANSTALK (ray contínuo: trepadeira sobe/desce a parede, max_height do JSON);
+  ICE_TOWER + blocos snow_slab (slab com item/loot) e ice_door (sem item/drop, só via torre) —
+  torre hardcoded 1:1 com escada em espiral, porta de gelo e janelas;
+  ABSORB_ARTEFACT (warlock channel: body_power_gem NOVO artefato acumula PowerGems, +1% de
+  potência por gema no cast até 30; outros artefatos ficam INERTES em AbsorbedArtefact — fiel ao
+  1.12.2 shipped, que tinha a ativação comentada; blacklist com os 5 defaults; tier_limit=2);
+  COVENANT (alia um wizard comum: segue + ataca monstros; um por vez; re-cast desfaz; re-aplica
+  no EntityJoinLevel; desvio: retarget NearestAttackableTarget<Monster> em vez do seletor com
+  whitelist de config; reclassificada ebwizardry:sorcery);
+  CONTINGENCY immobility (paralysis/containment/slow_time/frost/slowness aplicado — defaults
+  1.12.2, config marco 7) e hostile_spellcast (spell attack/alteration/minion/projectile de
+  não-aliado num raio de 20);
+  COUNTERSPELL fiel: player alvo ganha o cooldown cheio da spell atual da wand
+  (CastItemDataHelper), NPC conjurador ganha exaustão mágica V 4s;
+  MUSHROOM_MIND em mobs: 30% mind control / 20% fear / resto mind_trick (efeitos do Redux;
+  players já eram fiéis com nausea+blindness);
+  CURE_ZOMBIE fiel: startConverting aberto por ACCESS TRANSFORMER (primeiro AT do projeto,
+  META-INF/accesstransformer.cfg) — delay 3-5 min + caster como conversion starter (reputação);
+  METAMAGIC: consumir one-shot põe a spell em cooldown de 1200t nas wands da hotbar.
 PENDENTE: Arcane Anvil (estação do BATTLEMAGE) — precisa da linha de espadas battlemage
 (hilt/blade/espadas por tier/crystal_silver_ingot + WizardClassWeaponHelper), fica com o lote da
 classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).

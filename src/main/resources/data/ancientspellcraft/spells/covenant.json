@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "range": 10
+  },
+  "chargeup": 60,
+  "cooldown": 30,
+  "cost": 50,
+  "element": "ebwizardry:sorcery",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:master",
+  "type": "alteration"
+}

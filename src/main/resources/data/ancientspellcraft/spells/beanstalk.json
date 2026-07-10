@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "max_height_in_blocks": 10,
+    "range": 5
+  },
+  "chargeup": 20,
+  "cooldown": 40,
+  "cost": 5,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:novice",
+  "type": "utility"
+}

@@ -148,9 +148,28 @@ public class MagicMushroomBlock extends BushBlock implements EntityBlock {
             }
             case MIND -> {
                 if (beneficial) return false;
-                target.addEffect(new MobEffectInstance(MobEffects.CONFUSION, POTION_DURATION / 2, 0));
-                target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, POTION_DURATION / 2, 0));
-                // TODO fear/mind_trick do wizardry para players (1.12.2)
+                if (target instanceof net.minecraft.world.entity.player.Player) {
+                    // 1.12.2 BlockMushroomMind: players ganham só nausea + blindness
+                    target.addEffect(new MobEffectInstance(MobEffects.CONFUSION, POTION_DURATION / 2, 0));
+                    target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, POTION_DURATION / 2, 0));
+                } else if (target instanceof net.minecraft.world.entity.Mob mob) {
+                    // 1.12.2: mobs — 30% mind control, 20% fear, resto mind_trick (efeitos do Redux)
+                    float chance = level.random.nextFloat();
+                    if (chance > 0.7f && caster != null) {
+                        mob.addEffect(new MobEffectInstance(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT
+                                .wrapAsHolder(com.koomplo.wizardry.setup.registries.EBMobEffects.MIND_CONTROL.get()),
+                                POTION_DURATION * 10, 0));
+                    } else if (chance > 0.5f && caster != null) {
+                        mob.addEffect(new MobEffectInstance(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT
+                                .wrapAsHolder(com.koomplo.wizardry.setup.registries.EBMobEffects.FEAR.get()),
+                                POTION_DURATION * 5, 0));
+                    } else {
+                        mob.setTarget(null);
+                        mob.addEffect(new MobEffectInstance(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT
+                                .wrapAsHolder(com.koomplo.wizardry.setup.registries.EBMobEffects.MIND_TRICK.get()),
+                                POTION_DURATION * 5, 0));
+                    }
+                }
             }
             case CLEANSING -> {
                 if (!beneficial) return false;

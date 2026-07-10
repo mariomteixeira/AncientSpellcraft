@@ -1,0 +1,21 @@
+{
+  "base_properties": {},
+  "chargeup": 60,
+  "cooldown": 200,
+  "cost": 150,
+  "element": "ebwizardry:ice",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:master",
+  "type": "utility"
+}

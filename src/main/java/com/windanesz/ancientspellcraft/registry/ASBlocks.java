@@ -319,6 +319,20 @@ public final class ASBlocks {
             () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F)
                     .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.STONE)));
 
+    // AS-32: blocos da ice_tower (1.12.2 BlockSnowSlab/BlockIceDoor)
+    public static final Supplier<Block> SNOW_SLAB = BLOCKS.register("snow_slab",
+            () -> new net.minecraft.world.level.block.SlabBlock(BlockBehaviour.Properties.of()
+                    .strength(0.4F).sound(net.minecraft.world.level.block.SoundType.SNOW)
+                    .mapColor(net.minecraft.world.level.material.MapColor.SNOW)));
+
+    /** Porta de gelo: sem item nem drop (1.12.2 dropava AIR — só existe via ice_tower). */
+    public static final Supplier<Block> ICE_DOOR = BLOCKS.register("ice_door",
+            () -> new net.minecraft.world.level.block.DoorBlock(
+                    net.minecraft.world.level.block.state.properties.BlockSetType.OAK,
+                    BlockBehaviour.Properties.of().strength(0.5F).noOcclusion().noLootTable()
+                            .sound(net.minecraft.world.level.block.SoundType.GLASS)
+                            .mapColor(net.minecraft.world.level.material.MapColor.ICE)));
+
     /** Cogumelos magicos (1.12.2 mushroom_<tipo>); sem block item, so via spells. */
     public static final java.util.Map<String, Supplier<Block>> MUSHROOMS = new java.util.LinkedHashMap<>();
 

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "ancientspellcraft:block/enchanted_snow",
+    "top": "ancientspellcraft:block/enchanted_snow",
+    "side": "ancientspellcraft:block/enchanted_snow"
+  }
+}

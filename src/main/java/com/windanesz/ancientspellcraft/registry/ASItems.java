@@ -400,6 +400,10 @@ public final class ASItems {
     public static final Supplier<Item> AMULET_SPELLBINDING = artifact("amulet_spellbinding",
             net.minecraft.world.item.Rarity.RARE, null);
 
+    // AS-32: gema consumida pelo absorb_artefact (+1% potência por gema absorvida, máx 30)
+    public static final Supplier<Item> BODY_POWER_GEM = artifact("body_power_gem",
+            net.minecraft.world.item.Rarity.EPIC, null);
+
     // AS-26: residuais do scribing — tome de transcrição, everfull flask e a relíquia ancient_mana_flask
     public static final Supplier<Item> CHARM_TRANSCRIBING_TOME = ITEMS.register("charm_transcribing_tome",
             () -> new com.windanesz.ancientspellcraft.item.TranscribingTomeItem(net.minecraft.world.item.Rarity.UNCOMMON));
@@ -445,6 +449,7 @@ public final class ASItems {
                     () -> new net.minecraft.world.item.BlockItem(entry.getValue().get(), new Item.Properties()));
         }
         for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance",
+                "snow_slab",
                 "scribing_desk", "arcane_anvil", "sealed_stone", "unsealed_stone", "sentinel_block", "sentinel_block_diamond", "sage_lectern", "unseal_button",
                 "log_crystal_tree", "leaves_crystal_tree", "astral_diamond_ore", "crystal_silver_ore", "sage_flax",
                 "dimension_boundary", "dimension_boundary_magic", "dimension_boundary_fire", "dimension_boundary_ice",

@@ -19,8 +19,8 @@ import java.util.List;
  * alteram os modifiers do cast. spell_blast/range/cooldown/duration valem pela duração do buff;
  * arcane_augmentation/intensifying_focus/continuity_charm são one-shot (consumidos no cast).
  * spell_siphon: kill recarrega mana do primeiro item com mana da hotbar/offhand.
- * Desvios documentados: sem ring_metamagic_preserve (33% de manter o one-shot — lote de artefatos)
- * e sem cooldown de item no consumo (a spell já tem cooldown próprio via JSON).
+ * Consumir um one-shot põe a spell metamagic em cooldown de 1200t em todas as wands da hotbar
+ * (1.12.2 onMetaMagicFinished/setCooldown).
  */
 public final class ASMetamagicEvents {
 
@@ -61,14 +61,14 @@ public final class ASMetamagicEvents {
                     modifiers.get(SpellModifiers.RANGE) + level * EBServerConfig.RANGE_INCREASE_PER_LEVEL.get());
             modifiers.set(SpellModifiers.BLAST,
                     modifiers.get(SpellModifiers.BLAST) + level * EBServerConfig.BLAST_RADIUS_INCREASE_PER_LEVEL.get());
-            if (shouldConsumeMetamagic(player)) player.removeEffect(ASEffects.ARCANE_AUGMENTATION);
+            if (shouldConsumeMetamagic(player)) consume(player, ASEffects.ARCANE_AUGMENTATION);
         }
 
         level = effectLevel(player, ASEffects.INTENSIFYING_FOCUS);
         if (level > 0) {
             modifiers.set(SpellModifiers.POTENCY,
                     modifiers.get(SpellModifiers.POTENCY) + level * EBServerConfig.POTENCY_INCREASE_PER_TIER.get());
-            if (shouldConsumeMetamagic(player)) player.removeEffect(ASEffects.INTENSIFYING_FOCUS);
+            if (shouldConsumeMetamagic(player)) consume(player, ASEffects.INTENSIFYING_FOCUS);
         }
 
         level = effectLevel(player, ASEffects.CONTINUITY_CHARM);
@@ -77,7 +77,7 @@ public final class ASMetamagicEvents {
                     modifiers.get(SpellModifiers.DURATION) + level * EBServerConfig.DURATION_INCREASE_PER_LEVEL.get());
             modifiers.set(SpellModifiers.COST,
                     modifiers.get(SpellModifiers.COST) + level * CONTINUITY_COST_PER_LEVEL);
-            if (shouldConsumeMetamagic(player)) player.removeEffect(ASEffects.CONTINUITY_CHARM);
+            if (shouldConsumeMetamagic(player)) consume(player, ASEffects.CONTINUITY_CHARM);
         }
 
         // contingency (AS-11): listener armado -> captura a spell castada (não casta agora)
@@ -146,6 +146,33 @@ public final class ASMetamagicEvents {
 
     private static int effectLevel(Player player, Holder<MobEffect> effect) {
         return player.hasEffect(effect) ? player.getEffect(effect).getAmplifier() + 1 : 0;
+    }
+
+    /** Consome o one-shot: remove o efeito e põe a spell metamagic em cooldown de 1200t nas wands
+     * da hotbar (1.12.2 onMetaMagicFinished/setCooldown). */
+    private static void consume(Player player, Holder<MobEffect> effect) {
+        player.removeEffect(effect);
+        var metaSpell = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getSpells().stream()
+                .filter(s -> s instanceof MetamagicBuffSpell mb && mb.getMetamagicEffect().equals(effect))
+                .findFirst().orElse(null);
+        if (metaSpell == null) return;
+        long now = player.level().getGameTime();
+        for (int slot = 0; slot < 9; slot++) {
+            ItemStack stack = player.getInventory().getItem(slot);
+            if (!(stack.getItem() instanceof com.koomplo.wizardry.api.content.item.ICastItem)) continue;
+            var spells = com.koomplo.wizardry.api.content.util.CastItemDataHelper.getSpells(stack);
+            for (int i = 0; i < spells.size(); i++) {
+                if (spells.get(i) != metaSpell) continue;
+                long[] endTimes = com.koomplo.wizardry.api.content.util.CastItemDataHelper.getCooldownEndTimes(stack);
+                if (endTimes.length < spells.size()) endTimes = java.util.Arrays.copyOf(endTimes, spells.size());
+                endTimes[i] = now + 1200;
+                com.koomplo.wizardry.api.content.util.CastItemDataHelper.setCooldownEndTimes(stack, endTimes);
+                int[] maxCooldowns = com.koomplo.wizardry.api.content.util.CastItemDataHelper.getMaxCooldowns(stack);
+                if (maxCooldowns.length < spells.size()) maxCooldowns = java.util.Arrays.copyOf(maxCooldowns, spells.size());
+                maxCooldowns[i] = 1200;
+                com.koomplo.wizardry.api.content.util.CastItemDataHelper.setMaxCooldowns(stack, maxCooldowns);
+            }
+        }
     }
 
     /** ring_metamagic_preserve (1.12.2): 33% de chance de NÃO consumir o buff one-shot no cast. */

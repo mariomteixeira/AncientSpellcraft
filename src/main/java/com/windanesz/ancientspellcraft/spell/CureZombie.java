@@ -17,20 +17,16 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-/** Inicia a cura de um zombie villager (1.12.2 CureZombie). */
+/** Inicia a cura de um zombie villager (1.12.2 CureZombie): delay vanilla de 3-5 min e o caster
+ * fica como conversion starter (reputação/gossip) — startConverting aberto por access transformer. */
 public class CureZombie extends ASRaySpell {
 
     @Override
     protected boolean onEntityHit(CastContext ctx, EntityHitResult entityHit, Vec3 origin) {
         if (entityHit.getEntity() instanceof net.minecraft.world.entity.monster.ZombieVillager zombie
                 && ctx.caster() instanceof Player player) {
-            if (!ctx.world().isClientSide) {
-                // TODO conversao com delay + reputacao (startConverting e privado no 1.21); converte na hora
-                var villager = zombie.convertTo(net.minecraft.world.entity.EntityType.VILLAGER, false);
-                if (villager != null) {
-                    villager.setVillagerData(zombie.getVillagerData());
-                    ctx.world().levelEvent(null, 1027, zombie.blockPosition(), 0);
-                }
+            if (!ctx.world().isClientSide && !zombie.isConverting()) {
+                zombie.startConverting(player.getUUID(), ctx.world().random.nextInt(2401) + 3600);
             }
             return true;
         }

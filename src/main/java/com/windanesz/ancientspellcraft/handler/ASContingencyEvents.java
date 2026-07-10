@@ -51,6 +51,40 @@ public final class ASContingencyEvents {
         }
     }
 
+    /** Efeitos de imobilidade do 1.12.2 (defaults do immobility_contingency_effects; config marco 7). */
+    private static final java.util.List<ResourceLocation> IMMOBILITY_EFFECTS = java.util.List.of(
+            ResourceLocation.fromNamespaceAndPath("ebwizardry", "paralysis"),
+            ResourceLocation.fromNamespaceAndPath("ebwizardry", "containment"),
+            ResourceLocation.fromNamespaceAndPath("ebwizardry", "slow_time"),
+            ResourceLocation.fromNamespaceAndPath("ebwizardry", "frost"),
+            ResourceLocation.withDefaultNamespace("slowness"));
+
+    /** IMMOBILITY (1.12.2 onPotionAddedEvent): efeito da lista aplicado ao player dispara. */
+    public static void onEffectAdded(net.neoforged.neoforge.event.entity.living.MobEffectEvent.Added event) {
+        if (!(event.getEntity() instanceof Player player) || player.level().isClientSide) return;
+        ResourceLocation id = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getKey(
+                event.getEffectInstance().getEffect().value());
+        if (id != null && IMMOBILITY_EFFECTS.contains(id)) {
+            trigger(player, ContingencySpell.Type.IMMOBILITY);
+        }
+    }
+
+    /** HOSTILE_SPELLCAST (1.12.2): spell de ataque/alteração/minion/projétil castada por não-aliado
+     * num raio de 20 do player dispara. */
+    public static void onSpellCastPost(com.koomplo.wizardry.api.content.event.SpellCastEvent.Post event) {
+        if (event.getCaster() == null || event.getCaster().level().isClientSide) return;
+        var type = event.getSpell().getType();
+        String name = type.name().toLowerCase();
+        if (!name.equals("alteration") && !name.equals("attack") && !name.equals("minion") && !name.equals("projectile")) return;
+        for (var target : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                20, event.getCaster().getX(), event.getCaster().getY(), event.getCaster().getZ(), event.getCaster().level())) {
+            if (target instanceof Player player && player != event.getCaster()
+                    && !com.koomplo.wizardry.core.AllyDesignation.isAllied(player, event.getCaster())) {
+                trigger(player, ContingencySpell.Type.HOSTILE_SPELLCAST);
+            }
+        }
+    }
+
     private static void trigger(Player player, ContingencySpell.Type type) {
         CompoundTag tag = player.getData(ASAttachments.PLAYER_DATA);
         String key = ContingencySpell.STORED_PREFIX + type.name();

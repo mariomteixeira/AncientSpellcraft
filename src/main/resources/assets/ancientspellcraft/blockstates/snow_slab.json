@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": {"model": "ancientspellcraft:block/snow_slab"},
+    "type=double": {"model": "ancientspellcraft:block/snow_slab_double"},
+    "type=top": {"model": "ancientspellcraft:block/snow_slab_top"}
+  }
+}

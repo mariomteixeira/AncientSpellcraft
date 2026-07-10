@@ -69,6 +69,7 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDiscoveryEvents::onPlayerLoggedIn);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDiscoveryEvents::onPlayerRespawn);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDiscoveryEvents::onPlayerChangedDimension);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.spell.Covenant::onEntityJoinLevel);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -89,6 +90,9 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 com.windanesz.ancientspellcraft.handler.ASMetamagicEvents::onLivingDeath);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onIncomingDamage);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onEffectAdded);
+        WizardryEventBus.getInstance().register(SpellCastEvent.Post.class,
+                com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onSpellCastPost);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASRunewordEvents::onIncomingDamage);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASSpellEvents::onIncomingDamage);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASSpellEvents::onShieldBlock);
