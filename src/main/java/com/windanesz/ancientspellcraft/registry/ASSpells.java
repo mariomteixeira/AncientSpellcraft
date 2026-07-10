@@ -329,6 +329,69 @@ public final class ASSpells {
                     var push = t.position().subtract(p.position()).normalize().scale(2.2);
                     t.push(push.x, 0.5, push.z);
                 }));
+
+        // AS-12b
+        var TRIGGER_CHANCE = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.floatProperty("effect_trigger_chance", 0.3f);
+        SPELLS.register("runeword_briar", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .noSpend()
+                .onHit((s, p, t, sw) -> {
+                    if (t.level().random.nextFloat() > s.property(TRIGGER_CHANCE)) return;
+                    var pos = t.blockPosition();
+                    if (t.level().getBlockState(pos).canBeReplaced() && t.level().getBlockState(pos.above()).canBeReplaced()
+                            && t.level().getBlockState(pos.below()).isSolid()
+                            && com.koomplo.wizardry.setup.registries.EBBlocks.THORNS.get() instanceof com.koomplo.wizardry.content.block.ThornsBlock thorns) {
+                        thorns.placeAt(t.level(), pos, 3);
+                    }
+                }));
+        SPELLS.register("runeword_meditate", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .continuous()
+                .instant((s, ctx, sw) -> {
+                    // contínua: 3 de mana/10t na espada com o escudo de battlemage na offhand
+                    // (desvio: o escudo do port ainda não guarda mana — recarrega a lâmina)
+                    if (!(ctx.caster().getOffhandItem().getItem() instanceof com.windanesz.ancientspellcraft.item.BattlemageShieldItem)) return false;
+                    if (!ctx.world().isClientSide && ctx.castingTicks() % 10 == 0
+                            && sw.getItem() instanceof com.koomplo.wizardry.api.content.item.IManaItem manaItem
+                            && !manaItem.isManaFull(sw)) {
+                        manaItem.rechargeMana(sw, 3);
+                    }
+                    return true;
+                }));
+        SPELLS.register("runeword_imbue", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .instant((s, ctx, sw) -> {
+                    if (ctx.world().isClientSide) return true;
+                    // consome uma poção (efeito não-instantâneo) da hotbar e grava na lâmina com cargas
+                    for (int i = 0; i < 9; i++) {
+                        var stack = ctx.caster().getInventory().getItem(i);
+                        var contents = stack.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
+                        if (contents == null) continue;
+                        for (var effect : contents.getAllEffects()) {
+                            if (effect.getEffect().value().isInstantenous()) continue;
+                            com.windanesz.ancientspellcraft.spell.RunewordSpell.setActive(sw, s);
+                            net.minecraft.world.item.component.CustomData.update(
+                                    net.minecraft.core.component.DataComponents.CUSTOM_DATA, sw, tag -> tag.putString("ImbuedEffect",
+                                            net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getKey(effect.getEffect().value()).toString()));
+                            stack.shrink(1);
+                            return true;
+                        }
+                    }
+                    return false;
+                })
+                .onHit((s, p, t, sw) -> {
+                    String id = sw.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                            net.minecraft.world.item.component.CustomData.EMPTY).copyTag().getString("ImbuedEffect");
+                    var effect = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.get(
+                            net.minecraft.resources.ResourceLocation.tryParse(id));
+                    if (effect != null) {
+                        t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                                net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect),
+                                s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION), 0));
+                    }
+                }));
+        // reach/pull/push: só armam a runeword; o golpe estendido vem do clique no vazio
+        // (ASClientEvents -> ExtendedReachC2S); o attack() gasta a carga pelos hooks normais
+        SPELLS.register("runeword_reach", com.windanesz.ancientspellcraft.spell.RunewordSpell::new);
+        SPELLS.register("runeword_pull", com.windanesz.ancientspellcraft.spell.RunewordSpell::new);
+        SPELLS.register("runeword_push", com.windanesz.ancientspellcraft.spell.RunewordSpell::new);
     }
 
     private static void stackEffect(net.minecraft.world.entity.LivingEntity target,

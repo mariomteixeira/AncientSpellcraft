@@ -55,6 +55,17 @@ public class RunewordSpell extends Spell implements ClassSpell {
     private DamageModifier damageModifier;
     private InstantEffect instantEffect;
     private boolean spendOnHit = true;
+    private boolean continuous = false;
+
+    public RunewordSpell continuous() {
+        this.continuous = true;
+        return this;
+    }
+
+    @Override
+    public boolean isInstantCast() {
+        return !continuous;
+    }
 
     public RunewordSpell onHit(HitEffect effect) {
         this.hitEffect = effect;

@@ -24,7 +24,13 @@ public class AncientSpellcraft {
         com.windanesz.ancientspellcraft.registry.ASEntities.ENTITIES.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASMenus.MENUS.register(modBus);
         modBus.addListener(com.windanesz.ancientspellcraft.registry.ASEntities::onAttributeCreation);
+        modBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) ->
+                event.registrar("1").playToServer(
+                        com.windanesz.ancientspellcraft.network.ExtendedReachC2S.TYPE,
+                        com.windanesz.ancientspellcraft.network.ExtendedReachC2S.STREAM_CODEC,
+                        com.windanesz.ancientspellcraft.network.ExtendedReachC2S::handle));
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()) {
+            NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASClientEvents::onLeftClickEmpty);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterRenderers);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterLayers);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::registerMageRenderers);
