@@ -63,6 +63,8 @@ public class AncientSpellcraft {
                 com.windanesz.ancientspellcraft.handler.ASMetamagicEvents::onSpellCastPre);
         WizardryEventBus.getInstance().register(SpellCastEvent.Post.class,
                 com.windanesz.ancientspellcraft.handler.ASSpellEvents::onSpellCastPost);
+        WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class,
+                com.windanesz.ancientspellcraft.handler.ASSpellEvents::onJewelSetBonus);
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 com.windanesz.ancientspellcraft.handler.ASMetamagicEvents::onLivingDeath);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onIncomingDamage);

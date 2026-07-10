@@ -61,14 +61,14 @@ public final class ASMetamagicEvents {
                     modifiers.get(SpellModifiers.RANGE) + level * EBServerConfig.RANGE_INCREASE_PER_LEVEL.get());
             modifiers.set(SpellModifiers.BLAST,
                     modifiers.get(SpellModifiers.BLAST) + level * EBServerConfig.BLAST_RADIUS_INCREASE_PER_LEVEL.get());
-            player.removeEffect(ASEffects.ARCANE_AUGMENTATION);
+            if (shouldConsumeMetamagic(player)) player.removeEffect(ASEffects.ARCANE_AUGMENTATION);
         }
 
         level = effectLevel(player, ASEffects.INTENSIFYING_FOCUS);
         if (level > 0) {
             modifiers.set(SpellModifiers.POTENCY,
                     modifiers.get(SpellModifiers.POTENCY) + level * EBServerConfig.POTENCY_INCREASE_PER_TIER.get());
-            player.removeEffect(ASEffects.INTENSIFYING_FOCUS);
+            if (shouldConsumeMetamagic(player)) player.removeEffect(ASEffects.INTENSIFYING_FOCUS);
         }
 
         level = effectLevel(player, ASEffects.CONTINUITY_CHARM);
@@ -77,7 +77,7 @@ public final class ASMetamagicEvents {
                     modifiers.get(SpellModifiers.DURATION) + level * EBServerConfig.DURATION_INCREASE_PER_LEVEL.get());
             modifiers.set(SpellModifiers.COST,
                     modifiers.get(SpellModifiers.COST) + level * CONTINUITY_COST_PER_LEVEL);
-            player.removeEffect(ASEffects.CONTINUITY_CHARM);
+            if (shouldConsumeMetamagic(player)) player.removeEffect(ASEffects.CONTINUITY_CHARM);
         }
 
         // contingency (AS-11): listener armado -> captura a spell castada (não casta agora)
@@ -146,6 +146,13 @@ public final class ASMetamagicEvents {
 
     private static int effectLevel(Player player, Holder<MobEffect> effect) {
         return player.hasEffect(effect) ? player.getEffect(effect).getAmplifier() + 1 : 0;
+    }
+
+    /** ring_metamagic_preserve (1.12.2): 33% de chance de NÃO consumir o buff one-shot no cast. */
+    private static boolean shouldConsumeMetamagic(Player player) {
+        return !(com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.RING_METAMAGIC_PRESERVE.get())
+                && player.level().random.nextFloat() < 0.33f);
     }
 
     private ASMetamagicEvents() {

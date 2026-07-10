@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "ancientspellcraft:charm_earth_orb",
+    "ancientspellcraft:charm_elemental_grimoire",
+    "ancientspellcraft:charm_fire_orb",
+    "ancientspellcraft:charm_glyph_illumination",
+    "ancientspellcraft:charm_healing_orb",
+    "ancientspellcraft:charm_hoarders_orb",
+    "ancientspellcraft:charm_ice_orb",
+    "ancientspellcraft:charm_lightning_orb",
+    "ancientspellcraft:charm_magic_light",
+    "ancientspellcraft:charm_mana_orb",
+    "ancientspellcraft:charm_metamagic_amplifier",
+    "ancientspellcraft:charm_meteorite_stone",
+    "ancientspellcraft:charm_necromancy_orb",
+    "ancientspellcraft:charm_potion_kit",
+    "ancientspellcraft:charm_power_orb",
+    "ancientspellcraft:charm_prismatic_spray",
+    "ancientspellcraft:charm_progression_orb",
+    "ancientspellcraft:charm_seed_bag",
+    "ancientspellcraft:charm_sentinel_eye",
+    "ancientspellcraft:charm_sorcery_orb",
+    "ancientspellcraft:charm_wardrobe"
+  ]
+}

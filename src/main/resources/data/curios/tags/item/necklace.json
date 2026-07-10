@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ancientspellcraft:amulet_domus",
+    "ancientspellcraft:amulet_elemental_offense",
+    "ancientspellcraft:amulet_mana",
+    "ancientspellcraft:amulet_power"
+  ]
+}

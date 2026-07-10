@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_elemental_offense"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_mana"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:belt_horse"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_mana_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_sentinel_eye"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_lily_flower"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_mana_cost"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_mana_transfer"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_power"
+        }
+      ]
+    }
+  ]
+}

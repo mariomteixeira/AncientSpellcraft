@@ -38,7 +38,10 @@ public class MetamagicBuffSpell extends BuffSpell {
         Holder<MobEffect> effect = effectSupplier.get();
         Player caster = ctx.caster();
         int currentAmplifier = caster.hasEffect(effect) ? caster.getEffect(effect).getAmplifier() : -1;
-        int bonusAmplifier = currentAmplifier + 1;
+        // charm_metamagic_amplifier (1.12.2): sem buff ativo, já começa no nível II
+        int bonusAmplifier = currentAmplifier >= 0 ? currentAmplifier + 1
+                : com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(caster,
+                com.windanesz.ancientspellcraft.registry.ASItems.CHARM_METAMAGIC_AMPLIFIER.get()) ? 1 : 0;
         if (bonusAmplifier > 2) return false;
 
         if (!ctx.world().isClientSide) {

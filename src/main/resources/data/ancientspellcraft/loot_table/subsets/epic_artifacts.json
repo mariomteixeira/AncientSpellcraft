@@ -1,0 +1,74 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_earth_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_elemental_grimoire"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_fire_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_healing_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_ice_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_lightning_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_necromancy_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_power_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_prismatic_spray"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_progression_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_sorcery_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:head_chaos_magic"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:head_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_eternal_contingency"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_permanent_growth"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_permanent_shrinkage"
+        }
+      ]
+    }
+  ]
+}

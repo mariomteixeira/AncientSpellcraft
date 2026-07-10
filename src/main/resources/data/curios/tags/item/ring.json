@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ancientspellcraft:ring_absorb_crystal",
+    "ancientspellcraft:ring_blast",
+    "ancientspellcraft:ring_chaos_blast_multitarget",
+    "ancientspellcraft:ring_disenchanter",
+    "ancientspellcraft:ring_duration",
+    "ancientspellcraft:ring_eternal_contingency",
+    "ancientspellcraft:ring_kinetic",
+    "ancientspellcraft:ring_lily_flower",
+    "ancientspellcraft:ring_mana_cost",
+    "ancientspellcraft:ring_mana_transfer",
+    "ancientspellcraft:ring_metamagic_preserve",
+    "ancientspellcraft:ring_permanent_growth",
+    "ancientspellcraft:ring_permanent_shrinkage",
+    "ancientspellcraft:ring_power",
+    "ancientspellcraft:ring_range"
+  ]
+}

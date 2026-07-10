@@ -147,6 +147,47 @@ public final class ASItems {
     public static final Supplier<Item> CHARM_GLYPH_ILLUMINATION = artifact("charm_glyph_illumination", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_MAGIC_LIGHT = artifact("charm_magic_light", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> HEAD_SHIELD = artifact("head_shield", net.minecraft.world.item.Rarity.EPIC, null);
+
+    // modificadores de cast (1.12.2 ASEventHandler; valores fiéis, orb bonus default = 30)
+    public static final Supplier<Item> CHARM_MANA_ORB = artifact("charm_mana_orb", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.costMultiplier(0.85f));
+    public static final Supplier<Item> AMULET_MANA = artifact("amulet_mana", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.costMultiplier(0.90f));
+    public static final Supplier<Item> RING_MANA_COST = artifact("ring_mana_cost", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.costMultiplier(0.95f));
+    public static final Supplier<Item> RING_BLAST = artifact("ring_blast", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.tradeoff(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.BLAST));
+    public static final Supplier<Item> RING_RANGE = artifact("ring_range", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.tradeoff(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.RANGE));
+    public static final Supplier<Item> RING_DURATION = artifact("ring_duration", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.tradeoff(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.DURATION));
+    public static final Supplier<Item> CHARM_ELEMENTAL_GRIMOIRE = artifact("charm_elemental_grimoire", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.grimoire(
+                    () -> com.koomplo.wizardry.setup.registries.Elements.FIRE,
+                    () -> com.koomplo.wizardry.setup.registries.Elements.ICE,
+                    () -> com.koomplo.wizardry.setup.registries.Elements.LIGHTNING));
+    public static final Supplier<Item> CHARM_FIRE_ORB = artifact("charm_fire_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementOrb(() -> com.koomplo.wizardry.setup.registries.Elements.FIRE));
+    public static final Supplier<Item> CHARM_ICE_ORB = artifact("charm_ice_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementOrb(() -> com.koomplo.wizardry.setup.registries.Elements.ICE));
+    public static final Supplier<Item> CHARM_LIGHTNING_ORB = artifact("charm_lightning_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementOrb(() -> com.koomplo.wizardry.setup.registries.Elements.LIGHTNING));
+    public static final Supplier<Item> CHARM_EARTH_ORB = artifact("charm_earth_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementOrb(() -> com.koomplo.wizardry.setup.registries.Elements.EARTH));
+    public static final Supplier<Item> CHARM_HEALING_ORB = artifact("charm_healing_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementOrb(() -> com.koomplo.wizardry.setup.registries.Elements.HEALING));
+    public static final Supplier<Item> CHARM_NECROMANCY_ORB = artifact("charm_necromancy_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementOrb(() -> com.koomplo.wizardry.setup.registries.Elements.NECROMANCY));
+    public static final Supplier<Item> CHARM_SORCERY_ORB = artifact("charm_sorcery_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementOrb(() -> com.koomplo.wizardry.setup.registries.Elements.SORCERY));
+    public static final Supplier<Item> RING_POWER = artifact("ring_power", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.powerJewel(0.05f));
+    public static final Supplier<Item> AMULET_POWER = artifact("amulet_power", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.powerJewel(0.10f));
+    public static final Supplier<Item> CHARM_POWER_ORB = artifact("charm_power_orb", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.powerJewel(0.20f));
+    public static final Supplier<Item> RING_METAMAGIC_PRESERVE = artifact("ring_metamagic_preserve", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_METAMAGIC_AMPLIFIER = artifact("charm_metamagic_amplifier", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
             new com.koomplo.wizardry.core.IArtifactEffect() {
                 @Override

@@ -1,0 +1,82 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_domus"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_power"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_glyph_illumination"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_hoarders_orb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_magic_light"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_metamagic_amplifier"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_meteorite_stone"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_potion_kit"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_seed_bag"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_wardrobe"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_absorb_crystal"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_blast"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_chaos_blast_multitarget"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_disenchanter"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_duration"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_kinetic"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_metamagic_preserve"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_range"
+        }
+      ]
+    }
+  ]
+}

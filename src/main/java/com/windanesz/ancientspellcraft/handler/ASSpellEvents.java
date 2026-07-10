@@ -168,6 +168,20 @@ public final class ASSpellEvents {
         }
     }
 
+    /** Set das joias de poder (1.12.2): 2+ de ring/amulet/charm_power equipadas = +5% potência por peça além da 1ª. */
+    public static void onJewelSetBonus(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
+        if (!(event.getCaster() instanceof Player player)) return;
+        int jewels = 0;
+        if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player, com.windanesz.ancientspellcraft.registry.ASItems.RING_POWER.get())) jewels++;
+        if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player, com.windanesz.ancientspellcraft.registry.ASItems.AMULET_POWER.get())) jewels++;
+        if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player, com.windanesz.ancientspellcraft.registry.ASItems.CHARM_POWER_ORB.get())) jewels++;
+        if (jewels > 1) {
+            float potency = event.getModifiers().get(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.POTENCY);
+            event.getModifiers().set(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.POTENCY,
+                    potency * (1 + (jewels - 1) * 0.05f));
+        }
+    }
+
     /** Castar com a espada de battlemage na mão carrega a lâmina (1.12.2: +20 por cast). */
     public static void onSpellCastPost(com.koomplo.wizardry.api.content.event.SpellCastEvent.Post event) {
         if (event.getCaster() instanceof Player player && !player.level().isClientSide

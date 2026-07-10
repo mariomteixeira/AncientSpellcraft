@@ -187,6 +187,37 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-18 (3.51.0): ARTEFATOS ONDA 1 — 43 artefatos funcionais (só registra com efeito; decisão do
+usuário). INFRA: Curios 9.5.1 no modpack (Redux já integra; fallback hotbar/inventário sem ele);
+curios/entities/player.json ativa os slots ring/necklace/charm/belt/head/body (cobre também os
+artefatos do EB); tags curios por tipo; loot via injeção nos subsets ebwizardry
+(uncommon/rare/epic_artifacts, que já existiam por datagen no Redux) com tabelas próprias do AS.
+GANCHOS (26): seed_bag, lily_flower (fileira 10 x range), hoarders_orb, prismatic_spray (feixe
+único x1.5 + poison/paralysis/wither/blindness/frost/fogo), chaos_blast_multitarget (2º alvo 60%),
+eternal_contingency (não consome; cooldown do anel cd*10+(tier+1)*500), permanent_shrinkage/growth
+(duração infinita), elemental_offense (cristal offhand sem quebra; desvio: o 1.12.2 usava cristal
+encaixado no amuleto — sem slots no port), absorb_crystal (blocos de cristal), potion_kit (gate
+fiel do ramo de engarrafar no alter_potion; sem o charm a spell recusa — o ramo de mapping por
+config fica pro marco 7), chaos_magic (attunement MAGIC + 25% potência warlock class spells),
+wardrobe (5 conjuntos em ciclo; sem o cloak visual), meteorite_stone (gate fiel do pouso-meteoro
+do living_comet — antes explodia sem o charm), mana_transfer (conduit por ray no jogador mirado),
+progression_orb (conduit transfere progressão 10/tick), disenchanter (desencanta offhand),
+belt_horse (speed no cavalo montado), sentinel_eye/domus (skull watch: glowing no intruso /
+esqueleto minion cd 1200t — flags pelo artefato ao COLOCAR o bloco; desvio: 1.12.2 setava no cast
+do skull_sentinel, spell não portada; minion = Skeleton vanilla + MinionData, lifetime 600),
+kinetic (speed II ao pisar no lightning_block), glyph_illumination/magic_light (mantêm mage
+light), head_shield (wizard_shield decai -1 e renova 70t — de quebra o decaimento base ficou fiel:
+amp0 não renova mais), metamagic_preserve (33% de não consumir o buff one-shot),
+metamagic_amplifier (metamagic novo começa no nível II).
+MODIFICADORES (17): mana_orb/amulet_mana/ring_mana_cost (custo x0.85/0.90/0.95),
+ring_blast/range/duration (custo x1.25, +0.25 no modificador), elemental_grimoire (+0.1 potência
+fire/ice/lightning), 7 orbs elementais (+0.30 no elemento / -0.5 fora; default 30 do 1.12.2),
+joias de poder ring/amulet/orb (+0.05/0.10/0.20 potência e custo) + set bônus (2+ joias = +5%
+potência por peça extra, handler próprio).
+ADIADOS: head_fortune (conjure_pickaxe do Redux), vessel_of_the_withered_oath
+(plague_of_darkness do Redux), charm_infernal_stone (sistema de calor), elemental cloaks/belts
+(itens com elemento + tick próprios — onda 2/3), potência por cristal encaixado do
+elemental_offense (slots — onda 4).
 ✓ AS-17 (3.50.0): RESIDUAIS — GUI DO RITUAL BOOK (RitualBookScreen: click normal lê o livro —
 nome, descrição importada do 1.12.2 e runas com ícones/contagem/tooltip; sneak canaliza; desvios:
 página única, sem futhark/discovery), TRADES DE CLASSE no ClassWizard (compra spell books por 5
