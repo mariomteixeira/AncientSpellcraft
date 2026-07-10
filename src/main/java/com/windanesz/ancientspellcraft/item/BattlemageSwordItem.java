@@ -7,7 +7,6 @@ import com.koomplo.wizardry.content.item.armor.WizardArmorItem;
 import com.koomplo.wizardry.content.item.armor.WizardArmorType;
 import com.koomplo.wizardry.setup.registries.Elements;
 import com.windanesz.ancientspellcraft.handler.ASSpellEvents;
-import com.windanesz.ancientspellcraft.spell.WarlockSpellEffects;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -49,9 +48,9 @@ public class BattlemageSwordItem extends WandItem {
                 && ASSpellEvents.isWearingFullSet(player, WizardArmorType.BATTLEMAGE)
                 && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof WizardArmorItem armor
                 && armor.getElement() != null) {
-            // golpe totalmente carregado (runeword_empower/casts) = versão com dano do efeito, e reseta
+            // golpe totalmente carregado (runeword_empower/casts) = greater power, e reseta
             boolean charged = getCharge(stack) >= FULL_CHARGE;
-            WarlockSpellEffects.affectEntity(target, armor.getElement(), attacker, charged);
+            ElementalSwordEffects.hit(armor.getElement(), stack, target, player, charged);
             if (charged) resetCharge(stack);
             else addCharge(stack, 5);
         }
@@ -99,6 +98,13 @@ public class BattlemageSwordItem extends WandItem {
                 && com.windanesz.ancientspellcraft.spell.RunewordSpell.getFuryStacks(stack) > 0) {
             com.windanesz.ancientspellcraft.spell.RunewordSpell.setFuryStacks(stack,
                     com.windanesz.ancientspellcraft.spell.RunewordSpell.getFuryStacks(stack) - 1);
+        }
+        // LIGHTNING (1.12.2 onUpdateEffect): andar no chão com a espada e o set recarrega mana
+        if (selected && entity instanceof Player player
+                && ASSpellEvents.isWearingFullSet(player, WizardArmorType.BATTLEMAGE)
+                && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof WizardArmorItem armor
+                && armor.getElement() != null) {
+            ElementalSwordEffects.tick(armor.getElement(), stack, player);
         }
     }
 }

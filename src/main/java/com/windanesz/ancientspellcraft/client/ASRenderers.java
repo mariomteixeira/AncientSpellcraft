@@ -109,19 +109,43 @@ public final class ASRenderers {
         event.registerLayerDefinition(SENTINEL_LAYER, com.windanesz.ancientspellcraft.client.model.SentinelModel::createBodyLayer);
     }
 
-    /** Property "tier" do forbidden_tome (1.12.2 ItemWarlockSpellBook): selado até descobrir a spell. */
+    private static final java.util.List<String> SWORD_ELEMENT_ORDER = java.util.List.of(
+            "magic", "fire", "ice", "lightning", "necromancy", "earth", "sorcery", "healing");
+
+    /** Properties client: "tier" do forbidden_tome (selado até descobrir) e "element" das espadas
+     * de battlemage (textura pelo elemento do set vestido — as 32 texturas do 1.12.2). */
     public static void onClientSetup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) {
-        event.enqueueWork(() -> net.minecraft.client.renderer.item.ItemProperties.register(
-                com.windanesz.ancientspellcraft.registry.ASItems.FORBIDDEN_TOME.get(),
-                ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "tier"),
-                (stack, level, entity, seed) -> {
-                    var spell = com.koomplo.wizardry.api.content.util.RegistryUtils.getSpell(stack);
-                    if (spell == com.koomplo.wizardry.setup.registries.Spells.NONE
-                            || !(entity instanceof net.minecraft.world.entity.player.Player player)) return 0f;
-                    if (!player.getData(com.koomplo.wizardry.setup.registries.EBAttachments.SPELL_MANAGER_DATA)
-                            .hasSpellBeenDiscovered(spell)) return 0f;
-                    return (spell.getTier().getLevel() + 1) * 0.1f;
-                }));
+        event.enqueueWork(() -> {
+            net.minecraft.client.renderer.item.ItemProperties.register(
+                    com.windanesz.ancientspellcraft.registry.ASItems.FORBIDDEN_TOME.get(),
+                    ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "tier"),
+                    (stack, level, entity, seed) -> {
+                        var spell = com.koomplo.wizardry.api.content.util.RegistryUtils.getSpell(stack);
+                        if (spell == com.koomplo.wizardry.setup.registries.Spells.NONE
+                                || !(entity instanceof net.minecraft.world.entity.player.Player player)) return 0f;
+                        if (!player.getData(com.koomplo.wizardry.setup.registries.EBAttachments.SPELL_MANAGER_DATA)
+                                .hasSpellBeenDiscovered(spell)) return 0f;
+                        return (spell.getTier().getLevel() + 1) * 0.1f;
+                    });
+            for (var sword : java.util.List.of(
+                    com.windanesz.ancientspellcraft.registry.ASItems.BATTLEMAGE_SWORD_NOVICE,
+                    com.windanesz.ancientspellcraft.registry.ASItems.BATTLEMAGE_SWORD_APPRENTICE,
+                    com.windanesz.ancientspellcraft.registry.ASItems.BATTLEMAGE_SWORD_ADVANCED,
+                    com.windanesz.ancientspellcraft.registry.ASItems.BATTLEMAGE_SWORD_MASTER)) {
+                net.minecraft.client.renderer.item.ItemProperties.register(sword.get(),
+                        ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "element"),
+                        (stack, level, entity, seed) -> {
+                            if (!(entity instanceof net.minecraft.world.entity.player.Player player)) return 0f;
+                            if (!com.windanesz.ancientspellcraft.handler.ASSpellEvents.isWearingFullSet(player,
+                                    com.koomplo.wizardry.content.item.armor.WizardArmorType.BATTLEMAGE)) return 0f;
+                            if (!(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).getItem()
+                                    instanceof com.koomplo.wizardry.content.item.armor.WizardArmorItem armor)
+                                    || armor.getElement() == null) return 0f;
+                            int idx = SWORD_ELEMENT_ORDER.indexOf(armor.getElement().getName());
+                            return idx <= 0 ? 0f : idx * 0.1f;
+                        });
+            }
+        });
     }
 
     private ASRenderers() {

@@ -2,5 +2,15 @@
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "ancientspellcraft:item/battlemage_sword_apprentice"
-  }
+  },
+  "overrides": [
+    {"predicate": {"ancientspellcraft:element": 0.0}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_magic"},
+    {"predicate": {"ancientspellcraft:element": 0.1}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_fire"},
+    {"predicate": {"ancientspellcraft:element": 0.2}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_ice"},
+    {"predicate": {"ancientspellcraft:element": 0.3}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_lightning"},
+    {"predicate": {"ancientspellcraft:element": 0.4}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_necromancy"},
+    {"predicate": {"ancientspellcraft:element": 0.5}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_earth"},
+    {"predicate": {"ancientspellcraft:element": 0.6}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_sorcery"},
+    {"predicate": {"ancientspellcraft:element": 0.7}, "model": "ancientspellcraft:item/battlemage_sword_apprentice_healing"}
+  ]
 }

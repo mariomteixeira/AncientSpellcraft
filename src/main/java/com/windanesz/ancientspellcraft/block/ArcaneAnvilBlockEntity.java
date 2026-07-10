@@ -45,7 +45,13 @@ public class ArcaneAnvilBlockEntity extends BaseContainerBlockEntity {
             else if (input0.is(ASItems.BATTLEMAGE_SWORD_APPRENTICE.get())) upgraded = new ItemStack(ASItems.BATTLEMAGE_SWORD_ADVANCED.get());
             else if (input0.is(ASItems.BATTLEMAGE_SWORD_ADVANCED.get())) upgraded = new ItemStack(ASItems.BATTLEMAGE_SWORD_MASTER.get());
             if (!upgraded.isEmpty()) {
+                // 1.12.2: o upgrade de tier exige a progressão do próximo tier (excedente é preservado)
+                int required = ((com.windanesz.ancientspellcraft.item.BattlemageSwordItem) upgraded.getItem())
+                        .getTier(upgraded).getProgression();
+                int progression = com.koomplo.wizardry.api.content.util.CastItemDataHelper.getProgression(input0);
+                if (progression < required) return ItemStack.EMPTY;
                 upgraded.applyComponents(input0.getComponents());
+                com.koomplo.wizardry.api.content.util.CastItemDataHelper.setProgression(upgraded, progression - required);
                 return upgraded;
             }
         }
