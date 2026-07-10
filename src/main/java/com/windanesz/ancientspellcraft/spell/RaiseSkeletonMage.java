@@ -25,6 +25,19 @@ public class RaiseSkeletonMage extends MinionSpell<SkeletonMageMinion> {
         minion.setRare(ctx.world().random.nextFloat() < 0.4f);
         int elementIndex = ctx.world().random.nextInt(SkeletonMageEntity.MAGE_ELEMENTS.length);
         if (ctx.caster() instanceof net.minecraft.world.entity.player.Player player) {
+            // amulet_elemental_offense com cristal encaixado: foca o elemento SEM risco (fiel ao 1.12.2)
+            if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player, ASItems.AMULET_ELEMENTAL_OFFENSE.get())) {
+                for (var artifact : com.koomplo.wizardry.core.integrations.ArtifactChannel.getEquippedArtifacts(player)) {
+                    if (!artifact.is(ASItems.AMULET_ELEMENTAL_OFFENSE.get())) continue;
+                    var element = com.windanesz.ancientspellcraft.item.ASArtifactEffects.socketedCrystalElement(player, artifact);
+                    for (int i = 0; element != null && i < SkeletonMageEntity.MAGE_ELEMENTS.length; i++) {
+                        if (SkeletonMageEntity.MAGE_ELEMENTS[i] == element) {
+                            minion.setMageElement(i);
+                            return;
+                        }
+                    }
+                }
+            }
             var offhand = player.getOffhandItem();
             for (int i = 0; i < SkeletonMageEntity.MAGE_ELEMENTS.length; i++) {
                 if (offhand.is(com.koomplo.wizardry.api.content.util.RegistryUtils.getCrystal(SkeletonMageEntity.MAGE_ELEMENTS[i]))) {

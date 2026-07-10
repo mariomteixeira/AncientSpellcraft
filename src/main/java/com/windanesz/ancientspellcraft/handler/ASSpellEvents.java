@@ -194,6 +194,30 @@ public final class ASSpellEvents {
         }
     }
 
+    /** Baterias de mana (1.12.2): cast por WAND com mana insuficiente puxa o custo de um anel de mana equipado. */
+    public static void onManaBatteryTransfer(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
+        if (!(event.getCaster() instanceof Player player) || player.level().isClientSide) return;
+        if (event.getSource() != com.koomplo.wizardry.api.content.event.SpellCastEvent.Source.WAND) return;
+        int cost = (int) (event.getSpell().getCost() * event.getModifiers().get(
+                com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.COST) + 0.1f);
+        if (cost <= 0) return;
+        var wand = player.getMainHandItem().getItem() instanceof com.koomplo.wizardry.api.content.item.ICastItem
+                ? player.getMainHandItem() : player.getOffhandItem();
+        if (!(wand.getItem() instanceof com.koomplo.wizardry.api.content.item.IManaItem wandMana)) return;
+        if (wandMana.getMana(wand) > cost) return;
+        for (var artifact : com.koomplo.wizardry.core.integrations.ArtifactChannel.getEquippedArtifacts(player)) {
+            if (artifact.getItem() instanceof com.windanesz.ancientspellcraft.item.ManaArtifactItem battery
+                    && !(artifact.getItem() instanceof com.windanesz.ancientspellcraft.item.WizardTankardItem)
+                    && !(artifact.getItem() instanceof com.windanesz.ancientspellcraft.item.CubePhasingItem)
+                    && !(artifact.getItem() instanceof com.windanesz.ancientspellcraft.item.ResistanceAmuletItem)
+                    && battery.getMana(artifact) >= cost) {
+                battery.consumeMana(artifact, cost, player);
+                wandMana.rechargeMana(wand, cost);
+                break;
+            }
+        }
+    }
+
     /** Set das joias de poder (1.12.2): 2+ de ring/amulet/charm_power equipadas = +5% potência por peça além da 1ª. */
     public static void onJewelSetBonus(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
         if (!(event.getCaster() instanceof Player player)) return;

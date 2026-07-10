@@ -703,5 +703,72 @@ public final class ASArtifactEffects {
         };
     }
 
+    // ---- onda 4: mana e sockets ----
+
+    /** amulet_invisibility: a cada 2s gasta 4 de mana da própria reserva e dá invisibilidade 3s. */
+    public static IArtifactEffect invisibilityAmulet() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 40 != 0) return;
+                if (!(artifact.getItem() instanceof com.windanesz.ancientspellcraft.item.ManaArtifactItem mana)) return;
+                if (mana.getMana(artifact) < 4) return;
+                mana.consumeMana(artifact, 4, player);
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.INVISIBILITY, 60, 0, false, false));
+            }
+        };
+    }
+
+    /** Elemento do cristal encaixado (magic_crystal_<elemento> do Redux), ou null. */
+    public static com.koomplo.wizardry.api.content.spell.Element socketedCrystalElement(
+            net.minecraft.world.entity.player.Player player, ItemStack artifact) {
+        ItemStack socketed = com.windanesz.ancientspellcraft.item.SocketedArtifactItem.getSocketed(
+                artifact, player.level().registryAccess());
+        if (socketed.isEmpty()) return null;
+        for (var element : com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getElements()) {
+            if (socketed.is(com.koomplo.wizardry.api.content.util.RegistryUtils.getCrystal(element))) {
+                return element;
+            }
+        }
+        return null;
+    }
+
+    /** amulet_elemental_offense: cristal encaixado do elemento da spell = +0.05 de potência. */
+    public static IArtifactEffect socketOffense() {
+        return new IArtifactEffect() {
+            @Override
+            public void onSpellPreCast(SpellCastEvent.Pre event, ItemStack artifact) {
+                if (!(event.getCaster() instanceof net.minecraft.world.entity.player.Player player)) return;
+                var element = socketedCrystalElement(player, artifact);
+                if (element != null && event.getSpell().getElement() == element) {
+                    event.getModifiers().set(SpellModifiers.POTENCY,
+                            event.getModifiers().get(SpellModifiers.POTENCY) + 0.05f);
+                }
+            }
+        };
+    }
+
+    /** amulet_elemental_defense: dano mágico do elemento do cristal encaixado = x0.7. */
+    public static IArtifactEffect socketDefense() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                var element = socketedCrystalElement(player, artifact);
+                if (element == null) return;
+                String damageElement = source.is(com.koomplo.wizardry.setup.registries.EBDamageSources.FIRE) ? "fire"
+                        : source.is(com.koomplo.wizardry.setup.registries.EBDamageSources.FROST) ? "ice"
+                        : source.is(com.koomplo.wizardry.setup.registries.EBDamageSources.SHOCK) ? "lightning"
+                        : source.is(com.koomplo.wizardry.setup.registries.EBDamageSources.WITHER) ? "necromancy"
+                        : source.is(com.koomplo.wizardry.setup.registries.EBDamageSources.FORCE) ? "sorcery"
+                        : source.is(com.koomplo.wizardry.setup.registries.EBDamageSources.RADIANT) ? "healing" : null;
+                if (damageElement != null && element.getLocation().getPath().equals(damageElement)) {
+                    amount.set(amount.get() * 0.7);
+                }
+            }
+        };
+    }
+
     private ASArtifactEffects() {}
 }

@@ -132,7 +132,10 @@ public final class ASItems {
     public static final Supplier<Item> RING_ETERNAL_CONTINGENCY = artifact("ring_eternal_contingency", net.minecraft.world.item.Rarity.EPIC, null);
     public static final Supplier<Item> RING_PERMANENT_SHRINKAGE = artifact("ring_permanent_shrinkage", net.minecraft.world.item.Rarity.EPIC, null);
     public static final Supplier<Item> RING_PERMANENT_GROWTH = artifact("ring_permanent_growth", net.minecraft.world.item.Rarity.EPIC, null);
-    public static final Supplier<Item> AMULET_ELEMENTAL_OFFENSE = artifact("amulet_elemental_offense", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> AMULET_ELEMENTAL_OFFENSE = ITEMS.register("amulet_elemental_offense",
+            () -> new com.windanesz.ancientspellcraft.item.SocketedArtifactItem(net.minecraft.world.item.Rarity.UNCOMMON,
+                    stack -> stack.getItem() instanceof com.koomplo.wizardry.content.item.CrystalItem,
+                    com.windanesz.ancientspellcraft.item.ASArtifactEffects.socketOffense()));
     public static final Supplier<Item> RING_ABSORB_CRYSTAL = artifact("ring_absorb_crystal", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_POTION_KIT = artifact("charm_potion_kit", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_WARDROBE = artifact("charm_wardrobe", net.minecraft.world.item.Rarity.RARE, null);
@@ -241,6 +244,32 @@ public final class ASItems {
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.healingMushroom());
     public static final Supplier<Item> AMULET_CURSED_PENDANT = artifact("amulet_cursed_pendant", net.minecraft.world.item.Rarity.RARE,
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.cursedPendant());
+
+    // onda 4: baterias de mana, mana própria e sockets
+    public static final Supplier<Item> RING_MANA_LESSER = ITEMS.register("ring_mana_lesser",
+            () -> new com.windanesz.ancientspellcraft.item.ManaArtifactItem(net.minecraft.world.item.Rarity.UNCOMMON, 500, null));
+    public static final Supplier<Item> RING_MANA_GREATER = ITEMS.register("ring_mana_greater",
+            () -> new com.windanesz.ancientspellcraft.item.ManaArtifactItem(net.minecraft.world.item.Rarity.RARE, 1000, null));
+    public static final Supplier<Item> CHARM_MAJESTIC_MANA = ITEMS.register("charm_majestic_mana",
+            () -> new com.windanesz.ancientspellcraft.item.ManaArtifactItem(net.minecraft.world.item.Rarity.RARE, 2500, null));
+    public static final Supplier<Item> CHARM_WIZARD_TANKARD = ITEMS.register("charm_wizard_tankard",
+            () -> new com.windanesz.ancientspellcraft.item.WizardTankardItem(net.minecraft.world.item.Rarity.RARE));
+    public static final Supplier<Item> CHARM_CUBE_PHASING = ITEMS.register("charm_cube_phasing",
+            () -> new com.windanesz.ancientspellcraft.item.CubePhasingItem(net.minecraft.world.item.Rarity.EPIC));
+    public static final Supplier<Item> AMULET_INVISIBILITY = ITEMS.register("amulet_invisibility",
+            () -> new com.windanesz.ancientspellcraft.item.ManaArtifactItem(net.minecraft.world.item.Rarity.RARE, 1500,
+                    com.windanesz.ancientspellcraft.item.ASArtifactEffects.invisibilityAmulet()));
+    public static final Supplier<Item> AMULET_OF_RESISTANCE = ITEMS.register("amulet_of_resistance",
+            () -> new com.windanesz.ancientspellcraft.item.ResistanceAmuletItem(net.minecraft.world.item.Rarity.RARE));
+    public static final Supplier<Item> AMULET_ELEMENTAL_DEFENSE = ITEMS.register("amulet_elemental_defense",
+            () -> new com.windanesz.ancientspellcraft.item.SocketedArtifactItem(net.minecraft.world.item.Rarity.RARE,
+                    stack -> stack.getItem() instanceof com.koomplo.wizardry.content.item.CrystalItem,
+                    com.windanesz.ancientspellcraft.item.ASArtifactEffects.socketDefense()));
+    public static final Supplier<Item> AMULET_PENDANT_OF_ETERNITY = ITEMS.register("amulet_pendant_of_eternity",
+            () -> new com.windanesz.ancientspellcraft.item.SocketedArtifactItem(net.minecraft.world.item.Rarity.EPIC,
+                    stack -> stack.getItem() instanceof com.koomplo.wizardry.content.item.SpellBookItem
+                            && com.koomplo.wizardry.api.content.util.RegistryUtils.getSpell(stack)
+                            instanceof com.koomplo.wizardry.content.spell.abstr.BuffSpell, null));
 
     // onda 3d: tickables especiais
     public static final Supplier<Item> CHARM_SPECTERLIGHT_TORCH = artifact("charm_specterlight_torch", net.minecraft.world.item.Rarity.UNCOMMON,

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "ancientspellcraft:charm_majestic_mana",
     "ancientspellcraft:ring_absorb_crystal",
     "ancientspellcraft:ring_berserker",
     "ancientspellcraft:ring_blast",
@@ -11,6 +12,8 @@
     "ancientspellcraft:ring_kinetic",
     "ancientspellcraft:ring_lily_flower",
     "ancientspellcraft:ring_mana_cost",
+    "ancientspellcraft:ring_mana_greater",
+    "ancientspellcraft:ring_mana_lesser",
     "ancientspellcraft:ring_mana_transfer",
     "ancientspellcraft:ring_metamagic_preserve",
     "ancientspellcraft:ring_permanent_growth",

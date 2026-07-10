@@ -171,6 +171,30 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_searing_skin"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_mana_greater"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_majestic_mana"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_wizard_tankard"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_invisibility"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_of_resistance"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_elemental_defense"
         }
       ]
     }

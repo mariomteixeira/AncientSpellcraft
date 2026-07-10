@@ -34,6 +34,28 @@ public final class ASPotionEvents {
         loopPlayer(player);
     }
 
+    /** amulet_pendant_of_eternity: quando um buff da spell encaixada expira, re-casta a spell (cd 1s). */
+    public static void onPendantBuffExpired(MobEffectEvent.Expired event) {
+        MobEffectInstance instance = event.getEffectInstance();
+        if (instance == null || !(event.getEntity() instanceof net.minecraft.world.entity.player.Player player)
+                || player.level().isClientSide) return;
+        for (var artifact : com.koomplo.wizardry.core.integrations.ArtifactChannel.getEquippedArtifacts(player)) {
+            if (!artifact.is(com.windanesz.ancientspellcraft.registry.ASItems.AMULET_PENDANT_OF_ETERNITY.get())) continue;
+            if (player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+            var book = com.windanesz.ancientspellcraft.item.SocketedArtifactItem.getSocketed(
+                    artifact, player.level().registryAccess());
+            if (book.isEmpty()) return;
+            var spell = com.koomplo.wizardry.api.content.util.RegistryUtils.getSpell(book);
+            if (!(spell instanceof com.koomplo.wizardry.content.spell.abstr.BuffSpell buff)) return;
+            if (!buff.getMobEffects().contains(instance.getEffect())) return;
+            player.getCooldowns().addCooldown(artifact.getItem(), 20);
+            spell.cast(new com.koomplo.wizardry.api.content.spell.internal.PlayerCastContext(
+                    player.level(), player, net.minecraft.world.InteractionHand.MAIN_HAND, 0,
+                    new com.koomplo.wizardry.api.content.spell.internal.SpellModifiers()));
+            return;
+        }
+    }
+
     /** Restaura o jogador ao ponto gravado pelo time_knot (também usado pelo amulet_time_knot). */
     public static boolean loopPlayer(net.minecraft.server.level.ServerPlayer player) {
         net.minecraft.nbt.CompoundTag tag = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.TIME_KNOT);

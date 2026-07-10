@@ -187,6 +187,28 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-25 (3.58.0): ARTEFATOS ONDA 4 — mana e sockets (10; Redux 0.1.28 sem mudança de API — o
+getter getMobEffects já existia). INFRA: ManaArtifactItem (reserva de mana no CustomData, começa
+cheio, barra de mana; recarga = sneak-use com magic_crystal na offhand, +MANA_PER_CRYSTAL do
+config — desvio: 1.12.2 recarregava no arcane workbench) e SocketedArtifactItem (1 encaixe:
+sneak-use com o item na offhand encaixa, sneak-use com offhand vazia devolve — desvio: 1.12.2
+tinha GUI de slot).
+BATERIAS (3): ring_mana_lesser (500), ring_mana_greater (1000), charm_majestic_mana (2500) —
+cast por WAND com mana insuficiente puxa o custo da bateria equipada (handler fiel ao 1.12.2).
+MANA PRÓPRIA (4): charm_wizard_tankard (enche +1/6s até 100; cheio dá pra beber:
+mana_regeneration VIII 20s), charm_cube_phasing (carrega 1/s até 1000; use casta BLINK pagando
+com a carga — desvio: sneak castava phase_step no 1.12.2, aqui sneak é a recarga),
+amulet_invisibility (1500: -4 mana/2s = invisibilidade contínua), amulet_of_resistance (600:
+sneak-use com poção imbui o 1º efeito; enquanto tiver mana, o efeito é removido de você, -1/s).
+SOCKETS (3): amulet_elemental_offense virou socketed (cristal encaixado: +0.05 potência no
+elemento; e o raise_skeleton_mage foca o elemento SEM risco de quebra), amulet_elemental_defense
+(dano mágico do elemento do cristal x0.7 — mapa fire/frost/shock/wither/force/radiant),
+amulet_pendant_of_eternity (encaixa spell book de BUFF: quando um efeito do buff expira,
+re-casta sozinho, cd 1s).
+FORA DAS ONDAS (futuro, sistemas próprios): charm_diamond_goose, head_mask_of_perseigni,
+charm_infernal_stone, ring_arcane_flames, charm_devoritium_magnet, belt_scroll_holder,
+charm_glyph_shield_disable (espera o bloqueio do battlemage_shield), 3 daily artefacts e
+set artefacts (1.12.2 ItemDailyArtefact/ItemSetArtefact).
 ✓ AS-24 (3.57.0): ARTEFATOS ONDA 3d — tickables especiais (7): charm_specterlight_torch (revela
 invisíveis raio 10 — remove invisibility/muffle; mirage não existe no Redux),
 belt_enchanted_whetstone (repara 1 durabilidade de espada/machado na mão a cada 5s),

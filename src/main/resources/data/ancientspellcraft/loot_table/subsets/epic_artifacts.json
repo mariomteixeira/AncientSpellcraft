@@ -123,6 +123,14 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_elemental_aura"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_cube_phasing"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_pendant_of_eternity"
         }
       ]
     }
