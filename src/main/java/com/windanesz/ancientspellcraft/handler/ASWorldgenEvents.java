@@ -27,11 +27,21 @@ public final class ASWorldgenEvents {
             ResourceLocation.withDefaultNamespace("chests/jungle_temple"),
             ResourceLocation.withDefaultNamespace("chests/woodland_mansion"));
 
+    /** Artefatos do AS entram nos subsets do EB (mesma rota do 1.12.2: addons alimentam o loot do wizardry). */
+    private static final Set<String> ARTIFACT_SUBSETS = Set.of(
+            "subsets/uncommon_artifacts", "subsets/rare_artifacts", "subsets/epic_artifacts");
+
     public static void onLootTableLoad(LootTableLoadEvent event) {
         if (INJECT_TARGETS.contains(event.getName())) {
             event.getTable().addPool(LootPool.lootPool()
                     .add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,
                             ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, "chests/dungeon_additions"))))
+                    .build());
+        }
+        if (event.getName().getNamespace().equals("ebwizardry") && ARTIFACT_SUBSETS.contains(event.getName().getPath())) {
+            event.getTable().addPool(LootPool.lootPool()
+                    .add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,
+                            ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, event.getName().getPath()))))
                     .build());
         }
     }

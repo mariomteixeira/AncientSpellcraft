@@ -117,6 +117,19 @@ public final class ASItems {
     public static final Supplier<Item> UNSEALING_SCROLL = ITEMS.register("unsealing_scroll",
             com.windanesz.ancientspellcraft.item.UnsealingScrollItem::new);
 
+    // AS-18: artefatos — item do Redux (Curios quando presente, senão hotbar/inventário)
+    static Supplier<Item> artifact(String name, net.minecraft.world.item.Rarity rarity,
+                                   @org.jetbrains.annotations.Nullable com.koomplo.wizardry.core.IArtifactEffect effect) {
+        return ITEMS.register(name, () -> com.koomplo.wizardry.core.integrations.ArtifactChannel.createArtifact(rarity, effect));
+    }
+
+    // ganchos externos (efeito checado no ponto de uso via ArtifactChannel.isEquipped)
+    public static final Supplier<Item> CHARM_SEED_BAG = artifact("charm_seed_bag", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> RING_LILY_FLOWER = artifact("ring_lily_flower", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> CHARM_HOARDERS_ORB = artifact("charm_hoarders_orb", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_PRISMATIC_SPRAY = artifact("charm_prismatic_spray", net.minecraft.world.item.Rarity.EPIC, null);
+    public static final Supplier<Item> RING_CHAOS_BLAST_MULTITARGET = artifact("ring_chaos_blast_multitarget", net.minecraft.world.item.Rarity.RARE, null);
+
     public static final Supplier<Item> CRYSTAL_SILVER_INGOT = ITEMS.register("crystal_silver_ingot",
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> CRYSTAL_SILVER_NUGGET = ITEMS.register("crystal_silver_nugget",

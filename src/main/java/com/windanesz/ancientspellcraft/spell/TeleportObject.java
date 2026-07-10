@@ -40,6 +40,16 @@ public class TeleportObject extends SageRaySpell {
             return false;
         }
         BlockPos target = destination;
+        // charm_hoarders_orb: espalha em posições aleatórias ao redor do círculo (1.12.2: raio 4, 20 tentativas)
+        if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player, com.windanesz.ancientspellcraft.registry.ASItems.CHARM_HOARDERS_ORB.get())) {
+            for (int i = 0; i < 20; i++) {
+                BlockPos random = BlockUtil.findNearbyFloorSpace(ctx.world(), destination, 4, 1, false, player);
+                if (random != null && !random.equals(destination) && !random.equals(destination.below())) {
+                    target = random;
+                    break;
+                }
+            }
+        }
         if (!BlockUtil.canBlockBeReplaced(ctx.world(), target)) {
             target = BlockUtil.findNearbyFloorSpace(ctx.world(), destination, 4, 2, false, player);
             if (target == null) return false;

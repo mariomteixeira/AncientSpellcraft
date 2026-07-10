@@ -70,10 +70,24 @@ public class ChaosBlast extends Spell implements ClassSpell {
 
         if (!ctx.world().isClientSide) {
             if (entityHit != null && entityHit.getEntity() instanceof LivingEntity target) {
+                float damage = property(DefaultProperties.DAMAGE) * ctx.modifiers().get(SpellModifiers.POTENCY);
                 EntityUtil.attackEntityWithoutKnockback(target,
-                        MagicDamageSource.causeDirectMagicDamage(ctx.caster(), EBDamageSources.MAGIC),
-                        property(DefaultProperties.DAMAGE) * ctx.modifiers().get(SpellModifiers.POTENCY));
+                        MagicDamageSource.causeDirectMagicDamage(ctx.caster(), EBDamageSources.MAGIC), damage);
                 WarlockSpellEffects.affectEntity(target, element, ctx.caster(), true);
+                // ring_chaos_blast_multitarget: o raio segue e atinge um 2º alvo a 60% (1.12.2)
+                if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(ctx.caster(),
+                        ASItems.RING_CHAOS_BLAST_MULTITARGET.get())) {
+                    Vec3 firstHit = entityHit.getLocation();
+                    Vec3 rayEnd = origin.add(look.scale(range));
+                    EntityHitResult second = ProjectileUtil.getEntityHitResult(ctx.world(), ctx.caster(), firstHit, rayEnd,
+                            target.getBoundingBox().expandTowards(look.scale(range)).inflate(1.0),
+                            e -> e instanceof LivingEntity && e != ctx.caster() && e != target);
+                    if (second != null && second.getEntity() instanceof LivingEntity secondTarget) {
+                        EntityUtil.attackEntityWithoutKnockback(secondTarget,
+                                MagicDamageSource.causeDirectMagicDamage(ctx.caster(), EBDamageSources.MAGIC), damage * 0.6f);
+                        WarlockSpellEffects.affectEntity(secondTarget, element, ctx.caster(), true);
+                    }
+                }
             }
         } else {
             double distance = origin.distanceTo(endpoint);

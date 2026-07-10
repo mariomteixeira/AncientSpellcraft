@@ -123,7 +123,12 @@ public class MagicMushroomBlock extends BushBlock implements EntityBlock {
             }
             case FORCE -> {
                 if (beneficial || MagicDamageSource.isEntityImmune(EBDamageSources.SHOCK, target)) return false;
-                // TODO amulet_anchoring impede o arremesso (artefatos)
+                // amulet_anchoring (do Redux) impede o arremesso (1.12.2 BlockMushroomForce)
+                if (target instanceof net.minecraft.world.entity.player.Player player
+                        && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                        com.koomplo.wizardry.setup.registries.EBItems.AMULET_ANCHORING.get())) {
+                    return false;
+                }
                 target.setDeltaMovement(target.getX() - (pos.getX() + 0.5), target.getY() + 1 - (pos.getY() + 0.5),
                         target.getZ() - (pos.getZ() + 0.5));
                 target.hurtMarked = true;
