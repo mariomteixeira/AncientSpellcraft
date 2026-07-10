@@ -188,6 +188,21 @@ public final class ASItems {
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.powerJewel(0.20f));
     public static final Supplier<Item> RING_METAMAGIC_PRESERVE = artifact("ring_metamagic_preserve", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_METAMAGIC_AMPLIFIER = artifact("charm_metamagic_amplifier", net.minecraft.world.item.Rarity.RARE, null);
+
+    // onda 2a: defesas de dano recebido (1.12.2 onLivingHurtEvent)
+    public static final Supplier<Item> CHARM_CRYOSTASIS = artifact("charm_cryostasis", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.cryostasis());
+    public static final Supplier<Item> RING_PROTECTOR = artifact("ring_protector", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.protector());
+    public static final Supplier<Item> RING_BERSERKER = artifact("ring_berserker", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.lowHealthBuff(
+                    () -> net.minecraft.world.effect.MobEffects.DAMAGE_BOOST, 300, 0));
+    public static final Supplier<Item> AMULET_RABBIT = artifact("amulet_rabbit", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.rabbit());
+    public static final Supplier<Item> AMULET_SHIELD = artifact("amulet_shield", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.shieldAmulet());
+    public static final Supplier<Item> BELT_SOUL_SCORCH = artifact("belt_soul_scorch", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.soulScorch());
     public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
             new com.koomplo.wizardry.core.IArtifactEffect() {
                 @Override

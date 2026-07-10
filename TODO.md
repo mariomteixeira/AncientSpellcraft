@@ -187,6 +187,16 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-19 (3.52.0): ARTEFATOS ONDA 2a — dano recebido (6, via IArtifactEffect.onPlayerHurt):
+charm_cryostasis (vida ≤6: 25% de castar cryostasis em si), ring_protector (vida baixa: 50% de
+castar de graça uma spell de minion de wand da hotbar — desvio: primeira encontrada, sem mexer
+em seleção/cooldowns), ring_berserker (STRENGTH 15s), amulet_rabbit (25%: SPEED 10s + WEAKNESS II
+10s), amulet_shield (dano >1: wizard_shield XVI 5s, cd 3 min), belt_soul_scorch (soul_scorch 3s
+no atacante direto). ONDA 2 dividida em 3: 2a ✓; 2b = morte/tempo (ring_undeath,
+charm_reanimation, charm_plunderers_mark, amulet_time_knot, amulet_time_slow); 2c =
+poções/flechas/tick (absorb_potion, curse_ward, cursed_mirror, pendant_of_eternity, persistence,
+poison_resistance, belt_temporal_anchor, charm_ice_arrow, ring_poison_arrow, head_mask_of_silence,
+ring_prismarine). amulet_elemental_defense adiado pra onda 4 (cristal encaixado/slots).
 ✓ AS-18 (3.51.0): ARTEFATOS ONDA 1 — 43 artefatos funcionais (só registra com efeito; decisão do
 usuário). INFRA: Curios 9.5.1 no modpack (Redux já integra; fallback hotbar/inventário sem ele);
 curios/entities/player.json ativa os slots ring/necklace/charm/belt/head/body (cobre também os

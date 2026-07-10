@@ -75,6 +75,18 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:ring_range"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_berserker"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_shield"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:belt_soul_scorch"
         }
       ]
     }

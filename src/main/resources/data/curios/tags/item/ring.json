@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "ancientspellcraft:ring_absorb_crystal",
+    "ancientspellcraft:ring_berserker",
     "ancientspellcraft:ring_blast",
     "ancientspellcraft:ring_chaos_blast_multitarget",
     "ancientspellcraft:ring_disenchanter",
@@ -15,6 +16,7 @@
     "ancientspellcraft:ring_permanent_growth",
     "ancientspellcraft:ring_permanent_shrinkage",
     "ancientspellcraft:ring_power",
+    "ancientspellcraft:ring_protector",
     "ancientspellcraft:ring_range"
   ]
 }

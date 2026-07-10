@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "ancientspellcraft:charm_cryostasis",
     "ancientspellcraft:charm_earth_orb",
     "ancientspellcraft:charm_elemental_grimoire",
     "ancientspellcraft:charm_fire_orb",

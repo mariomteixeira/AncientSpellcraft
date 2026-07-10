@@ -39,6 +39,14 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:ring_power"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_protector"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_rabbit"
         }
       ]
     }

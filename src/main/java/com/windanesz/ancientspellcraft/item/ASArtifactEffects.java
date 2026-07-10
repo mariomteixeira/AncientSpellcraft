@@ -72,5 +72,115 @@ public final class ASArtifactEffects {
         };
     }
 
+    // ---- onda 2a: defesas de dano recebido (1.12.2 ASEventHandler.onLivingHurtEvent) ----
+
+    /** charm_cryostasis: com a vida em ≤6 (ou prestes a ficar), 25% de castar cryostasis em si. */
+    public static IArtifactEffect cryostasis() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide) return;
+                if ((player.getHealth() <= 6 || player.getHealth() - amount.get() <= 6)
+                        && player.level().random.nextFloat() < 0.25f) {
+                    var spell = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getSpell(
+                            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "cryostasis"));
+                    if (spell != null) {
+                        spell.cast(new com.koomplo.wizardry.api.content.spell.internal.PlayerCastContext(
+                                player.level(), player, net.minecraft.world.InteractionHand.MAIN_HAND, 0, new SpellModifiers()));
+                    }
+                }
+            }
+        };
+    }
+
+    /** ring_protector: vida baixa, 50% de castar de graça uma spell de minion de uma wand da hotbar
+     * (desvio: primeira encontrada, sem mexer em seleção/cooldowns da wand). */
+    public static IArtifactEffect protector() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide) return;
+                if (!(player.getHealth() <= 8 || player.getHealth() - amount.get() <= 6)
+                        || player.level().random.nextFloat() >= 0.5f) return;
+                for (int i = 0; i < 9; i++) {
+                    ItemStack stack = player.getInventory().getItem(i);
+                    if (!(stack.getItem() instanceof com.koomplo.wizardry.api.content.item.ICastItem)) continue;
+                    for (var spell : com.koomplo.wizardry.api.content.util.CastItemDataHelper.getSpells(stack)) {
+                        if (spell instanceof com.koomplo.wizardry.content.spell.abstr.MinionSpell<?>) {
+                            if (spell.cast(new com.koomplo.wizardry.api.content.spell.internal.PlayerCastContext(
+                                    player.level(), player, net.minecraft.world.InteractionHand.MAIN_HAND, 0, new SpellModifiers()))) {
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    /** Buff defensivo com gatilho de vida baixa (ring_berserker: STRENGTH 15s). */
+    public static IArtifactEffect lowHealthBuff(Supplier<net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect>> effect, int duration, int amplifier) {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide) return;
+                if ((player.getHealth() <= 6 || player.getHealth() - amount.get() <= 6)
+                        && !player.hasEffect(effect.get())) {
+                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect.get(), duration, amplifier));
+                }
+            }
+        };
+    }
+
+    /** amulet_rabbit: 25% ao levar dano — SPEED 10s + WEAKNESS II 10s. */
+    public static IArtifactEffect rabbit() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide || player.level().random.nextFloat() >= 0.25f) return;
+                if (!player.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED)) {
+                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 200));
+                }
+                if (!player.hasEffect(net.minecraft.world.effect.MobEffects.WEAKNESS)) {
+                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.WEAKNESS, 200, 1));
+                }
+            }
+        };
+    }
+
+    /** amulet_shield: dano >1 — wizard_shield XVI por 5s, cooldown de 3 min no amuleto. */
+    public static IArtifactEffect shieldAmulet() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide || amount.get() <= 1) return;
+                if (player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        com.windanesz.ancientspellcraft.registry.ASEffects.WIZARD_SHIELD, 100, 15));
+                player.getCooldowns().addCooldown(artifact.getItem(), 3600);
+            }
+        };
+    }
+
+    /** belt_soul_scorch: o atacante direto recebe soul_scorch por 3s. */
+    public static IArtifactEffect soulScorch() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide) return;
+                if (source.getDirectEntity() instanceof net.minecraft.world.entity.LivingEntity attacker) {
+                    attacker.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            com.windanesz.ancientspellcraft.registry.ASEffects.SOUL_SCORCH, 60));
+                }
+            }
+        };
+    }
+
     private ASArtifactEffects() {}
 }
