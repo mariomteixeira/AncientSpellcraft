@@ -147,8 +147,25 @@ ao dono com cooldown 12s/entidade, grito a cada 50t, redstone 15 enquanto trigge
 Blockbench 1.12.2; desvios: toggles glowing/skeleton = artefatos Sentinel Eye/Domus Amulet no lote
 de artefatos, som vanilla) e ARTEFACT PENSIVE (banco de XP: clique deposita tudo até 1395 = 30
 níveis, shift-clique saca; property empty muda o modelo Blockbench cheio/vazio).
-Épicos restantes: experiment (594), pocket_library (822), grapple (428), conduit,
-contingency, master_bolt, attire_alteration, runeword.
+✓ AS-11 (3.44.0): ÉPICOS FECHADOS —
+  attire_alteration (troca com o set guardado no PLAYER_DATA; wardrobe de 5 sets = charm_wardrobe TODO);
+  conduit (contínua, mana mainhand→offhand por tick com eficiência das properties; ring_mana_transfer
+  e charm_progression_orb TODO artefatos);
+  master_bolt (item + projétil SHOCK que vira BLOCO Blockbench onde cai + re-cast puxa o jogador
+  como raio com rastro de lightning_block temporário, explosão proporcional à queda e devolve o
+  item; sneak-cast recolhe; desvio: sem static_aura no puxão);
+  contingency x8 (arma listener → captura a próxima spell → dispara no gatilho: fire/drowning/
+  damage/critical_health/fall/death implementados; immobility e hostile_spellcast TODO;
+  ring_eternal_contingency TODO artefatos; disparo automático não cobra mana);
+  grapple (cipó físico 1:1 — bloco puxa você, entidade vem até você, estica 1.5x e arrebenta;
+  SEM JSON 1.12.2 de referência (era gerado em runtime): properties/tier/elemento/custo definidos
+  no port (advanced/earth, range 12) + textura de spell nova — revisar se quiser; corda = partículas
+  LEAF; charm_abseiling TODO artefatos);
+  experiment (SAGE: chance base + elementos² %, sucesso = theory point no PLAYER_DATA — moeda do
+  perfect_theory pendente; falha = forfeit do Redux/buff/debuff/nada; buffs/debuffs aproximados);
+  pocket_library (SAGE: invoca a torre-template na frente e re-cast a 3 blocos desfaz restaurando
+  o terreno via snapshot; desvio: sem persistência dos blocos do jogador dentro da torre).
+Épico restante: runeword (sistema do battlemage, lote próprio).
 
 ## AS-8 — worldgen (em curso)
 

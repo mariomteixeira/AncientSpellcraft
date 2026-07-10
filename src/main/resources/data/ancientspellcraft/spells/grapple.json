@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "extension_speed": 1.5,
+    "range": 12.0,
+    "reel_speed": 0.8
+  },
+  "chargeup": 0,
+  "cooldown": 40,
+  "cost": 5,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:advanced",
+  "type": "utility"
+}

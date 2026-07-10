@@ -31,6 +31,12 @@ public final class ASSpells {
         SPELLS.register("attire_alteration", com.windanesz.ancientspellcraft.spell.AttireAlterationSpell::new);
         SPELLS.register("conduit", com.windanesz.ancientspellcraft.spell.ConduitSpell::new);
         SPELLS.register("master_bolt", com.windanesz.ancientspellcraft.spell.MasterBoltSpell::new);
+        for (var type : com.windanesz.ancientspellcraft.spell.ContingencySpell.Type.values()) {
+            SPELLS.register(type.spellName, () -> new com.windanesz.ancientspellcraft.spell.ContingencySpell(type));
+        }
+        SPELLS.register("grapple", com.windanesz.ancientspellcraft.spell.GrappleSpell::new);
+        SPELLS.register("experiment", com.windanesz.ancientspellcraft.spell.ExperimentSpell::new);
+        SPELLS.register("pocket_library", com.windanesz.ancientspellcraft.spell.PocketLibrarySpell::new);
 
         // Cores 1.12.2 (r,g,b) normalizadas /255 onde eram int
         SPELLS.register("aquatic_agility", () -> new ASBuffSpell(0f, 0.4f, 0.8f, () -> ASEffects.AQUATIC_AGILITY));

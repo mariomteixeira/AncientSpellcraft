@@ -80,16 +80,35 @@ public final class ASMetamagicEvents {
             player.removeEffect(ASEffects.CONTINUITY_CHARM);
         }
 
+        // contingency (AS-11): listener armado -> captura a spell castada (não casta agora)
+        var flags = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA);
+        if (flags.contains(com.windanesz.ancientspellcraft.spell.ContingencySpell.LISTENER_TAG)) {
+            var spell = event.getSpell();
+            if (!(spell instanceof com.windanesz.ancientspellcraft.spell.ContingencySpell
+                    || spell instanceof MetamagicBuffSpell
+                    || spell instanceof com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell)) {
+                String type = flags.getString(com.windanesz.ancientspellcraft.spell.ContingencySpell.LISTENER_TAG);
+                flags.putString(com.windanesz.ancientspellcraft.spell.ContingencySpell.STORED_PREFIX + type,
+                        spell.getLocation().toString());
+                flags.remove(com.windanesz.ancientspellcraft.spell.ContingencySpell.LISTENER_TAG);
+                player.setData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA, flags);
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                        "spell.ancientspellcraft.contingency.stored", spell.getDescriptionFormatted()), true);
+                event.setCanceled(true);
+                return;
+            }
+        }
+
         // metamagic_projectile (AS-9b): flag armada -> cancela o cast e dispara o projétil que
         // carrega a spell. Rays/projéteis/metamagic ficam de fora (1.12.2; sem a blacklist de
         // config — marco 7).
-        var flags = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA);
         if (flags.getBoolean(com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell.FLAG)) {
             var spell = event.getSpell();
             if (!(spell instanceof com.koomplo.wizardry.content.spell.abstr.RaySpell
                     || spell instanceof com.koomplo.wizardry.content.spell.abstr.ArrowSpell
                     || spell instanceof com.koomplo.wizardry.content.spell.abstr.ProjectileSpell
                     || spell instanceof MetamagicBuffSpell
+                    || spell instanceof com.windanesz.ancientspellcraft.spell.ContingencySpell
                     || spell instanceof com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell)) {
                 var projectile = new com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity(
                         com.windanesz.ancientspellcraft.registry.ASEntities.METAMAGIC_PROJECTILE.get(), player.level());

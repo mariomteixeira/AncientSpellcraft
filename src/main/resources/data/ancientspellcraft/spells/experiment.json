@@ -1,0 +1,27 @@
+{
+  "base_properties": {
+    "base_success_chance": 0.01,
+    "buff_weight": 1,
+    "debuff_weight": 1,
+    "forfeit_weight": 3,
+    "no_effect_weight": 3
+  },
+  "chargeup": 20,
+  "cooldown": 40,
+  "cost": 10,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:novice",
+  "type": "alteration"
+}

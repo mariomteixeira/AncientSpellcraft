@@ -1,0 +1,68 @@
+package com.windanesz.ancientspellcraft.handler;
+
+import com.koomplo.wizardry.api.content.spell.Spell;
+import com.koomplo.wizardry.api.content.spell.internal.PlayerCastContext;
+import com.koomplo.wizardry.api.content.spell.internal.SpellModifiers;
+import com.koomplo.wizardry.core.platform.Services;
+import com.windanesz.ancientspellcraft.registry.ASAttachments;
+import com.windanesz.ancientspellcraft.spell.ContingencySpell;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+
+/**
+ * Gatilhos das contingências (1.12.2 ASEventHandler): fogo/afogamento/dano/vida crítica no
+ * LivingIncomingDamage, queda no LivingFall, morte no LivingDeath. Disparo remove a contingência.
+ */
+public final class ASContingencyEvents {
+
+    public static void onIncomingDamage(LivingIncomingDamageEvent event) {
+        if (!(event.getEntity() instanceof Player player) || player.level().isClientSide) return;
+        var source = event.getSource();
+        if (source.is(net.minecraft.tags.DamageTypeTags.IS_FIRE)) {
+            trigger(player, ContingencySpell.Type.FIRE);
+        } else if (source.is(net.minecraft.world.damagesource.DamageTypes.DROWN)) {
+            trigger(player, ContingencySpell.Type.DROWNING);
+        } else {
+            trigger(player, ContingencySpell.Type.DAMAGE);
+        }
+        // 1.12.2: dispara se a vida está (ou vai ficar) abaixo de 25%
+        if (player.getHealth() <= player.getMaxHealth() * 0.25F
+                || player.getHealth() - event.getAmount() <= player.getMaxHealth() * 0.25F) {
+            trigger(player, ContingencySpell.Type.CRITICAL_HEALTH);
+        }
+    }
+
+    public static void onLivingFall(LivingFallEvent event) {
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide && event.getDistance() > 3) {
+            trigger(player, ContingencySpell.Type.FALL);
+        }
+    }
+
+    public static void onLivingDeath(LivingDeathEvent event) {
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide) {
+            trigger(player, ContingencySpell.Type.DEATH);
+        }
+    }
+
+    private static void trigger(Player player, ContingencySpell.Type type) {
+        CompoundTag tag = player.getData(ASAttachments.PLAYER_DATA);
+        String key = ContingencySpell.STORED_PREFIX + type.name();
+        if (!tag.contains(key)) return;
+        Spell spell = Services.REGISTRY_UTIL.getSpell(ResourceLocation.tryParse(tag.getString(key)));
+        tag.remove(key);
+        player.setData(ASAttachments.PLAYER_DATA, tag);
+        if (spell == null) return;
+        spell.cast(new PlayerCastContext(player.level(), player, InteractionHand.MAIN_HAND, 0, new SpellModifiers()));
+        player.level().playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 0.7F);
+    }
+
+    private ASContingencyEvents() {
+    }
+}
