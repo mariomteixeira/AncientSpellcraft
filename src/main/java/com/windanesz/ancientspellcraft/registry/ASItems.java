@@ -138,7 +138,8 @@ public final class ASItems {
                 "log_crystal_tree", "leaves_crystal_tree", "astral_diamond_ore", "crystal_silver_ore", "sage_flax",
                 "dimension_boundary", "dimension_boundary_magic", "dimension_boundary_fire", "dimension_boundary_ice",
                 "dimension_boundary_lightning", "dimension_boundary_necromancy", "dimension_boundary_earth",
-                "dimension_boundary_sorcery", "dimension_boundary_healing", "dimension_focus", "dimension_focus_gold"}) {
+                "dimension_boundary_sorcery", "dimension_boundary_healing", "dimension_focus", "dimension_focus_gold",
+                "skull_watch", "artefact_pensive"}) {
             ITEMS.register(name, () -> new net.minecraft.world.item.BlockItem(
                     net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
                             net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, name)),
@@ -220,7 +221,8 @@ public final class ASItems {
                                 "log_crystal_tree", "leaves_crystal_tree", "astral_diamond_ore", "crystal_silver_ore", "sage_flax",
                                 "dimension_boundary", "dimension_boundary_magic", "dimension_boundary_fire", "dimension_boundary_ice",
                                 "dimension_boundary_lightning", "dimension_boundary_necromancy", "dimension_boundary_earth",
-                                "dimension_boundary_sorcery", "dimension_boundary_healing", "dimension_focus", "dimension_focus_gold"}) {
+                                "dimension_boundary_sorcery", "dimension_boundary_healing", "dimension_focus", "dimension_focus_gold",
+                                "skull_watch", "artefact_pensive"}) {
                             output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
                                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(com.windanesz.ancientspellcraft.AncientSpellcraft.MODID, name)));
                         }

@@ -210,6 +210,34 @@ public final class ASBlocks {
     public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.RitualCoreBlockEntity>> RITUAL_CORE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("ritual_core", () -> BlockEntityType.Builder.of(
                     com.windanesz.ancientspellcraft.block.RitualCoreBlockEntity::new, RITUAL_CORE.get()).build(null));
+
+    // AS-10a: bloco escondido pelo conceal_object (invisível/atravessável; guarda o original)
+    public static final Supplier<Block> CONCEALED_BLOCK = BLOCKS.register("concealed_block",
+            () -> new com.windanesz.ancientspellcraft.block.ConcealedBlock(BlockBehaviour.Properties.of()
+                    .noCollission().strength(-1.0F, 3600000.0F).noLootTable().noOcclusion()));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.ConcealedBlockEntity>> CONCEALED_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("concealed_block", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.ConcealedBlockEntity::new, CONCEALED_BLOCK.get()).build(null));
+
+    // AS-10b: estações restantes
+    public static final Supplier<Block> SKULL_WATCH = BLOCKS.register("skull_watch",
+            () -> new com.windanesz.ancientspellcraft.block.SkullWatchBlock(BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(3.0F, 5.0F)
+                    .noOcclusion().sound(net.minecraft.world.level.block.SoundType.BONE_BLOCK)));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.SkullWatchBlockEntity>> SKULL_WATCH_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("skull_watch", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.SkullWatchBlockEntity::new, SKULL_WATCH.get()).build(null));
+
+    public static final Supplier<Block> ARTEFACT_PENSIVE = BLOCKS.register("artefact_pensive",
+            () -> new com.windanesz.ancientspellcraft.block.ArtefactPensiveBlock(BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(3.0F, 5.0F)
+                    .noOcclusion().sound(net.minecraft.world.level.block.SoundType.STONE)));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.ArtefactPensiveBlockEntity>> ARTEFACT_PENSIVE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("artefact_pensive", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.ArtefactPensiveBlockEntity::new, ARTEFACT_PENSIVE.get()).build(null));
     public static final java.util.Map<String, Supplier<Block>> RUNE_BLOCKS = new java.util.LinkedHashMap<>();
 
     static {

@@ -136,8 +136,19 @@ espada por elemento, EnumElementalSwordEffect 1:1, EntityAIBattlemageMelee para 
 WarlockSpellEffects em vez do switch 1:1; TODO charm_prismatic_spray), ternary_storm (SAGE master:
 stormcloud + blizzard do Redux + chão de magma/raio temporário), arcane_wall (bloco arcano
 translúcido temporário em muro 3x2; TODO muros de worldgen isGenerated).
-Épicos restantes: experiment (594), pocket_library (822), grapple (428), living_comet, conduit,
-contingency, master_bolt, charge_as, attire_alteration, conceal_object (mimic block), runeword.
+✓ AS-10a (3.43.0): LIVING_COMET (contínua master/fire: caster vira cometa — sobe 20t, acelera no
+olhar, controle vertical 100t+, pouso 40t+ explode 1.8 + fire resistance; desvio: branch do
+charm_meteorite_stone fica com artefatos) e CONCEAL_OBJECT (SAGE ray: bloco mirado vira
+concealed_block invisível/atravessável com estado+BE guardados; re-cast reverte; element sorcery
+por consistência com as demais sage). CHARGE_AS descartado — override config-gated do spell charge
+do wizardry (mesmo precedente de conjure_pickaxe/plague_of_darkness_as).
+✓ AS-10b (3.43.0): SKULL WATCH funcional (detecta não-aliado com linha de visão raio 15 → mensagem
+ao dono com cooldown 12s/entidade, grito a cada 50t, redstone 15 enquanto triggered; modelo
+Blockbench 1.12.2; desvios: toggles glowing/skeleton = artefatos Sentinel Eye/Domus Amulet no lote
+de artefatos, som vanilla) e ARTEFACT PENSIVE (banco de XP: clique deposita tudo até 1395 = 30
+níveis, shift-clique saca; property empty muda o modelo Blockbench cheio/vazio).
+Épicos restantes: experiment (594), pocket_library (822), grapple (428), conduit,
+contingency, master_bolt, attire_alteration, runeword.
 
 ## AS-8 — worldgen (em curso)
 

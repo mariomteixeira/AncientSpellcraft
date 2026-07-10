@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "acceleration": 0.05,
+    "speed": 0.5
+  },
+  "chargeup": 0,
+  "cooldown": 100,
+  "cost": 10,
+  "element": "ebwizardry:fire",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point",
+  "tier": "ebwizardry:master",
+  "type": "utility"
+}

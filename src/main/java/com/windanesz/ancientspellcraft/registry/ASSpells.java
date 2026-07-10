@@ -24,6 +24,9 @@ public final class ASSpells {
         SPELLS.register("intensifying_focus", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.INTENSIFYING_FOCUS));
         SPELLS.register("continuity_charm", () -> new com.windanesz.ancientspellcraft.spell.MetamagicBuffSpell(() -> ASEffects.CONTINUITY_CHARM));
         SPELLS.register("metamagic_projectile", com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell::new);
+        // AS-10a: épicos
+        SPELLS.register("living_comet", com.windanesz.ancientspellcraft.spell.LivingCometSpell::new);
+        SPELLS.register("conceal_object", com.windanesz.ancientspellcraft.spell.ConcealObjectSpell::new);
 
         // Cores 1.12.2 (r,g,b) normalizadas /255 onde eram int
         SPELLS.register("aquatic_agility", () -> new ASBuffSpell(0f, 0.4f, 0.8f, () -> ASEffects.AQUATIC_AGILITY));
