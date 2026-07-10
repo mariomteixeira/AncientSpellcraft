@@ -346,12 +346,14 @@ public final class ASSpells {
         SPELLS.register("runeword_meditate", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
                 .continuous()
                 .instant((s, ctx, sw) -> {
-                    // contínua: 3 de mana/10t na espada com o escudo de battlemage na offhand
-                    // (desvio: o escudo do port ainda não guarda mana — recarrega a lâmina)
-                    if (!(ctx.caster().getOffhandItem().getItem() instanceof com.windanesz.ancientspellcraft.item.BattlemageShieldItem)) return false;
+                    // contínua: transfere 3 de mana/10t DO escudo de battlemage (offhand) para a lâmina
+                    var shield = ctx.caster().getOffhandItem();
+                    if (!(shield.getItem() instanceof com.windanesz.ancientspellcraft.item.BattlemageShieldItem shieldItem)) return false;
                     if (!ctx.world().isClientSide && ctx.castingTicks() % 10 == 0
                             && sw.getItem() instanceof com.koomplo.wizardry.api.content.item.IManaItem manaItem
-                            && !manaItem.isManaFull(sw)) {
+                            && !manaItem.isManaFull(sw)
+                            && shieldItem.getMana(shield) >= 3) {
+                        shieldItem.consumeMana(shield, 3, ctx.caster());
                         manaItem.rechargeMana(sw, 3);
                     }
                     return true;

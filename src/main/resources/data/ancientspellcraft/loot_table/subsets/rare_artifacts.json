@@ -14,6 +14,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_glyph_shield_disable"
+        },
+        {
+          "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_power"
         },
         {

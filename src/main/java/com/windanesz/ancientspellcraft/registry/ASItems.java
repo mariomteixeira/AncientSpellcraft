@@ -296,6 +296,8 @@ public final class ASItems {
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.glyphMight());
     public static final Supplier<Item> CHARM_GLYPH_CHARGE = artifact("charm_glyph_charge", net.minecraft.world.item.Rarity.EPIC, null);
     public static final Supplier<Item> CHARM_GLYPH_IMBUEMENT = artifact("charm_glyph_imbuement", net.minecraft.world.item.Rarity.RARE, null);
+    // AS-29: gate no BattlemageShieldItem.inventoryTick (remove o cooldown de quebra de guarda)
+    public static final Supplier<Item> CHARM_GLYPH_SHIELD_DISABLE = artifact("charm_glyph_shield_disable", net.minecraft.world.item.Rarity.RARE, null);
 
     // onda 3c: auras do battlemage (tick 0.5s, raio 10, exigem o set completo)
     public static final Supplier<Item> CHARM_AURA_ALACRITY = artifact("charm_aura_alacrity", net.minecraft.world.item.Rarity.RARE,

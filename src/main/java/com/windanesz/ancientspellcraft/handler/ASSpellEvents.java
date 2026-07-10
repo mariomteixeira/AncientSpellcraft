@@ -240,6 +240,26 @@ public final class ASSpellEvents {
         }
     }
 
+    /**
+     * Bloqueio do battlemage_shield (1.12.2: mana = durabilidade): o bloqueio não desgasta o item,
+     * consome a mana do escudo (regra vanilla: dano >= 3 gasta 1 + floor(dano)); mana vazia derruba
+     * a guarda.
+     */
+    public static void onShieldBlock(net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        var shield = player.getUseItem();
+        if (!(shield.getItem() instanceof com.windanesz.ancientspellcraft.item.BattlemageShieldItem item)) return;
+        if (!event.getBlocked()) return;
+        event.setShieldDamage(0);
+        if (!player.level().isClientSide) {
+            float blocked = event.getBlockedDamage();
+            if (blocked >= 3.0f) {
+                item.consumeMana(shield, 1 + net.minecraft.util.Mth.floor(blocked), player);
+            }
+            if (item.isManaEmpty(shield)) player.stopUsingItem();
+        }
+    }
+
     public static boolean isWearingFullSet(Player player, com.koomplo.wizardry.content.item.armor.WizardArmorType type) {
         for (var stack : player.getArmorSlots()) {
             if (!(stack.getItem() instanceof com.koomplo.wizardry.content.item.armor.WizardArmorItem armor)
