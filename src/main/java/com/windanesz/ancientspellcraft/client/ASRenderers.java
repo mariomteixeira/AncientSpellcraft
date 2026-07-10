@@ -20,6 +20,8 @@ public final class ASRenderers {
                         ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "textures/entity/dispel_magic.png")));
         event.registerBlockEntityRenderer(com.windanesz.ancientspellcraft.registry.ASBlocks.SENTINEL_BLOCK_ENTITY.get(),
                 SentinelRenderer::new);
+        event.registerBlockEntityRenderer(com.windanesz.ancientspellcraft.registry.ASBlocks.RITUAL_CORE_BLOCK_ENTITY.get(),
+                RitualCoreRenderer::new);
         event.registerEntityRenderer(ASEntities.VOID_CREEPER.get(), context ->
                 new net.minecraft.client.renderer.entity.CreeperRenderer(context) {
                     private static final ResourceLocation TEXTURE =

@@ -61,10 +61,20 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   + 3 SPELLS novas via MetamagicBuffSpell (um metamagic por vez, re-cast amplifica até nível III,
   nível III re-cast = 90% desconto no cooldown; advanced/sorcery — element consistente com a
   reclassificação de extension; type METAMAGIC novo no Redux 0.1.26). Os shells do fairy_ring
-  (spell_siphon/spell_cooldown do empowering) agora funcionam. Restante: metamagic_projectile
-  (AS-9b: interceptor de próximo cast + EntityMetamagicProjectile + render), ring_metamagic_preserve
-  e charm_metamagic_amplifier (lote de artefatos), cooldown de item no consumo (desvio: só o
-  cooldown JSON da spell).
+  (spell_siphon/spell_cooldown do empowering) agora funcionam.
+  ✓ AS-9b (3.42.0): metamagic_projectile — spell arma flag (attachment PLAYER_DATA); o próximo cast
+  (que não seja ray/arrow/projectile/metamagic) é cancelado e vira MetamagicProjectileEntity que
+  casta a spell no impacto (LocationCastContext) e adota minions órfãos recém-conjurados; render =
+  MagicProjectileRenderer com dispel_magic.png; velocidade pela fórmula 1.12.2 (range 20*RANGE,
+  g=0.03). Desvios: sem blacklist de config (marco 7), som vanilla.
+  ✓ AS-9c (3.42.0): RITUAIS CONTÍNUOS via ritual_core (bloco flat + BlockEntity — substitui o
+  TileRune): arcane_barrier (mantém ForcefieldConstruct do Redux, raio 4 — desvio: sem cor/
+  allow_players/piso 5x5 do original), condensing (engole shard/cristal jogado, ciclo 180t
+  +0.75/+0.25, shard→cristal→grand; clique devolve; item flutuando via BER — desvio: sem os
+  crystal_shards elementais do AS, não portados), forest (engole sapling e planta/cresce árvores
+  raio 3-30 a cada 40t, expira em 1600t). Padrões de runas dos JSONs 1.12.2. Loot de runas já
+  coberto no AS-8a (baús vanilla). Restante metamagic: ring_metamagic_preserve e
+  charm_metamagic_amplifier (artefatos), cooldown de item no consumo.
 - **Pocket dimension** (AS-8): pocket_dimension e o sistema de dimensão.
 - **Estruturas/worldgen/biomes** (AS-8): 22 estruturas .nbt, spawns do skeleton mage selvagem
   (elemento por bioma), 2 biomes.

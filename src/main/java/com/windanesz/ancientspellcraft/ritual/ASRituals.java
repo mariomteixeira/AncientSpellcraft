@@ -26,7 +26,8 @@ import java.util.Map;
  */
 public final class ASRituals {
 
-    public static final List<String> RITUALS = List.of("bonfire", "rejuvenation", "warlock_attunement", "elemental_attunement");
+    public static final List<String> RITUALS = List.of("bonfire", "rejuvenation", "warlock_attunement", "elemental_attunement",
+            "arcane_barrier", "condensing", "forest");
     public static final Map<String, Map<String, Integer>> RUNES_REQUIRED = new HashMap<>();
 
     static {
@@ -34,6 +35,13 @@ public final class ASRituals {
         RUNES_REQUIRED.put("rejuvenation", java.util.Map.of("rune_mannaz", 4, "rune_odal", 2));
         RUNES_REQUIRED.put("warlock_attunement", java.util.Map.of("rune_ansuz", 1, "rune_ehwaz", 1, "rune_gyfu", 1, "rune_kaunan", 1, "rune_laguz", 1, "rune_odal", 2, "rune_peorth", 1, "rune_raido", 2, "rune_wynn", 3));
         RUNES_REQUIRED.put("elemental_attunement", java.util.Map.of("rune_ehwaz", 2, "rune_laguz", 1, "rune_mannaz", 2, "rune_naudiz", 1, "rune_tiwaz", 1));
+        // AS-9c (padrões dos JSONs 1.12.2 assets/rituals)
+        RUNES_REQUIRED.put("arcane_barrier", java.util.Map.of("rune_peorth", 1, "rune_tiwaz", 3, "rune_wynn", 1,
+                "rune_ansuz", 1, "rune_odal", 1, "rune_kaunan", 1, "rune_ehwaz", 1, "rune_raido", 1, "rune_dagaz", 1));
+        RUNES_REQUIRED.put("condensing", java.util.Map.of("rune_kaunan", 1, "rune_odal", 1, "rune_naudiz", 3,
+                "rune_dagaz", 1, "rune_ehwaz", 1, "rune_isaz", 1, "rune_sowilo", 1, "rune_gyfu", 1));
+        RUNES_REQUIRED.put("forest", java.util.Map.of("rune_sowilo", 1, "rune_ehwaz", 1, "rune_raido", 1,
+                "rune_tiwaz", 1, "rune_odal", 1, "rune_feoh", 1));
     }
 
     /** Runas (item entities) num raio de 4; retorna as que casam com a exigencia, ou null se faltar. */
@@ -115,6 +123,18 @@ public final class ASRituals {
                     }
                 }
                 player.sendSystemMessage(Component.translatable("ritual.ancientspellcraft.elemental_attunement.no_crystal"));
+                return false;
+            }
+            // AS-9c: rituais contínuos — colocam o ritual_core no chão; o BlockEntity mantém o efeito
+            case "arcane_barrier", "condensing", "forest" -> {
+                var pos = player.blockPosition();
+                if (!level.getBlockState(pos).canBeReplaced()) pos = pos.above();
+                if (!level.getBlockState(pos).canBeReplaced()) return false;
+                level.setBlockAndUpdate(pos, com.windanesz.ancientspellcraft.registry.ASBlocks.RITUAL_CORE.get().defaultBlockState());
+                if (level.getBlockEntity(pos) instanceof com.windanesz.ancientspellcraft.block.RitualCoreBlockEntity core) {
+                    core.setRitual(ritual);
+                    return true;
+                }
                 return false;
             }
         }

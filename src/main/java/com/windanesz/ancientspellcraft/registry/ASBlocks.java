@@ -200,6 +200,16 @@ public final class ASBlocks {
                     .noLootTable().sound(net.minecraft.world.level.block.SoundType.STONE)));
     public static final Supplier<Block> PLACED_RUNE = BLOCKS.register("placed_rune",
             () -> new com.windanesz.ancientspellcraft.block.PlacedRuneBlock());
+
+    // AS-9c: âncora dos rituais contínuos (arcane_barrier/condensing/forest)
+    public static final Supplier<Block> RITUAL_CORE = BLOCKS.register("ritual_core",
+            () -> new com.windanesz.ancientspellcraft.block.RitualCoreBlock(BlockBehaviour.Properties.of()
+                    .noCollission().instabreak().noLootTable().lightLevel(state -> 5)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.RitualCoreBlockEntity>> RITUAL_CORE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("ritual_core", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.RitualCoreBlockEntity::new, RITUAL_CORE.get()).build(null));
     public static final java.util.Map<String, Supplier<Block>> RUNE_BLOCKS = new java.util.LinkedHashMap<>();
 
     static {
