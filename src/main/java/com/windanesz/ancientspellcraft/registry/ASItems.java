@@ -388,6 +388,15 @@ public final class ASItems {
                 }
             });
 
+    // AS-26: residuais do scribing — tome de transcrição, everfull flask e a relíquia ancient_mana_flask
+    public static final Supplier<Item> CHARM_TRANSCRIBING_TOME = ITEMS.register("charm_transcribing_tome",
+            () -> new com.windanesz.ancientspellcraft.item.TranscribingTomeItem(net.minecraft.world.item.Rarity.UNCOMMON));
+    public static final Supplier<Item> CHARM_MANA_FLASK = ITEMS.register("charm_mana_flask",
+            () -> new com.windanesz.ancientspellcraft.item.EverfullManaFlaskItem(net.minecraft.world.item.Rarity.UNCOMMON));
+    public static final Supplier<Item> ANCIENT_MANA_FLASK = ITEMS.register("ancient_mana_flask",
+            () -> new com.windanesz.ancientspellcraft.item.RelicItem(
+                    com.koomplo.wizardry.setup.registries.SpellTiers.APPRENTICE, net.minecraft.world.item.Rarity.UNCOMMON));
+
     public static final Supplier<Item> CRYSTAL_SILVER_INGOT = ITEMS.register("crystal_silver_ingot",
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> CRYSTAL_SILVER_NUGGET = ITEMS.register("crystal_silver_nugget",

@@ -94,7 +94,15 @@ public class RitualBookItem extends Item {
                                 @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         String ritual = getRitual(stack);
         if (!ritual.isEmpty()) {
-            tooltip.add(Component.translatable("ritual.ancientspellcraft." + ritual).withStyle(ChatFormatting.GOLD));
+            // 1.12.2: nome em elder futhark + hint até descobrir com o Scroll of Identification
+            if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()
+                    && !com.windanesz.ancientspellcraft.client.RitualDiscoveryClient.isDiscovered(ritual)) {
+                tooltip.add(Component.literal(com.windanesz.ancientspellcraft.util.LangUtils.toElderFuthark(
+                        Component.translatable("ritual.ancientspellcraft." + ritual).getString())).withStyle(ChatFormatting.GOLD));
+                tooltip.add(Component.translatable("item.ancientspellcraft.ritual_book.desc").withStyle(ChatFormatting.GRAY));
+            } else {
+                tooltip.add(Component.translatable("ritual.ancientspellcraft." + ritual).withStyle(ChatFormatting.GOLD));
+            }
             tooltip.add(Component.translatable("item.ancientspellcraft.ritual_book.runes").withStyle(ChatFormatting.GRAY));
             ASRituals.RUNES_REQUIRED.getOrDefault(ritual, java.util.Map.of()).forEach((rune, count) ->
                     tooltip.add(Component.literal("  " + count + "x ")

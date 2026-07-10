@@ -25,6 +25,10 @@ public final class ASAttachments {
     public static final Supplier<AttachmentType<CompoundTag>> PLAYER_DATA = ATTACHMENTS.register("player_data",
             () -> AttachmentType.builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).build());
 
+    /** Rituais descobertos (1.12.2 RitualDiscoveryData, Persistence.ALWAYS): lista "Rituals". */
+    public static final Supplier<AttachmentType<CompoundTag>> KNOWN_RITUALS = ATTACHMENTS.register("known_rituals",
+            () -> AttachmentType.builder(() -> new CompoundTag()).serialize(CompoundTag.CODEC).copyOnDeath().build());
+
     private ASAttachments() {
     }
 }

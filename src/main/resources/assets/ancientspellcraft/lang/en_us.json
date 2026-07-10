@@ -983,7 +983,7 @@
   "item.ancientspellcraft.purifying_elixir_recipe.desc": "Purifying Elixir\\nCan be used in a crafting table as a recipe component",
   "item.ancientspellcraft.rare_scroll_tooltip": "Rare Scroll",
   "item.ancientspellcraft.relic.components": "Research components:",
-  "item.ancientspellcraft.relic.unidentified": "Undeciphered... (carry it to attune)",
+  "item.ancientspellcraft.relic.unidentified": "Undeciphered... (use a Scroll of Identification on it)",
   "item.ancientspellcraft.relic_researched": "Researched",
   "item.ancientspellcraft.ring_absorb_crystal": "Ring of Compression",
   "item.ancientspellcraft.ring_absorb_crystal.desc": "Absorb Crystal can absorb a crystal block, increasing a warlock's potency by 10%%",

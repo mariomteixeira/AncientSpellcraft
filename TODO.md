@@ -105,11 +105,27 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
 ## AS-7l — Scribing Desk (feito) e pendências das estações
 
 ✓ AS-7l: SCRIBING DESK completo (bloco Blockbench original + GUI): relíquia (stone tablet
-small/normal/large/grand por tier, spell aleatória da SpellComponentList atribuída ao carregar)
-+ componentes de pesquisa (52 entradas parseadas do 1.12.2, resolução em runtime ignora
-spells/itens ausentes) + cristais (1, master 2) + tinta (ink sac) + livro -> spell book do AS +
-discoverSpell. TODO: ancient_mana_flask como relíquia, loot tables das relíquias (worldgen/AS-8),
-transcribing tome, ItemRelic completo (identificação por uso, 835 linhas).
+small/normal/large/grand por tier) + componentes de pesquisa (52 entradas parseadas do 1.12.2,
+resolução em runtime ignora spells/itens ausentes) + cristais (1, master 2) + tinta (ink sac) +
+livro -> spell book do AS + discoverSpell.
+✓ AS-26 (3.59.0): SCRIBING/RITUAIS RESIDUAIS —
+  ITEMRELIC COMPLETO: relíquia agora nasce SEM conteúdo; pesquisa = Scroll of Identification na
+  outra mão (desvio: o 1.12.2 pesquisava na Sphere of Cognizance, não portada; relíquias antigas
+  com spell contam como pesquisadas). Pesquisa sorteia SPELL 40% (scribing desk) / INCANTATION 15%
+  (poção 10-60min por tier) / ENCHANTMENT 25% (tier+1 encantos aleatórios sem curses/encantos do
+  wizardry, aplica no item da offhand com checagem de compatibilidade) / POWER 20% (metamagic/
+  empowerment 5-20min); INCANTATION/POWER/ENCHANTMENT canalizam 120t no right-click e consomem;
+  pools de efeito resolvidos em runtime (ausentes ignorados); sons vanilla (sounds.json não portado).
+  ancient_mana_flask registrado como relíquia (loot: dungeon_additions w2 — no 1.12.2 não tinha
+  loot nenhum). TRANSCRIBING TOME (charm UNCOMMON): canaliza 3s com scroll na offhand, tomo vira o
+  spell book da spell (tipo de livro via applicableForItem). EVERFULL MANA FLASK (charm UNCOMMON):
+  reserva 1400 auto-reenche +3/50t (condenser interval), use na offhand transfere 140 pra mainhand
+  (desvio: textura única + barra em vez dos 11 modelos). RITUAL DISCOVERY: attachment KNOWN_RITUALS
+  (copyOnDeath) + sync S2C (login/respawn/dimensão) + descoberta por Scroll of Identification na
+  outra mão do ritual book (consome, mensagem); não descoberto = nome/descrição em ELDER FUTHARK
+  na GUI e tooltip (runas continuam visíveis — dá pra executar sem descobrir, igual ao 1.12.2);
+  criativo vê tudo. NOTA: o gate upstream estava DESATIVADO (hasRitualBeenDiscovered retornava
+  true fixo) — o port ativa o sistema como projetado.
 PENDENTE: Arcane Anvil (estação do BATTLEMAGE) — precisa da linha de espadas battlemage
 (hilt/blade/espadas por tier/crystal_silver_ingot + WizardClassWeaponHelper), fica com o lote da
 classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).

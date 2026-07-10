@@ -24,11 +24,17 @@ public class AncientSpellcraft {
         com.windanesz.ancientspellcraft.registry.ASEntities.ENTITIES.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASMenus.MENUS.register(modBus);
         modBus.addListener(com.windanesz.ancientspellcraft.registry.ASEntities::onAttributeCreation);
-        modBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) ->
-                event.registrar("1").playToServer(
-                        com.windanesz.ancientspellcraft.network.ExtendedReachC2S.TYPE,
-                        com.windanesz.ancientspellcraft.network.ExtendedReachC2S.STREAM_CODEC,
-                        com.windanesz.ancientspellcraft.network.ExtendedReachC2S::handle));
+        modBus.addListener((net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent event) -> {
+            var registrar = event.registrar("1");
+            registrar.playToServer(
+                    com.windanesz.ancientspellcraft.network.ExtendedReachC2S.TYPE,
+                    com.windanesz.ancientspellcraft.network.ExtendedReachC2S.STREAM_CODEC,
+                    com.windanesz.ancientspellcraft.network.ExtendedReachC2S::handle);
+            registrar.playToClient(
+                    com.windanesz.ancientspellcraft.network.KnownRitualsS2C.TYPE,
+                    com.windanesz.ancientspellcraft.network.KnownRitualsS2C.STREAM_CODEC,
+                    com.windanesz.ancientspellcraft.network.KnownRitualsS2C::handle);
+        });
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()) {
             NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASClientEvents::onLeftClickEmpty);
             NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASCameraClientHandler::onClientTick);
@@ -52,6 +58,10 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASWarlockEvents::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASWorldgenEvents::onLootTableLoad);
         modBus.addListener(com.windanesz.ancientspellcraft.handler.ASWorldgenEvents::onRegisterSpawnPlacements);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDiscoveryEvents::onRightClickItem);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDiscoveryEvents::onPlayerLoggedIn);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDiscoveryEvents::onPlayerRespawn);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDiscoveryEvents::onPlayerChangedDimension);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

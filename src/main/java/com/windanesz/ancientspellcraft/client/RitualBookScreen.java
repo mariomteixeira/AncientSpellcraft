@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Livro de ritual (1.12.2 GuiRitualBook): nome, descrição e runas necessárias com ícones.
- * Desvios: uma página só (sem double page), sem elder futhark/discovery (o port não tem
- * RitualDiscoveryData) e runas como lista com contagem (o pattern espacial virou contagem).
+ * Livro de ritual (1.12.2 GuiRitualBook): nome, descrição e runas necessárias com ícones; ritual
+ * não descoberto aparece em elder futhark (runas continuam visíveis, igual ao 1.12.2). Desvios: uma
+ * página só (sem double page) e runas como lista com contagem (o pattern espacial virou contagem).
  */
 public class RitualBookScreen extends Screen {
 
@@ -38,10 +38,16 @@ public class RitualBookScreen extends Screen {
 
         graphics.blit(TEXTURE, left, top, 0, 0, X_SIZE, Y_SIZE, TEX_W, TEX_H);
 
-        // página esquerda: nome + descrição
-        graphics.drawString(font, title, left + 20, top + 18, 0, false);
-        graphics.drawWordWrap(font, Component.translatable("ritual.ancientspellcraft." + ritual + ".desc"),
-                left + 17, top + 34, 118, 0);
+        // página esquerda: nome + descrição (futhark enquanto não descoberto)
+        boolean discovered = RitualDiscoveryClient.isDiscovered(ritual);
+        Component name = discovered ? title
+                : Component.literal(com.windanesz.ancientspellcraft.util.LangUtils.toElderFuthark(title.getString()));
+        Component desc = Component.translatable("ritual.ancientspellcraft." + ritual + ".desc");
+        if (!discovered) {
+            desc = Component.literal(com.windanesz.ancientspellcraft.util.LangUtils.toElderFuthark(desc.getString()));
+        }
+        graphics.drawString(font, name, left + 20, top + 18, 0, false);
+        graphics.drawWordWrap(font, desc, left + 17, top + 34, 118, 0);
 
         // página direita: runas necessárias
         graphics.drawString(font, Component.translatable("item.ancientspellcraft.ritual_book.runes"),

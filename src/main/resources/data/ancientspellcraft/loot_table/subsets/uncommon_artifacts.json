@@ -71,6 +71,14 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:ring_mana_lesser"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_mana_flask"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_transcribing_tome"
         }
       ]
     }
