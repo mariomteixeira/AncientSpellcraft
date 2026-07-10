@@ -82,6 +82,26 @@ public final class ASSpellEvents {
         player.setData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA, tag);
     }
 
+    /** static_charge (1.12.2 ASEventHandler): espada carregada dá +2 de dano por nível até expirar. */
+    public static void onIncomingDamage(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event) {
+        if (event.getEntity().level().isClientSide) return;
+        if (!(event.getSource().getDirectEntity() instanceof net.minecraft.world.entity.LivingEntity attacker)) return;
+        var stack = attacker.getMainHandItem();
+        if (!(stack.getItem() instanceof net.minecraft.world.item.SwordItem)) return;
+        var tag = stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+        int level = tag.getInt(com.windanesz.ancientspellcraft.spell.StaticChargeSpell.LEVEL_TAG);
+        if (level <= 0) return;
+        if (tag.getLong(com.windanesz.ancientspellcraft.spell.StaticChargeSpell.EXPIRY_TAG) < event.getEntity().level().getGameTime()) {
+            net.minecraft.world.item.component.CustomData.update(net.minecraft.core.component.DataComponents.CUSTOM_DATA, stack, t -> {
+                t.remove(com.windanesz.ancientspellcraft.spell.StaticChargeSpell.LEVEL_TAG);
+                t.remove(com.windanesz.ancientspellcraft.spell.StaticChargeSpell.EXPIRY_TAG);
+            });
+            return;
+        }
+        event.setAmount(event.getAmount() + level * 2);
+    }
+
     /** Gate das class spells (1.12.2 IClassSpell.onSpellCastPreEvent): exige o set completo. TODO warlock attunement. */
     public static void onClassSpellCastPre(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
         if (!(event.getSpell() instanceof com.windanesz.ancientspellcraft.spell.ClassSpell classSpell)) return;

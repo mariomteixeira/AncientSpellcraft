@@ -175,9 +175,18 @@ implode (puxa inimigos no raio), fury (stacks de dano por golpe, decai 1/2s no i
 displace (teleporta o alvo), strength (self-buff), blast (knockback forte).
 Desvios: UMA runeword ativa por lâmina (original tinha mapa); fury armada por cast (era passiva
 por glyph); arcane sem bypass de armadura; blast sem checks de anchoring.
-AS-12b TODO: briar (thorns do wizardry), reach/pull/push (sistema de alcance), meditate
-(battlemage_shield), imbue, sealbreaker, shatter, empower (precisa addChargeProgress do
-WizardClassWeaponHelper 1.12.2 não portado).
+✓ AS-12b (3.46.0): +6 runewords — briar (chance de brotar THORNS do Redux no alvo, sem gastar
+carga), meditate (contínua: escudo de battlemage na offhand recarrega 3 de mana/10t na LÂMINA —
+desvio: o escudo do port não guarda mana), imbue (consome poção da hotbar e grava o efeito na
+lâmina; cada golpe aplica), reach/pull/push (golpe estendido até 9 blocos no clique em vazio —
+client LeftClickEmpty + payload ExtendedReachC2S; pull puxa, push arremessa; attack() gasta a
+carga pelos hooks normais). Ainda TODO: sealbreaker (isGenerated do arcane_wall), shatter (efeito
+ligado ao bloqueio do battlemage_shield), empower (charge progress do WizardClassWeaponHelper).
+✓ AS-13 (3.46.0): STATIC_CHARGE (imbui a primeira espada da hotbar/offhand: +2 de dano por nível
+por effect_duration; nível pela potência; desvio: carga no CustomData em vez de enchantment —
+1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
+pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
+belt_horse TODO artefatos).
 
 ## AS-8 — worldgen (em curso)
 

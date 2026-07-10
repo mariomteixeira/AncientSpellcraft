@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "range": 100
+  },
+  "chargeup": 20,
+  "cooldown": 80,
+  "cost": 10,
+  "element": "ebwizardry:earth",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:point_up",
+  "tier": "ebwizardry:novice",
+  "type": "utility"
+}

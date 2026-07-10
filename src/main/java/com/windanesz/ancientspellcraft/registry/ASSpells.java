@@ -392,6 +392,10 @@ public final class ASSpells {
         SPELLS.register("runeword_reach", com.windanesz.ancientspellcraft.spell.RunewordSpell::new);
         SPELLS.register("runeword_pull", com.windanesz.ancientspellcraft.spell.RunewordSpell::new);
         SPELLS.register("runeword_push", com.windanesz.ancientspellcraft.spell.RunewordSpell::new);
+
+        // AS-13: spells adiadas
+        SPELLS.register("static_charge", com.windanesz.ancientspellcraft.spell.StaticChargeSpell::new);
+        SPELLS.register("horse_whistle", com.windanesz.ancientspellcraft.spell.HorseWhistleSpell::new);
     }
 
     private static void stackEffect(net.minecraft.world.entity.LivingEntity target,
