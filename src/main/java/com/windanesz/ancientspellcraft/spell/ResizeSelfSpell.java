@@ -29,6 +29,16 @@ public class ResizeSelfSpell extends ASBuffSpell {
         if (!target.level().isClientSide) {
             int amplifier = target.isShiftKeyDown() ? 0 : 1;
             int duration = (int) (property(DefaultProperties.EFFECT_DURATION) * ctx.modifiers().get(SpellModifiers.DURATION));
+            // rings de permanência (1.12.2): shrinkage/growth com o anel = duração infinita
+            if (target instanceof net.minecraft.world.entity.player.Player player) {
+                var ring = effect.get() == com.windanesz.ancientspellcraft.registry.ASEffects.SHRINKAGE
+                        ? com.windanesz.ancientspellcraft.registry.ASItems.RING_PERMANENT_SHRINKAGE.get()
+                        : effect.get() == com.windanesz.ancientspellcraft.registry.ASEffects.GROWTH
+                        ? com.windanesz.ancientspellcraft.registry.ASItems.RING_PERMANENT_GROWTH.get() : null;
+                if (ring != null && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player, ring)) {
+                    duration = Integer.MAX_VALUE;
+                }
+            }
             target.addEffect(new MobEffectInstance(effect.get(), duration, amplifier, false, false));
         }
         return true;

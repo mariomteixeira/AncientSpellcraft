@@ -129,6 +129,24 @@ public final class ASItems {
     public static final Supplier<Item> CHARM_HOARDERS_ORB = artifact("charm_hoarders_orb", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_PRISMATIC_SPRAY = artifact("charm_prismatic_spray", net.minecraft.world.item.Rarity.EPIC, null);
     public static final Supplier<Item> RING_CHAOS_BLAST_MULTITARGET = artifact("ring_chaos_blast_multitarget", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> RING_ETERNAL_CONTINGENCY = artifact("ring_eternal_contingency", net.minecraft.world.item.Rarity.EPIC, null);
+    public static final Supplier<Item> RING_PERMANENT_SHRINKAGE = artifact("ring_permanent_shrinkage", net.minecraft.world.item.Rarity.EPIC, null);
+    public static final Supplier<Item> RING_PERMANENT_GROWTH = artifact("ring_permanent_growth", net.minecraft.world.item.Rarity.EPIC, null);
+    public static final Supplier<Item> AMULET_ELEMENTAL_OFFENSE = artifact("amulet_elemental_offense", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> RING_ABSORB_CRYSTAL = artifact("ring_absorb_crystal", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_POTION_KIT = artifact("charm_potion_kit", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
+            new com.koomplo.wizardry.core.IArtifactEffect() {
+                @Override
+                public void onSpellPreCast(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event, net.minecraft.world.item.ItemStack artifact) {
+                    // 1.12.2 ASEventHandler: +25% de potência em class spells de WARLOCK
+                    if (event.getSpell() instanceof com.windanesz.ancientspellcraft.spell.ClassSpell classSpell
+                            && classSpell.armourClass() == com.koomplo.wizardry.content.item.armor.WizardArmorType.WARLOCK) {
+                        event.getModifiers().set(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.POTENCY,
+                                1.25f * event.getModifiers().get(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.POTENCY));
+                    }
+                }
+            });
 
     public static final Supplier<Item> CRYSTAL_SILVER_INGOT = ITEMS.register("crystal_silver_ingot",
             () -> new Item(new Item.Properties()));

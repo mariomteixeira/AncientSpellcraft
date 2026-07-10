@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 public class AbsorbSpell extends WarlockChannelSpell {
 
     @Override
-    protected boolean isValidOffhand(ItemStack stack) {
+    protected boolean isValidOffhand(net.minecraft.world.entity.player.Player caster, ItemStack stack) {
         if (!(stack.getItem() instanceof SpellBookItem)) return false;
         Spell spell = RegistryUtils.getSpell(stack);
         return spell != Spells.NONE && !(spell instanceof ClassSpell);

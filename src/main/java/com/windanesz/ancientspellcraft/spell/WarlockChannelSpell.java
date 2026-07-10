@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /** Base dos absorbs do warlock (1.12.2): canaliza 60t com o insumo no offhand e absorve. */
 public abstract class WarlockChannelSpell extends Spell implements ClassSpell {
 
-    protected abstract boolean isValidOffhand(ItemStack stack);
+    protected abstract boolean isValidOffhand(net.minecraft.world.entity.player.Player caster, ItemStack stack);
 
     protected abstract String invalidMessage();
 
@@ -30,7 +30,7 @@ public abstract class WarlockChannelSpell extends Spell implements ClassSpell {
     @Override
     public boolean cast(PlayerCastContext ctx) {
         ItemStack offhand = ctx.caster().getOffhandItem();
-        if (!isValidOffhand(offhand)) {
+        if (!isValidOffhand(ctx.caster(), offhand)) {
             if (!ctx.world().isClientSide && ctx.castingTicks() == 0) {
                 ctx.caster().displayClientMessage(Component.translatable(invalidMessage()), true);
             }

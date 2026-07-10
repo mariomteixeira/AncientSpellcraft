@@ -9,8 +9,9 @@ import com.windanesz.ancientspellcraft.registry.ASItems;
 import net.minecraft.world.item.Item;
 
 /**
- * Ergue um esqueleto mago de elemento aleatorio (1.12.2 RaiseSkeletonMage).
- * TODO cristal elemental no offhand forca o elemento (10% quebra) e amulet_elemental_offense - portam com os artefatos.
+ * Ergue um esqueleto mago de elemento aleatorio (1.12.2 RaiseSkeletonMage). Cristal elemental no
+ * offhand foca o elemento (10% de quebrar); com amulet_elemental_offense não quebra (desvio: o
+ * 1.12.2 usava o cristal encaixado no amuleto — o port não tem slots de artefato).
  */
 public class RaiseSkeletonMage extends MinionSpell<SkeletonMageMinion> {
 
@@ -22,7 +23,28 @@ public class RaiseSkeletonMage extends MinionSpell<SkeletonMageMinion> {
     protected void addMinionExtras(SkeletonMageMinion minion, CastContext ctx, int alreadySpawned) {
         super.addMinionExtras(minion, ctx, alreadySpawned);
         minion.setRare(ctx.world().random.nextFloat() < 0.4f);
-        minion.setMageElement(ctx.world().random.nextInt(SkeletonMageEntity.MAGE_ELEMENTS.length));
+        int elementIndex = ctx.world().random.nextInt(SkeletonMageEntity.MAGE_ELEMENTS.length);
+        if (ctx.caster() instanceof net.minecraft.world.entity.player.Player player) {
+            var offhand = player.getOffhandItem();
+            for (int i = 0; i < SkeletonMageEntity.MAGE_ELEMENTS.length; i++) {
+                if (offhand.is(com.koomplo.wizardry.api.content.util.RegistryUtils.getCrystal(SkeletonMageEntity.MAGE_ELEMENTS[i]))) {
+                    elementIndex = i;
+                    boolean amulet = com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(
+                            player, ASItems.AMULET_ELEMENTAL_OFFENSE.get());
+                    if (!amulet && ctx.world().random.nextInt(100) > 90) {
+                        offhand.shrink(1);
+                        player.playSound(net.minecraft.sounds.SoundEvents.ITEM_BREAK, 0.9F,
+                                1.2F / (ctx.world().random.nextFloat() * 0.2F + 0.9F));
+                        if (!ctx.world().isClientSide) {
+                            player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                                    "spell.ancientspellcraft.raise_skeleton_mage.crystal.break"), true);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        minion.setMageElement(elementIndex);
     }
 
     @Override

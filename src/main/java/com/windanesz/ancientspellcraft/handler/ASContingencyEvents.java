@@ -56,9 +56,21 @@ public final class ASContingencyEvents {
         String key = ContingencySpell.STORED_PREFIX + type.name();
         if (!tag.contains(key)) return;
         Spell spell = Services.REGISTRY_UTIL.getSpell(ResourceLocation.tryParse(tag.getString(key)));
-        tag.remove(key);
-        player.setData(ASAttachments.PLAYER_DATA, tag);
+        // ring_eternal_contingency (1.12.2): a contingência dispara sem ser consumida; o anel entra
+        // em cooldown de cooldown_da_spell*10 + (tier+1)*500 ticks
+        var ring = com.windanesz.ancientspellcraft.registry.ASItems.RING_ETERNAL_CONTINGENCY.get();
+        boolean preserve = spell != null
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player, ring)
+                && !player.getCooldowns().isOnCooldown(ring);
+        if (!preserve) {
+            tag.remove(key);
+            player.setData(ASAttachments.PLAYER_DATA, tag);
+        }
         if (spell == null) return;
+        if (preserve) {
+            player.getCooldowns().addCooldown(ring,
+                    spell.getCooldown() * 10 + (spell.getTier().getLevel() + 1) * 500);
+        }
         spell.cast(new PlayerCastContext(player.level(), player, InteractionHand.MAIN_HAND, 0, new SpellModifiers()));
         player.level().playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 0.7F);
     }

@@ -13,7 +13,7 @@ import net.minecraft.world.item.alchemy.PotionContents;
 public class AbsorbPotion extends WarlockChannelSpell {
 
     @Override
-    protected boolean isValidOffhand(ItemStack stack) {
+    protected boolean isValidOffhand(net.minecraft.world.entity.player.Player caster, ItemStack stack) {
         return stack.getItem() instanceof PotionItem;
     }
 

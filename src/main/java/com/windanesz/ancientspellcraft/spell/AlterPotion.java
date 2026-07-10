@@ -12,14 +12,17 @@ import java.util.Optional;
 
 /**
  * Engarrafa o primeiro efeito ativo do warlock: garrafa vazia no offhand vira SPLASH potion do
- * efeito (agachado: LINGERING com 10% da duracao) (1.12.2 AlterPotion; ramo do charm_potion_kit
- * fica TODO com os artefatos).
+ * efeito (agachado: LINGERING com 10% da duracao). Fiel ao 1.12.2, esse ramo é do
+ * charm_potion_kit — sem o charm a spell recusa (o ramo alternativo do 1.12.2, mapping de
+ * poções por config, fica para o marco 7).
  */
 public class AlterPotion extends WarlockChannelSpell {
 
     @Override
-    protected boolean isValidOffhand(ItemStack stack) {
-        return stack.is(Items.GLASS_BOTTLE);
+    protected boolean isValidOffhand(net.minecraft.world.entity.player.Player caster, ItemStack stack) {
+        return stack.is(Items.GLASS_BOTTLE)
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(caster,
+                com.windanesz.ancientspellcraft.registry.ASItems.CHARM_POTION_KIT.get());
     }
 
     @Override
