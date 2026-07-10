@@ -193,13 +193,20 @@ public final class ASEffects {
                     .addAttributeModifier(Attributes.MAX_HEALTH, rl("shrink_hp"), -0.25D, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                     .addAttributeModifier(Attributes.ARMOR, rl("shrink_armor"), -2D, AttributeModifier.Operation.ADD_VALUE));
 
-    /** 1.12.2 PotionWizardShield: kb resist total + absorption em cascata (renova amplifier-2 a cada expiracao). */
+    /** 1.12.2 PotionWizardShield: kb resist total + absorption em cascata (renova amplifier-2 a cada
+     * expiracao; com head_shield o decaimento cai para -1 e cada renovacao dura 70t). */
     public static final DeferredHolder<MobEffect, MobEffect> WIZARD_SHIELD = EFFECTS.register("wizard_shield",
             () -> new ASMobEffect(MobEffectCategory.BENEFICIAL, 0xc558d6, (entity, amplifier) -> {
                 var instance = entity.getEffect(WIZARD_SHIELD_HOLDER());
-                if (instance != null && instance.getDuration() == 40 && amplifier > 0 && !entity.level().isClientSide) {
-                    // TODO head_shield artefact muda o decaimento (porta com os artefatos)
-                    entity.addEffect(new net.minecraft.world.effect.MobEffectInstance(WIZARD_SHIELD_HOLDER(), 60, amplifier - 2 >= 0 ? amplifier - 2 : 0));
+                if (instance != null && instance.getDuration() == 40 && !entity.level().isClientSide) {
+                    boolean headShield = entity instanceof net.minecraft.world.entity.player.Player player
+                            && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                            com.windanesz.ancientspellcraft.registry.ASItems.HEAD_SHIELD.get());
+                    int newAmplifier = amplifier - (headShield ? 1 : 2);
+                    if (newAmplifier >= 0) {
+                        entity.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                                WIZARD_SHIELD_HOLDER(), headShield ? 70 : 60, newAmplifier));
+                    }
                 }
             }).addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE,
                     rl("wizard_shield_kb"), 1.0D, AttributeModifier.Operation.ADD_VALUE));

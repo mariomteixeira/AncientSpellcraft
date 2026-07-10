@@ -29,18 +29,22 @@ import java.util.UUID;
 /**
  * 1.12.2 TileSkullWatch: vigia raio 15 — ignora animais/armor stands/dono/aliados; intruso com
  * linha de visão dispara: mensagem ao dono (cooldown 12s por entidade), grito a cada 50t e sinal
- * de redstone. Desvios documentados: toggles de glowing/skeleton (artefatos Sentinel Eye/Domus
- * Amulet) ficam com o lote de artefatos; som próprio do pack -> vanilla.
+ * de redstone. Com charm_sentinel_eye ao colocar, marca intrusos com GLOWING; com amulet_domus,
+ * invoca um esqueleto minion (cooldown 60s). Desvio: som próprio do pack -> vanilla.
  */
 public class SkullWatchBlockEntity extends BlockEntity {
 
     private static final double DETECT_RADIUS = 15.0;
     private static final int NOTIFICATION_COOLDOWN = 20 * 12;
+    private static final int SUMMON_COOLDOWN = 1200;
 
     private final Map<UUID, Integer> detectedEntities = new HashMap<>();
     private UUID ownerUuid;
     private boolean triggered;
     private int tickCounter;
+    private boolean markEntities;
+    private boolean summonSkeleton;
+    private int summonCooldown;
 
     public SkullWatchBlockEntity(BlockPos pos, BlockState state) {
         super(ASBlocks.SKULL_WATCH_BLOCK_ENTITY.get(), pos, state);
@@ -48,6 +52,16 @@ public class SkullWatchBlockEntity extends BlockEntity {
 
     public void setOwner(UUID uuid) {
         this.ownerUuid = uuid;
+        setChanged();
+    }
+
+    public void setMarkEntities(boolean markEntities) {
+        this.markEntities = markEntities;
+        setChanged();
+    }
+
+    public void setSummonSkeleton(boolean summonSkeleton) {
+        this.summonSkeleton = summonSkeleton;
         setChanged();
     }
 
@@ -83,7 +97,31 @@ public class SkullWatchBlockEntity extends BlockEntity {
         if (triggered != wasTriggered) {
             level.updateNeighborsAt(worldPosition, ASBlocks.SKULL_WATCH.get());
         }
+        if (summonCooldown > 0) summonCooldown--;
         if (target == null) return;
+
+        // charm_sentinel_eye: marca o intruso (1.12.2: GLOWING 2400t a cada 20t)
+        if (markEntities && serverLevel.getGameTime() % 20 == 0) {
+            target.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                    net.minecraft.world.effect.MobEffects.GLOWING, 2400));
+        }
+        // amulet_domus: invoca um esqueleto minion equipado (1.12.2: cooldown 1200t)
+        if (summonSkeleton && summonCooldown == 0) {
+            var skeleton = new net.minecraft.world.entity.monster.Skeleton(net.minecraft.world.entity.EntityType.SKELETON, serverLevel);
+            skeleton.setPos(worldPosition.getX() + 0.5, worldPosition.getY(), worldPosition.getZ() + 0.5);
+            skeleton.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.WOODEN_SWORD));
+            skeleton.setItemInHand(net.minecraft.world.InteractionHand.OFF_HAND, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.SHIELD));
+            skeleton.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LEATHER_HELMET));
+            skeleton.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LEATHER_CHESTPLATE));
+            for (var slot : net.minecraft.world.entity.EquipmentSlot.values()) skeleton.setDropChance(slot, 0.0F);
+            var data = com.koomplo.wizardry.core.platform.Services.OBJECT_DATA.getMinionData(skeleton);
+            data.setSummoned(true);
+            if (ownerUuid != null) data.setOwnerUUID(ownerUuid);
+            data.setLifetime(600);
+            data.updateGoals();
+            serverLevel.addFreshEntity(skeleton);
+            summonCooldown = SUMMON_COOLDOWN;
+        }
 
         if (owner != null) {
             if (detectedEntities.size() > 30) detectedEntities.clear();
@@ -105,11 +143,15 @@ public class SkullWatchBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (ownerUuid != null) tag.putUUID("Owner", ownerUuid);
+        tag.putBoolean("MarkEntities", markEntities);
+        tag.putBoolean("SummonSkeleton", summonSkeleton);
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         if (tag.hasUUID("Owner")) ownerUuid = tag.getUUID("Owner");
+        markEntities = tag.getBoolean("MarkEntities");
+        summonSkeleton = tag.getBoolean("SummonSkeleton");
     }
 }

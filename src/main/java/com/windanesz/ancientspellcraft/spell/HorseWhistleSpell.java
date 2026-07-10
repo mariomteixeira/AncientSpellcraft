@@ -32,6 +32,14 @@ public class HorseWhistleSpell extends Spell {
         }
         this.playSound(serverLevel, caster, ctx.castingTicks(), -1);
 
+        // belt_horse (1.12.2): assobiar montado dá SPEED por 30s ao cavalo
+        if (caster.getVehicle() instanceof AbstractHorse ridden
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(caster, ASItems.BELT_HORSE.get())) {
+            ridden.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                    net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 600, 0));
+            return true;
+        }
+
         var tag = caster.getData(ASAttachments.PLAYER_DATA);
         AbstractHorse horse = null;
         if (tag.hasUUID(LAST_HORSE_TAG)

@@ -16,8 +16,12 @@ public class MageLightBlockEntity extends BlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, MageLightBlockEntity be) {
         if (!(state.getBlock() instanceof MageLightBlock block)) return;
         Player player = level.getNearestPlayer(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 4.0, false);
-        // TODO 1.12.2 tambem mantinha a luz com os charms glyph_illumination/magic_light (portam com os artefatos)
-        if (player == null || !player.hasEffect(block.keepAliveEffect())) {
+        // 1.12.2: os charms glyph_illumination/magic_light também mantêm a luz acesa
+        if (player == null || (!player.hasEffect(block.keepAliveEffect())
+                && !com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.CHARM_GLYPH_ILLUMINATION.get())
+                && !com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.CHARM_MAGIC_LIGHT.get()))) {
             level.removeBlock(pos, false);
         }
     }

@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Attire Alteration (1.12.2 AttireAlteration): troca instantânea entre a armadura vestida e um
- * conjunto guardado (4 slots no attachment PLAYER_DATA). Desvio documentado: o guarda-roupa de
- * 5 conjuntos (charm_wardrobe) fica com o lote de artefatos.
+ * conjunto guardado (4 slots no attachment PLAYER_DATA). Com charm_wardrobe vira um guarda-roupa
+ * de 5 conjuntos: cada cast salva o atual e veste o próximo do ciclo.
  */
 public class AttireAlterationSpell extends Spell {
 
@@ -25,9 +25,19 @@ public class AttireAlterationSpell extends Spell {
     public boolean cast(PlayerCastContext ctx) {
         Player player = ctx.caster();
         if (!ctx.world().isClientSide) {
+            boolean wardrobe = com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(
+                    player, ASItems.CHARM_WARDROBE.get());
             CompoundTag tag = player.getData(ASAttachments.PLAYER_DATA);
+            // sem o charm: 1 conjunto ("Attire"); com o charm: ciclo de 5 ("Wardrobe<N>Attire")
+            String prefix = "Attire";
+            if (wardrobe) {
+                int current = tag.getInt("CurrentWardrobeSet");
+                int next = (current + 1) % 5;
+                tag.putInt("CurrentWardrobeSet", next);
+                prefix = "Wardrobe" + next + "Attire";
+            }
             for (EquipmentSlot slot : ARMOR_SLOTS) {
-                String key = "Attire" + slot.getName();
+                String key = prefix + slot.getName();
                 ItemStack stored = tag.contains(key)
                         ? ItemStack.parseOptional(ctx.world().registryAccess(), tag.getCompound(key))
                         : ItemStack.EMPTY;

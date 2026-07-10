@@ -15,14 +15,29 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Words of Unbinding (1.12.2 WordsOfUnbinding): desfaz um upgrade da wand na mão principal e
  * devolve o item — com o item de upgrade na offhand escolhe qual; sem, remove o primeiro que
- * achar. Usa a API removeUpgrade do Redux 0.1.27. Desvio documentado: ring_disenchanter
- * (desencantar itens) fica com o lote de artefatos.
+ * achar. Usa a API removeUpgrade do Redux 0.1.27. Com ring_disenchanter, remove os
+ * ENCANTAMENTOS do item na offhand em vez de mexer na wand.
  */
 public class WordsOfUnbindingSpell extends Spell {
 
     @Override
     public boolean cast(PlayerCastContext ctx) {
         var caster = ctx.caster();
+
+        // ring_disenchanter (1.12.2): desencanta o item da offhand
+        if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(caster, ASItems.RING_DISENCHANTER.get())) {
+            ItemStack offhandStack = caster.getOffhandItem();
+            if (offhandStack.isEnchanted()) {
+                if (!ctx.world().isClientSide) {
+                    offhandStack.set(net.minecraft.core.component.DataComponents.ENCHANTMENTS,
+                            net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+                    this.playSound(ctx.world(), caster, ctx.castingTicks(), -1);
+                }
+                return true;
+            }
+            return false;
+        }
+
         ItemStack wand = caster.getMainHandItem();
         if (!(wand.getItem() instanceof ICastItem)) {
             caster.displayClientMessage(Component.translatable("spell.ancientspellcraft.words_of_unbinding.no_wand"), true);

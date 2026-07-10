@@ -46,7 +46,10 @@ public class LivingCometSpell extends Spell {
         this.playSound(world, caster, ticks, -1);
         caster.fallDistance = 0.0F;
 
-        if (ticks > 40 && caster.onGround()) {
+        // fiel ao 1.12.2: o pouso-meteoro (explosão + fire resistance) é do charm_meteorite_stone
+        if (ticks > 40 && caster.onGround()
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(caster,
+                com.windanesz.ancientspellcraft.registry.ASItems.CHARM_METEORITE_STONE.get())) {
             if (!world.isClientSide) {
                 world.explode(caster, caster.getX(), caster.getY(), caster.getZ(), 1.8F, Level.ExplosionInteraction.MOB);
                 caster.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 60, 0));

@@ -56,6 +56,17 @@ public class SkullWatchBlock extends BaseEntityBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (placer != null && level.getBlockEntity(pos) instanceof SkullWatchBlockEntity watch) {
             watch.setOwner(placer.getUUID());
+            // artefatos equipados no momento de colocar decidem os modos (1.12.2 SkullSentinel)
+            if (placer instanceof net.minecraft.world.entity.player.Player player) {
+                if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                        com.windanesz.ancientspellcraft.registry.ASItems.CHARM_SENTINEL_EYE.get())) {
+                    watch.setMarkEntities(true);
+                }
+                if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                        com.windanesz.ancientspellcraft.registry.ASItems.AMULET_DOMUS.get())) {
+                    watch.setSummonSkeleton(true);
+                }
+            }
         }
     }
 

@@ -135,6 +135,18 @@ public final class ASItems {
     public static final Supplier<Item> AMULET_ELEMENTAL_OFFENSE = artifact("amulet_elemental_offense", net.minecraft.world.item.Rarity.UNCOMMON, null);
     public static final Supplier<Item> RING_ABSORB_CRYSTAL = artifact("ring_absorb_crystal", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_POTION_KIT = artifact("charm_potion_kit", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_WARDROBE = artifact("charm_wardrobe", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_METEORITE_STONE = artifact("charm_meteorite_stone", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> RING_MANA_TRANSFER = artifact("ring_mana_transfer", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> CHARM_PROGRESSION_ORB = artifact("charm_progression_orb", net.minecraft.world.item.Rarity.EPIC, null);
+    public static final Supplier<Item> RING_DISENCHANTER = artifact("ring_disenchanter", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> BELT_HORSE = artifact("belt_horse", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> CHARM_SENTINEL_EYE = artifact("charm_sentinel_eye", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> AMULET_DOMUS = artifact("amulet_domus", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> RING_KINETIC = artifact("ring_kinetic", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_GLYPH_ILLUMINATION = artifact("charm_glyph_illumination", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_MAGIC_LIGHT = artifact("charm_magic_light", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> HEAD_SHIELD = artifact("head_shield", net.minecraft.world.item.Rarity.EPIC, null);
     public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
             new com.koomplo.wizardry.core.IArtifactEffect() {
                 @Override

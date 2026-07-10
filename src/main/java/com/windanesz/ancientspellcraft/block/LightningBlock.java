@@ -40,9 +40,16 @@ public class LightningBlock extends TemporaryBlock {
         if (!(entity instanceof LivingEntity target)) return;
         if (!(level.getBlockEntity(pos) instanceof TemporaryBlockEntity be)) return;
 
+        // ring_kinetic (1.12.2): quem pisa com o anel ganha SPEED II por 2s (inclusive o caster)
+        if (target instanceof net.minecraft.world.entity.player.Player player
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.RING_KINETIC.get())) {
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                    net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 40, 1));
+        }
+
         LivingEntity caster = be.getCaster();
         if (caster != null && (target == caster || AllyDesignation.isAllied(caster, target))) return;
-        // TODO ring_kinetic: speed pro caster que pisa (artefatos)
         var motion = target.getDeltaMovement();
         target.hurt(caster != null ? MagicDamageSource.causeIndirectMagicDamage(target, caster, EBDamageSources.SHOCK)
                 : target.damageSources().lightningBolt(), be.getDamage() > 0 ? be.getDamage() : 1.0f);
