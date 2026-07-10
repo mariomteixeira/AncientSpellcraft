@@ -18,6 +18,30 @@
         },
         {
           "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_diamond_goose"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:head_mask_of_perseigni"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:belt_scroll_holder"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:cornucopia"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_bucket_coal"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_gold_bag"
+        },
+        {
+          "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_power"
         },
         {

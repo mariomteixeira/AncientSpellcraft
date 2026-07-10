@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ancientspellcraft:item/head_mask_of_perseigni"
+  }
+}

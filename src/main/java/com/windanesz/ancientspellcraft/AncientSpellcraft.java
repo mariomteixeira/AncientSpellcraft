@@ -18,6 +18,7 @@ public class AncientSpellcraft {
         com.windanesz.ancientspellcraft.registry.ASItems.ITEMS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASItems.CREATIVE_TABS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASEffects.EFFECTS.register(modBus);
+        com.windanesz.ancientspellcraft.registry.ASSounds.SOUNDS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASSpells.SPELLS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASElements.ELEMENTS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASAttachments.ATTACHMENTS.register(modBus);
@@ -86,6 +87,8 @@ public class AncientSpellcraft {
                 com.windanesz.ancientspellcraft.handler.ASSpellEvents::onJewelSetBonus);
         WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class,
                 com.windanesz.ancientspellcraft.handler.ASSpellEvents::onManaBatteryTransfer);
+        WizardryEventBus.getInstance().register(SpellCastEvent.Pre.class,
+                com.windanesz.ancientspellcraft.handler.ASSpellEvents::onInfernalStone);
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onPendantBuffExpired);
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 com.windanesz.ancientspellcraft.handler.ASMetamagicEvents::onLivingDeath);

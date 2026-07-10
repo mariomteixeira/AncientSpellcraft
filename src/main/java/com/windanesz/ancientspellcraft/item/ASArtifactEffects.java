@@ -770,5 +770,85 @@ public final class ASArtifactEffects {
         };
     }
 
+    /** head_mask_of_perseigni (1.12.2): a cada 1s, com wand da hotbar contendo pyrokinesis e mana
+     * >= 15, aplica os efeitos da pyrokinesis no ser vivo na mira (10 blocos) pagando a mana. */
+    public static IArtifactEffect maskOfPerseigni() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 20 != 0) return;
+                var pyro = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getSpell(
+                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "pyrokinesis"));
+                if (pyro == null) return;
+                ItemStack wand = ItemStack.EMPTY;
+                for (int slot = 0; slot < 9; slot++) {
+                    ItemStack stack = player.getInventory().getItem(slot);
+                    if (stack.getItem() instanceof com.koomplo.wizardry.api.content.item.ICastItem
+                            && stack.getItem() instanceof com.koomplo.wizardry.api.content.item.IManaItem manaItem
+                            && manaItem.getMana(stack) >= 15
+                            && com.koomplo.wizardry.api.content.util.CastItemDataHelper.getSpells(stack).contains(pyro)) {
+                        wand = stack;
+                        break;
+                    }
+                }
+                if (wand.isEmpty()) return;
+                var start = player.getEyePosition();
+                var look = player.getLookAngle();
+                var end = start.add(look.scale(10));
+                var hit = net.minecraft.world.entity.projectile.ProjectileUtil.getEntityHitResult(level, player,
+                        start, end, player.getBoundingBox().expandTowards(look.scale(10)).inflate(1),
+                        e -> e instanceof net.minecraft.world.entity.LivingEntity && e != player);
+                if (hit == null || !(hit.getEntity() instanceof net.minecraft.world.entity.LivingEntity target)) return;
+                if (com.koomplo.wizardry.api.content.util.MagicDamageSource.isEntityImmune(
+                        com.koomplo.wizardry.setup.registries.EBDamageSources.FIRE, target)) return;
+                // efeitos da pyrokinesis (burn 10s, 3.0 FIRE, slowness II 30t)
+                target.igniteForSeconds(10);
+                com.koomplo.wizardry.api.content.util.EntityUtil.attackEntityWithoutKnockback(target,
+                        com.koomplo.wizardry.api.content.util.MagicDamageSource.causeDirectMagicDamage(player,
+                                com.koomplo.wizardry.setup.registries.EBDamageSources.FIRE), 3.0f);
+                target.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN, 30, 1));
+                ((com.koomplo.wizardry.api.content.item.IManaItem) wand.getItem()).consumeMana(wand, 15, player);
+            }
+        };
+    }
+
+    /** ring_arcane_flames (1.12.2): converte fogo próximo em chama arcana temporária (lifetime 200t).
+     * Desvio de performance: raio 10 a cada 20t (o 1.12.2 varria raio 20 a cada ~10t). */
+    public static IArtifactEffect arcaneFlameRing() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 20 != 0 || !level.random.nextBoolean()) return;
+                var center = player.blockPosition();
+                for (var pos : net.minecraft.core.BlockPos.betweenClosed(center.offset(-10, -10, -10), center.offset(10, 10, 10))) {
+                    if (center.distSqr(pos) <= 100 && level.getBlockState(pos).is(net.minecraft.world.level.block.Blocks.FIRE)) {
+                        com.windanesz.ancientspellcraft.block.TemporaryBlockEntity.place(player, level,
+                                com.windanesz.ancientspellcraft.registry.ASBlocks.ARCANE_FLAME.get(), pos.immutable(), 200);
+                    }
+                }
+            }
+        };
+    }
+
+    /** belt_scroll_holder (1.12.2): com um condenser_upgrade encaixado, +1 de mana/50t nas mãos. */
+    public static IArtifactEffect scrollHolderCondenser() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || level.getGameTime() % 50 != 0) return;
+                ItemStack socketed = SocketedArtifactItem.getSocketed(artifact, player.level().registryAccess());
+                if (!socketed.is(com.koomplo.wizardry.setup.registries.EBItems.CONDENSER_UPGRADE.get())) return;
+                for (var hand : net.minecraft.world.InteractionHand.values()) {
+                    ItemStack held = player.getItemInHand(hand);
+                    if (held.getItem() instanceof com.koomplo.wizardry.api.content.item.IManaItem manaItem
+                            && !manaItem.isManaFull(held)) {
+                        manaItem.rechargeMana(held, 1);
+                    }
+                }
+            }
+        };
+    }
+
     private ASArtifactEffects() {}
 }

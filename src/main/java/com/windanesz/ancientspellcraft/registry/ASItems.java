@@ -404,6 +404,76 @@ public final class ASItems {
     public static final Supplier<Item> BODY_POWER_GEM = artifact("body_power_gem",
             net.minecraft.world.item.Rarity.EPIC, null);
 
+    // AS-33: artefatos-sistema
+    public static final Supplier<Item> CHARM_INFERNAL_STONE = ITEMS.register("charm_infernal_stone",
+            () -> new com.windanesz.ancientspellcraft.item.InfernalStoneItem(net.minecraft.world.item.Rarity.EPIC));
+    public static final Supplier<Item> CHARM_DIAMOND_GOOSE = ITEMS.register("charm_diamond_goose",
+            () -> new com.windanesz.ancientspellcraft.item.DiamondGooseItem(net.minecraft.world.item.Rarity.RARE));
+    public static final Supplier<Item> HEAD_MASK_OF_PERSEIGNI = artifact("head_mask_of_perseigni",
+            net.minecraft.world.item.Rarity.RARE, com.windanesz.ancientspellcraft.item.ASArtifactEffects.maskOfPerseigni());
+    public static final Supplier<Item> RING_ARCANE_FLAMES = artifact("ring_arcane_flames",
+            net.minecraft.world.item.Rarity.EPIC, com.windanesz.ancientspellcraft.item.ASArtifactEffects.arcaneFlameRing());
+    public static final Supplier<Item> CHARM_DEVORITIUM_MAGNET = ITEMS.register("charm_devoritium_magnet",
+            () -> new com.windanesz.ancientspellcraft.item.DevoritiumMagnetItem(net.minecraft.world.item.Rarity.EPIC));
+    public static final Supplier<Item> BELT_SCROLL_HOLDER = ITEMS.register("belt_scroll_holder",
+            () -> new com.windanesz.ancientspellcraft.item.SocketedArtifactItem(net.minecraft.world.item.Rarity.RARE,
+                    stack -> stack.getItem() instanceof com.koomplo.wizardry.content.item.WandUpgradeItem
+                            && !stack.is(com.koomplo.wizardry.setup.registries.EBItems.STORAGE_UPGRADE.get())
+                            && !stack.is(com.koomplo.wizardry.setup.registries.EBItems.SIPHON_UPGRADE.get())
+                            && !stack.is(com.koomplo.wizardry.setup.registries.EBItems.ATTUNEMENT_UPGRADE.get())
+                            && !stack.is(com.koomplo.wizardry.setup.registries.EBItems.MELEE_UPGRADE.get()),
+                    com.windanesz.ancientspellcraft.item.ASArtifactEffects.scrollHolderCondenser()));
+    public static final Supplier<Item> ALCHEMICAL_ESSENCE = ITEMS.register("alchemical_essence",
+            com.windanesz.ancientspellcraft.item.AlchemicalEssenceItem::new);
+
+    // AS-33: artefatos diários (1x por dia de Minecraft)
+    public static final Supplier<Item> CORNUCOPIA = ITEMS.register("cornucopia",
+            () -> new com.windanesz.ancientspellcraft.item.DailyArtifactItem(net.minecraft.world.item.Rarity.RARE, (player, stack) -> {
+                var random = player.getRandom();
+                float f = random.nextFloat();
+                net.minecraft.world.item.ItemStack food;
+                if (f <= 0.2f) food = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BREAD, 1 + random.nextInt(3));
+                else if (f <= 0.4f) food = new net.minecraft.world.item.ItemStack(random.nextBoolean()
+                        ? net.minecraft.world.item.Items.COOKED_MUTTON : net.minecraft.world.item.Items.BAKED_POTATO, 1 + random.nextInt(2));
+                else if (f <= 0.5f) food = new net.minecraft.world.item.ItemStack(random.nextBoolean()
+                        ? net.minecraft.world.item.Items.PUMPKIN_PIE : net.minecraft.world.item.Items.COOKIE, 1 + random.nextInt(3));
+                else if (f <= 0.6f) food = random.nextBoolean()
+                        ? new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BEETROOT, 3 + random.nextInt(3))
+                        : new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.BEETROOT_SOUP);
+                else if (f <= 0.7f) food = random.nextBoolean()
+                        ? new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.MUSHROOM_STEW)
+                        : new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.APPLE, 1 + random.nextInt(3));
+                else if (f <= 0.8f) food = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.COOKED_CHICKEN, 1 + random.nextInt(2));
+                else if (f <= 0.9f) food = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.COOKED_COD, 1 + random.nextInt(2));
+                else if (f <= 0.95f) food = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.COOKED_PORKCHOP, 1 + random.nextInt(2));
+                else if (f < 0.97f) food = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.GOLDEN_APPLE);
+                else food = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.COOKED_BEEF);
+                com.windanesz.ancientspellcraft.item.DailyArtifactItem.give(player, food);
+            }));
+    public static final Supplier<Item> CHARM_BUCKET_COAL = ITEMS.register("charm_bucket_coal",
+            () -> new com.windanesz.ancientspellcraft.item.DailyArtifactItem(net.minecraft.world.item.Rarity.RARE, (player, stack) ->
+                    com.windanesz.ancientspellcraft.item.DailyArtifactItem.give(player,
+                            new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.COAL, 5 + player.getRandom().nextInt(6)))));
+    public static final Supplier<Item> CHARM_GOLD_BAG = ITEMS.register("charm_gold_bag",
+            () -> new com.windanesz.ancientspellcraft.item.DailyArtifactItem(net.minecraft.world.item.Rarity.RARE, (player, stack) ->
+                    com.windanesz.ancientspellcraft.item.DailyArtifactItem.give(player,
+                            new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.GOLD_NUGGET, 2 + player.getRandom().nextInt(7)))));
+    public static final Supplier<Item> CHARM_EVERGROWING_CRYSTAL = ITEMS.register("charm_evergrowing_crystal",
+            () -> new com.windanesz.ancientspellcraft.item.DailyArtifactItem(net.minecraft.world.item.Rarity.EPIC, (player, stack) -> {
+                float f = player.getRandom().nextFloat();
+                net.minecraft.world.item.ItemStack reward;
+                if (f <= 0.1f) reward = new net.minecraft.world.item.ItemStack(ASItems.ASTRAL_DIAMOND_SHARD.get(), 1 + player.getRandom().nextInt(3));
+                else if (f <= 0.15f) reward = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND);
+                else reward = new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.EMERALD, 1 + player.getRandom().nextInt(2));
+                com.windanesz.ancientspellcraft.item.DailyArtifactItem.give(player, reward);
+            }));
+    public static final Supplier<Item> CHARM_PHILOSOPHERS_STONE = ITEMS.register("charm_philosophers_stone",
+            () -> new com.windanesz.ancientspellcraft.item.DailyArtifactItem(net.minecraft.world.item.Rarity.EPIC, (player, stack) ->
+                    com.windanesz.ancientspellcraft.item.DailyArtifactItem.give(player,
+                            new net.minecraft.world.item.ItemStack(ASItems.ALCHEMICAL_ESSENCE.get()))));
+    public static final Supplier<Item> CHARM_REMNANT_CAGE = ITEMS.register("charm_remnant_cage",
+            () -> new com.windanesz.ancientspellcraft.item.RemnantCageItem(net.minecraft.world.item.Rarity.EPIC));
+
     // AS-26: residuais do scribing — tome de transcrição, everfull flask e a relíquia ancient_mana_flask
     public static final Supplier<Item> CHARM_TRANSCRIBING_TOME = ITEMS.register("charm_transcribing_tome",
             () -> new com.windanesz.ancientspellcraft.item.TranscribingTomeItem(net.minecraft.world.item.Rarity.UNCOMMON));

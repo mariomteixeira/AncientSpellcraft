@@ -1,0 +1,4 @@
+{
+  "goose": {"category": "player", "sounds": ["ancientspellcraft:goose_1", "ancientspellcraft:goose_2"]},
+  "war_horn": {"category": "player", "sounds": ["ancientspellcraft:war_horn"]}
+}

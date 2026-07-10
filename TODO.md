@@ -285,10 +285,27 @@ elemento; e o raise_skeleton_mage foca o elemento SEM risco de quebra), amulet_e
 (dano mágico do elemento do cristal x0.7 — mapa fire/frost/shock/wither/force/radiant),
 amulet_pendant_of_eternity (encaixa spell book de BUFF: quando um efeito do buff expira,
 re-casta sozinho, cd 1s).
-FORA DAS ONDAS (futuro, sistemas próprios): charm_diamond_goose, head_mask_of_perseigni,
-charm_infernal_stone, ring_arcane_flames, charm_devoritium_magnet, belt_scroll_holder,
-charm_glyph_shield_disable (espera o bloqueio do battlemage_shield), 3 daily artefacts e
-set artefacts (1.12.2 ItemDailyArtefact/ItemSetArtefact).
+✓ FORA DAS ONDAS fechado no AS-33 (3.66.0): ARTEFATOS-SISTEMA —
+  charm_infernal_stone (calor 0-100: absorve FOGO no raio 3 segurando, -1/3s equipado; quente =
+  fire spells -25% de mana consumindo 10 de calor; calor >= 50 = combustível 8000t sem se gastar);
+  charm_diamond_goose (sneak-use grava o TIPO do bloco; equipado grasna por distância <=4/5-8,
+  na mão indica direção relativa a cada 10s; SOM goose_1/2.ogg portado — primeiro do sounds.json);
+  head_mask_of_perseigni (a cada 1s: wand da hotbar com PYROKINESIS + 15 de mana = aplica os
+  efeitos da spell no alvo na mira de 10 blocos pagando a mana) — PYROKINESIS PORTADA junto
+  (spell apprentice/fire que faltava);
+  ring_arcane_flames (fogo próximo vira chama arcana 200t; desvio perf: raio 10 a cada 20t —
+  1.12.2 varria raio 20 a cada ~10t);
+  charm_devoritium_magnet (use: war_horn.ogg + exaustão mágica V 8s em criaturas no raio 15,
+  cd 60s; delegates anti-magia do devoritium TODO marco 6);
+  belt_scroll_holder (SocketedArtifactItem: encaixa wand upgrade exceto storage/siphon/attunement/
+  melee; com condenser = +1 mana/50t nas mãos; desvio: sem a GUI de slot do 1.12.2);
+  DAILIES x6 (1x por dia de MC; desvio: sem a textura ready/not_ready por item property):
+  cornucopia (comida aleatória), charm_bucket_coal (5-10 carvão), charm_gold_bag (2-8 nuggets),
+  charm_evergrowing_crystal (10% astral shard/5% diamante/esmeralda), charm_philosophers_stone
+  (alchemical_essence NOVA — transmuta 2-5 ferro em ouro no offhand), charm_remnant_cage (captura
+  Remnant do Redux, diário = spectral dust do elemento, sneak solta como minion — desvio: minion =
+  Remnant + MinionData, sem EntityRemnantMinion próprio).
+  ItemSetArtefact (jóias de poder): o set bônus já estava no AS-18 — nada novo.
 ✓ AS-24 (3.57.0): ARTEFATOS ONDA 3d — tickables especiais (7): charm_specterlight_torch (revela
 invisíveis raio 10 — remove invisibility/muffle; mirage não existe no Redux),
 belt_enchanted_whetstone (repara 1 durabilidade de espada/machado na mão a cada 5s),

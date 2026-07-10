@@ -192,6 +192,8 @@ public final class ASSpells {
         SPELLS.register("ice_tower", com.windanesz.ancientspellcraft.spell.IceTower::new);
         SPELLS.register("absorb_artefact", com.windanesz.ancientspellcraft.spell.AbsorbArtefact::new);
         SPELLS.register("covenant", com.windanesz.ancientspellcraft.spell.Covenant::new);
+        // AS-33: base do head_mask_of_perseigni
+        SPELLS.register("pyrokinesis", com.windanesz.ancientspellcraft.spell.Pyrokinesis::new);
         SPELLS.register("ray_of_enfeeblement", () -> new com.windanesz.ancientspellcraft.spell.SageEffectRaySpell(false, true,
                 java.util.List.of(() -> net.minecraft.core.Holder.direct(MobEffects.WEAKNESS.value()),
                         () -> net.minecraft.core.Holder.direct(MobEffects.MOVEMENT_SLOWDOWN.value()),

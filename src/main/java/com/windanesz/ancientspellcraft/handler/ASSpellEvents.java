@@ -232,6 +232,21 @@ public final class ASSpellEvents {
         }
     }
 
+    /** charm_infernal_stone (1.12.2): quente, spells de FOGO custam -25% de mana e consomem 10 de calor. */
+    public static void onInfernalStone(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
+        if (!(event.getCaster() instanceof Player player) || player.level().isClientSide) return;
+        if (!"fire".equals(event.getSpell().getElement().getName())) return;
+        for (var artifact : com.koomplo.wizardry.core.integrations.ArtifactChannel.getEquippedArtifacts(player)) {
+            if (artifact.getItem() instanceof com.windanesz.ancientspellcraft.item.InfernalStoneItem
+                    && com.windanesz.ancientspellcraft.item.InfernalStoneItem.getHeat(artifact) > 0) {
+                event.getModifiers().set(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.COST,
+                        event.getModifiers().get(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.COST) * 0.75f);
+                com.windanesz.ancientspellcraft.item.InfernalStoneItem.removeHeat(artifact, 10);
+                return;
+            }
+        }
+    }
+
     /** Castar com a espada de battlemage na mão carrega a lâmina (1.12.2: +20 por cast). */
     public static void onSpellCastPost(com.koomplo.wizardry.api.content.event.SpellCastEvent.Post event) {
         if (event.getCaster() instanceof Player player && !player.level().isClientSide

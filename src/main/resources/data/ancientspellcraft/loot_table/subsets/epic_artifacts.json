@@ -14,6 +14,34 @@
         },
         {
           "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_infernal_stone"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_arcane_flames"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_devoritium_magnet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_evergrowing_crystal"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_philosophers_stone"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_remnant_cage"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:body_power_gem"
+        },
+        {
+          "type": "minecraft:item",
           "name": "ancientspellcraft:charm_elemental_grimoire"
         },
         {

@@ -48,6 +48,7 @@
   "block.ancientspellcraft.devoritium_door": "Devoritium Door",
   "block.ancientspellcraft.devoritium_gilded_stone": "Devoritium Gilded Stone",
   "block.ancientspellcraft.ice_door": "Ice Door",
+  "item.ancientspellcraft.charm_remnant_cage.contains": "Contains a %s remnant — sneak-right-click to release as minion",
   "block.ancientspellcraft.snow_slab": "Snow Slab",
   "block.ancientspellcraft.devoritium_gilded_stone.desc_extended": "This devoritium gilded stone block seems to suppress any forms of magic when stepped on",
   "block.ancientspellcraft.devoritium_ore": "Devoritium Ore",
