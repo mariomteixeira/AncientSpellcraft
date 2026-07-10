@@ -187,6 +187,21 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-24 (3.57.0): ARTEFATOS ONDA 3d — tickables especiais (7): charm_specterlight_torch (revela
+invisíveis raio 10 — remove invisibility/muffle; mirage não existe no Redux),
+belt_enchanted_whetstone (repara 1 durabilidade de espada/machado na mão a cada 5s),
+amulet_searing_skin (fireskin ativo = regen contínua), head_ardor_crown (seus minions raio 8:
+speed II + strength), head_minion_circle (minions ociosos raio 20 orbitam em círculo de raio 3 —
+desvio: sem remover IA de perambular), charm_guardian_blade (vida ≤33%: lâmina espectral animada
+15s com dano x6, cd 30s), amulet_elemental_aura (static_aura/fireskin/ice_shroud ativo: 1/3 por
+segundo de descarregar o elemento em inimigos raio 5 — dano SHOCK / fogo effect_duration x5 /
+frost; valores lidos das spells do Redux em runtime).
+ADIADOS PARA ONDA 4: baterias de mana (ring_mana_lesser/greater, charm_majestic_mana,
+charm_wizard_tankard, charm_cube_phasing, amulet_invisibility, amulet_of_resistance — precisam
+de slot no arcane workbench e/ou consumo), charm_diamond_goose (bind de bloco + sons),
+head_mask_of_perseigni (auto-pyrokinesis de wand), charm_infernal_stone (sistema de calor),
+ring_arcane_flames, charm_devoritium_magnet (delegate herdado do devoritium),
+charm_glyph_shield_disable (bloqueio do shield), belt_scroll_holder.
 ✓ AS-23 (3.56.0): ARTEFATOS ONDAS 3b+3c — glyphs e auras do battlemage (13).
 GLYPHS (5): leeching (30% no golpe da lâmina ROUBA um buff do alvo — desvio: no 1.12.2 vivia
 dentro de um efeito elemental específico, no port vale para qualquer golpe da espada),

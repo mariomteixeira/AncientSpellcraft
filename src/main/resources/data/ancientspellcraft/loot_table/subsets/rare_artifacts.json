@@ -163,6 +163,14 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:charm_aura_vulnerability"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:belt_enchanted_whetstone"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_searing_skin"
         }
       ]
     }

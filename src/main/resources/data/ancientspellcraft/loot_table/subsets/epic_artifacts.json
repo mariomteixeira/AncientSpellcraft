@@ -107,6 +107,22 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:charm_aura_life"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:head_ardor_crown"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:head_minion_circle"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_guardian_blade"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_elemental_aura"
         }
       ]
     }

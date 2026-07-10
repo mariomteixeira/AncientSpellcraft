@@ -525,5 +525,183 @@ public final class ASArtifactEffects {
                 && !com.koomplo.wizardry.core.AllyDesignation.isAllied(player, entity);
     }
 
+    // ---- onda 3d: tickables especiais ----
+
+    /** charm_specterlight_torch: a cada 1s revela invisíveis num raio de 10 (remove invisibility/muffle). */
+    public static IArtifactEffect specterlightTorch() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 20 != 0) return;
+                for (var entity : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                        10, player.getX(), player.getY(), player.getZ(), level)) {
+                    if (entity == player || !entity.isInvisible()) continue;
+                    entity.removeEffect(net.minecraft.world.effect.MobEffects.INVISIBILITY);
+                    entity.removeEffect(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                            com.koomplo.wizardry.setup.registries.EBMobEffects.MUFFLE.get()));
+                }
+            }
+        };
+    }
+
+    /** belt_enchanted_whetstone: repara 1 de durabilidade da espada/machado na mão a cada 5s. */
+    public static IArtifactEffect enchantedWhetstone() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 100 != 0) return;
+                for (var hand : net.minecraft.world.InteractionHand.values()) {
+                    ItemStack tool = player.getItemInHand(hand);
+                    if ((tool.getItem() instanceof net.minecraft.world.item.SwordItem
+                            || tool.getItem() instanceof net.minecraft.world.item.AxeItem) && tool.isDamaged()) {
+                        tool.setDamageValue(tool.getDamageValue() - 1);
+                        break;
+                    }
+                }
+            }
+        };
+    }
+
+    /** amulet_searing_skin: com fireskin do Redux ativo, regeneração contínua. */
+    public static IArtifactEffect searingSkin() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 10 != 0) return;
+                if (player.hasEffect(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                        com.koomplo.wizardry.setup.registries.EBMobEffects.FIRESKIN.get()))) {
+                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.world.effect.MobEffects.REGENERATION, 40));
+                }
+            }
+        };
+    }
+
+    /** head_ardor_crown: seus minions num raio de 8 ganham speed II + strength (pulso de 0.5s). */
+    public static IArtifactEffect ardorCrown() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 10 != 0) return;
+                for (var entity : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                        8, player.getX(), player.getY(), player.getZ(), level)) {
+                    if (!(entity instanceof net.minecraft.world.entity.Mob mob) || entity == player) continue;
+                    var data = mob.getData(com.koomplo.wizardry.setup.registries.EBAttachments.MINION_DATA);
+                    if (!data.isSummoned() || data.getOwner() != player) continue;
+                    entity.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 40, 1, false, false));
+                    entity.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.world.effect.MobEffects.DAMAGE_BOOST, 40, 0, false, false));
+                }
+            }
+        };
+    }
+
+    /** head_minion_circle: minions ociosos num raio de 20 orbitam você num círculo de raio 3
+     * (desvio: sem remover a IA de perambular — só navegação). */
+    public static IArtifactEffect minionCircle() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 5 != 0) return;
+                var minions = com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                                20, player.getX(), player.getY(), player.getZ(), level).stream()
+                        .filter(e -> e instanceof net.minecraft.world.entity.Mob mob
+                                && mob.getData(com.koomplo.wizardry.setup.registries.EBAttachments.MINION_DATA).isSummoned()
+                                && mob.getData(com.koomplo.wizardry.setup.registries.EBAttachments.MINION_DATA).getOwner() == player
+                                && mob.getTarget() == null)
+                        .map(e -> (net.minecraft.world.entity.Mob) e)
+                        .sorted(java.util.Comparator.comparingInt(net.minecraft.world.entity.Entity::getId))
+                        .toList();
+                if (minions.isEmpty()) return;
+                double angleIncrement = 2 * Math.PI / minions.size();
+                for (int i = 0; i < minions.size(); i++) {
+                    var minion = minions.get(i);
+                    double targetX = player.getX() + 3.0 * Math.cos(i * angleIncrement);
+                    double targetZ = player.getZ() + 3.0 * Math.sin(i * angleIncrement);
+                    if (minion.position().distanceTo(new net.minecraft.world.phys.Vec3(targetX, minion.getY(), targetZ)) > 0.5) {
+                        minion.getNavigation().moveTo(targetX, minion.getY(), targetZ, 1.2);
+                    }
+                }
+            }
+        };
+    }
+
+    /** charm_guardian_blade: vida ≤33% — invoca uma lâmina espectral animada por 15s (dano x6, cd 30s). */
+    public static IArtifactEffect guardianBlade() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (!(level instanceof net.minecraft.server.level.ServerLevel serverLevel)) return;
+                if (level.getGameTime() % 20 != 0 || player.getHealth() > player.getMaxHealth() * 0.33f) return;
+                if (player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                var pos = com.koomplo.wizardry.api.content.util.BlockUtil.findNearbyFloorSpace(
+                        level, player.blockPosition(), 4, 8, false, player);
+                if (pos == null) return;
+                var minion = new com.windanesz.ancientspellcraft.entity.living.AnimatedItemEntity(
+                        com.windanesz.ancientspellcraft.registry.ASEntities.ANIMATED_ITEM.get(), level);
+                minion.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                minion.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,
+                        new ItemStack(com.windanesz.ancientspellcraft.registry.ASItems.CHARM_GUARDIAN_BLADE.get()));
+                minion.setDropChance(net.minecraft.world.entity.EquipmentSlot.MAINHAND, 0.0F);
+                var attack = minion.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE);
+                if (attack != null) {
+                    attack.addTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(
+                            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "guardian_blade"),
+                            6, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+                }
+                var data = com.koomplo.wizardry.core.platform.Services.OBJECT_DATA.getMinionData(minion);
+                data.setSummoned(true);
+                data.setOwnerUUID(player.getUUID());
+                data.setLifetime(300);
+                data.updateGoals();
+                serverLevel.addFreshEntity(minion);
+                player.getCooldowns().addCooldown(artifact.getItem(), 600);
+            }
+        };
+    }
+
+    /** amulet_elemental_aura: com static_aura/fireskin/ice_shroud ativo, 1/3 a cada 1s de descarregar
+     * o elemento em inimigos num raio de 5 (dano SHOCK / fogo / frost — valores das spells do Redux). */
+    public static IArtifactEffect elementalAura() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 20 != 0 || level.random.nextInt(3) != 0) return;
+                var registryUtil = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL;
+                int mode = player.hasEffect(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                        com.koomplo.wizardry.setup.registries.EBMobEffects.STATIC_AURA.get())) ? 1
+                        : player.hasEffect(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                        com.koomplo.wizardry.setup.registries.EBMobEffects.FIRESKIN.get())) ? 2
+                        : player.hasEffect(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                        com.koomplo.wizardry.setup.registries.EBMobEffects.ICE_SHROUD.get())) ? 3 : 0;
+                if (mode == 0) return;
+                for (var target : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                        5, player.getX(), player.getY(), player.getZ(), level)) {
+                    if (target == player || com.koomplo.wizardry.core.AllyDesignation.isAllied(player, target)) continue;
+                    if (mode == 1) {
+                        var spell = registryUtil.getSpell(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ebwizardry", "static_aura"));
+                        float damage = spell != null ? spell.property(com.koomplo.wizardry.content.spell.DefaultProperties.DAMAGE) : 4;
+                        com.koomplo.wizardry.api.content.util.EntityUtil.attackEntityWithoutKnockback(target,
+                                com.koomplo.wizardry.api.content.util.MagicDamageSource.causeDirectMagicDamage(player,
+                                        com.koomplo.wizardry.setup.registries.EBDamageSources.SHOCK), damage);
+                    } else if (mode == 2) {
+                        // 1.12.2: burn_duration do fire_breath x5 (no Redux a propriedade equivalente é effect_duration)
+                        var spell = registryUtil.getSpell(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ebwizardry", "fire_breath"));
+                        int burn = spell != null ? spell.property(com.koomplo.wizardry.content.spell.DefaultProperties.EFFECT_DURATION) : 10;
+                        target.igniteForSeconds(burn * 5);
+                    } else {
+                        var spell = registryUtil.getSpell(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ebwizardry", "ice_shroud"));
+                        int duration = spell != null ? spell.property(com.koomplo.wizardry.content.spell.DefaultProperties.EFFECT_DURATION) : 200;
+                        int strength = spell != null ? spell.property(com.koomplo.wizardry.content.spell.DefaultProperties.EFFECT_STRENGTH) : 0;
+                        target.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                                net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                                        com.koomplo.wizardry.setup.registries.EBMobEffects.FROST.get()), duration, strength));
+                    }
+                }
+            }
+        };
+    }
+
     private ASArtifactEffects() {}
 }

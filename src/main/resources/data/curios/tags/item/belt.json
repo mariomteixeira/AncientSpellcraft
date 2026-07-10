@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "ancientspellcraft:belt_enchanted_whetstone",
     "ancientspellcraft:belt_horse",
     "ancientspellcraft:belt_soul_scorch",
     "ancientspellcraft:belt_temporal_anchor"

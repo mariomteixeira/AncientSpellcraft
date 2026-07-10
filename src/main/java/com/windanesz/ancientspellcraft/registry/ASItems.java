@@ -242,6 +242,22 @@ public final class ASItems {
     public static final Supplier<Item> AMULET_CURSED_PENDANT = artifact("amulet_cursed_pendant", net.minecraft.world.item.Rarity.RARE,
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.cursedPendant());
 
+    // onda 3d: tickables especiais
+    public static final Supplier<Item> CHARM_SPECTERLIGHT_TORCH = artifact("charm_specterlight_torch", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.specterlightTorch());
+    public static final Supplier<Item> BELT_ENCHANTED_WHETSTONE = artifact("belt_enchanted_whetstone", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.enchantedWhetstone());
+    public static final Supplier<Item> AMULET_SEARING_SKIN = artifact("amulet_searing_skin", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.searingSkin());
+    public static final Supplier<Item> HEAD_ARDOR_CROWN = artifact("head_ardor_crown", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.ardorCrown());
+    public static final Supplier<Item> HEAD_MINION_CIRCLE = artifact("head_minion_circle", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.minionCircle());
+    public static final Supplier<Item> CHARM_GUARDIAN_BLADE = artifact("charm_guardian_blade", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.guardianBlade());
+    public static final Supplier<Item> AMULET_ELEMENTAL_AURA = artifact("amulet_elemental_aura", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.elementalAura());
+
     // onda 3b: glyphs do battlemage (charge/imbuement têm gates no RunewordSpell/registro do imbue)
     public static final Supplier<Item> CHARM_GLYPH_LEECHING = artifact("charm_glyph_leeching", net.minecraft.world.item.Rarity.RARE,
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.glyphLeeching());
