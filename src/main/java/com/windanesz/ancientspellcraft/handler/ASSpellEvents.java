@@ -14,6 +14,72 @@ public final class ASSpellEvents {
                 && !EntityUtil.isCasting(player, ASSpells.BURROW.get())) {
             player.noPhysics = false;
         }
+        if (!player.level().isClientSide) {
+            tickMasterBoltPull(player);
+        }
+    }
+
+    /**
+     * Puxão do master_bolt (1.12.2 MasterBolt.update): countdown de 20t movendo o jogador em
+     * passos até o bloco, deixando um rastro de lightning_block temporário; na chegada, explosão
+     * proporcional à queda + esfera de raios + devolve o item. Desvio: sem o efeito static_aura.
+     */
+    private static void tickMasterBoltPull(Player player) {
+        var tag = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA);
+        int countdown = tag.getInt(com.windanesz.ancientspellcraft.spell.MasterBoltSpell.COUNTDOWN_TAG);
+        if (countdown <= 0) return;
+        var destOpt = net.minecraft.nbt.NbtUtils.readBlockPos(tag, com.windanesz.ancientspellcraft.spell.MasterBoltSpell.LOCATION_TAG);
+        if (destOpt.isEmpty()) {
+            tag.remove(com.windanesz.ancientspellcraft.spell.MasterBoltSpell.COUNTDOWN_TAG);
+            player.setData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA, tag);
+            return;
+        }
+        var dest = destOpt.get();
+        var level = player.level();
+        if (level.getBlockState(dest).is(com.windanesz.ancientspellcraft.registry.ASBlocks.MASTER_BOLT.get())) {
+            level.removeBlock(dest, false);
+        }
+
+        boolean arrived = false;
+        if (countdown > 1 && player.distanceToSqr(dest.getX() + 0.5, dest.getY(), dest.getZ() + 0.5) > 2.0) {
+            double stepX = (dest.getX() + 0.5 - player.getX()) / countdown;
+            double stepY = (dest.getY() - player.getY()) / countdown;
+            double stepZ = (dest.getZ() + 0.5 - player.getZ()) / countdown;
+            for (int i = 0; i < 10 && !arrived; i++) {
+                player.teleportTo(player.getX() + stepX, player.getY() + stepY, player.getZ() + stepZ);
+                var pos = player.blockPosition();
+                if (level.getBlockState(pos).isAir()) {
+                    com.windanesz.ancientspellcraft.block.TemporaryBlockEntity.place(player, level,
+                            com.windanesz.ancientspellcraft.registry.ASBlocks.LIGHTNING_BLOCK.get(), pos, 60);
+                }
+                arrived = player.distanceToSqr(dest.getX() + 0.5, dest.getY(), dest.getZ() + 0.5) < 2.0;
+            }
+        } else {
+            arrived = true;
+        }
+
+        if (arrived) {
+            level.explode(player, player.getX(), player.getY(), player.getZ(),
+                    Math.min(2.0F, player.fallDistance * 0.05F), net.minecraft.world.level.Level.ExplosionInteraction.MOB);
+            float radius = Math.max(1.0F, Math.min(3.0F, player.fallDistance * 0.2F));
+            var center = player.blockPosition();
+            for (var pos : net.minecraft.core.BlockPos.betweenClosed(center.offset((int) -radius, (int) -radius, (int) -radius),
+                    center.offset((int) radius, (int) radius, (int) radius))) {
+                if (pos.distSqr(center) <= radius * radius && level.getBlockState(pos).isAir()) {
+                    com.windanesz.ancientspellcraft.block.TemporaryBlockEntity.place(player, level,
+                            com.windanesz.ancientspellcraft.registry.ASBlocks.LIGHTNING_BLOCK.get(), pos.immutable(), 90);
+                }
+            }
+            player.getInventory().placeItemBackInInventory(
+                    new net.minecraft.world.item.ItemStack(com.windanesz.ancientspellcraft.registry.ASItems.MASTER_BOLT.get()));
+            player.fallDistance = 0;
+            tag.remove(com.windanesz.ancientspellcraft.spell.MasterBoltSpell.LOCATION_TAG);
+            tag.remove(com.windanesz.ancientspellcraft.spell.MasterBoltSpell.DIMENSION_TAG);
+            tag.remove(com.windanesz.ancientspellcraft.spell.MasterBoltSpell.COUNTDOWN_TAG);
+        } else {
+            tag.putInt(com.windanesz.ancientspellcraft.spell.MasterBoltSpell.COUNTDOWN_TAG, countdown - 1);
+        }
+        player.setData(com.windanesz.ancientspellcraft.registry.ASAttachments.PLAYER_DATA, tag);
     }
 
     /** Gate das class spells (1.12.2 IClassSpell.onSpellCastPreEvent): exige o set completo. TODO warlock attunement. */

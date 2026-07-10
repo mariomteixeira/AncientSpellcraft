@@ -1,0 +1,20 @@
+{
+  "base_properties": {},
+  "chargeup": 0,
+  "cooldown": 80,
+  "cost": 20,
+  "element": "ebwizardry:sorcery",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": true,
+    "npcs": false,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:advanced",
+  "type": "alteration"
+}

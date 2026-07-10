@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "duration": 400,
+    "transfer_amount_per_tick": 10,
+    "transfer_efficiency": 0.9
+  },
+  "chargeup": 40,
+  "cooldown": 0,
+  "cost": 0,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": false,
+    "npcs": false,
+    "scroll": false,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "tier": "ebwizardry:apprentice",
+  "type": "utility"
+}

@@ -27,6 +27,10 @@ public final class ASSpells {
         // AS-10a: épicos
         SPELLS.register("living_comet", com.windanesz.ancientspellcraft.spell.LivingCometSpell::new);
         SPELLS.register("conceal_object", com.windanesz.ancientspellcraft.spell.ConcealObjectSpell::new);
+        // AS-11: épicos finais
+        SPELLS.register("attire_alteration", com.windanesz.ancientspellcraft.spell.AttireAlterationSpell::new);
+        SPELLS.register("conduit", com.windanesz.ancientspellcraft.spell.ConduitSpell::new);
+        SPELLS.register("master_bolt", com.windanesz.ancientspellcraft.spell.MasterBoltSpell::new);
 
         // Cores 1.12.2 (r,g,b) normalizadas /255 onde eram int
         SPELLS.register("aquatic_agility", () -> new ASBuffSpell(0f, 0.4f, 0.8f, () -> ASEffects.AQUATIC_AGILITY));

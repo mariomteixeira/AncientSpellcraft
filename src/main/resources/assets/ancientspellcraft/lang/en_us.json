@@ -963,6 +963,7 @@
   "item.ancientspellcraft.large_mana_flask_recipe.desc": "Large Mana Flask\\nCan be used in a crafting table as a recipe component",
   "item.ancientspellcraft.magic_shield": "Spellbreaker",
   "item.ancientspellcraft.magic_shield.desc": "This ancient crystal shield casts a protective ward to defend its wielder while blocking.",
+  "item.ancientspellcraft.master_bolt": "Master Bolt",
   "item.ancientspellcraft.monster_charm.attuned": "Monster Charm attuned to %s",
   "item.ancientspellcraft.monster_charm.failed_attune": "Failed to attune Monster Charm to %s",
   "item.ancientspellcraft.monster_charm.found": "Clairvoyance: Found nearest %s",

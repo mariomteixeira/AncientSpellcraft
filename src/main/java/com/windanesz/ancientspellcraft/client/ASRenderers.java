@@ -66,6 +66,7 @@ public final class ASRenderers {
         event.registerEntityRenderer(ASEntities.SKELETON_MAGE_MINION.get(), com.windanesz.ancientspellcraft.client.SkeletonMageRenderer::new);
         event.registerEntityRenderer(ASEntities.ANIMATED_ITEM.get(), com.windanesz.ancientspellcraft.client.AnimatedItemRenderer::new);
         event.registerEntityRenderer(ASEntities.FLINT_SHARD.get(), com.koomplo.wizardry.client.renderer.entity.MagicArrowRenderer::new);
+        event.registerEntityRenderer(ASEntities.MASTER_BOLT.get(), com.koomplo.wizardry.client.renderer.entity.MagicArrowRenderer::new);
         event.registerEntityRenderer(ASEntities.SAFE_ICE_SHARD.get(), com.koomplo.wizardry.client.renderer.entity.MagicArrowRenderer::new);
         event.registerEntityRenderer(ASEntities.WOLF_MINION.get(), net.minecraft.client.renderer.entity.WolfRenderer::new);
         event.registerEntityRenderer(ASEntities.SPIRIT_BEAR.get(), net.minecraft.client.renderer.entity.PolarBearRenderer::new);

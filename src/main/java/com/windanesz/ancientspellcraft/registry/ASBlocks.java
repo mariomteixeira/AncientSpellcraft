@@ -235,6 +235,12 @@ public final class ASBlocks {
                     .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(3.0F, 5.0F)
                     .noOcclusion().sound(net.minecraft.world.level.block.SoundType.STONE)));
 
+    // AS-11: marcador do master_bolt (inquebrável; recolhido via sneak-cast)
+    public static final Supplier<Block> MASTER_BOLT = BLOCKS.register("master_bolt",
+            () -> new com.windanesz.ancientspellcraft.block.MasterBoltBlock(BlockBehaviour.Properties.of()
+                    .strength(-1.0F, 3600000.0F).noLootTable().noOcclusion().noCollission()
+                    .lightLevel(state -> 11).sound(net.minecraft.world.level.block.SoundType.AMETHYST)));
+
     public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.ArtefactPensiveBlockEntity>> ARTEFACT_PENSIVE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("artefact_pensive", () -> BlockEntityType.Builder.of(
                     com.windanesz.ancientspellcraft.block.ArtefactPensiveBlockEntity::new, ARTEFACT_PENSIVE.get()).build(null));

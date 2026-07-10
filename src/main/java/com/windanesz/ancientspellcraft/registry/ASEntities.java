@@ -40,6 +40,11 @@ public final class ASEntities {
             () -> EntityType.Builder.of(com.windanesz.ancientspellcraft.entity.living.RemnantMinion::new, MobCategory.MONSTER)
                     .sized(0.8F, 0.8F).build(AncientSpellcraft.MODID + ":remnant_minion"));
 
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.projectile.MasterBoltEntity>> MASTER_BOLT = ENTITIES.register("master_bolt",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.projectile.MasterBoltEntity>of(
+                    com.windanesz.ancientspellcraft.entity.projectile.MasterBoltEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).build(AncientSpellcraft.MODID + ":master_bolt"));
+
     public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity>> METAMAGIC_PROJECTILE = ENTITIES.register("metamagic_projectile",
             () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity>of(
                     com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity::new, MobCategory.MISC)

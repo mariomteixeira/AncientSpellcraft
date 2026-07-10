@@ -106,6 +106,8 @@ public final class ASItems {
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> ASTRAL_DIAMOND_SHARD = ITEMS.register("astral_diamond_shard",
             () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> MASTER_BOLT = ITEMS.register("master_bolt",
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static final Supplier<Item> RITUAL_BOOK = ITEMS.register("ritual_book",
             com.windanesz.ancientspellcraft.item.RitualBookItem::new);
@@ -188,6 +190,7 @@ public final class ASItems {
                         output.accept(CRYSTAL_SILVER_INGOT.get());
                         output.accept(CRYSTAL_SILVER_NUGGET.get());
                         output.accept(ASTRAL_DIAMOND_SHARD.get());
+                        output.accept(MASTER_BOLT.get());
                         for (String rune : new String[]{"algiz", "ansuz", "berkanan", "dagaz", "ehwaz", "feoh", "gyfu", "haglaz", "ihwaz", "isaz", "jera", "kaunan", "laguz", "mannaz", "naudiz", "odal", "peorth", "raido", "sowilo", "thurisaz", "tiwaz", "uruz", "wynn", "yngvi"}) {
                             output.accept(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
                                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(

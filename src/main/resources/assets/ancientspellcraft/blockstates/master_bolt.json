@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=south": {
+      "model": "ancientspellcraft:block/master_bolt"
+    },
+    "facing=west": {
+      "model": "ancientspellcraft:block/master_bolt",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "ancientspellcraft:block/master_bolt",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "ancientspellcraft:block/master_bolt",
+      "y": 270
+    }
+  }
+}
