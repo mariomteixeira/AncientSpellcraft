@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "burn_duration": 13,
+    "charges": 1
+  },
+  "chargeup": 0,
+  "cooldown": 200,
+  "cost": 40,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": true,
+    "npcs": true,
+    "scroll": false,
+    "trades": false,
+    "treasure": true,
+    "wands": false
+  },
+  "spell_action": "ebwizardry:point_up",
+  "tier": "ebwizardry:novice",
+  "type": "attack"
+}

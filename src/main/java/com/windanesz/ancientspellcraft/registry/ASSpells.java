@@ -37,6 +37,7 @@ public final class ASSpells {
         SPELLS.register("grapple", com.windanesz.ancientspellcraft.spell.GrappleSpell::new);
         SPELLS.register("experiment", com.windanesz.ancientspellcraft.spell.ExperimentSpell::new);
         SPELLS.register("pocket_library", com.windanesz.ancientspellcraft.spell.PocketLibrarySpell::new);
+        registerRunewords();
 
         // Cores 1.12.2 (r,g,b) normalizadas /255 onde eram int
         SPELLS.register("aquatic_agility", () -> new ASBuffSpell(0f, 0.4f, 0.8f, () -> ASEffects.AQUATIC_AGILITY));
@@ -216,6 +217,125 @@ public final class ASSpells {
         SPELLS.register("ternary_storm", com.windanesz.ancientspellcraft.spell.TernaryStorm::new);
         SPELLS.register("arcane_wall", com.windanesz.ancientspellcraft.spell.ArcaneWall::new);
         SPELLS.register("orb_space", com.windanesz.ancientspellcraft.spell.OrbSpace::new);
+    }
+
+    /**
+     * Runewords do battlemage (AS-12): efeitos inline sobre a base RunewordSpell.
+     * Valores lidos das properties dos JSONs 1.12.2 (charges/duração/multiplicadores).
+     */
+    private static void registerRunewords() {
+        var DMG_PCT = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.floatProperty("weapon_damage_percentage", 1.5f);
+        var BURN = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.intProperty("burn_duration", 100);
+        var HEAL_PCT = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.floatProperty("missing_percent_hp_restored", 0.3f);
+        var RADIUS = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.floatProperty("effect_radius", 5f);
+        var MIN_D = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.doubleProperty("min_distance", 8.0);
+        var MAX_D = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.doubleProperty("max_distance", 16.0);
+        var FURY_PCT = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.floatProperty("dmg_percent_increase_per_hit", 0.05f);
+        var FURY_MAX = com.koomplo.wizardry.api.content.spell.properties.SpellProperty.intProperty("max_charge_stacks", 10);
+
+        SPELLS.register("runeword_arcane", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .damage((s, amount, p, t, sw) -> amount * s.property(DMG_PCT)));
+        SPELLS.register("runeword_ignite", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .onHit((s, p, t, sw) -> t.setRemainingFireTicks(s.property(BURN))));
+        SPELLS.register("runeword_sol", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .onHit((s, p, t, sw) -> t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.BLINDNESS, s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION), 0))));
+        SPELLS.register("runeword_restoration", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .instant((s, ctx, sw) -> {
+                    if (!ctx.world().isClientSide) ctx.caster().heal(ctx.caster().getMaxHealth() * s.property(HEAL_PCT));
+                    return true;
+                }));
+        SPELLS.register("runeword_disarm", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .onHit((s, p, t, sw) -> {
+                    if (t instanceof net.minecraft.world.entity.player.Player targetPlayer) {
+                        int duration = s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION);
+                        if (!targetPlayer.getMainHandItem().isEmpty())
+                            targetPlayer.getCooldowns().addCooldown(targetPlayer.getMainHandItem().getItem(), duration);
+                        if (!targetPlayer.getOffhandItem().isEmpty())
+                            targetPlayer.getCooldowns().addCooldown(targetPlayer.getOffhandItem().getItem(), duration);
+                    }
+                }));
+        SPELLS.register("runeword_expose", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .onHit((s, p, t, sw) -> stackEffect(t, ASEffects.DEGRADED_ARMOR, s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION))));
+        SPELLS.register("runeword_suppress", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .onHit((s, p, t, sw) -> stackEffect(t, ASEffects.MAGICAL_EXHAUSTION, s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION))));
+        SPELLS.register("runeword_exorcise", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .damage((s, amount, p, t, sw) -> t.isInvertedHealAndHarm()
+                        ? amount * s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.DAMAGE_MULTIPLIER) : amount)
+                .onHit((s, p, t, sw) -> {
+                    if (!t.isInvertedHealAndHarm()) {
+                        int duration = s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION);
+                        t.setRemainingFireTicks(duration / 20 * 20);
+                        t.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.WEAKNESS, duration, 0));
+                    }
+                }));
+        SPELLS.register("runeword_endure", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .instant((s, ctx, sw) -> {
+                    if (!ctx.world().isClientSide) {
+                        int duration = s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION);
+                        var caster = ctx.caster();
+                        caster.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE, duration, 1));
+                        caster.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                                net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                                        com.koomplo.wizardry.setup.registries.EBMobEffects.WARD.get()), duration, 1));
+                        caster.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN, duration, 3));
+                    }
+                    return true;
+                }));
+        SPELLS.register("runeword_implode", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .instant((s, ctx, sw) -> {
+                    if (!ctx.world().isClientSide) {
+                        float radius = s.property(RADIUS) * ctx.modifiers().get(com.koomplo.wizardry.api.content.spell.internal.SpellModifiers.BLAST);
+                        var caster = ctx.caster();
+                        for (var target : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                                radius, caster.getX(), caster.getY(), caster.getZ(), ctx.world())) {
+                            if (target == caster || com.koomplo.wizardry.core.AllyDesignation.isAllied(caster, target)) continue;
+                            var pull = caster.position().subtract(target.position()).normalize().scale(1.2);
+                            target.push(pull.x, 0.3, pull.z);
+                        }
+                    }
+                    return true;
+                }));
+        SPELLS.register("runeword_fury", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .noSpend()
+                .damage((s, amount, p, t, sw) -> amount * (1 + s.property(FURY_PCT)
+                        * com.windanesz.ancientspellcraft.spell.RunewordSpell.getFuryStacks(sw)))
+                .onHit((s, p, t, sw) -> com.windanesz.ancientspellcraft.spell.RunewordSpell.setFuryStacks(sw,
+                        Math.min(s.property(FURY_MAX), com.windanesz.ancientspellcraft.spell.RunewordSpell.getFuryStacks(sw) + 1))));
+        SPELLS.register("runeword_displace", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .onHit((s, p, t, sw) -> {
+                    var random = t.level().random;
+                    double radius = s.property(MIN_D) + random.nextDouble() * (s.property(MAX_D) - s.property(MIN_D));
+                    for (int i = 0; i < 16; i++) {
+                        double angle = random.nextDouble() * Math.PI * 2;
+                        var pos = net.minecraft.core.BlockPos.containing(
+                                t.getX() + Math.cos(angle) * radius, t.getY() + random.nextInt(4) - 1, t.getZ() + Math.sin(angle) * radius);
+                        if (t.level().getBlockState(pos).isAir() && t.level().getBlockState(pos.above()).isAir()
+                                && !t.level().getBlockState(pos.below()).isAir()) {
+                            t.teleportTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                            break;
+                        }
+                    }
+                }));
+        SPELLS.register("runeword_strength", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .instant((s, ctx, sw) -> {
+                    if (!ctx.world().isClientSide) ctx.caster().addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.world.effect.MobEffects.DAMAGE_BOOST,
+                            s.property(com.windanesz.ancientspellcraft.spell.RunewordSpell.EFFECT_DURATION), 0));
+                    return true;
+                }));
+        SPELLS.register("runeword_blast", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .onHit((s, p, t, sw) -> {
+                    var push = t.position().subtract(p.position()).normalize().scale(2.2);
+                    t.push(push.x, 0.5, push.z);
+                }));
+    }
+
+    private static void stackEffect(net.minecraft.world.entity.LivingEntity target,
+                                    net.neoforged.neoforge.registries.DeferredHolder<net.minecraft.world.effect.MobEffect, net.minecraft.world.effect.MobEffect> effect,
+                                    int duration) {
+        int amplifier = target.hasEffect(effect) ? target.getEffect(effect).getAmplifier() + 1 : 0;
+        target.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect, duration, amplifier));
     }
 
     private static java.util.function.Supplier<Holder<net.minecraft.world.effect.MobEffect>> holder(Holder<net.minecraft.world.effect.MobEffect> h) {

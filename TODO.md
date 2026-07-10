@@ -165,7 +165,19 @@ níveis, shift-clique saca; property empty muda o modelo Blockbench cheio/vazio)
   perfect_theory pendente; falha = forfeit do Redux/buff/debuff/nada; buffs/debuffs aproximados);
   pocket_library (SAGE: invoca a torre-template na frente e re-cast a 3 blocos desfaz restaurando
   o terreno via snapshot; desvio: sem persistência dos blocos do jogador dentro da torre).
-Épico restante: runeword (sistema do battlemage, lote próprio).
+✓ AS-12 (3.45.0): RUNEWORDS DO BATTLEMAGE — infra (RunewordSpell base configurável: cast com a
+espada de battlemage arma a runeword ativa com cargas no CustomData; ASRunewordEvents aplica
+efeito/modificador de dano por golpe e gasta carga; instants resolvem no cast) + 14 runewords:
+arcane (dano x%), ignite, sol (cegueira), restoration (cura % vida perdida), disarm (cooldown nas
+mãos do player alvo), expose (degraded_armor stacking), suppress (magical_exhaustion stacking),
+exorcise (dano x vs mortos-vivos, fogo+weakness vs vivos), endure (resistance+ward+slowness),
+implode (puxa inimigos no raio), fury (stacks de dano por golpe, decai 1/2s no inventoryTick),
+displace (teleporta o alvo), strength (self-buff), blast (knockback forte).
+Desvios: UMA runeword ativa por lâmina (original tinha mapa); fury armada por cast (era passiva
+por glyph); arcane sem bypass de armadura; blast sem checks de anchoring.
+AS-12b TODO: briar (thorns do wizardry), reach/pull/push (sistema de alcance), meditate
+(battlemage_shield), imbue, sealbreaker, shatter, empower (precisa addChargeProgress do
+WizardClassWeaponHelper 1.12.2 não portado).
 
 ## AS-8 — worldgen (em curso)
 

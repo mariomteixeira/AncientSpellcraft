@@ -56,6 +56,7 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 com.windanesz.ancientspellcraft.handler.ASMetamagicEvents::onLivingDeath);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onIncomingDamage);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASRunewordEvents::onIncomingDamage);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onLivingFall);
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.HIGHEST,
                 com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onLivingDeath);

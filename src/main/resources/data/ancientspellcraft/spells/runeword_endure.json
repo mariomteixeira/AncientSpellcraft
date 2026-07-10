@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "effect_duration": 160
+  },
+  "chargeup": 0,
+  "cooldown": 600,
+  "cost": 35,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": true,
+    "npcs": true,
+    "scroll": false,
+    "trades": false,
+    "treasure": true,
+    "wands": false
+  },
+  "spell_action": "ebwizardry:imbue",
+  "tier": "ebwizardry:advanced",
+  "type": "alteration"
+}

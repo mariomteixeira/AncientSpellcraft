@@ -53,4 +53,16 @@ public class BattlemageSwordItem extends WandItem {
         }
         return true;
     }
+
+    @Override
+    public void inventoryTick(@NotNull ItemStack stack, @NotNull net.minecraft.world.level.Level level,
+                              @NotNull net.minecraft.world.entity.Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, level, entity, slot, selected);
+        // fury decai 1 stack a cada 2s (1.12.2 RunewordFury.tick)
+        if (!level.isClientSide && level.getGameTime() % 40 == 0
+                && com.windanesz.ancientspellcraft.spell.RunewordSpell.getFuryStacks(stack) > 0) {
+            com.windanesz.ancientspellcraft.spell.RunewordSpell.setFuryStacks(stack,
+                    com.windanesz.ancientspellcraft.spell.RunewordSpell.getFuryStacks(stack) - 1);
+        }
+    }
 }

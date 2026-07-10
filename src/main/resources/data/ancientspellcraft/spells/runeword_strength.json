@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "strength_duration": 400,
+    "strength_strength": 0
+  },
+  "chargeup": 0,
+  "cooldown": 80,
+  "cost": 40,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": true,
+    "npcs": true,
+    "scroll": false,
+    "trades": false,
+    "treasure": true,
+    "wands": false
+  },
+  "tier": "ebwizardry:novice",
+  "type": "attack"
+}
