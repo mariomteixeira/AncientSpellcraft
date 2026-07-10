@@ -187,6 +187,19 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-23 (3.56.0): ARTEFATOS ONDAS 3b+3c — glyphs e auras do battlemage (13).
+GLYPHS (5): leeching (30% no golpe da lâmina ROUBA um buff do alvo — desvio: no 1.12.2 vivia
+dentro de um efeito elemental específico, no port vale para qualquer golpe da espada),
+antigravity (jump boost + speed segurando a espada, dano x0.7), might (dano x1.2),
+charge (cargas de runeword x2 ao armar — gate no RunewordSpell.cast), imbuement (cargas do
+runeword_imbue x6 — gate no registro). glyph_shield_disable ADIADO para 3d (o shield do port
+ainda não tem cooldown/bloqueio).
+AURAS (8, tick 0.5s raio 10, exigem SET COMPLETO de battlemage): alacrity (speed aliados+self),
+hatred (strength em aliados mortos-vivos), life (regen aliados+self), purity (slowness+weakness
+em inimigos mortos-vivos), warding (ward aliados, ward II self), wither (wither em inimigos,
+com 0.01 de dano para puxar agro), defense (improved_armor IV self), vulnerability
+(degraded_armor V em inimigos). charm_aura_tenacity NÃO portado (registrado sem efeito no
+1.12.2 — código morto).
 ✓ AS-22 (3.55.0): ARTEFATOS ONDA 3a — buffs de tick (5): amulet_celerity (+10% velocidade,
 modifier transiente com limpeza no PlayerTick), amulet_oakflesh (oakflesh do Redux ativo em
 bioma de floresta = regeneração contínua), amulet_holy_aura (mortos-vivos raio 6 pegam fogo 5s

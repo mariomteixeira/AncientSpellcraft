@@ -423,5 +423,107 @@ public final class ASArtifactEffects {
         };
     }
 
+    // ---- onda 3b: glyphs do battlemage ----
+
+    private static boolean holdingBattlemageSword(net.minecraft.world.entity.player.Player player) {
+        return player.getMainHandItem().getItem() instanceof com.windanesz.ancientspellcraft.item.BattlemageSwordItem;
+    }
+
+    /** charm_glyph_leeching: 30% no golpe da lâmina de ROUBAR um buff do alvo (dur ≤10min, amp <III). */
+    public static IArtifactEffect glyphLeeching() {
+        return new IArtifactEffect() {
+            @Override
+            public void onHurtEntity(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity target,
+                                     net.minecraft.world.damagesource.DamageSource source, com.google.common.util.concurrent.AtomicDouble amount,
+                                     java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide || !holdingBattlemageSword(player)) return;
+                if (player.level().random.nextDouble() >= 0.3) return;
+                var candidates = target.getActiveEffects().stream()
+                        .filter(e -> e.getEffect().value().isBeneficial())
+                        .filter(e -> e.getDuration() <= 12000 && e.getAmplifier() < 3)
+                        .toList();
+                if (candidates.isEmpty()) return;
+                var stolen = candidates.get(player.level().random.nextInt(candidates.size()));
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(stolen));
+                target.removeEffect(stolen.getEffect());
+            }
+        };
+    }
+
+    /** charm_glyph_antigravity: lâmina leve — jump boost + speed segurando a espada, mas dano x0.7. */
+    public static IArtifactEffect glyphAntigravity() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 15 != 0 || !holdingBattlemageSword(player)) return;
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.JUMP, 40, 0));
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 40, 0));
+            }
+
+            @Override
+            public void onHurtEntity(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity target,
+                                     net.minecraft.world.damagesource.DamageSource source, com.google.common.util.concurrent.AtomicDouble amount,
+                                     java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (holdingBattlemageSword(player)) amount.set(amount.get() * 0.7);
+            }
+        };
+    }
+
+    /** charm_glyph_might: dano da lâmina x1.2. */
+    public static IArtifactEffect glyphMight() {
+        return new IArtifactEffect() {
+            @Override
+            public void onHurtEntity(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity target,
+                                     net.minecraft.world.damagesource.DamageSource source, com.google.common.util.concurrent.AtomicDouble amount,
+                                     java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (holdingBattlemageSword(player)) amount.set(amount.get() * 1.2);
+            }
+        };
+    }
+
+    // ---- onda 3c: auras do battlemage (1.12.2 ItemGlyphAuraArtefact: tick %10, raio 10, exige set completo) ----
+
+    /** Aplica se o alvo não tem o efeito (ou tem amplifier menor); damaging dá 0.01 de dano para puxar agro. */
+    public static void applyAuraEffect(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity target,
+                                       net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect, int duration, int amplifier, boolean damaging) {
+        var current = target.getEffect(effect);
+        if (current != null && current.getAmplifier() >= amplifier) return;
+        if (damaging && target.getLastHurtByMob() != player) {
+            com.koomplo.wizardry.api.content.util.EntityUtil.attackEntityWithoutKnockback(target,
+                    com.koomplo.wizardry.api.content.util.MagicDamageSource.causeDirectMagicDamage(player,
+                            com.koomplo.wizardry.setup.registries.EBDamageSources.MAGIC), 0.01f);
+        }
+        target.addEffect(new net.minecraft.world.effect.MobEffectInstance(effect, duration, amplifier));
+    }
+
+    public interface AuraTick {
+        void apply(net.minecraft.world.entity.player.Player player, java.util.List<net.minecraft.world.entity.LivingEntity> nearby);
+    }
+
+    /** Base das auras: tick a cada 0.5s com o set completo de battlemage; nearby = raio 10 (sem o wearer). */
+    public static IArtifactEffect battlemageAura(AuraTick aura) {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 10 != 0) return;
+                if (!com.windanesz.ancientspellcraft.handler.ASSpellEvents.isWearingFullSet(player,
+                        com.koomplo.wizardry.content.item.armor.WizardArmorType.BATTLEMAGE)) return;
+                var nearby = com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                                10, player.getX(), player.getY(), player.getZ(), level).stream()
+                        .filter(e -> e != player).toList();
+                aura.apply(player, nearby);
+            }
+        };
+    }
+
+    public static boolean isAuraAlly(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity entity) {
+        return com.koomplo.wizardry.core.AllyDesignation.isAllied(player, entity);
+    }
+
+    public static boolean isAuraEnemy(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity entity) {
+        return !(entity instanceof net.minecraft.world.entity.animal.Animal)
+                && !com.koomplo.wizardry.core.AllyDesignation.isAllied(player, entity);
+    }
+
     private ASArtifactEffects() {}
 }

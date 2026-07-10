@@ -367,6 +367,15 @@ public final class ASSpells {
                         for (var effect : contents.getAllEffects()) {
                             if (effect.getEffect().value().isInstantenous()) continue;
                             com.windanesz.ancientspellcraft.spell.RunewordSpell.setActive(sw, s);
+                            // glyphs (1.12.2): glyph_charge dobra as cargas; glyph_imbuement multiplica x6
+                            if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(ctx.caster(),
+                                    ASItems.CHARM_GLYPH_CHARGE.get())) {
+                                com.windanesz.ancientspellcraft.spell.RunewordSpell.multiplyCharges(sw, 2);
+                            }
+                            if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(ctx.caster(),
+                                    ASItems.CHARM_GLYPH_IMBUEMENT.get())) {
+                                com.windanesz.ancientspellcraft.spell.RunewordSpell.multiplyCharges(sw, 6);
+                            }
                             net.minecraft.world.item.component.CustomData.update(
                                     net.minecraft.core.component.DataComponents.CUSTOM_DATA, sw, tag -> tag.putString("ImbuedEffect",
                                             net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getKey(effect.getEffect().value()).toString()));

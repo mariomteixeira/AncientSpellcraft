@@ -241,6 +241,95 @@ public final class ASItems {
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.healingMushroom());
     public static final Supplier<Item> AMULET_CURSED_PENDANT = artifact("amulet_cursed_pendant", net.minecraft.world.item.Rarity.RARE,
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.cursedPendant());
+
+    // onda 3b: glyphs do battlemage (charge/imbuement têm gates no RunewordSpell/registro do imbue)
+    public static final Supplier<Item> CHARM_GLYPH_LEECHING = artifact("charm_glyph_leeching", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.glyphLeeching());
+    public static final Supplier<Item> CHARM_GLYPH_ANTIGRAVITY = artifact("charm_glyph_antigravity", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.glyphAntigravity());
+    public static final Supplier<Item> CHARM_GLYPH_MIGHT = artifact("charm_glyph_might", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.glyphMight());
+    public static final Supplier<Item> CHARM_GLYPH_CHARGE = artifact("charm_glyph_charge", net.minecraft.world.item.Rarity.EPIC, null);
+    public static final Supplier<Item> CHARM_GLYPH_IMBUEMENT = artifact("charm_glyph_imbuement", net.minecraft.world.item.Rarity.RARE, null);
+
+    // onda 3c: auras do battlemage (tick 0.5s, raio 10, exigem o set completo)
+    public static final Supplier<Item> CHARM_AURA_ALACRITY = artifact("charm_aura_alacrity", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) -> {
+                for (var e : nearby) {
+                    if (com.windanesz.ancientspellcraft.item.ASArtifactEffects.isAuraAlly(player, e)) {
+                        com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, e,
+                                net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 60, 0, false);
+                    }
+                }
+                com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, player,
+                        net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED, 60, 0, false);
+            }));
+    public static final Supplier<Item> CHARM_AURA_HATRED = artifact("charm_aura_hatred", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) -> {
+                for (var e : nearby) {
+                    if (com.windanesz.ancientspellcraft.item.ASArtifactEffects.isAuraAlly(player, e)
+                            && e.getType().is(net.minecraft.tags.EntityTypeTags.UNDEAD)) {
+                        com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, e,
+                                net.minecraft.world.effect.MobEffects.DAMAGE_BOOST, 60, 0, false);
+                    }
+                }
+            }));
+    public static final Supplier<Item> CHARM_AURA_LIFE = artifact("charm_aura_life", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) -> {
+                for (var e : nearby) {
+                    if (com.windanesz.ancientspellcraft.item.ASArtifactEffects.isAuraAlly(player, e)) {
+                        e.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                                net.minecraft.world.effect.MobEffects.REGENERATION, 60, 0));
+                    }
+                }
+                com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, player,
+                        net.minecraft.world.effect.MobEffects.REGENERATION, 60, 0, false);
+            }));
+    public static final Supplier<Item> CHARM_AURA_PURITY = artifact("charm_aura_purity", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) -> {
+                for (var e : nearby) {
+                    if (com.windanesz.ancientspellcraft.item.ASArtifactEffects.isAuraEnemy(player, e)
+                            && e.getType().is(net.minecraft.tags.EntityTypeTags.UNDEAD)) {
+                        com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, e,
+                                net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false);
+                        com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, e,
+                                net.minecraft.world.effect.MobEffects.WEAKNESS, 60, 0, false);
+                    }
+                }
+            }));
+    public static final Supplier<Item> CHARM_AURA_WARDING = artifact("charm_aura_warding", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) -> {
+                var ward = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                        com.koomplo.wizardry.setup.registries.EBMobEffects.WARD.get());
+                for (var e : nearby) {
+                    if (com.windanesz.ancientspellcraft.item.ASArtifactEffects.isAuraAlly(player, e)) {
+                        com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, e, ward, 60, 0, false);
+                    }
+                }
+                com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, player, ward, 60, 1, false);
+            }));
+    public static final Supplier<Item> CHARM_AURA_WITHER = artifact("charm_aura_wither", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) -> {
+                for (var e : nearby) {
+                    if (com.windanesz.ancientspellcraft.item.ASArtifactEffects.isAuraEnemy(player, e)) {
+                        com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, e,
+                                net.minecraft.world.effect.MobEffects.WITHER, 60, 0, true);
+                    }
+                }
+            }));
+    public static final Supplier<Item> CHARM_AURA_DEFENSE = artifact("charm_aura_defense", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) ->
+                    com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, player,
+                            com.windanesz.ancientspellcraft.registry.ASEffects.IMPROVED_ARMOR, 60, 3, false)));
+    public static final Supplier<Item> CHARM_AURA_VULNERABILITY = artifact("charm_aura_vulnerability", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.battlemageAura((player, nearby) -> {
+                for (var e : nearby) {
+                    if (com.windanesz.ancientspellcraft.item.ASArtifactEffects.isAuraEnemy(player, e)) {
+                        com.windanesz.ancientspellcraft.item.ASArtifactEffects.applyAuraEffect(player, e,
+                                com.windanesz.ancientspellcraft.registry.ASEffects.DEGRADED_ARMOR, 60, 4, false);
+                    }
+                }
+            }));
     public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
             new com.koomplo.wizardry.core.IArtifactEffect() {
                 @Override

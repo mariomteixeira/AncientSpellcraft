@@ -99,6 +99,14 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_holy_aura"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_glyph_charge"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_aura_life"
         }
       ]
     }

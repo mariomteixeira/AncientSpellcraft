@@ -111,6 +111,11 @@ public class RunewordSpell extends Spell implements ClassSpell {
         }
         if (!ctx.world().isClientSide) {
             setActive(sword, this);
+            // charm_glyph_charge (1.12.2): dobra as cargas ao armar
+            if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(ctx.caster(),
+                    com.windanesz.ancientspellcraft.registry.ASItems.CHARM_GLYPH_CHARGE.get())) {
+                multiplyCharges(sword, 2);
+            }
         } else {
             ParticleBuilder.create(EBParticles.SPARKLE, ctx.caster()).scale(0.8f).color(0xffffff)
                     .pos(0, 1.2, 0).time(15).spawn(ctx.world());
@@ -136,6 +141,11 @@ public class RunewordSpell extends Spell implements ClassSpell {
 
     public static int getCharges(ItemStack sword) {
         return sword.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt(CHARGES_TAG);
+    }
+
+    public static void multiplyCharges(ItemStack sword, int factor) {
+        CustomData.update(DataComponents.CUSTOM_DATA, sword, tag ->
+                tag.putInt(CHARGES_TAG, tag.getInt(CHARGES_TAG) * factor));
     }
 
     public static void spendCharge(ItemStack sword) {
