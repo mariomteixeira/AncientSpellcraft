@@ -182,5 +182,109 @@ public final class ASArtifactEffects {
         };
     }
 
+    // ---- onda 2b: morte e tempo (1.12.2 onLivingHurtEvent/onLivingDeathEvent) ----
+
+    /** ring_undeath: dano letal — recebe a maldição de morto-vivo permanente, cura 50% e sobrevive (cd 5 min). */
+    public static IArtifactEffect undeath() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide) return;
+                var curse = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                        com.koomplo.wizardry.setup.registries.EBMobEffects.CURSE_OF_UNDEATH.get());
+                if (player.hasEffect(curse)) return;
+                if (player.getHealth() - amount.get() > 0 || player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(curse, Integer.MAX_VALUE, 0));
+                player.heal(player.getMaxHealth() * 0.5f);
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                        "item.ancientspellcraft.ring_undeath.resurrect"), true);
+                player.getCooldowns().addCooldown(artifact.getItem(), 6000);
+                amount.set(0);
+            }
+        };
+    }
+
+    /** amulet_time_knot: dano letal com o nó do tempo ativo — volta ao ponto gravado em vez de morrer (cd 5 min). */
+    public static IArtifactEffect timeKnot() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (!(player instanceof net.minecraft.server.level.ServerPlayer serverPlayer)) return;
+                if (!player.hasEffect(com.windanesz.ancientspellcraft.registry.ASEffects.TIME_KNOT)
+                        || player.getHealth() - amount.get() > 0
+                        || player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                serverPlayer.removeEffect(com.windanesz.ancientspellcraft.registry.ASEffects.TIME_KNOT);
+                if (com.windanesz.ancientspellcraft.handler.ASPotionEvents.loopPlayer(serverPlayer)) {
+                    canceled.set(true);
+                    serverPlayer.clearFire();
+                    serverPlayer.getCooldowns().addCooldown(artifact.getItem(), 6000);
+                }
+            }
+        };
+    }
+
+    /** amulet_time_slow: vida baixa — slow_time do Redux por 6s (cd 8 min). */
+    public static IArtifactEffect timeSlow() {
+        return new IArtifactEffect() {
+            @Override
+            public void onPlayerHurt(net.minecraft.world.entity.player.Player player, net.minecraft.world.damagesource.DamageSource source,
+                                     com.google.common.util.concurrent.AtomicDouble amount, java.util.concurrent.atomic.AtomicBoolean canceled, ItemStack artifact) {
+                if (player.level().isClientSide || player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                if (player.getHealth() <= 6 || player.getHealth() - amount.get() <= 6) {
+                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                                    com.koomplo.wizardry.setup.registries.EBMobEffects.SLOW_TIME.get()), 120));
+                    player.getCooldowns().addCooldown(artifact.getItem(), 9600);
+                }
+            }
+        };
+    }
+
+    /** charm_reanimation: matar esqueleto/zumbi — 15% de erguer um esqueleto minion por 30s (arco se o morto usava). */
+    public static IArtifactEffect reanimation() {
+        return new IArtifactEffect() {
+            @Override
+            public void onKillEntity(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity deadEntity,
+                                     net.minecraft.world.damagesource.DamageSource source, ItemStack artifact) {
+                if (!(player.level() instanceof net.minecraft.server.level.ServerLevel serverLevel)) return;
+                if (!deadEntity.getType().is(net.minecraft.tags.EntityTypeTags.UNDEAD)) return;
+                if (!(deadEntity instanceof net.minecraft.world.entity.monster.AbstractSkeleton
+                        || deadEntity instanceof net.minecraft.world.entity.monster.Zombie)) return;
+                if (serverLevel.random.nextFloat() >= 0.15f) return;
+
+                var skeleton = new net.minecraft.world.entity.monster.Skeleton(net.minecraft.world.entity.EntityType.SKELETON, serverLevel);
+                skeleton.setPos(deadEntity.getX(), deadEntity.getY(), deadEntity.getZ());
+                boolean archer = deadEntity.getMainHandItem().getItem() instanceof net.minecraft.world.item.BowItem
+                        || deadEntity.getOffhandItem().getItem() instanceof net.minecraft.world.item.BowItem;
+                skeleton.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,
+                        new ItemStack(archer ? net.minecraft.world.item.Items.BOW : net.minecraft.world.item.Items.WOODEN_SWORD));
+                skeleton.setDropChance(net.minecraft.world.entity.EquipmentSlot.MAINHAND, 0.0F);
+                var data = com.koomplo.wizardry.core.platform.Services.OBJECT_DATA.getMinionData(skeleton);
+                data.setSummoned(true);
+                data.setOwnerUUID(player.getUUID());
+                data.setLifetime(600);
+                data.updateGoals();
+                serverLevel.addFreshEntity(skeleton);
+            }
+        };
+    }
+
+    /** charm_plunderers_mark: matar um evil wizard dropa um astral diamond shard. */
+    public static IArtifactEffect plunderersMark() {
+        return new IArtifactEffect() {
+            @Override
+            public void onKillEntity(net.minecraft.world.entity.player.Player player, net.minecraft.world.entity.LivingEntity deadEntity,
+                                     net.minecraft.world.damagesource.DamageSource source, ItemStack artifact) {
+                if (deadEntity.level().isClientSide) return;
+                if (deadEntity instanceof com.koomplo.wizardry.content.entity.living.EvilWizard) {
+                    deadEntity.spawnAtLocation(new ItemStack(
+                            com.windanesz.ancientspellcraft.registry.ASItems.ASTRAL_DIAMOND_SHARD.get()));
+                }
+            }
+        };
+    }
+
     private ASArtifactEffects() {}
 }

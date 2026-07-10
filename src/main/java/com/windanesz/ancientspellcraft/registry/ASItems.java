@@ -203,6 +203,18 @@ public final class ASItems {
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.shieldAmulet());
     public static final Supplier<Item> BELT_SOUL_SCORCH = artifact("belt_soul_scorch", net.minecraft.world.item.Rarity.RARE,
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.soulScorch());
+
+    // onda 2b: morte e tempo
+    public static final Supplier<Item> RING_UNDEATH = artifact("ring_undeath", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.undeath());
+    public static final Supplier<Item> AMULET_TIME_KNOT = artifact("amulet_time_knot", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.timeKnot());
+    public static final Supplier<Item> AMULET_TIME_SLOW = artifact("amulet_time_slow", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.timeSlow());
+    public static final Supplier<Item> CHARM_REANIMATION = artifact("charm_reanimation", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.reanimation());
+    public static final Supplier<Item> CHARM_PLUNDERERS_MARK = artifact("charm_plunderers_mark", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.plunderersMark());
     public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
             new com.koomplo.wizardry.core.IArtifactEffect() {
                 @Override

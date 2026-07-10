@@ -87,6 +87,10 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:belt_soul_scorch"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_plunderers_mark"
         }
       ]
     }

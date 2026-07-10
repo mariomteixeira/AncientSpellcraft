@@ -187,6 +187,13 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-20 (3.53.0): ARTEFATOS ONDA 2b — morte e tempo (5): ring_undeath (dano letal: maldição de
+morto-vivo permanente + cura 50% + sobrevive, cd 5 min), amulet_time_knot (dano letal com
+time_knot ativo: volta ao ponto gravado em vez de morrer — loopPlayer extraído do expiry —,
+apaga fogo, cd 5 min), amulet_time_slow (vida ≤6: slow_time do Redux 6s, cd 8 min),
+charm_reanimation (matar esqueleto/zumbi: 15% de erguer esqueleto minion 30s, arco se o morto
+usava — minion = Skeleton vanilla + MinionData, igual domus), charm_plunderers_mark (matar evil
+wizard — inclui evil class wizard — dropa astral diamond shard).
 ✓ AS-19 (3.52.0): ARTEFATOS ONDA 2a — dano recebido (6, via IArtifactEffect.onPlayerHurt):
 charm_cryostasis (vida ≤6: 25% de castar cryostasis em si), ring_protector (vida baixa: 50% de
 castar de graça uma spell de minion de wand da hotbar — desvio: primeira encontrada, sem mexer

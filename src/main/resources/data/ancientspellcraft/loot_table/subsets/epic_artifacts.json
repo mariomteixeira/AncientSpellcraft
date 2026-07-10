@@ -71,6 +71,22 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:charm_cryostasis"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_undeath"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_time_knot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_time_slow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_reanimation"
         }
       ]
     }

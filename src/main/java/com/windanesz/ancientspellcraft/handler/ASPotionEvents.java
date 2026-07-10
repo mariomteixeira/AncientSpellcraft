@@ -31,9 +31,13 @@ public final class ASPotionEvents {
         MobEffectInstance instance = event.getEffectInstance();
         if (instance == null || instance.getEffect().value() != com.windanesz.ancientspellcraft.registry.ASEffects.TIME_KNOT.get()) return;
         if (!(event.getEntity() instanceof net.minecraft.server.level.ServerPlayer player)) return;
+        loopPlayer(player);
+    }
 
+    /** Restaura o jogador ao ponto gravado pelo time_knot (também usado pelo amulet_time_knot). */
+    public static boolean loopPlayer(net.minecraft.server.level.ServerPlayer player) {
         net.minecraft.nbt.CompoundTag tag = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.TIME_KNOT);
-        if (tag.isEmpty()) return;
+        if (tag.isEmpty()) return false;
         net.minecraft.resources.ResourceLocation dim = net.minecraft.resources.ResourceLocation.tryParse(tag.getString("Dim"));
         net.minecraft.server.level.ServerLevel level = dim == null ? player.serverLevel()
                 : player.getServer().getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION, dim));
@@ -41,6 +45,7 @@ public final class ASPotionEvents {
         player.teleportTo(level, tag.getDouble("X"), tag.getDouble("Y"), tag.getDouble("Z"), player.getYRot(), player.getXRot());
         player.setHealth(tag.getFloat("Health"));
         player.setData(com.windanesz.ancientspellcraft.registry.ASAttachments.TIME_KNOT, new net.minecraft.nbt.CompoundTag());
+        return true;
     }
 
     /** soul_scorch reduz toda cura a 40% (1.12.2 PotionSoulScorch). */
