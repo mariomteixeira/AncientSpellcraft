@@ -392,6 +392,10 @@ public final class ASItems {
     public static final Supplier<Item> CHARM_STONE_TABLET = artifact("charm_stone_tablet",
             net.minecraft.world.item.Rarity.EPIC, null);
 
+    // AS-28: gate no ASWarlockEvents.castAbsorbedSpell (metade da fome no cast absorvido)
+    public static final Supplier<Item> AMULET_SPELLBINDING = artifact("amulet_spellbinding",
+            net.minecraft.world.item.Rarity.RARE, null);
+
     // AS-26: residuais do scribing — tome de transcrição, everfull flask e a relíquia ancient_mana_flask
     public static final Supplier<Item> CHARM_TRANSCRIBING_TOME = ITEMS.register("charm_transcribing_tome",
             () -> new com.windanesz.ancientspellcraft.item.TranscribingTomeItem(net.minecraft.world.item.Rarity.UNCOMMON));

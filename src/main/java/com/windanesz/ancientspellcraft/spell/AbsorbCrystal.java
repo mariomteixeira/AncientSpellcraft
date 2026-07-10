@@ -37,6 +37,8 @@ public class AbsorbCrystal extends WarlockChannelSpell {
                 ? path.replace("crystal_block_", "").replace("crystal_block", "magic")
                 : path.replace("magic_crystal_", "").replace("magic_crystal", "magic");
         tag.putString("Element", element);
+        // 1.12.2: bloco de cristal absorvido da +10% de potencia (cristal comum +5%)
+        tag.putBoolean("ElementBlock", isCrystalBlock(offhand));
         ctx.caster().setData(ASAttachments.WARLOCK_DATA, tag);
         ctx.caster().displayClientMessage(Component.translatable("spell.ancientspellcraft.absorb_crystal.absorbed",
                 offhand.getHoverName()), true);

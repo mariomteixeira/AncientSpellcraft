@@ -34,6 +34,10 @@ public class AncientSpellcraft {
                     com.windanesz.ancientspellcraft.network.KnownRitualsS2C.TYPE,
                     com.windanesz.ancientspellcraft.network.KnownRitualsS2C.STREAM_CODEC,
                     com.windanesz.ancientspellcraft.network.KnownRitualsS2C::handle);
+            registrar.playToServer(
+                    com.windanesz.ancientspellcraft.network.WarlockCastC2S.TYPE,
+                    com.windanesz.ancientspellcraft.network.WarlockCastC2S.STREAM_CODEC,
+                    com.windanesz.ancientspellcraft.network.WarlockCastC2S::handle);
         });
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()) {
             NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASClientEvents::onLeftClickEmpty);
@@ -43,6 +47,9 @@ public class AncientSpellcraft {
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterLayers);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::registerMageRenderers);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterScreens);
+            modBus.addListener(com.windanesz.ancientspellcraft.client.ASKeyBindings::onRegisterKeyMappings);
+            modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onClientSetup);
+            NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASKeyBindings::onClientTick);
         }
         com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCKS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASBlocks.BLOCK_ENTITIES.register(modBus);

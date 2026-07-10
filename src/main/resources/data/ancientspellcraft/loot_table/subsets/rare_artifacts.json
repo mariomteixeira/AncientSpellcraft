@@ -10,6 +10,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_spellbinding"
+        },
+        {
+          "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_power"
         },
         {

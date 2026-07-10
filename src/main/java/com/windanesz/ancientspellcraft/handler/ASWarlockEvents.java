@@ -15,14 +15,15 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 /** Consumo das absorcoes do warlock (1.12.2 ASEventHandler + AbsorbPotion.update). */
 public final class ASWarlockEvents {
 
-    /** Cristal absorvido (+5% potency no elemento casado) + elemental attunement (+/-25% blast/range). */
+    /** Cristal absorvido (+5% potency no elemento casado; +10% se era bloco) + elemental attunement (+/-25% blast/range). */
     public static void onSpellCastPre(SpellCastEvent.Pre event) {
         if (!(event.getCaster() instanceof Player player)) return;
         var tag = player.getData(ASAttachments.WARLOCK_DATA);
         SpellModifiers modifiers = event.getModifiers();
         if (tag.contains("Element")
                 && event.getSpell().getElement().getName().equals(tag.getString("Element"))) {
-            modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) + 0.05f);
+            float bonus = tag.getBoolean("ElementBlock") ? 0.10f : 0.05f;
+            modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) + bonus);
         }
         if (tag.contains("ElementalAttunement")) {
             float mod = event.getSpell().getElement().getName().equals(tag.getString("ElementalAttunement")) ? 0.25f : -0.25f;
@@ -33,6 +34,51 @@ public final class ASWarlockEvents {
 
     public static boolean isWarlockAttuned(Player player) {
         return player.getData(ASAttachments.WARLOCK_DATA).getBoolean("WarlockAttuned");
+    }
+
+    /**
+     * Keybind do warlock (1.12.2 PacketCastWarlockSpell.castSpell): casta a spell absorvida pagando
+     * FOME — max(1, custo/5), metade com amulet_spellbinding; fome zerada vira dano de inanição.
+     * Desvios: cooldown guardado no attachment (o 1.12.2 usava cooldown de um item-marcador) e
+     * spell contínua absorvida dá um pulso único (o 1.12.2 castava por até 40t).
+     */
+    public static void castAbsorbedSpell(net.minecraft.server.level.ServerPlayer player) {
+        var tag = player.getData(ASAttachments.WARLOCK_DATA);
+        if (!tag.contains("Spell")) return;
+        var spell = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getSpell(
+                ResourceLocation.tryParse(tag.getString("Spell")));
+        if (spell == null) return;
+        if (!isWarlockAttuned(player) && !com.windanesz.ancientspellcraft.handler.ASSpellEvents.isWearingFullSet(
+                player, com.koomplo.wizardry.content.item.armor.WizardArmorType.WARLOCK)) return;
+        long now = player.level().getGameTime();
+        if (tag.getLong("CastCooldownUntil") > now) return;
+
+        SpellModifiers modifiers = new SpellModifiers();
+        var ctx = new com.koomplo.wizardry.api.content.spell.internal.PlayerCastContext(
+                player.level(), player, net.minecraft.world.InteractionHand.MAIN_HAND, 0, modifiers);
+        if (com.koomplo.wizardry.api.content.util.CastItemUtils.fireSpellCastEvent(
+                SpellCastEvent.Source.WAND, spell, ctx)) return;
+        if (!com.koomplo.wizardry.api.content.util.CastItemUtils.executeSpellCast(
+                SpellCastEvent.Source.WAND, spell, ctx)) return;
+        com.koomplo.wizardry.api.content.util.CastItemUtils.sendSpellCastPacket(player, spell, ctx);
+
+        tag.putLong("CastCooldownUntil", now + spell.getCooldown());
+        player.setData(ASAttachments.WARLOCK_DATA, tag);
+
+        if (!player.isCreative()) {
+            int cost = com.koomplo.wizardry.api.content.util.CastItemUtils.calcCastCost(spell, modifiers);
+            int hunger = Math.max(1, cost / 5);
+            if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                    com.windanesz.ancientspellcraft.registry.ASItems.AMULET_SPELLBINDING.get())) {
+                hunger = Math.max(1, hunger / 2);
+            }
+            var food = player.getFoodData();
+            if (food.getFoodLevel() == 0) {
+                player.hurt(player.damageSources().starve(), spell.getCost() / 5f);
+            } else {
+                food.setFoodLevel(Math.max(0, food.getFoodLevel() - hunger));
+            }
+        }
     }
 
     /** Pocao absorvida vira AURA: benefica para aliados (e o proprio), ruim para inimigos; expira. */

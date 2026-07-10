@@ -36,9 +36,9 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   ✓ AS-7g: LevitatingBlockEntity + chaos_orb (projetil que se divide) + chaos_field; obliteration
   arranca blocos; chaos_vortex suga blocos (adicao a pedido, nao existia no 1.12.2).
   ✓ AS-7h: 32 warlock orbs (4 tiers x 8 elementos, wands completas via WandItem do Redux) +
-  absorb_crystal/spell/potion (canal de 60t, armazenam no attachment WARLOCK_DATA). TODO: consumo
-  do conteudo absorvido pelo orb (spell absorvida castavel, pocao aplicavel, elemento p/ upgrade),
-  restricao de uso do orb a warlocks, ring_absorb_crystal.
+  absorb_crystal/spell/potion (canal de 60t, armazenam no attachment WARLOCK_DATA).
+  ✓ ring_absorb_crystal (AS-18); consumo do absorvido fechado no AS-28 (nota: "restrição do orb
+  a warlocks" não existia no 1.12.2 — o orb é wand comum; só as class spells têm gate).
   ✓ AS-7j: chaos_blast (carrega e dispara raio elemental unico; TODO ring multitarget),
   absorb_object (bloco de bolso no attachment; agachado solta no ponto mirado; recusa block
   entities/inquebraveis), absorb_projectile (canaliza absorvendo ate 10 projeteis por TIPO -
@@ -137,6 +137,17 @@ livro -> spell book do AS + discoverSpell.
   128 chaves de lang dos hints em formato dot. Desvios mantidos: pesquisa passiva sem botão/GUI
   aberta (1.12.2 exigia inUse + botão), identification chance 0.05 hardcoded (config marco 7).
   TODO marco 6: BER animado (ModelSphereCognizance girando).
+✓ AS-28 (3.61.0): WARLOCK — CONSUMO DO ABSORVIDO fechado.
+  CAST DA SPELL ABSORVIDA: keybind H (key_warlock_cast) → WarlockCastC2S → servidor casta a spell
+  do WARLOCK_DATA pagando FOME (max(1, custo/5); amulet_spellbinding NOVO artefato RARE = metade;
+  fome 0 = dano de inanição custo/5) com gate warlock attuned/set completo e cooldown da spell
+  (desvios: cooldown no attachment em vez do item-marcador dimension_focus; contínua absorvida dá
+  pulso único em vez dos 40t; sem packet de END — era no-op no 1.12.2).
+  GATES DE FIDELIDADE no absorb_spell: tier_limit (property, default 3) + satiety/replenish_hunger
+  proibidas (loop de comida grátis). CRISTAL: bloco absorvido agora dá +10% de potência (flag
+  ElementBlock; cristal comum +5%). Poção absorvida (aura) já estava fiel do AS-7h.
+  FORBIDDEN_TOME POR TIER: property "ancientspellcraft:tier" via ItemProperties (selado até
+  descobrir a spell; novice/apprentice/advanced/master — texturas 1.12.2, fecha o TODO do AS-7f).
 PENDENTE: Arcane Anvil (estação do BATTLEMAGE) — precisa da linha de espadas battlemage
 (hilt/blade/espadas por tier/crystal_silver_ingot + WizardClassWeaponHelper), fica com o lote da
 classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).

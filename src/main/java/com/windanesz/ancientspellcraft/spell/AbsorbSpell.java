@@ -12,11 +12,20 @@ import net.minecraft.world.item.ItemStack;
 /** Absorve a spell de um livro comum do offhand (consome o livro) (1.12.2 AbsorbSpell). */
 public class AbsorbSpell extends WarlockChannelSpell {
 
+    public static final com.koomplo.wizardry.api.content.spell.properties.SpellProperty<Integer> TIER_LIMIT =
+            com.koomplo.wizardry.api.content.spell.properties.SpellProperty.intProperty("tier_limit", 3);
+
     @Override
     protected boolean isValidOffhand(net.minecraft.world.entity.player.Player caster, ItemStack stack) {
         if (!(stack.getItem() instanceof SpellBookItem)) return false;
         Spell spell = RegistryUtils.getSpell(stack);
-        return spell != Spells.NONE && !(spell instanceof ClassSpell);
+        if (spell == Spells.NONE || spell instanceof ClassSpell) return false;
+        // 1.12.2 isSpellAllowed: satiety/replenish_hunger proibidas (o cast absorvido custa fome)
+        var loc = spell.getLocation();
+        if (loc.getNamespace().equals("ebwizardry")
+                && (loc.getPath().equals("satiety") || loc.getPath().equals("replenish_hunger"))) return false;
+        // 1.12.2: "This spell is too powerful to be absorbed"
+        return spell.getTier().getLevel() <= property(TIER_LIMIT);
     }
 
     @Override

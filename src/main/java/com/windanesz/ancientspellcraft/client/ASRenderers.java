@@ -109,6 +109,21 @@ public final class ASRenderers {
         event.registerLayerDefinition(SENTINEL_LAYER, com.windanesz.ancientspellcraft.client.model.SentinelModel::createBodyLayer);
     }
 
+    /** Property "tier" do forbidden_tome (1.12.2 ItemWarlockSpellBook): selado até descobrir a spell. */
+    public static void onClientSetup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) {
+        event.enqueueWork(() -> net.minecraft.client.renderer.item.ItemProperties.register(
+                com.windanesz.ancientspellcraft.registry.ASItems.FORBIDDEN_TOME.get(),
+                ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "tier"),
+                (stack, level, entity, seed) -> {
+                    var spell = com.koomplo.wizardry.api.content.util.RegistryUtils.getSpell(stack);
+                    if (spell == com.koomplo.wizardry.setup.registries.Spells.NONE
+                            || !(entity instanceof net.minecraft.world.entity.player.Player player)) return 0f;
+                    if (!player.getData(com.koomplo.wizardry.setup.registries.EBAttachments.SPELL_MANAGER_DATA)
+                            .hasSpellBeenDiscovered(spell)) return 0f;
+                    return (spell.getTier().getLevel() + 1) * 0.1f;
+                }));
+    }
+
     private ASRenderers() {
     }
 }
