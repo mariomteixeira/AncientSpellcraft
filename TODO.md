@@ -117,12 +117,16 @@ classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).
 ## AS-7m/7n/7o — NPCs, rituais e BATTLEMAGE (feitos) + pendências
 
 ✓ AS-7m: ClassWizard/EvilClassWizard (set completo da classe + class spells + livro na mão; desvio:
-modelo humanoide do Redux, sem ModelClassWizard; trades herdadas do wizard — TODO trades de class
-books; TODO battlemage nos spawns quando a melee AI existir).
+modelo humanoide do Redux, sem ModelClassWizard; TODO battlemage nos spawns quando a melee AI
+existir). ✓ AS-17: trades de classe (compra spell books por 5 cristais; 50%: warlock vende runa
+aleatória, sage/battlemage vendem stone tablet por tier; desvios: sem blank_rune, sem o trade de
+artefato uncommon — loot subset não existe no Redux).
 ✓ AS-7n: rituais funcionais — 24 runas + ritual book; runas jogadas no chão (contagem do pattern) +
 canalização 3s. Feitos: bonfire, rejuvenation, warlock_attunement (CLASS SPELLS DE WARLOCK AGORA
 EXIGEM O RITUAL), elemental_attunement (+/-25% blast/range). TODO: BlockPlacedRune/TileRune (padrão
-desenhado), arcane_barrier/condensing/forest, GUI do ritual book, RitualDiscoveryData, loot de runas.
+desenhado), arcane_barrier/condensing/forest ✓ (AS-9c), loot de runas ✓ (AS-8a). ✓ AS-17: GUI do
+ritual book (click normal lê — nome/descrição/runas com ícones; sneak canaliza; desvios: página
+única, sem elder futhark/RitualDiscoveryData — descoberta segue fora).
 ✓ AS-7o: BATTLEMAGE — 4 espadas (WandItem com dano melee 3/5/7/9 + efeito elemental do set no hit),
 hilt/blade/crystal_silver ingot+nugget, battlemage_shield (item; TODO bloqueio de spells 433 linhas),
 ARCANE ANVIL (estação 4: hilt+blade->novice, ingot->plating do Redux, espada+ingot->tier seguinte —
@@ -183,6 +187,13 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-17 (3.50.0): RESIDUAIS — GUI DO RITUAL BOOK (RitualBookScreen: click normal lê o livro —
+nome, descrição importada do 1.12.2 e runas com ícones/contagem/tooltip; sneak canaliza; desvios:
+página única, sem futhark/discovery), TRADES DE CLASSE no ClassWizard (compra spell books por 5
+cristais; 50%: warlock vende runa aleatória — sem blank_rune no port; sage/battlemage vendem stone
+tablet por tier; sem o trade de artefato uncommon; flag ClassTradesAdded no NBT) e MODELSENTINEL
+1:1 (cristal duplo do Blockbench 1.12.2 como LayerDefinition + textura entity/sentinel.png no
+lugar do magic_crystal girando).
 ✓ AS-16 (3.49.0): PHASE_JUMP (contínua SAGE: canaliza e ao soltar teleporta min..max x blast +
 extra por segundo — Banish do Redux; release pelo tracker do PlayerTick, padrão spring_charge) e
 UNSEALING_SCROLL (pergaminho raro de loot — right-click dissolve muro arcano GERADO a até 5
@@ -269,7 +280,8 @@ magic_crystal do Redux girando — desvios: sem variantes gold/large_iron do 1.1
 usam), som ambiente beacon vanilla, sem ModelSentinel próprio). TAGS de ferramenta aplicadas
 (novos + antigos): pickaxe p/ ores/devoritium/sentinels/estações de pedra (crystal ores e
 devoritium = needs_iron_tool, nível 2 do 1.12.2), axe p/ crystal tree/scribing desk/sage lectern.
-TODO: ModelSentinel/LargeSentinel 1:1. ✓ unsealing scroll (AS-16).
+✓ unsealing scroll (AS-16); ✓ ModelSentinel 1:1 (AS-17 — cristal duplo Blockbench + textura
+sentinel.png; LargeSentinel segue fora, os templates não usam).
 
 ## Overrides descartados (não voltam)
 

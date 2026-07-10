@@ -28,7 +28,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-/** Mago de classe amigavel (1.12.2 EntityClassWizard-friendly): wizard do Redux com set de classe e class spells. Trades herdadas do wizard (TODO trades de class books). */
+/**
+ * Mago de classe amigavel (1.12.2 EntityClassWizard-friendly): wizard do Redux com set de classe e
+ * class spells. Trades do wizard base + ofertas de classe (1.12.2 getRecipes): compra spell books
+ * por cristais; warlock vende runa (desvio: aleatória — o port não tem blank_rune), demais vendem
+ * stone tablet por tier. Desvio: sem o trade de artefato uncommon (loot subset não existe no Redux).
+ */
 public class ClassWizard extends Wizard {
 
     public ClassWizard(EntityType<? extends PathfinderMob> type, Level world) {
@@ -96,15 +101,60 @@ public class ClassWizard extends Wizard {
                 type == WizardArmorType.WARLOCK ? ASItems.FORBIDDEN_TOME.get() : ASItems.MYSTIC_SPELL_BOOK.get()));
     }
 
+    private boolean classTradesAdded;
+
+    @Override
+    public @NotNull net.minecraft.world.item.trading.MerchantOffers getOffers() {
+        var offers = super.getOffers();
+        if (!classTradesAdded && !level().isClientSide) {
+            addClassTrades(offers);
+            classTradesAdded = true;
+        }
+        return offers;
+    }
+
+    /** Ofertas próprias da classe (1.12.2 EntityClassWizard.getRecipes). */
+    private void addClassTrades(net.minecraft.world.item.trading.MerchantOffers offers) {
+        var crystal = com.koomplo.wizardry.setup.registries.EBItems.MAGIC_CRYSTAL.get();
+
+        // compra spell books do jogador por 5 cristais
+        offers.add(new net.minecraft.world.item.trading.MerchantOffer(
+                new net.minecraft.world.item.trading.ItemCost(com.koomplo.wizardry.setup.registries.EBItems.SPELL_BOOK.get()),
+                new ItemStack(crystal, 5), 8, 2, 0.05f));
+
+        if (random.nextBoolean()) {
+            if (getArmourClass() == WizardArmorType.WARLOCK) {
+                var runes = net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
+                        .filter(i -> i instanceof com.windanesz.ancientspellcraft.item.RuneItem).toList();
+                if (!runes.isEmpty()) {
+                    offers.add(new net.minecraft.world.item.trading.MerchantOffer(
+                            new net.minecraft.world.item.trading.ItemCost(Items.GOLD_INGOT, 4 + random.nextInt(4)),
+                            java.util.Optional.of(new net.minecraft.world.item.trading.ItemCost(crystal, 4 + random.nextInt(8))),
+                            new ItemStack(runes.get(random.nextInt(runes.size()))), 5, 4, 0.05f));
+                }
+            } else {
+                // stone tablet por tier (1.12.2: small=novice 2 usos, normal=apprentice, large=advanced 1 uso)
+                Item[] tablets = {ASItems.STONE_TABLET_SMALL.get(), ASItems.STONE_TABLET.get(), ASItems.STONE_TABLET_LARGE.get()};
+                int pick = random.nextInt(3);
+                offers.add(new net.minecraft.world.item.trading.MerchantOffer(
+                        new net.minecraft.world.item.trading.ItemCost(Items.GOLD_INGOT, 3 + pick * 3 + random.nextInt(3)),
+                        java.util.Optional.of(new net.minecraft.world.item.trading.ItemCost(crystal, pick * 3 + 1 + random.nextInt(4))),
+                        new ItemStack(tablets[pick]), pick == 0 ? 2 : 1, 4, 0.05f));
+            }
+        }
+    }
+
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         entityData.set(ARMOUR_CLASS, tag.getInt("ArmourClass"));
+        classTradesAdded = tag.getBoolean("ClassTradesAdded");
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("ArmourClass", entityData.get(ARMOUR_CLASS));
+        tag.putBoolean("ClassTradesAdded", classTradesAdded);
     }
 }

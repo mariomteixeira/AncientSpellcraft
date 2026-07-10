@@ -100,10 +100,13 @@ public final class ASRenderers {
             ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "ant"), "main");
     public static final ModelLayerLocation VOLCANO_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "volcano"), "main");
+    public static final ModelLayerLocation SENTINEL_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "sentinel"), "main");
 
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ANT_LAYER, AntModel::createBodyLayer);
         event.registerLayerDefinition(VOLCANO_LAYER, VolcanoModel::createBodyLayer);
+        event.registerLayerDefinition(SENTINEL_LAYER, com.windanesz.ancientspellcraft.client.model.SentinelModel::createBodyLayer);
     }
 
     private ASRenderers() {

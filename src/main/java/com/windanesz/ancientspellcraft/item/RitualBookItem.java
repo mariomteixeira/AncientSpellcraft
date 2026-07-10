@@ -53,6 +53,13 @@ public class RitualBookItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
         String ritual = getRitual(stack);
         if (ritual.isEmpty()) return InteractionResultHolder.pass(stack);
+        // clique normal lê o livro; sneak canaliza o ritual (1.12.2: GUI vs montagem do pattern)
+        if (!player.isShiftKeyDown()) {
+            if (level.isClientSide) {
+                com.windanesz.ancientspellcraft.client.ASClientHooks.openRitualBook(ritual);
+            }
+            return InteractionResultHolder.success(stack);
+        }
         if (ASRituals.matchRunes(player, ritual) == null) {
             if (!level.isClientSide) {
                 player.displayClientMessage(Component.translatable("item.ancientspellcraft.ritual_book.missing_runes"), true);
