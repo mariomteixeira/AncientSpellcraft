@@ -16,7 +16,30 @@ public final class ASSpellEvents {
         }
         if (!player.level().isClientSide) {
             tickMasterBoltPull(player);
+            tickSpringCharge(player);
         }
+    }
+
+    /** Lançamento do spring_charge: parou de castar com carga no chão -> salto (fórmula 1.12.2). */
+    private static void tickSpringCharge(Player player) {
+        var data = com.windanesz.ancientspellcraft.spell.SpringChargeSpell.CHARGING.get(player.getUUID());
+        if (data == null) return;
+        var spell = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getSpell(
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "spring_charge"));
+        if (!(spell instanceof com.windanesz.ancientspellcraft.spell.SpringChargeSpell spring)) return;
+        if (EntityUtil.isCasting(player, spring)) {
+            return; // ainda carregando
+        }
+        com.windanesz.ancientspellcraft.spell.SpringChargeSpell.CHARGING.remove(player.getUUID());
+        if (!player.onGround() || data[0] < 4) return;
+        float ticks = Math.min(40, data[0]);
+        double vertical = spring.property(com.windanesz.ancientspellcraft.spell.SpringChargeSpell.VERTICAL_SPEED) * data[1] * ticks;
+        double horizontal = spring.property(com.windanesz.ancientspellcraft.spell.SpringChargeSpell.HORIZONTAL_SPEED) * ticks;
+        var look = player.getLookAngle();
+        player.setDeltaMovement(player.getDeltaMovement().x + look.x * horizontal, vertical,
+                player.getDeltaMovement().z + look.z * horizontal);
+        player.hurtMarked = true; // sync do motion pro client
+        player.fallDistance = 0;
     }
 
     /**

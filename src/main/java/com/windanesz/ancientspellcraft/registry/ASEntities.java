@@ -45,6 +45,12 @@ public final class ASEntities {
                     com.windanesz.ancientspellcraft.entity.projectile.MasterBoltEntity::new, MobCategory.MISC)
                     .sized(0.5F, 0.5F).build(AncientSpellcraft.MODID + ":master_bolt"));
 
+    // AS-14: render view do sistema de câmera client (só existe no ClientLevel)
+    public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.CameraDummyEntity>> CAMERA_DUMMY = ENTITIES.register("camera_dummy",
+            () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.CameraDummyEntity>of(
+                    com.windanesz.ancientspellcraft.entity.CameraDummyEntity::new, MobCategory.MISC)
+                    .sized(0.1F, 0.1F).noSave().noSummon().build(AncientSpellcraft.MODID + ":camera_dummy"));
+
     public static final Supplier<EntityType<com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity>> METAMAGIC_PROJECTILE = ENTITIES.register("metamagic_projectile",
             () -> EntityType.Builder.<com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity>of(
                     com.windanesz.ancientspellcraft.entity.projectile.MetamagicProjectileEntity::new, MobCategory.MISC)

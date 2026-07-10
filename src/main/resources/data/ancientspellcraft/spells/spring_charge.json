@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "horizontal_speed": 0.06,
+    "vertical_speed": 0.05
+  },
+  "chargeup": 0,
+  "cooldown": 0,
+  "cost": 15,
+  "element": "ebwizardry:lightning",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "tier": "ebwizardry:apprentice",
+  "type": "utility"
+}

@@ -31,6 +31,8 @@ public class AncientSpellcraft {
                         com.windanesz.ancientspellcraft.network.ExtendedReachC2S::handle));
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()) {
             NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASClientEvents::onLeftClickEmpty);
+            NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASCameraClientHandler::onClientTick);
+            NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASCameraClientHandler::onComputeFovModifier);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterRenderers);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::onRegisterLayers);
             modBus.addListener(com.windanesz.ancientspellcraft.client.ASRenderers::registerMageRenderers);

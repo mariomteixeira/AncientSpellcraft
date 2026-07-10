@@ -44,8 +44,8 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   entities/inquebraveis), absorb_projectile (canaliza absorvendo ate 10 projeteis por TIPO -
   desvio: o original guardava o NBT completo; agachado re-dispara), alter_potion (garrafa no
   offhand + 1o efeito ativo -> splash 50% / lingering 10% agachado; ramo charm_potion_kit TODO).
-  Restantes WARLOCK: scrying_orb (grupo da camera client com farsight/astral_projection),
-  absorb_artefact (espera os 211 artefatos), orb_space (pocket dimension, AS-8).
+  Restantes WARLOCK: absorb_artefact (espera os 211 artefatos). ✓ scrying_orb (AS-14),
+  ✓ orb_space (AS-8d).
   BATTLEMAGE: runeword (sistema de runewords).
   ✓ AS-7k (SAGE): spectral_wall (desvio: colocacao instantanea vs EntityBuilder gradual),
   spectral_floor, teleport_object (usa o circulo de transporte do Redux; TODO charm_hoarders_orb),
@@ -86,16 +86,13 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
 
 ## Spells individuais adiadas
 
-- **farsight, astral_projection, eagle_eye**: sistema de câmera livre client-side (astral travel).
-- **static_charge**: sistema de imbuement de enchant em arma (ASEnchantments + duração).
-- **words_of_unbinding**: API de remoção de upgrades de wand no Redux.
-- **horse_whistle**: rastreio do último cavalo montado (attachment + evento).
-- **spring_charge**: mecânica de carga/soltura de cast.
+- ✓ farsight, astral_projection, eagle_eye, scrying_orb, words_of_unbinding, spring_charge,
+  static_charge, horse_whistle: portadas (AS-13/AS-14).
 - **living_comet, conduit, prismatic_spray, grapple, contingency, clairvoyance_as, charge_as,
   attire_alteration, master_bolt**: sistemas próprios grandes (um por vez em lotes futuros).
 - **Rays com dep de bloco (AS-3d)**: ✓ portados no AS-6c: electrify, shock_zone, firewall,
-  molten_earth, summon_quicksand. Restantes: wildfire_flame/arcane_flame-ray/teleportation_flame
-  (chamas com mecanica propria), beanstalk, ice_workbench (mesa de gelo), heat_furnace,
+  molten_earth, summon_quicksand. ✓ AS-14: arcane_flame/wildfire_flame/enchant_fireplace.
+  Restantes: beanstalk, ice_workbench (mesa de gelo), heat_furnace,
   ice_tower (precisa ice_door/snow_slab), runeword_sealbreaker (class), conceal_object (class), moonlight.
   Desvios documentados: shock_zone/magma_shell/static_dome colocam os blocos de uma vez (o 1.12.2
   construia gradualmente via EntityBuilder); create_igloo usa hemisferio oco aproximado (a lista
@@ -187,6 +184,23 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-14 (3.47.0): WORDS_OF_UNBINDING (remove 1 nível do upgrade da wand na mainhand — upgrade
+escolhido pelo item de upgrade na offhand, senão o primeiro; devolve o item; usa
+CastItemDataHelper.removeUpgrade do Redux 0.1.27); SPRING_CHARGE (contínua: carrega no chão até
+40t, soltar/descolar do chão lança — altura vertical_speed*potência*ticks + impulso horizontal no
+olhar via tracker no PlayerTick; desvio: ring_cloudwalker fica com artefatos); CHAMAS —
+arcane_flame (ray reutiliza o bloco temporário existente via TemporaryBlockEntity, lifetime
+30s*potência), wildfire_flame (BE próprio: dano 2/contato + anda 1 bloco a cada 30t atrás do ser
+vivo mais próximo no raio 2*blast), enchant_fireplace (fogo/campfire com ≥3 lados sólidos vira
+teleportation_flame; sneak grava origem, cast normal linka DUAS chamas — desvio: link bidirecional,
+o original era unidirecional; 20t dentro teleporta; texturas das 3 chamas ausentes no 1.12.2 —
+fallback soul_fire, wildfire sem ícone de spell); CÂMERA CLIENT (CameraDummyEntity no ClientLevel
+como render view + ASCameraClientHandler no ClientTick): farsight (contínua, zoom FOV 0.1 via
+ComputeFovModifierEvent), eagle_eye (efeito → câmera fixa +50y do ponto de cast, só sob céu aberto,
+recast/sneak remove), astral_projection (efeito+sixth_sense+transience → câmera livre: frente/
+pulo/agachar movem 1 bloco a cada 2t), scrying_orb (WARLOCK: sneak-ray grava pos a 2 blocos da
+face; cast projeta a visão 6s; recast desliga; desvio: pos do client é cópia local — relogar
+exige regravar; sem as partículas FLASH/DUST do 1.12.2).
 
 ## AS-8 — worldgen (em curso)
 
@@ -258,4 +272,3 @@ TODO: unsealing scroll (depende do isGenerated do arcane_wall), ModelSentinel/La
 - cure_zombie converte na hora (startConverting é privado no 1.21; sem delay/reputação).
 - Shaders (assets/shaders) — mesmo caso dos shaders do Redux.
 - Mecânicas anti-magia do devoritium (handlers) — blocos/itens já existem.
-- teleportation_flame e wildfire_flame (chamas com mecânica própria de teleporte/espalhamento).

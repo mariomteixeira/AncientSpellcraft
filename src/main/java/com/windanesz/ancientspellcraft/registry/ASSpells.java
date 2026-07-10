@@ -396,6 +396,17 @@ public final class ASSpells {
         // AS-13: spells adiadas
         SPELLS.register("static_charge", com.windanesz.ancientspellcraft.spell.StaticChargeSpell::new);
         SPELLS.register("horse_whistle", com.windanesz.ancientspellcraft.spell.HorseWhistleSpell::new);
+
+        // AS-14: words/spring/chamas
+        SPELLS.register("words_of_unbinding", com.windanesz.ancientspellcraft.spell.WordsOfUnbindingSpell::new);
+        SPELLS.register("spring_charge", com.windanesz.ancientspellcraft.spell.SpringChargeSpell::new);
+        SPELLS.register("farsight", com.windanesz.ancientspellcraft.spell.FarsightSpell::new);
+        SPELLS.register("eagle_eye", com.windanesz.ancientspellcraft.spell.EagleEyeSpell::new);
+        SPELLS.register("astral_projection", com.windanesz.ancientspellcraft.spell.AstralProjectionSpell::new);
+        SPELLS.register("scrying_orb", com.windanesz.ancientspellcraft.spell.ScryingOrbSpell::new);
+        SPELLS.register("arcane_flame", () -> new com.windanesz.ancientspellcraft.spell.MagicFlameSpell(false));
+        SPELLS.register("wildfire_flame", () -> new com.windanesz.ancientspellcraft.spell.MagicFlameSpell(true));
+        SPELLS.register("enchant_fireplace", com.windanesz.ancientspellcraft.spell.EnchantFireplaceSpell::new);
     }
 
     private static void stackEffect(net.minecraft.world.entity.LivingEntity target,

@@ -1,0 +1,26 @@
+{
+  "base_properties": {
+    "damage": 3,
+    "duration": 30,
+    "effect_radius": 2,
+    "range": 8
+  },
+  "chargeup": 5,
+  "cooldown": 35,
+  "cost": 30,
+  "element": "ebwizardry:fire",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": true,
+    "looting": true,
+    "npcs": true,
+    "scroll": true,
+    "trades": true,
+    "treasure": true,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:apprentice",
+  "type": "attack"
+}

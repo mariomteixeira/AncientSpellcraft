@@ -235,6 +235,27 @@ public final class ASBlocks {
                     .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(3.0F, 5.0F)
                     .noOcclusion().sound(net.minecraft.world.level.block.SoundType.STONE)));
 
+    // AS-14: chamas mágicas (arcane queima, wildfire persegue, teleportation viaja)
+    private static BlockBehaviour.Properties flameProps() {
+        return BlockBehaviour.Properties.of().noCollission().instabreak().noLootTable()
+                .lightLevel(state -> 13).sound(net.minecraft.world.level.block.SoundType.WOOL)
+                .pushReaction(PushReaction.DESTROY);
+    }
+
+    public static final Supplier<Block> WILDFIRE_FLAME = BLOCKS.register("wildfire_flame",
+            () -> new com.windanesz.ancientspellcraft.block.MagicFlameBlock(flameProps(),
+                    () -> ASBlocks.WILDFIRE_FLAME_BLOCK_ENTITY.get(), true));
+    public static final Supplier<Block> TELEPORTATION_FLAME = BLOCKS.register("teleportation_flame",
+            () -> new com.windanesz.ancientspellcraft.block.MagicFlameBlock(flameProps(),
+                    () -> ASBlocks.TELEPORTATION_FLAME_BLOCK_ENTITY.get(), false));
+
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.MagicFlameBlockEntity>> WILDFIRE_FLAME_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("wildfire_flame", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.MagicFlameBlockEntity::wildfire, WILDFIRE_FLAME.get()).build(null));
+    public static final Supplier<BlockEntityType<com.windanesz.ancientspellcraft.block.MagicFlameBlockEntity>> TELEPORTATION_FLAME_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("teleportation_flame", () -> BlockEntityType.Builder.of(
+                    com.windanesz.ancientspellcraft.block.MagicFlameBlockEntity::teleportation, TELEPORTATION_FLAME.get()).build(null));
+
     // AS-11: marcador do master_bolt (inquebrável; recolhido via sneak-cast)
     public static final Supplier<Block> MASTER_BOLT = BLOCKS.register("master_bolt",
             () -> new com.windanesz.ancientspellcraft.block.MasterBoltBlock(BlockBehaviour.Properties.of()

@@ -1,0 +1,27 @@
+{
+  "base_properties": {
+    "astral_projection_duration": 600,
+    "astral_projection_strength": 0,
+    "sixth_sense_duration": 600,
+    "sixth_sense_strength": 0,
+    "transience_duration": 600,
+    "transience_strength": 0
+  },
+  "chargeup": 40,
+  "cooldown": 80,
+  "cost": 60,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": true,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "tier": "ebwizardry:advanced",
+  "type": "alteration"
+}
