@@ -23,6 +23,8 @@ public final class ASRenderers {
                 SentinelRenderer::new);
         event.registerBlockEntityRenderer(com.windanesz.ancientspellcraft.registry.ASBlocks.RITUAL_CORE_BLOCK_ENTITY.get(),
                 RitualCoreRenderer::new);
+        event.registerBlockEntityRenderer(com.windanesz.ancientspellcraft.registry.ASBlocks.SPHERE_COGNIZANCE_BE.get(),
+                SphereCognizanceRenderer::new);
         event.registerEntityRenderer(ASEntities.VOID_CREEPER.get(), context ->
                 new net.minecraft.client.renderer.entity.CreeperRenderer(context) {
                     private static final ResourceLocation TEXTURE =
@@ -102,11 +104,15 @@ public final class ASRenderers {
             ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "volcano"), "main");
     public static final ModelLayerLocation SENTINEL_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "sentinel"), "main");
+    public static final ModelLayerLocation SPHERE_COGNIZANCE_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "sphere_cognizance"), "main");
 
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ANT_LAYER, AntModel::createBodyLayer);
         event.registerLayerDefinition(VOLCANO_LAYER, VolcanoModel::createBodyLayer);
         event.registerLayerDefinition(SENTINEL_LAYER, com.windanesz.ancientspellcraft.client.model.SentinelModel::createBodyLayer);
+        event.registerLayerDefinition(SPHERE_COGNIZANCE_LAYER,
+                com.windanesz.ancientspellcraft.client.model.SphereCognizanceModel::createBodyLayer);
     }
 
     private static final java.util.List<String> SWORD_ELEMENT_ORDER = java.util.List.of(
@@ -126,6 +132,14 @@ public final class ASRenderers {
                         if (!player.getData(com.koomplo.wizardry.setup.registries.EBAttachments.SPELL_MANAGER_DATA)
                                 .hasSpellBeenDiscovered(spell)) return 0f;
                         return (spell.getTier().getLevel() + 1) * 0.1f;
+                    });
+            // charm_stone_tablet (1.12.2 ItemMoonLetterDictionary): runas brilham na lua cheia
+            net.minecraft.client.renderer.item.ItemProperties.register(
+                    com.windanesz.ancientspellcraft.registry.ASItems.CHARM_STONE_TABLET.get(),
+                    ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "fullmoon"),
+                    (stack, level, entity, seed) -> {
+                        var world = level != null ? level : (entity != null ? entity.level() : null);
+                        return world != null && world.getMoonPhase() == 0 ? 1f : 0f;
                     });
             for (var sword : java.util.List.of(
                     com.windanesz.ancientspellcraft.registry.ASItems.BATTLEMAGE_SWORD_NOVICE,

@@ -83,7 +83,7 @@ public class TranscribingTomeItem extends ArtifactItem {
                     if (item instanceof SpellBookItem && spell.applicableForItem(item)) {
                         offhand.shrink(1);
                         level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-                                SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.NEUTRAL, 1f, 1f);
+                                com.windanesz.ancientspellcraft.registry.ASSounds.TRANSMUTATION.get(), SoundSource.NEUTRAL, 1f, 1f);
                         return RegistryUtils.setSpell(new ItemStack(item), spell);
                     }
                 }

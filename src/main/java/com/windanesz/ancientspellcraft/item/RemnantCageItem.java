@@ -2,7 +2,6 @@ package com.windanesz.ancientspellcraft.item;
 
 import com.koomplo.wizardry.content.entity.living.Remnant;
 import com.koomplo.wizardry.core.platform.Services;
-import com.koomplo.wizardry.setup.registries.EBEntities;
 import com.koomplo.wizardry.setup.registries.EBItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -74,13 +73,17 @@ public class RemnantCageItem extends DailyArtifactItem {
         if (player.isShiftKeyDown()) {
             if (!hasRemnant(stack)) return InteractionResultHolder.fail(stack);
             if (!level.isClientSide) {
-                Remnant minion = new Remnant(EBEntities.REMNANT.get(), level);
+                var minion = new com.windanesz.ancientspellcraft.entity.living.RemnantMinion(
+                        com.windanesz.ancientspellcraft.registry.ASEntities.REMNANT_MINION.get(), level);
                 minion.setPos(player.getX(), player.getY(), player.getZ());
-                var data = Services.OBJECT_DATA.getMinionData(minion);
-                data.setSummoned(true);
-                data.setOwnerUUID(player.getUUID());
-                data.setLifetime(-1);
-                data.updateGoals();
+                CustomData data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+                String stored = data.copyTag().getString(STORED_ELEMENT_TAG);
+                if (!stored.isEmpty()) minion.setElement(stored);
+                var minionData = Services.OBJECT_DATA.getMinionData(minion);
+                minionData.setSummoned(true);
+                minionData.setOwnerUUID(player.getUUID());
+                minionData.setLifetime(-1);
+                minionData.updateGoals();
                 level.addFreshEntity(minion);
                 clearRemnant(stack);
             }

@@ -515,9 +515,19 @@ sentinel.png; LargeSentinel segue fora, os templates não usam).
 
 ## Detalhes menores (TODO no código)
 
+✓ AS-34 (3.67.0): COSMÉTICOS — SONS PRÓPRIOS COMPLETOS (83 oggs + sounds.json 1.12.2 inteiro,
+348 entradas; ASSounds com goose/war_horn/relic_use_loop/relic_activate/relic_activate_2/
+transmutation wired no RelicItem/TranscribingTome; demais eventos registram conforme uso);
+BER DA SPHERE OF COGNIZANCE (esfera 4x4x4 do ModelSphereCognizance girando/flutuando sobre o
+pedestal — desvio: rotação por gameTime, sem a aceleração na direção do jogador); TINTE DA ROBE
+do skeleton mage pelo elemento (renderToBuffer com a cor do Element); textura FULLMOON do
+charm_stone_tablet (property client); RemnantCage agora solta o RemnantMinion próprio (a entity
+já existia no port).
+FICAM (baixo valor/sem uso — decisão documentada):
 - Partículas custom do 1.12.2 (DARK_MIST, RAINDROP, TIME_KNOT...) aproximadas com as do Redux.
-- Sons próprios do pack (sounds.json) não portados; usando sons vanilla/Redux próximos.
-- Tinte por elemento na robe do skeleton mage; modelo próprio do druid (usa evil wizard).
-- cure_zombie converte na hora (startConverting é privado no 1.21; sem delay/reputação).
-- Shaders (assets/shaders) — mesmo caso dos shaders do Redux.
+- ModelClassWizard próprio (a armadura de classe já dá a identidade visual) e modelo do druid
+  (usa evil wizard) — desvios de AS-7m mantidos.
+- LargeSentinel: os templates de estrutura não usam — sem uso in-game.
+- Remap runestone→chiseled nos templates (cosmético de estrutura).
+- Shaders (assets/shaders) — mesmo caso dos shaders do Redux (marco 6 do port principal).
 - Mecânicas anti-magia do devoritium (handlers) — blocos/itens já existem.

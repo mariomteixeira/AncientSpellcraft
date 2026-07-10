@@ -15,6 +15,10 @@ public final class ASSounds {
 
     public static final DeferredHolder<SoundEvent, SoundEvent> GOOSE = sound("goose");
     public static final DeferredHolder<SoundEvent, SoundEvent> WAR_HORN = sound("war_horn");
+    public static final DeferredHolder<SoundEvent, SoundEvent> RELIC_USE_LOOP = sound("relic_use_loop");
+    public static final DeferredHolder<SoundEvent, SoundEvent> RELIC_ACTIVATE = sound("relic_activate");
+    public static final DeferredHolder<SoundEvent, SoundEvent> RELIC_ACTIVATE_2 = sound("relic_activate_2");
+    public static final DeferredHolder<SoundEvent, SoundEvent> TRANSMUTATION = sound("transmutation");
 
     private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(

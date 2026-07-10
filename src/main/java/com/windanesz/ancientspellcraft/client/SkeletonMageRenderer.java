@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-/** Stray + robe overlay (1.12.2 RenderSkeletonMage; TODO tinte da robe por elemento). */
+/** Stray + robe overlay tintada pelo elemento (1.12.2 RenderSkeletonMage). */
 public class SkeletonMageRenderer extends HumanoidMobRenderer<SkeletonMageEntity, SkeletonModel<SkeletonMageEntity>> {
 
     private static final ResourceLocation TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/skeleton/stray.png");
@@ -25,8 +25,10 @@ public class SkeletonMageRenderer extends HumanoidMobRenderer<SkeletonMageEntity
                                @NotNull SkeletonMageEntity entity, float limbSwing, float limbSwingAmount, float partialTick,
                                float ageInTicks, float netHeadYaw, float headPitch) {
                 var consumer = buffer.getBuffer(RenderType.entityTranslucent(OVERLAY));
+                Integer rgb = entity.getMageElement().getColor().getColor();
+                int color = rgb == null ? 0xFFFFFFFF : 0xFF000000 | rgb;
                 getParentModel().renderToBuffer(poseStack, consumer, packedLight,
-                        net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY);
+                        net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, color);
             }
         });
     }

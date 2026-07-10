@@ -256,7 +256,7 @@ public class RelicItem extends Item {
 
         if (!level.isClientSide && usingTicks % 25 == 0) {
             level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-                    SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.NEUTRAL, 1.1f, 1f);
+                    com.windanesz.ancientspellcraft.registry.ASSounds.RELIC_USE_LOOP.get(), SoundSource.NEUTRAL, 1.1f, 1f);
         }
         if (level.isClientSide && usingTicks % 10 == 0) {
             int color = switch (type) {
@@ -291,7 +291,7 @@ public class RelicItem extends Item {
                 if (effect.isEmpty()) return stack;
                 entity.addEffect(new MobEffectInstance(effect.get(), getStoredDuration(stack), 0));
                 level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-                        SoundEvents.EVOKER_CAST_SPELL, SoundSource.NEUTRAL, 0.9f, 1f);
+                        com.windanesz.ancientspellcraft.registry.ASSounds.RELIC_ACTIVATE_2.get(), SoundSource.NEUTRAL, 0.9f, 1f);
                 stack.shrink(1);
             }
             return stack;
@@ -319,7 +319,7 @@ public class RelicItem extends Item {
             }
             if (enchantedSomething) {
                 level.playSound(null, entity.getX(), entity.getY(), entity.getZ(),
-                        SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.NEUTRAL, 0.9f, 1f);
+                        com.windanesz.ancientspellcraft.registry.ASSounds.RELIC_ACTIVATE.get(), SoundSource.NEUTRAL, 0.9f, 1f);
                 stack.shrink(1);
             }
             return stack;

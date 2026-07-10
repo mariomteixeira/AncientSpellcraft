@@ -2,5 +2,8 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "ancientspellcraft:item/charm_stone_tablet"
-  }
+  },
+  "overrides": [
+    {"predicate": {"ancientspellcraft:fullmoon": 1.0}, "model": "ancientspellcraft:item/charm_stone_tablet_fullmoon"}
+  ]
 }
