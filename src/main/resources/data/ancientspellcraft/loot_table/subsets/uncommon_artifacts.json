@@ -59,6 +59,10 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:ring_prismarine"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_healing_mushroom"
         }
       ]
     }

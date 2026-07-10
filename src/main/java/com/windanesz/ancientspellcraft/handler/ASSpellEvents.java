@@ -18,6 +18,16 @@ public final class ASSpellEvents {
             tickMasterBoltPull(player);
             tickSpringCharge(player);
             tickPhaseJump(player);
+            // amulet_celerity: remove o modifier de velocidade quando o amuleto sai
+            if (player.tickCount % 20 == 0) {
+                var attribute = player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+                if (attribute != null
+                        && attribute.hasModifier(com.windanesz.ancientspellcraft.item.ASArtifactEffects.CELERITY_MODIFIER)
+                        && !com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                        com.windanesz.ancientspellcraft.registry.ASItems.AMULET_CELERITY.get())) {
+                    attribute.removeModifier(com.windanesz.ancientspellcraft.item.ASArtifactEffects.CELERITY_MODIFIER);
+                }
+            }
         }
     }
 

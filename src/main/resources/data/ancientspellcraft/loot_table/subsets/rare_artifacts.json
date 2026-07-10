@@ -107,6 +107,18 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_absorb_potion"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_celerity"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_oakflesh"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_cursed_pendant"
         }
       ]
     }

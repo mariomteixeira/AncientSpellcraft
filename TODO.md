@@ -187,6 +187,18 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-22 (3.55.0): ARTEFATOS ONDA 3a — buffs de tick (5): amulet_celerity (+10% velocidade,
+modifier transiente com limpeza no PlayerTick), amulet_oakflesh (oakflesh do Redux ativo em
+bioma de floresta = regeneração contínua), amulet_holy_aura (mortos-vivos raio 6 pegam fogo 5s
+a cada 2s), amulet_healing_mushroom (ferido: 50% a cada 6s de brotar cogumelos de cura raio 7,
+cd 45s), amulet_cursed_pendant (meia-noite: 50% de invocar evil class wizard vingativo, cd 15
+min). ONDA 3 dividida: 3a ✓; 3b = glyphs (leeching, antigravity, imbuement, shield_disable,
+might, charge); 3c = auras (alacrity, hatred, life, purity, warding, wither, tenacity, defense,
+vulnerability); 3d = tickables especiais + mana (ring_mana_lesser/greater, charm_majestic_mana —
+baterias do workbench; amulet_of_resistance, amulet_invisibility — mana própria;
+specterlight_torch, wizard_tankard, diamond_goose, cube_phasing, devoritium_magnet,
+elemental_aura, searing_skin, ardor_crown, mask_of_perseigni, minion_circle, guardian_blade,
+enchanted_whetstone, infernal_stone, ring_arcane_flames — sistemas próprios).
 ✓ AS-21 (3.54.0): ARTEFATOS ONDA 2c — poções/flechas/tick (9): belt_temporal_anchor (imune a
 slowness), amulet_poison_resistance (50% nega veneno), amulet_curse_ward (nega maldições),
 amulet_persistence (imune a shrinkage/growth), amulet_cursed_mirror (50% espelha maldição em

@@ -323,5 +323,105 @@ public final class ASArtifactEffects {
         };
     }
 
+    // ---- onda 3a: buffs de tick ----
+
+    /** amulet_celerity: +10% de velocidade enquanto equipado (modifier transiente; limpeza no ASSpellEvents). */
+    public static final net.minecraft.resources.ResourceLocation CELERITY_MODIFIER =
+            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "amulet_celerity");
+
+    public static IArtifactEffect celerity() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide) return;
+                var attribute = player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+                if (attribute != null && !attribute.hasModifier(CELERITY_MODIFIER)) {
+                    attribute.addTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(
+                            CELERITY_MODIFIER, 0.1D, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+                }
+            }
+        };
+    }
+
+    /** amulet_oakflesh: com oakflesh ativo em floresta, regeneração contínua (1.12.2). */
+    public static IArtifactEffect oakflesh() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 10 != 0) return;
+                if (!player.hasEffect(net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
+                        com.koomplo.wizardry.setup.registries.EBMobEffects.OAKFLESH.get()))) return;
+                var biome = level.getBiome(player.blockPosition()).unwrapKey().orElse(null);
+                if (biome == null) return;
+                String path = biome.location().getPath();
+                if (path.contains("forest") || path.contains("wood")) {
+                    player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.world.effect.MobEffects.REGENERATION, 40, 0));
+                }
+            }
+        };
+    }
+
+    /** amulet_holy_aura: a cada 2s, mortos-vivos num raio de 6 pegam fogo por 5s. */
+    public static IArtifactEffect holyAura() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || level.getGameTime() % 40 != 0) return;
+                for (var entity : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                        6, player.getX(), player.getY(), player.getZ(), level)) {
+                    if (entity != player && entity.getType().is(net.minecraft.tags.EntityTypeTags.UNDEAD)) {
+                        entity.igniteForSeconds(5);
+                    }
+                }
+            }
+        };
+    }
+
+    /** amulet_healing_mushroom: ferido, a cada 6s há 50% de brotar cogumelos de cura por perto (cd 45s). */
+    public static IArtifactEffect healingMushroom() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 120 != 0 || !level.random.nextBoolean()) return;
+                if (player.getHealth() >= player.getMaxHealth()) return;
+                if (player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                for (int i = 0; i < level.random.nextInt(3); i++) {
+                    var pos = com.koomplo.wizardry.api.content.util.BlockUtil.findNearbyFloorSpace(
+                            level, player.blockPosition(), 7, 7, false, player);
+                    if (pos != null && com.windanesz.ancientspellcraft.block.MagicMushroomBlock.tryPlace(
+                            level, pos, player, com.windanesz.ancientspellcraft.registry.ASBlocks.MUSHROOMS.get("mushroom_healing").get(), 700, 1.0f)) {
+                        player.getCooldowns().addCooldown(artifact.getItem(), 900);
+                    }
+                }
+            }
+        };
+    }
+
+    /** amulet_cursed_pendant: à meia-noite, 50% de invocar um evil class wizard vingativo (cd 15 min). */
+    public static IArtifactEffect cursedPendant() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (!(level instanceof net.minecraft.server.level.ServerLevel serverLevel)) return;
+                if (level.getDayTime() % 24000 != 18000 || level.random.nextFloat() > 0.5f) return;
+                if (player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                var pos = com.koomplo.wizardry.api.content.util.BlockUtil.findNearbyFloorSpace(
+                        level, player.blockPosition(), 8, 8, false, player);
+                if (pos == null) return;
+                var wizard = new com.windanesz.ancientspellcraft.entity.living.EvilClassWizard(
+                        com.windanesz.ancientspellcraft.registry.ASEntities.EVIL_CLASS_WIZARD.get(), level);
+                wizard.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                wizard.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(pos),
+                        net.minecraft.world.entity.MobSpawnType.EVENT, null);
+                wizard.setLastHurtByMob(player);
+                serverLevel.addFreshEntity(wizard);
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                        "item.ancientspellcraft.amulet_cursed_pendant.summoned_wizard"), false);
+                player.getCooldowns().addCooldown(artifact.getItem(), 18000);
+            }
+        };
+    }
+
     private ASArtifactEffects() {}
 }

@@ -229,6 +229,18 @@ public final class ASItems {
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.maskOfSilence());
     public static final Supplier<Item> RING_PRISMARINE = artifact("ring_prismarine", net.minecraft.world.item.Rarity.UNCOMMON,
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.prismarine());
+
+    // onda 3a: buffs de tick
+    public static final Supplier<Item> AMULET_CELERITY = artifact("amulet_celerity", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.celerity());
+    public static final Supplier<Item> AMULET_OAKFLESH = artifact("amulet_oakflesh", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.oakflesh());
+    public static final Supplier<Item> AMULET_HOLY_AURA = artifact("amulet_holy_aura", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.holyAura());
+    public static final Supplier<Item> AMULET_HEALING_MUSHROOM = artifact("amulet_healing_mushroom", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.healingMushroom());
+    public static final Supplier<Item> AMULET_CURSED_PENDANT = artifact("amulet_cursed_pendant", net.minecraft.world.item.Rarity.RARE,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.cursedPendant());
     public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
             new com.koomplo.wizardry.core.IArtifactEffect() {
                 @Override
