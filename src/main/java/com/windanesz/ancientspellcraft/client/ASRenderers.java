@@ -92,6 +92,8 @@ public final class ASRenderers {
                 com.windanesz.ancientspellcraft.client.ScribingDeskScreen::new);
         event.register(com.windanesz.ancientspellcraft.registry.ASMenus.SPHERE_COGNIZANCE.get(),
                 com.windanesz.ancientspellcraft.client.SphereCognizanceScreen::new);
+        event.register(com.windanesz.ancientspellcraft.registry.ASMenus.SAGE_LECTERN.get(),
+                com.windanesz.ancientspellcraft.client.SageLecternScreen::new);
     }
 
     public static final ModelLayerLocation ANT_LAYER = new ModelLayerLocation(

@@ -1,0 +1,24 @@
+{
+  "base_properties": {
+    "minion_count": 1,
+    "minion_lifetime": 10000,
+    "summon_radius": 1
+  },
+  "chargeup": 0,
+  "cooldown": 80,
+  "cost": 40,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": true,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": false,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "tier": "ebwizardry:apprentice",
+  "type": "alteration"
+}

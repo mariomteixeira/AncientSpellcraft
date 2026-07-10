@@ -49,9 +49,45 @@ public class BattlemageSwordItem extends WandItem {
                 && ASSpellEvents.isWearingFullSet(player, WizardArmorType.BATTLEMAGE)
                 && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof WizardArmorItem armor
                 && armor.getElement() != null) {
-            WarlockSpellEffects.affectEntity(target, armor.getElement(), attacker, false);
+            // golpe totalmente carregado (runeword_empower/casts) = versão com dano do efeito, e reseta
+            boolean charged = getCharge(stack) >= FULL_CHARGE;
+            WarlockSpellEffects.affectEntity(target, armor.getElement(), attacker, charged);
+            if (charged) resetCharge(stack);
+            else addCharge(stack, 5);
         }
         return true;
+    }
+
+    // ---- carga da lâmina (1.12.2 WizardClassWeaponHelper.CHARGE_PROGRESS): 0-100 no CustomData ----
+
+    public static final int FULL_CHARGE = 100;
+    private static final String CHARGE_TAG = "SwordCharge";
+
+    public static int getCharge(ItemStack sword) {
+        net.minecraft.world.item.component.CustomData data = sword.get(DataComponents.CUSTOM_DATA);
+        return data == null ? 0 : data.copyTag().getInt(CHARGE_TAG);
+    }
+
+    public static void addCharge(ItemStack sword, int amount) {
+        net.minecraft.world.item.component.CustomData.update(DataComponents.CUSTOM_DATA, sword,
+                tag -> tag.putInt(CHARGE_TAG, Math.min(tag.getInt(CHARGE_TAG) + amount, FULL_CHARGE)));
+    }
+
+    public static void resetCharge(ItemStack sword) {
+        net.minecraft.world.item.component.CustomData.update(DataComponents.CUSTOM_DATA, sword,
+                tag -> tag.putInt(CHARGE_TAG, 0));
+    }
+
+    /** runeword_shatter: golpe com carga da runeword derruba a guarda de quem bloqueia com escudo. */
+    @Override
+    public boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker) {
+        if (shield.getItem() instanceof net.minecraft.world.item.ShieldItem
+                && "ancientspellcraft:runeword_shatter".equals(com.windanesz.ancientspellcraft.spell.RunewordSpell.getActive(stack))
+                && com.windanesz.ancientspellcraft.spell.RunewordSpell.getCharges(stack) > 0) {
+            com.windanesz.ancientspellcraft.spell.RunewordSpell.spendCharge(stack);
+            return true;
+        }
+        return false;
     }
 
     @Override

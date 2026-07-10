@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "FPC",
+    " C "
+  ],
+  "key": {
+    "F": {
+      "item": "ebwizardry:magic_silk"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "C": {
+      "item": "ebwizardry:magic_crystal"
+    }
+  },
+  "result": {
+    "id": "ancientspellcraft:enchanted_page",
+    "count": 1
+  }
+}

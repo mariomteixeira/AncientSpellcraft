@@ -191,8 +191,12 @@ public final class ASBlocks {
                     com.windanesz.ancientspellcraft.block.SentinelBlockEntity::new,
                     SENTINEL_BLOCK.get(), SENTINEL_BLOCK_DIAMOND.get()).build(null));
     public static final Supplier<Block> SAGE_LECTERN = BLOCKS.register("sage_lectern",
-            () -> new Block(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
-                    .mapColor(net.minecraft.world.level.material.MapColor.WOOD).strength(2.0F).noOcclusion())); // TODO estacao de lectern
+            com.windanesz.ancientspellcraft.block.SageLecternBlock::new);
+    public static final Supplier<net.minecraft.world.level.block.entity.BlockEntityType<com.windanesz.ancientspellcraft.block.SageLecternBlockEntity>> SAGE_LECTERN_BE =
+            BLOCK_ENTITIES.register("sage_lectern",
+                    () -> net.minecraft.world.level.block.entity.BlockEntityType.Builder.of(
+                            com.windanesz.ancientspellcraft.block.SageLecternBlockEntity::new,
+                            ASBlocks.SAGE_LECTERN.get()).build(null));
     public static final Supplier<Block> UNSEAL_BUTTON = BLOCKS.register("unseal_button",
             () -> new com.windanesz.ancientspellcraft.block.UnsealButtonBlock(
                     net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()

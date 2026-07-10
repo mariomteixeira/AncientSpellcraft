@@ -22,6 +22,9 @@ public final class ASMenus {
     public static final Supplier<MenuType<com.windanesz.ancientspellcraft.client.ArcaneAnvilMenu>> ARCANE_ANVIL = MENUS.register("arcane_anvil",
             () -> IMenuTypeExtension.create((id, inv, buf) -> new com.windanesz.ancientspellcraft.client.ArcaneAnvilMenu(id, inv)));
 
+    public static final Supplier<MenuType<com.windanesz.ancientspellcraft.client.SageLecternMenu>> SAGE_LECTERN = MENUS.register("sage_lectern",
+            () -> IMenuTypeExtension.create((id, inv, buf) -> new com.windanesz.ancientspellcraft.client.SageLecternMenu(id, inv)));
+
     private ASMenus() {
     }
 }

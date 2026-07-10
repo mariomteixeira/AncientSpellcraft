@@ -1,0 +1,23 @@
+{
+  "base_properties": {
+    "range": 5
+  },
+  "chargeup": 0,
+  "cooldown": 20,
+  "cost": 120,
+  "element": "ebwizardry:magic",
+  "enabled": {
+    "book": true,
+    "commands": false,
+    "dispensers": false,
+    "looting": false,
+    "npcs": false,
+    "scroll": false,
+    "trades": false,
+    "treasure": false,
+    "wands": true
+  },
+  "spell_action": "ebwizardry:summon",
+  "tier": "ebwizardry:master",
+  "type": "utility"
+}

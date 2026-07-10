@@ -100,6 +100,21 @@ public final class ASItems {
             () -> new Item(new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> BATTLEMAGE_SHIELD = ITEMS.register("battlemage_shield",
             com.windanesz.ancientspellcraft.item.BattlemageShieldItem::new);
+
+    // AS-15: tomos do sage (wand da classe SAGE; progressão via Sage Lectern)
+    public static final Supplier<Item> SAGE_TOME_NOVICE = ITEMS.register("sage_tome_novice",
+            () -> new com.windanesz.ancientspellcraft.item.SageTomeItem(com.koomplo.wizardry.setup.registries.SpellTiers.NOVICE));
+    public static final Supplier<Item> SAGE_TOME_APPRENTICE = ITEMS.register("sage_tome_apprentice",
+            () -> new com.windanesz.ancientspellcraft.item.SageTomeItem(com.koomplo.wizardry.setup.registries.SpellTiers.APPRENTICE));
+    public static final Supplier<Item> SAGE_TOME_ADVANCED = ITEMS.register("sage_tome_advanced",
+            () -> new com.windanesz.ancientspellcraft.item.SageTomeItem(com.koomplo.wizardry.setup.registries.SpellTiers.ADVANCED));
+    public static final Supplier<Item> SAGE_TOME_MASTER = ITEMS.register("sage_tome_master",
+            () -> new com.windanesz.ancientspellcraft.item.SageTomeItem(com.koomplo.wizardry.setup.registries.SpellTiers.MASTER));
+    public static final Supplier<Item> ENCHANTED_PAGE = ITEMS.register("enchanted_page",
+            () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> TOME_CONTROLLER = ITEMS.register("tome_controller",
+            com.windanesz.ancientspellcraft.item.TomeControllerItem::new);
+
     public static final Supplier<Item> CRYSTAL_SILVER_INGOT = ITEMS.register("crystal_silver_ingot",
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> CRYSTAL_SILVER_NUGGET = ITEMS.register("crystal_silver_nugget",

@@ -404,6 +404,59 @@ public final class ASSpells {
         SPELLS.register("eagle_eye", com.windanesz.ancientspellcraft.spell.EagleEyeSpell::new);
         SPELLS.register("astral_projection", com.windanesz.ancientspellcraft.spell.AstralProjectionSpell::new);
         SPELLS.register("scrying_orb", com.windanesz.ancientspellcraft.spell.ScryingOrbSpell::new);
+
+        // AS-15: spells de lectern/tome do SAGE
+        SPELLS.register("perfect_theory", com.windanesz.ancientspellcraft.spell.PerfectTheoryLecternSpell::new);
+        SPELLS.register("perfect_theory_spell", com.windanesz.ancientspellcraft.spell.PerfectTheoryCastSpell::new);
+        SPELLS.register("awaken_tome", com.windanesz.ancientspellcraft.spell.AwakenTomeSpell::new);
+        SPELLS.register("tome_warp", com.windanesz.ancientspellcraft.spell.TomeWarpSpell::new);
+        SPELLS.register("forced_channel", com.windanesz.ancientspellcraft.spell.ForcedChannelSpell::new);
+        SPELLS.register("thoughtsteal", com.windanesz.ancientspellcraft.spell.ThoughtstealSpell::new);
+
+        // AS-15: runewords com dependências fechadas
+        SPELLS.register("runeword_empower", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .instant((s, ctx, sw) -> {
+                    // +100 de carga na lâmina: o próximo golpe sai com a versão forte do efeito elemental
+                    if (!ctx.world().isClientSide) {
+                        com.windanesz.ancientspellcraft.item.BattlemageSwordItem.addCharge(sw, 100);
+                    }
+                    return true;
+                }));
+        SPELLS.register("runeword_shatter", com.windanesz.ancientspellcraft.spell.RunewordSpell::new);
+        SPELLS.register("runeword_sealbreaker", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
+                .instant((s, ctx, sw) -> {
+                    // dissolve muros arcanos GERADOS (sem lifetime) conectados e estoura sem quebrar blocos
+                    if (ctx.world().isClientSide) return true;
+                    var caster = ctx.caster();
+                    var origin = caster.getEyePosition();
+                    var end = origin.add(caster.getLookAngle().scale(10));
+                    var hit = ctx.world().clip(new net.minecraft.world.level.ClipContext(origin, end,
+                            net.minecraft.world.level.ClipContext.Block.OUTLINE,
+                            net.minecraft.world.level.ClipContext.Fluid.NONE, caster));
+                    if (hit.getType() != net.minecraft.world.phys.HitResult.Type.BLOCK) return false;
+                    var start = hit.getBlockPos();
+                    var queue = new java.util.ArrayDeque<net.minecraft.core.BlockPos>();
+                    var seen = new java.util.HashSet<net.minecraft.core.BlockPos>();
+                    queue.add(start);
+                    seen.add(start);
+                    int removed = 0;
+                    while (!queue.isEmpty() && removed < 64) {
+                        var p = queue.poll();
+                        if (!ctx.world().getBlockState(p).is(ASBlocks.ARCANE_WALL.get())) continue;
+                        if (!(ctx.world().getBlockEntity(p) instanceof com.windanesz.ancientspellcraft.block.TemporaryBlockEntity t)
+                                || !t.isPermanent()) continue;
+                        ctx.world().removeBlock(p, false);
+                        removed++;
+                        for (var d : net.minecraft.core.Direction.values()) {
+                            var n = p.relative(d);
+                            if (seen.add(n)) queue.add(n);
+                        }
+                    }
+                    if (removed == 0) return false;
+                    ctx.world().explode(caster, start.getX() + 0.5, start.getY() + 0.5, start.getZ() + 0.5,
+                            3.5f, net.minecraft.world.level.Level.ExplosionInteraction.NONE);
+                    return true;
+                }));
         SPELLS.register("arcane_flame", () -> new com.windanesz.ancientspellcraft.spell.MagicFlameSpell(false));
         SPELLS.register("wildfire_flame", () -> new com.windanesz.ancientspellcraft.spell.MagicFlameSpell(true));
         SPELLS.register("enchant_fireplace", com.windanesz.ancientspellcraft.spell.EnchantFireplaceSpell::new);

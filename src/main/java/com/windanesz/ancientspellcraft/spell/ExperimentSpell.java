@@ -81,16 +81,36 @@ public class ExperimentSpell extends Spell implements ClassSpell {
             var tiers = Services.REGISTRY_UTIL.getTiers().stream().toList();
             var forfeit = ForfeitRegistry.getRandomForfeit(new java.util.Random(random.nextLong()),
                     tiers.get(Math.min(tierIndex, tiers.size() - 1)), RegistryUtils.getRandomElement(random));
-            if (forfeit != null) forfeit.apply(ctx.world(), caster);
+            if (forfeit != null) {
+                forfeit.apply(ctx.world(), caster);
+                recordExperiment(tag, "forfeit", forfeit.getName().toString());
+            }
         } else if ((roll -= this.property(BUFF_WEIGHT)) < 0) {
-            caster.addEffect(new MobEffectInstance(random.nextBoolean() ? MobEffects.REGENERATION : MobEffects.DAMAGE_RESISTANCE, 600, 1));
+            var effect = random.nextBoolean() ? MobEffects.REGENERATION : MobEffects.DAMAGE_RESISTANCE;
+            caster.addEffect(new MobEffectInstance(effect, 600, 1));
+            recordExperiment(tag, "mob_effect", effectString(effect));
         } else if (roll - this.property(DEBUFF_WEIGHT) < 0) {
-            caster.addEffect(new MobEffectInstance(random.nextBoolean() ? MobEffects.WEAKNESS : MobEffects.MOVEMENT_SLOWDOWN, 600, 1));
+            var effect = random.nextBoolean() ? MobEffects.WEAKNESS : MobEffects.MOVEMENT_SLOWDOWN;
+            caster.addEffect(new MobEffectInstance(effect, 600, 1));
+            recordExperiment(tag, "mob_effect", effectString(effect));
         } else {
             caster.displayClientMessage(Component.translatable("spell.ancientspellcraft.experiment.no_effect"), true);
         }
+        caster.setData(ASAttachments.PLAYER_DATA, tag);
         this.playSound(ctx.world(), caster, ctx.castingTicks(), -1);
         return true;
+    }
+
+    /** Grava o resultado para o perfect_theory reproduzir depois. */
+    private static void recordExperiment(CompoundTag tag, String type, String effect) {
+        CompoundTag last = new CompoundTag();
+        last.putString("Type", type);
+        last.putString("Effect", effect);
+        tag.put(PerfectTheoryCastSpell.LAST_EXPERIMENT_TAG, last);
+    }
+
+    private static String effectString(net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect) {
+        return net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getKey(effect.value()) + ",600,1";
     }
 
     @Override

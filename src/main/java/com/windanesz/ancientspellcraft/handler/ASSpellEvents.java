@@ -145,6 +145,14 @@ public final class ASSpellEvents {
         }
     }
 
+    /** Castar com a espada de battlemage na mão carrega a lâmina (1.12.2: +20 por cast). */
+    public static void onSpellCastPost(com.koomplo.wizardry.api.content.event.SpellCastEvent.Post event) {
+        if (event.getCaster() instanceof Player player && !player.level().isClientSide
+                && player.getMainHandItem().getItem() instanceof com.windanesz.ancientspellcraft.item.BattlemageSwordItem) {
+            com.windanesz.ancientspellcraft.item.BattlemageSwordItem.addCharge(player.getMainHandItem(), 20);
+        }
+    }
+
     public static boolean isWearingFullSet(Player player, com.koomplo.wizardry.content.item.armor.WizardArmorType type) {
         for (var stack : player.getArmorSlots()) {
             if (!(stack.getItem() instanceof com.koomplo.wizardry.content.item.armor.WizardArmorItem armor)

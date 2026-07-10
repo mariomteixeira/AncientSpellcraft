@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "ancientspellcraft:block/sage_lectern"
+    },
+    "facing=east": {
+      "model": "ancientspellcraft:block/sage_lectern",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "ancientspellcraft:block/sage_lectern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ancientspellcraft:block/sage_lectern",
+      "y": 270
     }
   }
 }

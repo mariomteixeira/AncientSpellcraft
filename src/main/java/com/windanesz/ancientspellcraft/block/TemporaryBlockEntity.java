@@ -28,6 +28,11 @@ public class TemporaryBlockEntity extends BlockEntity {
         this.lifetime = lifetime;
     }
 
+    /** Sem lifetime = colocado por estrutura/worldgen, não por spell (gate do runeword_sealbreaker). */
+    public boolean isPermanent() {
+        return lifetime <= 0;
+    }
+
     public void setCaster(LivingEntity caster) {
         this.casterUUID = caster == null ? null : caster.getUUID();
     }

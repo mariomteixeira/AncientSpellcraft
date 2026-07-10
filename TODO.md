@@ -50,9 +50,9 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   ✓ AS-7k (SAGE): spectral_wall (desvio: colocacao instantanea vs EntityBuilder gradual),
   spectral_floor, teleport_object (usa o circulo de transporte do Redux; TODO charm_hoarders_orb),
   molten_boulder (construct que rola deixando magma conjurado + fogo, render = bloco de magma girando).
-  Restantes SAGE com sistema proprio: forced_channel/thoughtsteal (sage tome/WandHelper),
-  tome_warp/awaken_tome/perfect_theory (lecterns), phase_jump/spring_charge (charge-release),
-  arcane_wall, conceal_object, ternary_storm, experiment (594), pocket_library (822).
+  Restantes SAGE com sistema proprio: phase_jump (charge-release). ✓ AS-15:
+  forced_channel/thoughtsteal/tome_warp/awaken_tome/perfect_theory. ✓ spring_charge (AS-14),
+  arcane_wall/ternary_storm (AS-7p), conceal_object (AS-10a), experiment/pocket_library (AS-11).
 - **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
 - **Metamagic**: ✓ AS-9a (3.41.0): READ-HOOKS prontos (ASMetamagicEvents no SpellCastEvent.Pre —
   spell_blast/range/cooldown/duration por nível enquanto o buff dura; arcane_augmentation
@@ -177,13 +177,30 @@ carga), meditate (contínua: escudo de battlemage na offhand recarrega 3 de mana
 desvio: o escudo do port não guarda mana), imbue (consome poção da hotbar e grava o efeito na
 lâmina; cada golpe aplica), reach/pull/push (golpe estendido até 9 blocos no clique em vazio —
 client LeftClickEmpty + payload ExtendedReachC2S; pull puxa, push arremessa; attack() gasta a
-carga pelos hooks normais). Ainda TODO: sealbreaker (isGenerated do arcane_wall), shatter (efeito
-ligado ao bloqueio do battlemage_shield), empower (charge progress do WizardClassWeaponHelper).
+carga pelos hooks normais). ✓ sealbreaker/shatter/empower fechadas no AS-15.
 ✓ AS-13 (3.46.0): STATIC_CHARGE (imbui a primeira espada da hotbar/offhand: +2 de dano por nível
 por effect_duration; nível pela potência; desvio: carga no CustomData em vez de enchantment —
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-15 (3.48.0): LECTERNS/TOMES DO SAGE + RUNEWORDS FINAIS —
+  SAGE TOME (4 tiers, WandItem do Redux — desvio igual às espadas: sem as 36 variantes elementais;
+  receita do novice com magic_silk no lugar do enchanted_filament, que não existe no port) +
+  enchanted_page + SAGE LECTERN estação (BE + GUI 3 slots: tomo + pages → tier seguinte, 5/10/15
+  páginas; desvios: sem exigir progression — mesma simplificação do anvil; sem livro 3D animado;
+  sem lectern "natural" de estrutura com spell aleatória);
+  perfect_theory (canaliza 5s no lectern com mystic book VAZIO + 1 theory point → escreve
+  perfect_theory_spell; desvio: o replay lê o LastExperiment do PLAYER_DATA no cast, não engarrafa
+  NBT no livro; ExperimentSpell agora grava o resultado), awaken_tome (anima o tomo da mainhand em
+  AnimatedItemEntity + tome_controller: click recall, hit retarget, sneak+tome_warp troca de lugar,
+  cooldown 200t), tome_warp (spell gravável — habilita o swap do controller), forced_channel (ray:
+  casta a spell atual do alvo até max_tier; wizard NPC = spell fixa por UUID; desvio: sem cooldown
+  de 80t no item) e thoughtsteal (ray: copia a spell atual do alvo pro slot selecionado do sage
+  tome). RUNEWORDS: empower (+100 de carga na lâmina; sistema de carga novo no CustomData: +20 por
+  cast, +5 por golpe, golpe cheio = efeito elemental com dano — affectEntity(true) — e reseta),
+  shatter (com cargas: golpe derruba a guarda de escudos — canDisableShield), sealbreaker (instant
+  ray 10 blocos: dissolve até 64 arcane_wall GERADOS conectados — sem lifetime no BE = de
+  estrutura — e estoura 3.5 sem quebrar blocos). 23/23 RUNEWORDS FECHADAS.
 ✓ AS-14 (3.47.0): WORDS_OF_UNBINDING (remove 1 nível do upgrade da wand na mainhand — upgrade
 escolhido pelo item de upgrade na offhand, senão o primeiro; devolve o item; usa
 CastItemDataHelper.removeUpgrade do Redux 0.1.27); SPRING_CHARGE (contínua: carrega no chão até
