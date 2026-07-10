@@ -61,7 +61,8 @@ public class SphereCognizanceMenu extends AbstractContainerMenu {
         addSlot(new Slot(container, SphereCognizanceBlockEntity.BOOK_SLOT, 80, 22) {
             @Override
             public boolean mayPlace(@NotNull ItemStack stack) {
-                return stack.getItem() instanceof SpellBookItem || stack.getItem() instanceof ScrollItem;
+                return stack.getItem() instanceof SpellBookItem || stack.getItem() instanceof ScrollItem
+                        || stack.getItem() instanceof com.windanesz.ancientspellcraft.item.RelicItem;
             }
 
             @Override
@@ -87,7 +88,8 @@ public class SphereCognizanceMenu extends AbstractContainerMenu {
             if (!moveItemStackTo(stack, 2, slots.size(), true)) return ItemStack.EMPTY;
         } else if (stack.getItem() instanceof CrystalItem) {
             if (!moveItemStackTo(stack, 0, 1, false)) return ItemStack.EMPTY;
-        } else if (stack.getItem() instanceof SpellBookItem || stack.getItem() instanceof ScrollItem) {
+        } else if (stack.getItem() instanceof SpellBookItem || stack.getItem() instanceof ScrollItem
+                || stack.getItem() instanceof com.windanesz.ancientspellcraft.item.RelicItem) {
             if (!moveItemStackTo(stack, 1, 2, false)) return ItemStack.EMPTY;
         } else {
             return ItemStack.EMPTY;

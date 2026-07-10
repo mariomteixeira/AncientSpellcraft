@@ -388,6 +388,10 @@ public final class ASItems {
                 }
             });
 
+    // AS-27: gate no SphereCognizanceBlockEntity (relíquia pesquisada sob lua cheia = tipo SPELL)
+    public static final Supplier<Item> CHARM_STONE_TABLET = artifact("charm_stone_tablet",
+            net.minecraft.world.item.Rarity.EPIC, null);
+
     // AS-26: residuais do scribing — tome de transcrição, everfull flask e a relíquia ancient_mana_flask
     public static final Supplier<Item> CHARM_TRANSCRIBING_TOME = ITEMS.register("charm_transcribing_tome",
             () -> new com.windanesz.ancientspellcraft.item.TranscribingTomeItem(net.minecraft.world.item.Rarity.UNCOMMON));

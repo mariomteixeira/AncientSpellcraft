@@ -126,6 +126,17 @@ livro -> spell book do AS + discoverSpell.
   na GUI e tooltip (runas continuam visíveis — dá pra executar sem descobrir, igual ao 1.12.2);
   criativo vê tudo. NOTA: o gate upstream estava DESATIVADO (hasRitualBeenDiscovered retornava
   true fixo) — o port ativa o sistema como projetado.
+✓ AS-27 (3.60.0): SPHERE OF COGNIZANCE FECHADA — a estação já existia parcial (pesquisa passiva de
+  spell books/scrolls); agora: PESQUISA DE RELÍQUIAS (80t, 2 cristais, sorteia o conteúdo via
+  RelicItem.research + dica ancient_knowledge — vira o caminho primário; o identification scroll
+  do AS-26 segue como alternativa), CHARM_STONE_TABLET/Moon-letter Dictionary (EPIC: relíquia
+  pesquisada sob lua cheia = tipo SPELL garantido; desvio: sem a textura fullmoon por item
+  property), dicas por NOME de spell (heal_ally/pocket_furnace/arcane_lock/remove_curse/
+  resurrection — lista de candidatos nome/tipo/elemento do 1.12.2, +5 hint types), FIX: spell já
+  conhecida pelo último usuário não pesquisa (não queima cristal — no port anterior queimava),
+  128 chaves de lang dos hints em formato dot. Desvios mantidos: pesquisa passiva sem botão/GUI
+  aberta (1.12.2 exigia inUse + botão), identification chance 0.05 hardcoded (config marco 7).
+  TODO marco 6: BER animado (ModelSphereCognizance girando).
 PENDENTE: Arcane Anvil (estação do BATTLEMAGE) — precisa da linha de espadas battlemage
 (hilt/blade/espadas por tier/crystal_silver_ingot + WizardClassWeaponHelper), fica com o lote da
 classe BATTLEMAGE (runeword + battlemage_sword + contract + shield).

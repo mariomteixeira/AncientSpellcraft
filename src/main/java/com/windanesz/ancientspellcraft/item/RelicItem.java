@@ -131,13 +131,21 @@ public class RelicItem extends Item {
 
     /** Pesquisa a reliquia (1.12.2 setRandomContentType com type=null): sorteia tipo e conteudo. */
     public static void research(ItemStack stack, Player player) {
+        research(stack, player, null);
+    }
+
+    /** Variante com tipo forcado (1.12.2 setRandomContentType com type != null — charm_stone_tablet). */
+    public static void research(ItemStack stack, Player player, @Nullable RelicType forced) {
         if (!(stack.getItem() instanceof RelicItem relic) || isResearched(stack)) return;
-        float f = player.getRandom().nextFloat();
-        RelicType type;
-        if (f <= 0.4f) type = RelicType.SPELL;
-        else if (f <= 0.55f) type = RelicType.INCANTATION;
-        else if (f <= 0.8f) type = RelicType.ENCHANTMENT;
-        else type = RelicType.POWER;
+        RelicType rolled = forced;
+        if (rolled == null) {
+            float f = player.getRandom().nextFloat();
+            if (f <= 0.4f) rolled = RelicType.SPELL;
+            else if (f <= 0.55f) rolled = RelicType.INCANTATION;
+            else if (f <= 0.8f) rolled = RelicType.ENCHANTMENT;
+            else rolled = RelicType.POWER;
+        }
+        final RelicType type = rolled;
 
         switch (type) {
             case SPELL -> {
