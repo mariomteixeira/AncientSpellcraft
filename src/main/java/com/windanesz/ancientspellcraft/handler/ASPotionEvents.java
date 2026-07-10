@@ -65,14 +65,76 @@ public final class ASPotionEvents {
     /** curse_ward bloqueia curses novas ao custo de metade da própria duração (1.12.2 PotionCurseWard). */
     public static void onEffectApplicable(MobEffectEvent.Applicable event) {
         if (event.getEntity().level().isClientSide) return;
-        if (!(event.getEffectInstance().getEffect().value() instanceof CurseMobEffect)) return;
+        boolean isCurse = event.getEffectInstance().getEffect().value() instanceof CurseMobEffect;
 
-        MobEffectInstance curseWard = event.getEntity().getEffect(ASEffects.CURSE_WARD);
-        if (curseWard != null) {
-            int newDuration = curseWard.getDuration() / 2;
-            event.getEntity().removeEffect(ASEffects.CURSE_WARD);
-            event.getEntity().addEffect(new MobEffectInstance(ASEffects.CURSE_WARD, newDuration));
+        if (isCurse) {
+            MobEffectInstance curseWard = event.getEntity().getEffect(ASEffects.CURSE_WARD);
+            if (curseWard != null) {
+                int newDuration = curseWard.getDuration() / 2;
+                event.getEntity().removeEffect(ASEffects.CURSE_WARD);
+                event.getEntity().addEffect(new MobEffectInstance(ASEffects.CURSE_WARD, newDuration));
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+                return;
+            }
+        }
+
+        // onda 2c: amuletos que filtram efeitos (1.12.2 onPotionApplicableEvent)
+        if (!(event.getEntity() instanceof net.minecraft.world.entity.player.Player player)) return;
+        var effect = event.getEffectInstance().getEffect();
+        var random = player.level().random;
+
+        // belt_temporal_anchor: imune a slowness
+        if (effect.value() == net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN.value()
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.BELT_TEMPORAL_ANCHOR.get())) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+            return;
+        }
+        // amulet_poison_resistance: 50% de negar veneno
+        if (effect.value() == net.minecraft.world.effect.MobEffects.POISON.value()
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.AMULET_POISON_RESISTANCE.get())
+                && random.nextFloat() < 0.5f) {
+            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+            return;
+        }
+        // amulet_persistence: imune a shrinkage/growth
+        if ((effect.value() == ASEffects.SHRINKAGE.get() || effect.value() == ASEffects.GROWTH.get())
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.AMULET_PERSISTENCE.get())) {
+            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+            return;
+        }
+        if (isCurse) {
+            // amulet_curse_ward (artefato): nega maldições
+            if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                    com.windanesz.ancientspellcraft.registry.ASItems.AMULET_CURSE_WARD.get())) {
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+                return;
+            }
+            // amulet_cursed_mirror: 50% de espelhar a maldição em inimigos conjuradores num raio de 12
+            if (com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                    com.windanesz.ancientspellcraft.registry.ASItems.AMULET_CURSED_MIRROR.get())
+                    && random.nextBoolean()) {
+                for (var target : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                        12, player.getX(), player.getY(), player.getZ(), player.level())) {
+                    if (target == player || com.koomplo.wizardry.core.AllyDesignation.isAllied(player, target)) continue;
+                    if (target instanceof net.minecraft.world.entity.player.Player
+                            || target instanceof com.koomplo.wizardry.api.content.entity.living.ISpellCaster) {
+                        target.addEffect(new MobEffectInstance(event.getEffectInstance()));
+                    }
+                }
+            }
+        }
+        // amulet_absorb_potion: nega o efeito ruim absorvido pelo absorb_potion
+        if (!effect.value().isBeneficial()
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.AMULET_ABSORB_POTION.get())) {
+            String absorbed = player.getData(com.windanesz.ancientspellcraft.registry.ASAttachments.WARLOCK_DATA).getString("Effect");
+            var id = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getKey(effect.value());
+            if (!absorbed.isEmpty() && id != null && absorbed.equals(id.toString())) {
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+            }
         }
     }
 

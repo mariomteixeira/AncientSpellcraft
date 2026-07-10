@@ -47,6 +47,18 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:amulet_rabbit"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_poison_resistance"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_poison_arrow"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:ring_prismarine"
         }
       ]
     }

@@ -168,6 +168,22 @@ public final class ASSpellEvents {
         }
     }
 
+    /** ring_poison_arrow (1.12.2): flecha do jogador acerta — 20% de envenenar por 5s. */
+    public static void onProjectileImpact(net.neoforged.neoforge.event.entity.ProjectileImpactEvent event) {
+        if (event.getProjectile().level().isClientSide) return;
+        if (!(event.getProjectile() instanceof net.minecraft.world.entity.projectile.AbstractArrow arrow)) return;
+        if (!(arrow.getOwner() instanceof Player player)) return;
+        if (!(event.getRayTraceResult() instanceof net.minecraft.world.phys.EntityHitResult entityHit)
+                || !(entityHit.getEntity() instanceof net.minecraft.world.entity.LivingEntity target)) return;
+        if (player.level().random.nextFloat() < 0.2f
+                && com.koomplo.wizardry.core.integrations.ArtifactChannel.isEquipped(player,
+                com.windanesz.ancientspellcraft.registry.ASItems.RING_POISON_ARROW.get())
+                && !target.hasEffect(net.minecraft.world.effect.MobEffects.POISON)) {
+            target.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                    net.minecraft.world.effect.MobEffects.POISON, 100));
+        }
+    }
+
     /** Set das joias de poder (1.12.2): 2+ de ring/amulet/charm_power equipadas = +5% potência por peça além da 1ª. */
     public static void onJewelSetBonus(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
         if (!(event.getCaster() instanceof Player player)) return;

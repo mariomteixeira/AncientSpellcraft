@@ -87,6 +87,14 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:charm_reanimation"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_curse_ward"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:head_mask_of_silence"
         }
       ]
     }

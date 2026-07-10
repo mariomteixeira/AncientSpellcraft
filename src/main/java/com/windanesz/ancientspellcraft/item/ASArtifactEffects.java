@@ -286,5 +286,42 @@ public final class ASArtifactEffects {
         };
     }
 
+    // ---- onda 2c: tick ----
+
+    /** head_mask_of_silence: a cada 1s, conjuradores num raio de 8 ganham exaustão mágica I por 2s. */
+    public static IArtifactEffect maskOfSilence() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || player.tickCount % 20 != 0) return;
+                for (var nearby : com.koomplo.wizardry.api.content.util.EntityUtil.getLivingWithinRadius(
+                        8, player.getX(), player.getY(), player.getZ(), level)) {
+                    if (nearby == player) continue;
+                    if (nearby instanceof net.minecraft.world.entity.player.Player
+                            || nearby instanceof com.koomplo.wizardry.api.content.entity.living.ISpellCaster) {
+                        nearby.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                                com.windanesz.ancientspellcraft.registry.ASEffects.MAGICAL_EXHAUSTION, 40, 0));
+                    }
+                }
+            }
+        };
+    }
+
+    /** ring_prismarine: pegando fogo — apaga e dá fire resistance 6s (cd 60s; desvio: sem castar
+     * extinguish, spell não portada). */
+    public static IArtifactEffect prismarine() {
+        return new IArtifactEffect() {
+            @Override
+            public void onTick(net.minecraft.world.entity.player.Player player, net.minecraft.world.level.Level level, ItemStack artifact) {
+                if (level.isClientSide || !player.isOnFire()) return;
+                if (player.getCooldowns().isOnCooldown(artifact.getItem())) return;
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE, 120));
+                player.clearFire();
+                player.getCooldowns().addCooldown(artifact.getItem(), 1200);
+            }
+        };
+    }
+
     private ASArtifactEffects() {}
 }

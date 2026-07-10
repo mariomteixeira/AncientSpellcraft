@@ -91,6 +91,22 @@
         {
           "type": "minecraft:item",
           "name": "ancientspellcraft:charm_plunderers_mark"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:belt_temporal_anchor"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_persistence"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_cursed_mirror"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:amulet_absorb_potion"
         }
       ]
     }

@@ -187,6 +187,14 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-21 (3.54.0): ARTEFATOS ONDA 2c — poções/flechas/tick (9): belt_temporal_anchor (imune a
+slowness), amulet_poison_resistance (50% nega veneno), amulet_curse_ward (nega maldições),
+amulet_persistence (imune a shrinkage/growth), amulet_cursed_mirror (50% espelha maldição em
+conjuradores raio 12), amulet_absorb_potion (nega o efeito ruim absorvido pelo absorb_potion),
+ring_poison_arrow (flecha: 20% veneno 5s — via ProjectileImpactEvent), head_mask_of_silence
+(exaustão mágica I em conjuradores raio 8, 1x/s), ring_prismarine (pegando fogo: apaga + fire
+resistance 6s, cd 60s — desvio: sem castar extinguish, spell não portada). charm_ice_arrow NÃO
+portado (código morto/comentado no 1.12.2). ONDA 2 COMPLETA (2a+2b+2c = 20 artefatos).
 ✓ AS-20 (3.53.0): ARTEFATOS ONDA 2b — morte e tempo (5): ring_undeath (dano letal: maldição de
 morto-vivo permanente + cura 50% + sobrevive, cd 5 min), amulet_time_knot (dano letal com
 time_knot ativo: volta ao ponto gravado em vez de morrer — loopPlayer extraído do expiry —,

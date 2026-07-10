@@ -215,6 +215,20 @@ public final class ASItems {
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.reanimation());
     public static final Supplier<Item> CHARM_PLUNDERERS_MARK = artifact("charm_plunderers_mark", net.minecraft.world.item.Rarity.RARE,
             com.windanesz.ancientspellcraft.item.ASArtifactEffects.plunderersMark());
+
+    // onda 2c: poções/flechas/tick (efeitos de poção no ASPotionEvents.onEffectApplicable;
+    // poison_arrow no ASSpellEvents.onProjectileImpact)
+    public static final Supplier<Item> BELT_TEMPORAL_ANCHOR = artifact("belt_temporal_anchor", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> AMULET_POISON_RESISTANCE = artifact("amulet_poison_resistance", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> AMULET_CURSE_WARD = artifact("amulet_curse_ward", net.minecraft.world.item.Rarity.EPIC, null);
+    public static final Supplier<Item> AMULET_PERSISTENCE = artifact("amulet_persistence", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> AMULET_CURSED_MIRROR = artifact("amulet_cursed_mirror", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> AMULET_ABSORB_POTION = artifact("amulet_absorb_potion", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> RING_POISON_ARROW = artifact("ring_poison_arrow", net.minecraft.world.item.Rarity.UNCOMMON, null);
+    public static final Supplier<Item> HEAD_MASK_OF_SILENCE = artifact("head_mask_of_silence", net.minecraft.world.item.Rarity.EPIC,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.maskOfSilence());
+    public static final Supplier<Item> RING_PRISMARINE = artifact("ring_prismarine", net.minecraft.world.item.Rarity.UNCOMMON,
+            com.windanesz.ancientspellcraft.item.ASArtifactEffects.prismarine());
     public static final Supplier<Item> HEAD_CHAOS_MAGIC = artifact("head_chaos_magic", net.minecraft.world.item.Rarity.EPIC,
             new com.koomplo.wizardry.core.IArtifactEffect() {
                 @Override

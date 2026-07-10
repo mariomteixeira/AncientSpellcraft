@@ -48,6 +48,7 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onLivingDamage);
         NeoForge.EVENT_BUS.addListener(ASPotionEvents::onEffectApplicable);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASSpellEvents::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASSpellEvents::onProjectileImpact);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASWarlockEvents::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASWorldgenEvents::onLootTableLoad);
         modBus.addListener(com.windanesz.ancientspellcraft.handler.ASWorldgenEvents::onRegisterSpawnPlacements);

@@ -1,9 +1,14 @@
 {
   "replace": false,
   "values": [
+    "ancientspellcraft:amulet_absorb_potion",
+    "ancientspellcraft:amulet_curse_ward",
+    "ancientspellcraft:amulet_cursed_mirror",
     "ancientspellcraft:amulet_domus",
     "ancientspellcraft:amulet_elemental_offense",
     "ancientspellcraft:amulet_mana",
+    "ancientspellcraft:amulet_persistence",
+    "ancientspellcraft:amulet_poison_resistance",
     "ancientspellcraft:amulet_power",
     "ancientspellcraft:amulet_rabbit",
     "ancientspellcraft:amulet_shield",
