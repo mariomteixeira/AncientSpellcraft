@@ -423,6 +423,11 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ancientspellcraft:unsealing_scroll",
+          "weight": 2
         }
       ]
     }

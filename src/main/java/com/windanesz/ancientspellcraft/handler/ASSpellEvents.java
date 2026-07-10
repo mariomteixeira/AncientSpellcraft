@@ -17,6 +17,29 @@ public final class ASSpellEvents {
         if (!player.level().isClientSide) {
             tickMasterBoltPull(player);
             tickSpringCharge(player);
+            tickPhaseJump(player);
+        }
+    }
+
+    /** Release do phase_jump: parou de canalizar -> teleporta min..max (x blast) + extra/segundo (Banish do Redux). */
+    private static void tickPhaseJump(Player player) {
+        var data = com.windanesz.ancientspellcraft.spell.PhaseJumpSpell.CHANNELING.get(player.getUUID());
+        if (data == null) return;
+        var spell = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getSpell(
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "phase_jump"));
+        if (!(spell instanceof com.windanesz.ancientspellcraft.spell.PhaseJumpSpell phaseJump)) return;
+        if (EntityUtil.isCasting(player, phaseJump)) {
+            return; // ainda canalizando
+        }
+        com.windanesz.ancientspellcraft.spell.PhaseJumpSpell.CHANNELING.remove(player.getUUID());
+        double min = phaseJump.property(com.windanesz.ancientspellcraft.spell.PhaseJumpSpell.MINIMUM_TELEPORT_DISTANCE);
+        double max = phaseJump.property(com.windanesz.ancientspellcraft.spell.PhaseJumpSpell.MAXIMUM_TELEPORT_DISTANCE);
+        double bonus = (data[0] / 20f) * phaseJump.property(com.windanesz.ancientspellcraft.spell.PhaseJumpSpell.EXTRA_DISTANCE_PER_SECOND);
+        double radius = (min + player.level().random.nextDouble() * (max - min)) * data[1] + bonus;
+        var banish = com.koomplo.wizardry.core.platform.Services.REGISTRY_UTIL.getSpell(
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ebwizardry", "banish"));
+        if (banish instanceof com.koomplo.wizardry.content.spell.necromancy.Banish b) {
+            b.teleport(player, player.level(), radius);
         }
     }
 

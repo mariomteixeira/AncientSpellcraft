@@ -50,7 +50,7 @@ for portado. Nada aqui entra "pela metade" — spell só é registrada quando fu
   ✓ AS-7k (SAGE): spectral_wall (desvio: colocacao instantanea vs EntityBuilder gradual),
   spectral_floor, teleport_object (usa o circulo de transporte do Redux; TODO charm_hoarders_orb),
   molten_boulder (construct que rola deixando magma conjurado + fogo, render = bloco de magma girando).
-  Restantes SAGE com sistema proprio: phase_jump (charge-release). ✓ AS-15:
+  SAGE COMPLETA: ✓ phase_jump (AS-16), ✓ AS-15:
   forced_channel/thoughtsteal/tome_warp/awaken_tome/perfect_theory. ✓ spring_charge (AS-14),
   arcane_wall/ternary_storm (AS-7p), conceal_object (AS-10a), experiment/pocket_library (AS-11).
 - **Rituais** (14) + lecterns + SpellLecternInteract (5 spells).
@@ -183,6 +183,11 @@ por effect_duration; nível pela potência; desvio: carga no CustomData em vez d
 1.21 é data-driven e o efeito é handler de qualquer forma; sem glint) e HORSE_WHISTLE (assobia
 pelo último cavalo/mais próximo domado raio 100; >20 teleporta, senão galopa até você;
 belt_horse TODO artefatos).
+✓ AS-16 (3.49.0): PHASE_JUMP (contínua SAGE: canaliza e ao soltar teleporta min..max x blast +
+extra por segundo — Banish do Redux; release pelo tracker do PlayerTick, padrão spring_charge) e
+UNSEALING_SCROLL (pergaminho raro de loot — right-click dissolve muro arcano GERADO a até 5
+blocos, consome 1; entra no pool dungeon_additions com peso 2; helper dissolveConnectedPermanent
+extraído do sealbreaker para o TemporaryBlockEntity).
 ✓ AS-15 (3.48.0): LECTERNS/TOMES DO SAGE + RUNEWORDS FINAIS —
   SAGE TOME (4 tiers, WandItem do Redux — desvio igual às espadas: sem as 36 variantes elementais;
   receita do novice com magic_silk no lugar do enchanted_filament, que não existe no port) +
@@ -264,7 +269,7 @@ magic_crystal do Redux girando — desvios: sem variantes gold/large_iron do 1.1
 usam), som ambiente beacon vanilla, sem ModelSentinel próprio). TAGS de ferramenta aplicadas
 (novos + antigos): pickaxe p/ ores/devoritium/sentinels/estações de pedra (crystal ores e
 devoritium = needs_iron_tool, nível 2 do 1.12.2), axe p/ crystal tree/scribing desk/sage lectern.
-TODO: unsealing scroll (depende do isGenerated do arcane_wall), ModelSentinel/LargeSentinel 1:1.
+TODO: ModelSentinel/LargeSentinel 1:1. ✓ unsealing scroll (AS-16).
 
 ## Overrides descartados (não voltam)
 

@@ -114,6 +114,8 @@ public final class ASItems {
             () -> new Item(new Item.Properties()));
     public static final Supplier<Item> TOME_CONTROLLER = ITEMS.register("tome_controller",
             com.windanesz.ancientspellcraft.item.TomeControllerItem::new);
+    public static final Supplier<Item> UNSEALING_SCROLL = ITEMS.register("unsealing_scroll",
+            com.windanesz.ancientspellcraft.item.UnsealingScrollItem::new);
 
     public static final Supplier<Item> CRYSTAL_SILVER_INGOT = ITEMS.register("crystal_silver_ingot",
             () -> new Item(new Item.Properties()));

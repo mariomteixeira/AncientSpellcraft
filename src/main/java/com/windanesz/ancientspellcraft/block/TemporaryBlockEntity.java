@@ -33,6 +33,33 @@ public class TemporaryBlockEntity extends BlockEntity {
         return lifetime <= 0;
     }
 
+    /**
+     * Dissolve o conjunto conectado de blocos PERMANENTES do tipo dado (muros de estrutura),
+     * a partir de start. Usado pelo runeword_sealbreaker e pelo unsealing_scroll.
+     *
+     * @return quantos blocos foram removidos
+     */
+    public static int dissolveConnectedPermanent(Level level, net.minecraft.world.level.block.Block block,
+                                                 BlockPos start, int cap) {
+        var queue = new java.util.ArrayDeque<BlockPos>();
+        var seen = new java.util.HashSet<BlockPos>();
+        queue.add(start);
+        seen.add(start);
+        int removed = 0;
+        while (!queue.isEmpty() && removed < cap) {
+            BlockPos p = queue.poll();
+            if (!level.getBlockState(p).is(block)) continue;
+            if (!(level.getBlockEntity(p) instanceof TemporaryBlockEntity be) || !be.isPermanent()) continue;
+            level.removeBlock(p, false);
+            removed++;
+            for (var d : net.minecraft.core.Direction.values()) {
+                BlockPos n = p.relative(d);
+                if (seen.add(n)) queue.add(n);
+            }
+        }
+        return removed;
+    }
+
     public void setCaster(LivingEntity caster) {
         this.casterUUID = caster == null ? null : caster.getUUID();
     }

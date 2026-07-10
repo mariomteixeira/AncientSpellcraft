@@ -412,6 +412,7 @@ public final class ASSpells {
         SPELLS.register("tome_warp", com.windanesz.ancientspellcraft.spell.TomeWarpSpell::new);
         SPELLS.register("forced_channel", com.windanesz.ancientspellcraft.spell.ForcedChannelSpell::new);
         SPELLS.register("thoughtsteal", com.windanesz.ancientspellcraft.spell.ThoughtstealSpell::new);
+        SPELLS.register("phase_jump", com.windanesz.ancientspellcraft.spell.PhaseJumpSpell::new);
 
         // AS-15: runewords com dependências fechadas
         SPELLS.register("runeword_empower", () -> new com.windanesz.ancientspellcraft.spell.RunewordSpell()
@@ -435,23 +436,8 @@ public final class ASSpells {
                             net.minecraft.world.level.ClipContext.Fluid.NONE, caster));
                     if (hit.getType() != net.minecraft.world.phys.HitResult.Type.BLOCK) return false;
                     var start = hit.getBlockPos();
-                    var queue = new java.util.ArrayDeque<net.minecraft.core.BlockPos>();
-                    var seen = new java.util.HashSet<net.minecraft.core.BlockPos>();
-                    queue.add(start);
-                    seen.add(start);
-                    int removed = 0;
-                    while (!queue.isEmpty() && removed < 64) {
-                        var p = queue.poll();
-                        if (!ctx.world().getBlockState(p).is(ASBlocks.ARCANE_WALL.get())) continue;
-                        if (!(ctx.world().getBlockEntity(p) instanceof com.windanesz.ancientspellcraft.block.TemporaryBlockEntity t)
-                                || !t.isPermanent()) continue;
-                        ctx.world().removeBlock(p, false);
-                        removed++;
-                        for (var d : net.minecraft.core.Direction.values()) {
-                            var n = p.relative(d);
-                            if (seen.add(n)) queue.add(n);
-                        }
-                    }
+                    int removed = com.windanesz.ancientspellcraft.block.TemporaryBlockEntity
+                            .dissolveConnectedPermanent(ctx.world(), ASBlocks.ARCANE_WALL.get(), start, 64);
                     if (removed == 0) return false;
                     ctx.world().explode(caster, start.getX() + 0.5, start.getY() + 0.5, start.getZ() + 0.5,
                             3.5f, net.minecraft.world.level.Level.ExplosionInteraction.NONE);

@@ -1176,7 +1176,7 @@
   "item.ancientspellcraft.transmutation_scroll.desc_extended": "Right-click for 3 seconds while holding this scroll to transmute the item in your offhand into a different object.",
   "item.ancientspellcraft.transmutation_scroll.interrupted": "You must cast the scroll continuously for 3 seconds to cast transmutation",
   "item.ancientspellcraft.transmutation_scroll.results_in_same_item": "Transmutation failed",
-  "item.ancientspellcraft.unsealing_scroll": "Scroll of Unsealing",
+  "item.ancientspellcraft.unsealing_scroll": "Unsealing Scroll",
   "item.ancientspellcraft.unsealing_scroll.desc": "Dispels an arcane wall which protects a structure",
   "item.ancientspellcraft.warlock_orb.buff": "+%1$s%% Chaos Spell potency",
   "item.ancientspellcraft.warlock_orb_advanced_earth": "Advanced Earth Warlock Orb",
