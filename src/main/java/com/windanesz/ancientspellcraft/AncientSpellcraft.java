@@ -102,5 +102,6 @@ public class AncientSpellcraft {
         NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onLivingFall);
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.HIGHEST,
                 com.windanesz.ancientspellcraft.handler.ASContingencyEvents::onLivingDeath);
+        NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.handler.ASDevoritiumEvents::onEntityJoinLevel);
     }
 }

@@ -26,10 +26,10 @@ public final class ASItems {
             () -> new com.koomplo.wizardry.content.item.ScrollItem(new Item.Properties()));
 
     public static final Supplier<Item> DEVORITIUM_INGOT = ITEMS.register("devoritium_ingot",
-            () -> new Item(new Item.Properties()));
+            () -> new com.windanesz.ancientspellcraft.item.DevoritiumItem(new Item.Properties()));
 
     public static final Supplier<Item> DEVORITIUM_NUGGET = ITEMS.register("devoritium_nugget",
-            () -> new Item(new Item.Properties()));
+            () -> new com.windanesz.ancientspellcraft.item.DevoritiumItem(new Item.Properties()));
 
     /** Orbes do warlock: 4 tiers x 8 elementos (1.12.2 ItemWarlockOrb), wands completas da classe. */
     static {
@@ -518,7 +518,14 @@ public final class ASItems {
             ITEMS.register("crystal_ore_" + entry.getKey(),
                     () -> new net.minecraft.world.item.BlockItem(entry.getValue().get(), new Item.Properties()));
         }
-        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door", "ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance",
+        // Blocos de devoritium usam item próprio (anti-magia ao carregar — 1.12.2 ItemBlockDevoritiumMaterial)
+        for (String name : new String[]{"devoritium_block", "devoritium_ore", "devoritium_gilded_stone", "devoritium_bars", "devoritium_door"}) {
+            ITEMS.register(name, () -> new com.windanesz.ancientspellcraft.item.DevoritiumBlockItem(
+                    net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
+                            net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(AncientSpellcraft.MODID, name)),
+                    new Item.Properties()));
+        }
+        for (String name : new String[]{"ice_crafting_table", "imbuement_altar_ruined", "sphere_cognizance",
                 "snow_slab",
                 "scribing_desk", "arcane_anvil", "sealed_stone", "unsealed_stone", "sentinel_block", "sentinel_block_diamond", "sage_lectern", "unseal_button",
                 "log_crystal_tree", "leaves_crystal_tree", "astral_diamond_ore", "crystal_silver_ore", "sage_flax",

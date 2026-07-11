@@ -17,13 +17,31 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Devoritium Magnet (1.12.2 ItemDevoritiumMagnet): use toca o berrante e aplica exaustão mágica V
- * por 8s em todas as criaturas num raio de 15 (cooldown de 60s). TODO marco 6: os delegates
- * anti-magia do devoritium (IDevoritium) quando os handlers do material forem portados.
+ * por 8s em todas as criaturas num raio de 15 (cooldown de 60s). Carregar/equipar pune com exaustão
+ * e bater com ele escala a exaustão do alvo (delegates do IDevoritium).
  */
-public class DevoritiumMagnetItem extends ArtifactItem {
+public class DevoritiumMagnetItem extends ArtifactItem implements com.windanesz.ancientspellcraft.material.IDevoritium {
 
     public DevoritiumMagnetItem(Rarity rarity) {
-        super(rarity, null);
+        // onTick cobre o magnet equipado no Curios (1.12.2 onWornTick — exaustão I)
+        super(rarity, new com.koomplo.wizardry.core.IArtifactEffect() {
+            @Override
+            public void onTick(Player player, Level level, ItemStack artifact) {
+                com.windanesz.ancientspellcraft.material.IDevoritium.applyCarryPenalty(artifact, level, player, false);
+            }
+        });
+    }
+
+    @Override
+    public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level, @NotNull net.minecraft.world.entity.Entity entity, int slotId, boolean isSelected) {
+        onUpdateDelegate(stack, level, entity, slotId, isSelected);
+        super.inventoryTick(stack, level, entity, slotId, isSelected);
+    }
+
+    @Override
+    public boolean hurtEnemy(@NotNull ItemStack stack, @NotNull net.minecraft.world.entity.LivingEntity target, @NotNull net.minecraft.world.entity.LivingEntity attacker) {
+        hitEntityDelegate(attacker, target);
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     @Override

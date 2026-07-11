@@ -39,21 +39,21 @@ public final class ASBlocks {
     }
 
     public static final Supplier<Block> DEVORITIUM_BLOCK = BLOCKS.register("devoritium_block",
-            () -> new Block(devoritiumProps()));
+            () -> new com.windanesz.ancientspellcraft.block.DevoritiumBlock(devoritiumProps()));
 
     public static final Supplier<Block> DEVORITIUM_ORE = BLOCKS.register("devoritium_ore",
-            () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 5.0F)
+            () -> new com.windanesz.ancientspellcraft.block.DevoritiumBlock(BlockBehaviour.Properties.of().strength(3.0F, 5.0F)
                     .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.STONE)));
 
     public static final Supplier<Block> DEVORITIUM_GILDED_STONE = BLOCKS.register("devoritium_gilded_stone",
-            () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F)
+            () -> new com.windanesz.ancientspellcraft.block.DevoritiumBlock(BlockBehaviour.Properties.of().strength(3.0F, 6.0F)
                     .requiresCorrectToolForDrops().sound(net.minecraft.world.level.block.SoundType.STONE)));
 
     public static final Supplier<Block> DEVORITIUM_BARS = BLOCKS.register("devoritium_bars",
-            () -> new net.minecraft.world.level.block.IronBarsBlock(devoritiumProps().noOcclusion()));
+            () -> new com.windanesz.ancientspellcraft.block.DevoritiumBarsBlock(devoritiumProps().noOcclusion()));
 
     public static final Supplier<Block> DEVORITIUM_DOOR = BLOCKS.register("devoritium_door",
-            () -> new net.minecraft.world.level.block.DoorBlock(net.minecraft.world.level.block.state.properties.BlockSetType.IRON,
+            () -> new com.windanesz.ancientspellcraft.block.DevoritiumDoorBlock(net.minecraft.world.level.block.state.properties.BlockSetType.IRON,
                     devoritiumProps().noOcclusion()));
 
     // AS-8e: natureza/minerios (1.12.2: BlockSageFlax, BlockCrystalLog/Leaves, ores dropam shard/nugget + 1-5 xp)

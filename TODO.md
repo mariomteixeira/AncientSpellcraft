@@ -296,7 +296,7 @@ re-casta sozinho, cd 1s).
   ring_arcane_flames (fogo próximo vira chama arcana 200t; desvio perf: raio 10 a cada 20t —
   1.12.2 varria raio 20 a cada ~10t);
   charm_devoritium_magnet (use: war_horn.ogg + exaustão mágica V 8s em criaturas no raio 15,
-  cd 60s; delegates anti-magia do devoritium TODO marco 6);
+  cd 60s; delegates anti-magia do devoritium ✓ 3.68.0);
   belt_scroll_holder (SocketedArtifactItem: encaixa wand upgrade exceto storage/siphon/attunement/
   melee; com condenser = +1 mana/50t nas mãos; desvio: sem a GUI de slot do 1.12.2);
   DAILIES x6 (1x por dia de MC; desvio: sem a textura ready/not_ready por item property):
@@ -530,4 +530,7 @@ FICAM (baixo valor/sem uso — decisão documentada):
 - LargeSentinel: os templates de estrutura não usam — sem uso in-game.
 - Remap runestone→chiseled nos templates (cosmético de estrutura).
 - Shaders (assets/shaders) — mesmo caso dos shaders do Redux (marco 6 do port principal).
-- Mecânicas anti-magia do devoritium (handlers) — blocos/itens já existem.
+- ~~Mecânicas anti-magia do devoritium (handlers)~~ ✓ 3.68.0: IDevoritium portado (stepOn/entityInside
+  nos 5 blocos, inventoryTick em ingot/nugget/block items/magnet, onTick no magnet equipado,
+  hurtEnemy do magnet, construct sobre devoritium expira em 20t). Armas/armadura de devoritium do
+  1.12.2 seguem não registradas no port (hitEntityDelegate fica sem outros consumidores).
