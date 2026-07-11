@@ -10,6 +10,10 @@
         },
         {
           "type": "minecraft:item",
+          "name": "ancientspellcraft:charm_shadow_blade"
+        },
+        {
+          "type": "minecraft:item",
           "name": "ancientspellcraft:charm_stone_tablet"
         },
         {

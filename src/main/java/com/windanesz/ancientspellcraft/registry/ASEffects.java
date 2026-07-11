@@ -135,10 +135,12 @@ public final class ASEffects {
             ManaRegenerationEffect::new);
 
     public static final DeferredHolder<MobEffect, MobEffect> MAGELIGHT = EFFECTS.register("magelight",
-            () -> new LightSourceEffect(0xFAFCCC, () -> ASBlocks.MAGELIGHT.get()));
+            () -> new LightSourceEffect(0xFAFCCC, () -> ASBlocks.MAGELIGHT.get(),
+                    com.koomplo.wizardry.setup.registries.client.EBParticles.FLASH, 255, 255, 204, 0, 0.7F / 1.5F, 40));
 
     public static final DeferredHolder<MobEffect, MobEffect> CANDLELIGHT = EFFECTS.register("candlelight",
-            () -> new LightSourceEffect(0xFAFCCC, () -> ASBlocks.CANDLELIGHT.get()));
+            () -> new LightSourceEffect(0xFAFCCC, () -> ASBlocks.CANDLELIGHT.get(),
+                    com.koomplo.wizardry.setup.registries.client.EBParticles.MAGIC_FIRE, 246, 180, 80, 50, 0.46F, 80));
 
     /** 1.12.2 PotionWaterWalking: anda por cima d'agua. */
     public static final DeferredHolder<MobEffect, MobEffect> WATER_WALKING = EFFECTS.register("water_walking",

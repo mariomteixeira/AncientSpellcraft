@@ -566,3 +566,23 @@ FICAM (baixo valor/sem uso — decisão documentada):
   mimic_spell, wisp_disappear).
 - Redux 0.1.33 corrigiu 12 entradas de som do EB que faltavam (conjure_armour/darkvision/fireskin
   castavam mudas + sufixos de bubble/slime/lightning_pulse/zombie_apocalypse).
+
+## AS-37 (3.71.0) — residuais miúdos fechados
+
+- **Armadura animada** (1.12.2 AnimateWeapon ramo conjure_armour): animate_weapon com wand de
+  conjure_armor no offhand veste o set espectral do EB no minion (corpo invisível, só a armadura
+  aparece — renderer trocado para LivingEntityRenderer + HumanoidArmorLayer), drop chance 0,
+  -50% velocidade, +50% attack speed, metade da vida; morre quando perde as peças. A conjuração
+  GENÉRICA de item por reflection do 1.12.2 fica de fora (nicho; wand sem conjure_armor no offhand
+  continua sendo animada como item).
+- **Dash da shadow blade**: charm_shadow_blade (EPIC) registrado (textura/model/lang/loot epic/
+  tag curios) — right-click com ele equipado = forma sombria 6t (invisível/invulnerável, dash
+  look*1.5 ou subida agachado, FLASH pretas, wither 80t em quem encostar, cd 80t; imunes: com
+  wither/wither skeleton/wither boss).
+- **Slowness do stone fist**: -20% de velocidade enquanto empunhado (MULTIPLY_CUMULATIVE do
+  1.12.2 = ADD_MULTIPLIED_TOTAL).
+- **Partículas do mage light/candlelight**: FLASH branca / MAGIC_FIRE alaranjada sobre a cabeça
+  (valores 1.12.2), client no applyEffectTick.
+- **RuneItem desenha a runa no chão** (PlacedRuneBlock, consome 1) — decorativo; o padrão físico
+  de ritual do 1.12.2 não porta (Ritual Core cobre o sistema).
+- **Textura por tier do forbidden tome**: TODO stale — já estava implementado (property + overrides).

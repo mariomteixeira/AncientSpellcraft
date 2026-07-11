@@ -7,12 +7,17 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import org.jetbrains.annotations.NotNull;
 
-/** Punho de pedra conjurado (1.12.2 ItemStoneFist). TODO slowness enquanto segura. */
+/** Punho de pedra conjurado (1.12.2 ItemStoneFist): -20% de velocidade enquanto empunhado. */
 public class StoneFistItem extends SwordItem {
 
     public StoneFistItem(Tier tier, int bonusDamage) {
         super(tier, new Properties().durability(600).rarity(Rarity.UNCOMMON)
-                .attributes(SwordItem.createAttributes(tier, 3 + bonusDamage, -2.4F)));
+                .attributes(SwordItem.createAttributes(tier, 3 + bonusDamage, -2.4F)
+                        .withModifierAdded(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED,
+                                new net.minecraft.world.entity.ai.attributes.AttributeModifier(
+                                        net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "stone_fist_slowness"),
+                                        -0.2, net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                                net.minecraft.world.entity.EquipmentSlotGroup.MAINHAND)));
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.koomplo.wizardry.api.content.spell.Spell;
 import com.koomplo.wizardry.content.item.SpellBookItem;
 import net.minecraft.resources.ResourceLocation;
 
-/** Tomo proibido (1.12.2 ItemWarlockSpellBook): o livro das spells de warlock. TODO textura por tier. */
+/** Tomo proibido (1.12.2 ItemWarlockSpellBook): o livro das spells de warlock; textura por tier via item property "ancientspellcraft:tier" (selado até a spell ser descoberta). */
 public class ForbiddenTomeItem extends SpellBookItem {
 
     private static final ResourceLocation GUI_TEXTURE =

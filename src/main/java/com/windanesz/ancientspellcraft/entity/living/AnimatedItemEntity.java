@@ -25,12 +25,39 @@ import java.util.List;
 /**
  * Item animado que luta sozinho (1.12.2 EntityAnimatedItem): espada corpo-a-corpo, arco a distancia,
  * wand casta a spell atual (consumindo mana), TNT explode. Corpo invisivel - o renderer mostra o item.
- * TODO armadura animada (sage tome, AS-7).
+ * Com HAS_ARMOUR veste o set espectral (animate_weapon + conjure_armour no offhand).
  */
 public class AnimatedItemEntity extends PathfinderMob implements ISpellCaster, RangedAttackMob {
 
+    private static final net.minecraft.network.syncher.EntityDataAccessor<Boolean> HAS_ARMOUR =
+            net.minecraft.network.syncher.SynchedEntityData.defineId(AnimatedItemEntity.class,
+                    net.minecraft.network.syncher.EntityDataSerializers.BOOLEAN);
+
     public AnimatedItemEntity(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
+    }
+
+    @Override
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HAS_ARMOUR, false);
+    }
+
+    public boolean hasArmour() {
+        return this.entityData.get(HAS_ARMOUR);
+    }
+
+    public void setHasArmour(boolean hasArmour) {
+        this.entityData.set(HAS_ARMOUR, hasArmour);
+    }
+
+    private boolean lostArmour() {
+        for (var slot : new net.minecraft.world.entity.EquipmentSlot[]{
+                net.minecraft.world.entity.EquipmentSlot.HEAD, net.minecraft.world.entity.EquipmentSlot.CHEST,
+                net.minecraft.world.entity.EquipmentSlot.LEGS, net.minecraft.world.entity.EquipmentSlot.FEET}) {
+            if (!getItemBySlot(slot).isEmpty()) return false;
+        }
+        return true;
     }
 
     public static AttributeSupplier.Builder createAnimatedItemAttributes() {
@@ -68,7 +95,7 @@ public class AnimatedItemEntity extends PathfinderMob implements ISpellCaster, R
 
         var owner = getData(EBAttachments.MINION_DATA).getOwner();
         if (tickCount > 20 && ((getData(EBAttachments.MINION_DATA).isSummoned() && (owner == null || !owner.isAlive()))
-                || getMainHandItem().isEmpty())) {
+                || (hasArmour() ? lostArmour() : getMainHandItem().isEmpty()))) {
             discard();
             return;
         }

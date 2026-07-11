@@ -8,7 +8,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-/** Runa desenhada no chao (1.12.2 BlockPlacedRune, decorativa). TODO padrao de ritual sobre runas colocadas. */
+/** Runa desenhada no chao pela RuneItem (1.12.2 BlockPlacedRune) — decorativa; os rituais do port rodam pelo Ritual Core, nao pelo padrao fisico de runas do 1.12.2. */
 public class PlacedRuneBlock extends Block {
 
     private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 0.5, 15);

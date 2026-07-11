@@ -140,6 +140,7 @@ public final class ASItems {
                     com.windanesz.ancientspellcraft.item.ASArtifactEffects.socketOffense()));
     public static final Supplier<Item> RING_ABSORB_CRYSTAL = artifact("ring_absorb_crystal", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_POTION_KIT = artifact("charm_potion_kit", net.minecraft.world.item.Rarity.RARE, null);
+    public static final Supplier<Item> CHARM_SHADOW_BLADE = artifact("charm_shadow_blade", net.minecraft.world.item.Rarity.EPIC, null);
     public static final Supplier<Item> CHARM_WARDROBE = artifact("charm_wardrobe", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> CHARM_METEORITE_STONE = artifact("charm_meteorite_stone", net.minecraft.world.item.Rarity.RARE, null);
     public static final Supplier<Item> RING_MANA_TRANSFER = artifact("ring_mana_transfer", net.minecraft.world.item.Rarity.UNCOMMON, null);
