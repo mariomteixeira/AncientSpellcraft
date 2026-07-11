@@ -17,24 +17,17 @@ import java.util.List;
  * Absorve um artefato do offhand (1.12.2 AbsorbArtefact): body_power_gem acumula PowerGems
  * (+1% de potência por gema no cast, máx 30 — hook no ASWarlockEvents); outros artefatos ficam
  * guardados em AbsorbedArtefact SEM efeito — fiel ao 1.12.2 shipped, que tinha a ativação
- * comentada no ArtefactCheckEvent. Blacklist com os defaults do 1.12.2 (config no marco 7).
+ * comentada no ArtefactCheckEvent. Blacklist do absorb_artefact_blacklist (defaults 1.12.2).
  */
 public class AbsorbArtefact extends WarlockChannelSpell {
 
     public static final SpellProperty<Integer> TIER_LIMIT = SpellProperty.intProperty("tier_limit", 2);
-    public static final int MAX_POWER_GEMS = 30; // gem_of_power_max_absorb_amount (1.12.2)
-
-    private static final List<ResourceLocation> BLACKLIST = List.of(
-            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "charm_philosophers_stone"),
-            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "cornucopia"),
-            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "charm_bucket_coal"),
-            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "charm_evergrowing_crystal"),
-            ResourceLocation.fromNamespaceAndPath("ancientspellcraft", "charm_gold_bag"));
 
     @Override
     protected boolean isValidOffhand(net.minecraft.world.entity.player.Player caster, ItemStack stack) {
         if (!(stack.getItem() instanceof ArtifactItem)) return false;
-        if (BLACKLIST.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()))) return false;
+        if (com.windanesz.ancientspellcraft.ASServerConfig.ABSORB_ARTEFACT_BLACKLIST.get()
+                .contains(BuiltInRegistries.ITEM.getKey(stack.getItem()))) return false;
         // 1.12.2: só as raridades conhecidas são limitadas (UNCOMMON=0, RARE=1, EPIC=2)
         int ordinal = switch (stack.getRarity()) {
             case UNCOMMON -> 0;
@@ -55,7 +48,7 @@ public class AbsorbArtefact extends WarlockChannelSpell {
         var tag = ctx.caster().getData(ASAttachments.WARLOCK_DATA);
         if (offhand.is(ASItems.BODY_POWER_GEM.get())) {
             int gems = tag.getInt("PowerGems");
-            if (gems > MAX_POWER_GEMS) return false;
+            if (gems > com.windanesz.ancientspellcraft.ASServerConfig.GEM_OF_POWER_MAX_ABSORB_AMOUNT.get()) return false;
             tag.putInt("PowerGems", gems + 1);
         } else {
             tag.putString("AbsorbedArtefact", BuiltInRegistries.ITEM.getKey(offhand.getItem()).toString());

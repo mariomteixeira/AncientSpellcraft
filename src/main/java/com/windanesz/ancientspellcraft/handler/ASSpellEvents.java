@@ -251,7 +251,8 @@ public final class ASSpellEvents {
     public static void onSpellCastPost(com.koomplo.wizardry.api.content.event.SpellCastEvent.Post event) {
         if (event.getCaster() instanceof Player player && !player.level().isClientSide
                 && player.getMainHandItem().getItem() instanceof com.windanesz.ancientspellcraft.item.BattlemageSwordItem) {
-            com.windanesz.ancientspellcraft.item.BattlemageSwordItem.addCharge(player.getMainHandItem(), 20);
+            com.windanesz.ancientspellcraft.item.BattlemageSwordItem.addCharge(player.getMainHandItem(),
+                    com.windanesz.ancientspellcraft.ASServerConfig.SPELLBLADE_CHARGE_GAIN_PER_SPELLCAST.get());
         }
     }
 

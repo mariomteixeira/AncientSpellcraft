@@ -100,10 +100,11 @@ public final class ASMetamagicEvents {
         }
 
         // metamagic_projectile (AS-9b): flag armada -> cancela o cast e dispara o projétil que
-        // carrega a spell. Rays/projéteis/metamagic ficam de fora (1.12.2; sem a blacklist de
-        // config — marco 7).
+        // carrega a spell. Rays/projéteis/metamagic e a blacklist de config ficam de fora (1.12.2).
         if (flags.getBoolean(com.windanesz.ancientspellcraft.spell.MetamagicProjectileSpell.FLAG)) {
             var spell = event.getSpell();
+            if (com.windanesz.ancientspellcraft.ASServerConfig.METAMAGIC_PROJECTILE_INCOMPATIBLE_SPELLS.get()
+                    .contains(spell.getLocation())) return;
             if (!(spell instanceof com.koomplo.wizardry.content.spell.abstr.RaySpell
                     || spell instanceof com.koomplo.wizardry.content.spell.abstr.ArrowSpell
                     || spell instanceof com.koomplo.wizardry.content.spell.abstr.ProjectileSpell
@@ -165,11 +166,11 @@ public final class ASMetamagicEvents {
                 if (spells.get(i) != metaSpell) continue;
                 long[] endTimes = com.koomplo.wizardry.api.content.util.CastItemDataHelper.getCooldownEndTimes(stack);
                 if (endTimes.length < spells.size()) endTimes = java.util.Arrays.copyOf(endTimes, spells.size());
-                endTimes[i] = now + 1200;
+                endTimes[i] = now + com.windanesz.ancientspellcraft.ASServerConfig.METAMAGIC_WAND_COOLDOWN.get();
                 com.koomplo.wizardry.api.content.util.CastItemDataHelper.setCooldownEndTimes(stack, endTimes);
                 int[] maxCooldowns = com.koomplo.wizardry.api.content.util.CastItemDataHelper.getMaxCooldowns(stack);
                 if (maxCooldowns.length < spells.size()) maxCooldowns = java.util.Arrays.copyOf(maxCooldowns, spells.size());
-                maxCooldowns[i] = 1200;
+                maxCooldowns[i] = com.windanesz.ancientspellcraft.ASServerConfig.METAMAGIC_WAND_COOLDOWN.get();
                 com.koomplo.wizardry.api.content.util.CastItemDataHelper.setMaxCooldowns(stack, maxCooldowns);
             }
         }

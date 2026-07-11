@@ -138,8 +138,7 @@ public class SphereCognizanceBlockEntity extends BaseContainerBlockEntity {
     private void completeResearch(Level level, Spell spell) {
         double roll = level.random.nextDouble();
         Player player = lastPlayer == null ? null : level.getPlayerByUUID(lastPlayer);
-        // default 1.12.2: sphere_spell_identification_chance = 0.05 (config no marco 7)
-        if (roll < 0.05 && player != null) {
+        if (roll < com.windanesz.ancientspellcraft.ASServerConfig.SPHERE_SPELL_IDENTIFICATION_CHANCE.get() && player != null) {
             hintTypeId = 2;
             hintId = 1 + level.random.nextInt(HINT_COUNTS[2]);
             if (player.getData(EBAttachments.SPELL_MANAGER_DATA).discoverSpell(spell)) {

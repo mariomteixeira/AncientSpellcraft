@@ -51,20 +51,13 @@ public final class ASContingencyEvents {
         }
     }
 
-    /** Efeitos de imobilidade do 1.12.2 (defaults do immobility_contingency_effects; config marco 7). */
-    private static final java.util.List<ResourceLocation> IMMOBILITY_EFFECTS = java.util.List.of(
-            ResourceLocation.fromNamespaceAndPath("ebwizardry", "paralysis"),
-            ResourceLocation.fromNamespaceAndPath("ebwizardry", "containment"),
-            ResourceLocation.fromNamespaceAndPath("ebwizardry", "slow_time"),
-            ResourceLocation.fromNamespaceAndPath("ebwizardry", "frost"),
-            ResourceLocation.withDefaultNamespace("slowness"));
 
     /** IMMOBILITY (1.12.2 onPotionAddedEvent): efeito da lista aplicado ao player dispara. */
     public static void onEffectAdded(net.neoforged.neoforge.event.entity.living.MobEffectEvent.Added event) {
         if (!(event.getEntity() instanceof Player player) || player.level().isClientSide) return;
         ResourceLocation id = net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.getKey(
                 event.getEffectInstance().getEffect().value());
-        if (id != null && IMMOBILITY_EFFECTS.contains(id)) {
+        if (id != null && com.windanesz.ancientspellcraft.ASServerConfig.IMMOBILITY_CONTINGENCY_EFFECTS.get().contains(id)) {
             trigger(player, ContingencySpell.Type.IMMOBILITY);
         }
     }

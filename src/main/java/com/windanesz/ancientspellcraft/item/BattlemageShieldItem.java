@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Escudo do battlemage (1.12.2 ItemBattlemageShield): reserva de mana no lugar da durabilidade
- * (default 1000 do runic_shield_durability — config no marco 7); bloquear gasta a mana
+ * (runic_shield_durability, default 1000); bloquear gasta a mana
  * (ASSpellEvents.onShieldBlock); mana vazia = guarda cai e não levanta; +5 de armadura e +5 de
  * toughness na offhand; só battlemage de set completo levanta a guarda. Com charm_glyph_shield_disable
  * equipado o cooldown de quebra de guarda (machado/runeword_shatter) some. Desvios: recarga por
@@ -38,7 +38,7 @@ import java.util.List;
 public class BattlemageShieldItem extends ShieldItem implements IManaItem {
 
     private static final String MANA_TAG = "Mana";
-    private static final int CAPACITY = 1000;
+    private static int capacity() { return com.windanesz.ancientspellcraft.ASServerConfig.RUNIC_SHIELD_DURABILITY.get(); }
 
     public BattlemageShieldItem() {
         super(new Properties().stacksTo(1).attributes(ItemAttributeModifiers.builder()
@@ -52,19 +52,19 @@ public class BattlemageShieldItem extends ShieldItem implements IManaItem {
     @Override
     public int getMana(ItemStack stack) {
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
-        if (data == null || !data.copyTag().contains(MANA_TAG)) return CAPACITY;
+        if (data == null || !data.copyTag().contains(MANA_TAG)) return capacity();
         return data.copyTag().getInt(MANA_TAG);
     }
 
     @Override
     public void setMana(ItemStack stack, int mana) {
-        int clamped = Math.max(0, Math.min(mana, CAPACITY));
+        int clamped = Math.max(0, Math.min(mana, capacity()));
         CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putInt(MANA_TAG, clamped));
     }
 
     @Override
     public int getManaCapacity(ItemStack stack) {
-        return CAPACITY;
+        return capacity();
     }
 
     @Override
@@ -106,12 +106,12 @@ public class BattlemageShieldItem extends ShieldItem implements IManaItem {
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        return getMana(stack) < CAPACITY;
+        return getMana(stack) < capacity();
     }
 
     @Override
     public int getBarWidth(@NotNull ItemStack stack) {
-        return Math.round(13.0F * getMana(stack) / CAPACITY);
+        return Math.round(13.0F * getMana(stack) / capacity());
     }
 
     @Override
@@ -124,7 +124,7 @@ public class BattlemageShieldItem extends ShieldItem implements IManaItem {
                                 @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
         tooltip.add(Component.translatable("item.ancientspellcraft.mana_artifact.mana",
-                getMana(stack), CAPACITY).withStyle(ChatFormatting.BLUE));
+                getMana(stack), capacity()).withStyle(ChatFormatting.BLUE));
     }
 
     private static ResourceLocation rl(String path) {

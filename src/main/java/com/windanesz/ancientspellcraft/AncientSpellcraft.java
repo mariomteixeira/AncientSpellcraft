@@ -15,6 +15,7 @@ public class AncientSpellcraft {
     public static final String MODID = "ancientspellcraft";
 
     public AncientSpellcraft(IEventBus modBus, ModContainer container) {
+        com.koomplo.wizardry.core.config.ConfigManager.register(ASServerConfig.INSTANCE);
         com.windanesz.ancientspellcraft.registry.ASItems.ITEMS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASItems.CREATIVE_TABS.register(modBus);
         com.windanesz.ancientspellcraft.registry.ASEffects.EFFECTS.register(modBus);

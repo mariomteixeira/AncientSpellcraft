@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Diamond Goose (1.12.2 ItemDiamondGoose): sneak-use num bloco grava o TIPO dele; equipado, grasna
- * quando o bloco está perto (<=4 sempre, 5-8 alternado — raio 8, config marco 7); segurando na mão,
+ * quando o bloco está perto (<=4 sempre, 5-8 alternado — raio do diamond_goose_detection_range); segurando na mão,
  * a cada 10s indica a direção relativa do bloco mais próximo. 15% de chance de mensagem de quack.
  */
 public class DiamondGooseItem extends ArtifactItem {
@@ -35,7 +35,7 @@ public class DiamondGooseItem extends ArtifactItem {
     private static final String BOUND_BLOCK_TAG = "boundBlock";
     private static final String LAST_DIRECTION_TAG = "lastDirectionTime";
     private static final String MID_QUACK_TAG = "lastMidRangeQuackState";
-    private static final int DETECTION_RANGE = 8;
+    private static int detectionRange() { return com.windanesz.ancientspellcraft.ASServerConfig.DIAMOND_GOOSE_DETECTION_RANGE.get(); }
 
     public DiamondGooseItem(Rarity rarity) {
         super(rarity, new IArtifactEffect() {
@@ -105,9 +105,10 @@ public class DiamondGooseItem extends ArtifactItem {
         BlockPos center = player.blockPosition();
         double best = Double.MAX_VALUE;
         BlockPos found = null;
-        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-DETECTION_RANGE, -DETECTION_RANGE, -DETECTION_RANGE),
-                center.offset(DETECTION_RANGE, DETECTION_RANGE, DETECTION_RANGE))) {
-            if (center.distSqr(pos) > DETECTION_RANGE * DETECTION_RANGE) continue;
+        int range = detectionRange();
+        for (BlockPos pos : BlockPos.betweenClosed(center.offset(-range, -range, -range),
+                center.offset(range, range, range))) {
+            if (center.distSqr(pos) > (double) range * range) continue;
             Block block = player.level().getBlockState(pos).getBlock();
             if (BuiltInRegistries.BLOCK.getKey(block).toString().equals(boundBlock)) {
                 double dist = center.distSqr(pos);

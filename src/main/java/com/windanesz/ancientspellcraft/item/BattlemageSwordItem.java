@@ -52,7 +52,7 @@ public class BattlemageSwordItem extends WandItem {
             boolean charged = getCharge(stack) >= FULL_CHARGE;
             ElementalSwordEffects.hit(armor.getElement(), stack, target, player, charged);
             if (charged) resetCharge(stack);
-            else addCharge(stack, 5);
+            else addCharge(stack, com.windanesz.ancientspellcraft.ASServerConfig.SPELLBLADE_CHARGE_GAIN_PER_HIT.get());
         }
         return true;
     }
