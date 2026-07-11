@@ -534,3 +534,19 @@ FICAM (baixo valor/sem uso — decisão documentada):
   nos 5 blocos, inventoryTick em ingot/nugget/block items/magnet, onTick no magnet equipado,
   hurtEnemy do magnet, construct sobre devoritium expira em 20t). Armas/armadura de devoritium do
   1.12.2 seguem não registradas no port (hitEntityDelegate fica sem outros consumidores).
+
+## AS-35 (3.70.0) — shader do astral projection + limpeza de TODOs + attunement
+
+- Shader do astral projection via API nova do Redux (PostEffects.register, 0.1.32): reusa o
+  sixth_sense do EB — fiel à intenção do 1.12.2 (PotionAstralProjection.SHADER apontava para uma
+  cópia idêntica do JSON do EB e nunca era carregado; os 4 JSONs de shader do AS 1.12.2 eram
+  cópias mortas — nada mais a portar).
+- Gate das class spells completo: warlock attuned não casta spell de outra classe
+  (warlock_attunement_prevents_spell_cast do 1.12.2) + lang keys dot-format adicionadas
+  (must_have_full_matching_set só existia no formato legacy com dois-pontos).
+- TODOs stale removidos (trabalho já entregue): BER da Sphere (AS-34), câmera do astral/eagle_eye
+  (AS-8/17), progression no arcane anvil (já exigia), texturas/efeitos da espada (AS-30).
+- Lesser do SORCERY anotado como código morto do 1.12.2 (handler nunca existiu — decisão AS-32).
+- Residuais que FICAM (baixo valor): skeleton mage elemento por bioma + radiant_spark fallback,
+  armadura animada (sage tome), ritual sobre runas colocadas, textura por tier do forbidden tome,
+  progression exigida no arcane anvil p/ hilt+blade (não existia no 1.12.2).

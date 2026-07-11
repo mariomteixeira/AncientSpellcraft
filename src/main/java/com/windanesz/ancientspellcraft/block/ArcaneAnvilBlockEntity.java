@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * BE da bigorna arcana. Receitas 1.12.2: hilt+blade -> espada novice; crystal_silver_ingot ->
- * crystal_silver_plating do Redux; espada+ingot -> proximo tier (TODO exigir progression).
+ * crystal_silver_plating do Redux; espada+ingot -> proximo tier (exige a progressao do proximo tier).
  */
 public class ArcaneAnvilBlockEntity extends BaseContainerBlockEntity {
 

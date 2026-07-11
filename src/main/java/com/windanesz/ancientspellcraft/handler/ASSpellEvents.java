@@ -158,7 +158,7 @@ public final class ASSpellEvents {
         event.setAmount(event.getAmount() + level * 2);
     }
 
-    /** Gate das class spells (1.12.2 IClassSpell.onSpellCastPreEvent): exige o set completo. TODO warlock attunement. */
+    /** Gate das class spells (1.12.2 IClassSpell.onSpellCastPreEvent): set completo + warlock attunement. */
     public static void onClassSpellCastPre(com.koomplo.wizardry.api.content.event.SpellCastEvent.Pre event) {
         if (!(event.getSpell() instanceof com.windanesz.ancientspellcraft.spell.ClassSpell classSpell)) return;
         if (!(event.getCaster() instanceof Player player)) return;
@@ -166,6 +166,14 @@ public final class ASSpellEvents {
                 && !ASWarlockEvents.isWarlockAttuned(player)) {
             player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
                     "message.ancientspellcraft.not_warlock_attuned"), true);
+            event.setCanceled(true);
+            return;
+        }
+        // 1.12.2: quem fez o ritual de attunement só casta class spell de warlock
+        if (classSpell.armourClass() != com.koomplo.wizardry.content.item.armor.WizardArmorType.WARLOCK
+                && ASWarlockEvents.isWarlockAttuned(player)) {
+            player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                    "message.ancientspellcraft.warlock_attunement_prevents_spell_cast"), true);
             event.setCanceled(true);
             return;
         }

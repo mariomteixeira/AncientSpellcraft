@@ -42,6 +42,7 @@ public class AncientSpellcraft {
                     com.windanesz.ancientspellcraft.network.WarlockCastC2S::handle);
         });
         if (net.neoforged.fml.loading.FMLEnvironment.dist.isClient()) {
+            com.windanesz.ancientspellcraft.client.ASClientHooks.registerPostEffects();
             NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASClientEvents::onLeftClickEmpty);
             NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASCameraClientHandler::onClientTick);
             NeoForge.EVENT_BUS.addListener(com.windanesz.ancientspellcraft.client.ASCameraClientHandler::onComputeFovModifier);

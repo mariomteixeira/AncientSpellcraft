@@ -13,7 +13,6 @@ import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 
 /**
  * Lógica de evento das potions do 1.12.2 que a carregavam via @SubscribeEvent.
- * TODO astral_projection e eagle_eye: dependem do sistema de câmera client (astral travel) — portam juntos.
  */
 public final class ASPotionEvents {
 

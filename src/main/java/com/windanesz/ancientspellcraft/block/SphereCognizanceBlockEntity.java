@@ -29,7 +29,7 @@ import java.util.UUID;
  * (80t, 2 cristais — sorteia o conteudo via RelicItem.research; com charm_stone_tablet equipado sob
  * lua cheia o tipo e forcado para SPELL). Spell ja conhecida pelo ultimo usuario nao pesquisa (nao
  * queima cristal). Desvio documentado: pesquisa continua com a GUI fechada (1.12.2 exigia inUse) e
- * sem o botao de iniciar; TODO BER animado.
+ * sem o botao de iniciar.
  */
 public class SphereCognizanceBlockEntity extends BaseContainerBlockEntity {
 

@@ -21,7 +21,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** Esfera da Cognicao (1.12.2 BlockSphereCognizance). TODO BER animado (esfera girando). */
+/** Esfera da Cognicao (1.12.2 BlockSphereCognizance). */
 public class SphereCognizanceBlock extends BaseEntityBlock {
 
     private static final VoxelShape SHAPE = net.minecraft.world.level.block.Block.box(5, 0, 5, 11, 8, 11);

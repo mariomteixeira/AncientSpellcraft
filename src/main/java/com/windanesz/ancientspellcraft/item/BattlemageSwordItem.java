@@ -20,8 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Espada do battlemage (1.12.2 ItemBattlemageSword): wand completa do Redux COM dano melee por
- * tier; golpes aplicam o efeito elemental do set battlemage vestido. TODO: progression para
- * upgrade no anvil, texturas por elemento, efeitos EnumElementalSwordEffect 1:1.
+ * tier; golpes aplicam o efeito elemental do set battlemage vestido.
  */
 public class BattlemageSwordItem extends WandItem {
 

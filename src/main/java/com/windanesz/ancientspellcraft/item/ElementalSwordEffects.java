@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * Efeitos elementais 1:1 da espada de battlemage (1.12.2 EnumElementalSwordEffect): lesser em todo
  * golpe, greater no golpe com a carga cheia. Desvios: partículas dos embers/beam aproximadas ou
- * omitidas (server-side); o lesser do SORCERY era um evento de left-click à parte no 1.12.2 (TODO);
+ * omitidas (server-side); o lesser do SORCERY era código morto no 1.12.2 (handler nunca existiu — não porta);
  * o ramo do glyph_leeching no greater da NECROMANCY já existe genérico no port (onda 3b).
  */
 public final class ElementalSwordEffects {
@@ -151,7 +151,7 @@ public final class ElementalSwordEffects {
                 }
             }
             case "sorcery" -> {
-                // lesser: no 1.12.2 era tratado num evento de left-click à parte (TODO)
+                // lesser: código morto no 1.12.2 (o handler de left-click nunca existiu) — sem efeito, fiel
                 if (charged) {
                     double d = wielder.getRandom().nextDouble();
                     if (d < 0.2) {

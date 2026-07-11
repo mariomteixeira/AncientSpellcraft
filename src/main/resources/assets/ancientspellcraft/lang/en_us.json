@@ -2129,6 +2129,8 @@
   "key.ancientspellcraft.key_warlock_cast": "Warlock Spell Cast (Absorbed Spell)",
   "key.ancientspellcraft.open_radial_spell_menu": "Open Radial Spell Menu",
   "message.ancientspellcraft.not_warlock_attuned": "You must perform the Warlock Attunement ritual first",
+  "message.ancientspellcraft.warlock_attunement_prevents_spell_cast": "You can only use warlock spells because of your attunement!",
+  "message.ancientspellcraft.must_have_full_matching_set": "You must wear a full set of matching %1$s armour to cast this spell",
   "message.ancientspellcraft.skull_sentinel.detected": "The Skull Watch noticed %s at %s, %s, %s!",
   "message.ancientspellcraft\\:curse.of_insomnia.sleep_prevented": "You feel too restless to sleep...",
   "message.ancientspellcraft\\:missing_class_spell_requirements": "Failed to cast this %1$s spell",
