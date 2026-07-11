@@ -550,3 +550,19 @@ FICAM (baixo valor/sem uso — decisão documentada):
 - Residuais que FICAM (baixo valor): skeleton mage elemento por bioma + radiant_spark fallback,
   armadura animada (sage tome), ritual sobre runas colocadas, textura por tier do forbidden tome,
   progression exigida no arcane anvil p/ hilt+blade (não existia no 1.12.2).
+
+## AS-36 (3.70.1) — auditoria de TODOs e sons
+
+- Auditoria dos 30 efeitos com TODO no ASEffects: 25 eram stale (os sistemas fecharam — metamagic,
+  curses, wards, warlock — e o comentário ficou); limpos. 5 são shells SEM consumidor porque a
+  fonte 1.12.2 não foi portada: curse_temporal_casualty, dimensional_anchor, martyr,
+  martyr_beneficial, tenacity (anotados no registro). TODO real restante no ASEffects: só o
+  makeAirPocket do burrow.
+- WarlockOrbItem: TODO stale removido (AS-28 apurou que restrição a warlock e consumo pelo orb
+  não existiam no 1.12.2).
+- Sons validados 1:1 contra o 1.12.2: 348 entradas, 83 oggs; a entrada spell.ternary_storm
+  referencia um ogg que NUNCA existiu (bug herdado do 1.12.2, mantido por fidelidade) e 6 oggs
+  são órfãos lá também (absorb_creature, earth_golemancy, ice_shot, magic_raise_skeleton_1,
+  mimic_spell, wisp_disappear).
+- Redux 0.1.33 corrigiu 12 entradas de som do EB que faltavam (conjure_armour/darkvision/fireskin
+  castavam mudas + sufixos de bubble/slime/lightning_pulse/zombie_apocalypse).
